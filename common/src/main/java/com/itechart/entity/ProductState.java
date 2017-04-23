@@ -35,4 +35,11 @@ public class ProductState implements Serializable {
         this.productStateDescription = productStateDescription;
     }
 
+    @Override
+    public String toString() {
+        return "ProductState{" +
+                "idProductState=" + idProductState +
+                ", productStateDescription=" + productStateDescription +
+                '}';
+    }
 }

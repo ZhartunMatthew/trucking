@@ -4,12 +4,14 @@ import com.itechart.entity.enums.AutoTypeEnum;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity(name = "auto_type")
 public class AutoType implements Serializable {
 
-    private Long idUserRole;
+    private Long idAutoType;
     private AutoTypeEnum autoTypeEnum;
+    private Set<Auto> autos;
 
     public AutoType() {
     }
@@ -17,22 +19,40 @@ public class AutoType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_auto_type", nullable = false, insertable = true, updatable = false)
-    public Long getIdUserRole() {
-        return idUserRole;
+    public Long getIdAutoType() {
+        return idAutoType;
     }
 
-    public void setIdUserRole(Long idUserRole) {
-        this.idUserRole = idUserRole;
+    public void setIdAutoType(Long idAutoType) {
+        this.idAutoType = idAutoType;
     }
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "description", nullable = false)
-    public AutoTypeEnum getUserRole() {
+    public AutoTypeEnum getAutoTypeEnum() {
         return autoTypeEnum;
     }
 
-    public void setUserRole(AutoTypeEnum userRole) {
-        this.autoTypeEnum = userRole;
+    public void setAutoTypeEnum(AutoTypeEnum autoTypeEnum) {
+        this.autoTypeEnum = autoTypeEnum;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "autoType", cascade = CascadeType.ALL)
+    public Set<Auto> getAutos() {
+        return autos;
+    }
+
+    public void setAutos(Set<Auto> autos) {
+        this.autos = autos;
+    }
+
+    @Override
+    public String toString() {
+        return "AutoType{" +
+                "idAutoType=" + idAutoType +
+                ", autoTypeEnum=" + autoTypeEnum +
+                ", autos=" + autos +
+                '}';
+    }
 }

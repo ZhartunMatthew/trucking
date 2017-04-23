@@ -1,6 +1,6 @@
 package com.itechart.services;
 
-import com.itechart.dao.WaybillStateRepository;
+import com.itechart.repository.WaybillStateRepository;
 import com.itechart.entity.WaybillState;
 import org.springframework.stereotype.Service;
 

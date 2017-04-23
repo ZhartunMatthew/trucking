@@ -1,6 +1,6 @@
 package com.itechart.services;
 
-import com.itechart.dao.CheckPointRepository;
+import com.itechart.repository.CheckPointRepository;
 import com.itechart.entity.CheckPoint;
 import org.springframework.stereotype.Service;
 

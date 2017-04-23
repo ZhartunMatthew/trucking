@@ -4,7 +4,7 @@ package com.itechart.services;
  * Created by Galina on 20.04.2017.
  */
 
-import com.itechart.dao.WaybillRepository;
+import com.itechart.repository.WaybillRepository;
 import com.itechart.entity.Waybill;
 import org.springframework.stereotype.Service;
 

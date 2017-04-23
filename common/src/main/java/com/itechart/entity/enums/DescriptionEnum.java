@@ -1,4 +1,4 @@
-package com.itechart.entity;
+package com.itechart.entity.enums;
 
 /**
  * Created by Galina on 19.04.2017.

@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-/**
- * Created by Galina on 20.04.2017.
- */
 @RestController
 public class WaybillController {
 

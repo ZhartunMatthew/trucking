@@ -34,4 +34,11 @@ public class UserRole implements Serializable {
         this.userRoleDescription = userRole;
     }
 
+    @Override
+    public String toString() {
+        return "UserRole{" +
+                "idUserRole=" + idUserRole +
+                ", userRoleDescription=" + userRoleDescription +
+                '}';
+    }
 }
