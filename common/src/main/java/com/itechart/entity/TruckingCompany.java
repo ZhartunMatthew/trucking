@@ -2,6 +2,7 @@ package com.itechart.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "trucking_company")
@@ -14,7 +15,10 @@ public class TruckingCompany implements Serializable {
     private String city;
     private String street;
     private String house;
-
+    private Set<Invoice> invoices;
+    private Set<User> users;
+    private Set<CustomerCompany> customerCompanies;
+    private Set<Auto> autos;
     public TruckingCompany() {
     }
 
@@ -81,5 +85,58 @@ public class TruckingCompany implements Serializable {
 
     public void setHouse(String house) {
         this.house = house;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "truckingCompany", cascade = CascadeType.ALL)
+    public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "truckingCompany", cascade = CascadeType.ALL)
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "truckingCompany", cascade = CascadeType.ALL)
+    public Set<CustomerCompany> getCustomerCompanies() {
+        return customerCompanies;
+    }
+
+    public void setCustomerCompanies(Set<CustomerCompany> customerCompanies) {
+        this.customerCompanies = customerCompanies;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "truckingCompany", cascade = CascadeType.ALL)
+    public Set<Auto> getAutos() {
+        return autos;
+    }
+
+    public void setAutos(Set<Auto> autos) {
+        this.autos = autos;
+    }
+
+    @Override
+    public String toString() {
+        return "TruckingCompany{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", taxpayerNumber='" + taxpayerNumber + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house='" + house + '\'' +
+                ", invoices=" + invoices +
+                ", users=" + users +
+                ", customerCompanies=" + customerCompanies +
+                ", autos=" + autos +
+                '}';
     }
 }

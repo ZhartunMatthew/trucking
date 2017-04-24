@@ -56,12 +56,23 @@ public class Product implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_invoice", nullable = false)
+    @JoinColumn(name = "invoice", nullable = false)
     public Invoice getInvoice() {
         return invoice;
     }
 
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "idProduct=" + idProduct +
+                ", name='" + name + '\'' +
+                ", amount=" + amount +
+                ", productState=" + productState +
+                ", invoice=" + invoice +
+                '}';
     }
 }

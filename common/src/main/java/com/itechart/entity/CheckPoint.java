@@ -4,33 +4,16 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-/**
- * Created by Galina on 19.04.2017.
- */
 @Entity(name = "check_point")
 public class CheckPoint implements Serializable {
 
     private static final long serialVersionUID = -5748835697982515014l;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_checkpoint", nullable = false, updatable = false)
     private Long idCheckPoint;
-
-    @Column(name = "description")
     private String description;
-
-    @Column(name = "latitude")
     private String latitude;
-
-    @Column(name = "longitude")
     private String longitude;
-
-    @Column(name = "path_date")
     private Date pathDate;
-
-    @ManyToOne
-    @JoinColumn(name = "id_way_bill", nullable = false)
     private Waybill waybill;
 
     public CheckPoint() {
@@ -49,6 +32,8 @@ public class CheckPoint implements Serializable {
                 '}';
     }
 
+    @ManyToOne
+    @JoinColumn(name = "way_bill", nullable = false)
     public Waybill getWaybill() {
         return waybill;
     }
@@ -57,6 +42,7 @@ public class CheckPoint implements Serializable {
         this.waybill = waybill;
     }
 
+    @Column(name = "path_date")
     public Date getPathDate() {
 
         return pathDate;
@@ -66,6 +52,7 @@ public class CheckPoint implements Serializable {
         this.pathDate = pathDate;
     }
 
+    @Column(name = "longitude")
     public String getLongitude() {
 
         return longitude;
@@ -75,6 +62,7 @@ public class CheckPoint implements Serializable {
         this.longitude = longitude;
     }
 
+    @Column(name = "latitude")
     public String getLatitude() {
 
         return latitude;
@@ -84,6 +72,7 @@ public class CheckPoint implements Serializable {
         this.latitude = latitude;
     }
 
+    @Column(name = "description")
     public String getDescription() {
 
         return description;
@@ -93,6 +82,9 @@ public class CheckPoint implements Serializable {
         this.description = description;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_checkpoint", nullable = false, updatable = false)
     public Long getIdCheckPoint() {
 
         return idCheckPoint;

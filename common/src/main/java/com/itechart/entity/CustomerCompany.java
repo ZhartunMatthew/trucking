@@ -2,6 +2,7 @@ package com.itechart.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer_company")
@@ -15,6 +16,7 @@ public class CustomerCompany implements Serializable {
     private String street;
     private String house;
     private TruckingCompany truckingCompany;
+    private Set<Invoice> invoeces;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -82,12 +84,36 @@ public class CustomerCompany implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_trucking_company")
+    @JoinColumn(name = "trucking_company")
     public TruckingCompany getTruckingCompany() {
         return truckingCompany;
     }
 
     public void setTruckingCompany(TruckingCompany truckingCompany) {
         this.truckingCompany = truckingCompany;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customerCompany",cascade = CascadeType.ALL)
+    public Set<Invoice> getInvoeces() {
+        return invoeces;
+    }
+
+    public void setInvoeces(Set<Invoice> invoeces) {
+        this.invoeces = invoeces;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerCompany{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", taxpayerNumber='" + taxpayerNumber + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house='" + house + '\'' +
+                ", truckingCompany=" + truckingCompany +
+                ", invoeces=" + invoeces +
+                '}';
     }
 }

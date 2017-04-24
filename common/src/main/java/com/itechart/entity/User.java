@@ -21,6 +21,7 @@ public class User implements Serializable {
     private String login;
     private String password;
     private String salt;
+    private TruckingCompany truckingCompany;
 
     public User() {
     }
@@ -143,5 +144,35 @@ public class User implements Serializable {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "trucking_company", nullable = false)
+    public TruckingCompany getTruckingCompany() {
+        return truckingCompany;
+    }
+
+    public void setTruckingCompany(TruckingCompany truckingCompany) {
+        this.truckingCompany = truckingCompany;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "idUser=" + idUser +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", email='" + email + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house='" + house + '\'' +
+                ", flat='" + flat + '\'' +
+                ", userRole=" + userRole +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", truckingCompany=" + truckingCompany +
+                '}';
     }
 }
