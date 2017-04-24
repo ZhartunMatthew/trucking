@@ -1,8 +1,6 @@
 package com.itechart.services;
 
-/**
- * Created by Galina on 20.04.2017.
- */
+
 
 import com.itechart.repository.WaybillRepository;
 import com.itechart.entity.Waybill;

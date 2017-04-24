@@ -8,9 +8,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Galina on 20.04.2017.
- */
 @Service
 @Transactional
     public class CheckPointService {

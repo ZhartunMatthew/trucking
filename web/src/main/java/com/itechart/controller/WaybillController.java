@@ -4,8 +4,12 @@ package com.itechart.controller;
 import com.itechart.entity.Waybill;
 import com.itechart.services.WaybillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class WaybillController {
@@ -13,9 +17,13 @@ public class WaybillController {
     @Autowired
     private WaybillService waybillService;
 
+
     @GetMapping(value = "/waybills")
-    public List<Waybill> getAllWaybills(){
-        return waybillService.findAll();
+    public String getAllWaybills(){
+
+        /*return waybillService.findAll();*/
+        List<Waybill> waybills = waybillService.findAll();
+        return "waybill";
     }
 
     @GetMapping(value = "/{id}")
