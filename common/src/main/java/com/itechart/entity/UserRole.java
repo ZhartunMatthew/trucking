@@ -26,11 +26,11 @@ public class UserRole implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "description", nullable = false)
-    public UserRoleEnum getUserRole() {
+    public UserRoleEnum getUserRoleDescription() {
         return userRoleDescription;
     }
 
-    public void setUserRole(UserRoleEnum userRole) {
+    public void setUserRoleDescription(UserRoleEnum userRole) {
         this.userRoleDescription = userRole;
     }
 

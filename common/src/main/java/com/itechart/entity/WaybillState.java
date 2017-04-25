@@ -1,6 +1,6 @@
 package com.itechart.entity;
 
-import com.itechart.entity.enums.DescriptionEnum;
+import com.itechart.entity.enums.WaybillStateEnum;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -14,7 +14,7 @@ public class WaybillState implements Serializable {
 
 
     private Long idWaybillState;
-    private DescriptionEnum DescriptionEnum;
+    private WaybillStateEnum WaybillStateEnum;
     private Set<Waybill> waybills;
 
     public WaybillState(){}
@@ -31,9 +31,10 @@ public class WaybillState implements Serializable {
 
     @Column(name = "description_enum")
     @Enumerated(EnumType.STRING)
-    public DescriptionEnum getDescriptionEnum() {return DescriptionEnum;}
+    public WaybillStateEnum getWaybillStateEnum() {return WaybillStateEnum;}
 
-    public void setDescriptionEnum(com.itechart.entity.enums.DescriptionEnum descriptionEnum) {DescriptionEnum = descriptionEnum;}
+    public void setWaybillStateEnum(WaybillStateEnum waybillStateEnum) {
+        WaybillStateEnum = waybillStateEnum;}
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "waybillState", cascade = CascadeType.ALL)
@@ -50,7 +51,7 @@ public class WaybillState implements Serializable {
     public String toString() {
         return "WaybillState{" +
                 "idWaybillState=" + idWaybillState +
-                ", DescriptionEnum=" + DescriptionEnum +
+                ", WaybillStateEnum=" + WaybillStateEnum +
                 ", waybills=" + waybills +
                 '}';
     }

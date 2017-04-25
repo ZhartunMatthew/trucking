@@ -1,7 +1,7 @@
 package com.itechart.entity.enums;
 
 
-public enum DescriptionEnum {
+public enum WaybillStateEnum {
     Transportation_started,
     Transportation_completed
 
