@@ -22,8 +22,8 @@ public class AutoTypeService {
         return autoTypeRepository.findOne(id);
     }
 
-    public void save(AutoType auto) {
-        autoTypeRepository.saveAndFlush(auto);
+    public void save(AutoType autoType) {
+        autoTypeRepository.saveAndFlush(autoType);
     }
 
     public void delete(Long id) {
