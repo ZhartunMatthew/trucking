@@ -23,12 +23,7 @@ import java.util.List;
         for(CheckPoint checkPoint : checkPointRepository.findAll()){
             checkPoints.add(checkPoint);
         }
-
-
-
         return checkPoints;
-
-
     }
 
     public CheckPoint findCheckPoint(long id){

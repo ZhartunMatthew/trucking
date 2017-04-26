@@ -1,0 +1,33 @@
+package com.itechart.services;
+
+import com.itechart.entity.Product;
+import com.itechart.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Service
+@Transactional
+    public class ProductService {
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    public List<Product> findAll(){
+        return productRepository.findAll();
+    }
+
+    public  Product findOne(Long id) {
+        return productRepository.findOne(id);
+    }
+
+    public void save(Product product){
+        productRepository.saveAndFlush(product);
+    }
+
+    public void delete(Long id){
+        productRepository.delete(id);
+    }
+}
