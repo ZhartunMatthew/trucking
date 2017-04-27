@@ -18,7 +18,7 @@ public class Invoice implements Serializable {
     private TruckingCompany truckingCompany;
     private User dispatcherUser;
     private User managerUser;
-    private User daraverUser;
+    private User driverUser;
     private Auto auto;
     private Waybill waybill;
 
@@ -37,7 +37,7 @@ public class Invoice implements Serializable {
         this.idInvoice = idInvoice;
     }
 
-    @Column(name = "invoice_number")
+    @Column(name = "invoice_number", nullable = false)
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -55,7 +55,7 @@ public class Invoice implements Serializable {
         this.registerDate = registerDate;
     }
 
-    @Column(name = "check_date", nullable = false, insertable = true, updatable = false)
+    @Column(name = "check_date", nullable = true, insertable = true, updatable = false)
     public Date getCheckDate() {
         return checkDate;
     }
@@ -94,7 +94,7 @@ public class Invoice implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dispatcher", nullable = false,insertable = false, updatable = false)
+    @JoinColumn(name = "dispatcher", nullable = false, insertable = false, updatable = false)
     public User getDispatcherUser() {
         return dispatcherUser;
     }
@@ -104,7 +104,7 @@ public class Invoice implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "manager", nullable = false,insertable = false, updatable = false)
+    @JoinColumn(name = "manager", nullable = true,insertable = false, updatable = false)
     public User getManagerUser() {
         return managerUser;
     }
@@ -115,12 +115,12 @@ public class Invoice implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "driver", nullable = false,insertable = false, updatable = false)
-    public User getDaraverUser() {
-        return daraverUser;
+    public User getDriverUser() {
+        return driverUser;
     }
 
-    public void setDaraverUser(User daraverUser) {
-        this.daraverUser = daraverUser;
+    public void setDriverUser(User driverUser) {
+        this.driverUser = driverUser;
     }
 
     @ManyToOne
@@ -165,7 +165,7 @@ public class Invoice implements Serializable {
                 ", truckingCompany=" + truckingCompany +
                 ", dispatcherUser=" + dispatcherUser +
                 ", managerUser=" + managerUser +
-                ", daraverUser=" + daraverUser +
+                ", daraverUser=" + driverUser +
                 ", auto=" + auto +
                 ", waybill=" + waybill +
                 ", productSet=" + productSet +
