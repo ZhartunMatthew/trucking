@@ -84,7 +84,7 @@ public class CustomerCompany implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "trucking_company")
+    @JoinColumn(name = "trucking_company", nullable = false)
     public TruckingCompany getTruckingCompany() {
         return truckingCompany;
     }
