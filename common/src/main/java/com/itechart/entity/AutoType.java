@@ -46,13 +46,4 @@ public class AutoType implements Serializable {
     public void setAutos(Set<Auto> autos) {
         this.autos = autos;
     }
-
-    @Override
-    public String toString() {
-        return "AutoType{" +
-                "idAutoType=" + idAutoType +
-                ", autoTypeEnum=" + autoTypeEnum +
-                ", autos=" + autos +
-                '}';
-    }
 }

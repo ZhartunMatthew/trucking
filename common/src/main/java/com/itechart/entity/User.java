@@ -155,24 +155,4 @@ public class User implements Serializable {
     public void setTruckingCompany(TruckingCompany truckingCompany) {
         this.truckingCompany = truckingCompany;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "idUser=" + idUser +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", email='" + email + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", house='" + house + '\'' +
-                ", flat='" + flat + '\'' +
-                ", userRole=" + userRole +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
-                ", truckingCompany=" + truckingCompany +
-                '}';
-    }
 }

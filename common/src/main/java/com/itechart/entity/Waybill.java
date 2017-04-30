@@ -1,9 +1,9 @@
 package com.itechart.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.*;
 
 
 @Entity(name = "waybill")
@@ -174,30 +174,6 @@ public class Waybill implements Serializable {
 
     public void setCheckPoints(Set<CheckPoint> checkPoints) {
         this.checkPoints = checkPoints;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "Waybill{" +
-                "IdWaybill=" + IdWaybill +
-                ", waybillState=" + waybillState +
-                ", departureDate=" + departureDate +
-                ", departureCity='" + departureCity + '\'' +
-                ", departureStreet='" + departureStreet + '\'' +
-                ", departureHouse='" + departureHouse + '\'' +
-                ", departureLatitude='" + departureLatitude + '\'' +
-                ", departureLongitude='" + departureLongitude + '\'' +
-                ", destinationDate=" + destinationDate +
-                ", destinationCity='" + destinationCity + '\'' +
-                ", destinationStreet='" + destinationStreet + '\'' +
-                ", destinationHouse='" + destinationHouse + '\'' +
-                ", destinationeLatitude='" + destinationeLatitude + '\'' +
-                ", destinationLongitude='" + destinationLongitude + '\'' +
-                ", TransportInvoice=" + invoice +
-                ", checkPoints=" + checkPoints +
-                '}';
     }
 }
 

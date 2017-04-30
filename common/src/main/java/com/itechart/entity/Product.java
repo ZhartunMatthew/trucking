@@ -64,15 +64,4 @@ public class Product implements Serializable {
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "idProduct=" + idProduct +
-                ", name='" + name + '\'' +
-                ", amount=" + amount +
-                ", productState=" + productState +
-                ", invoice=" + invoice +
-                '}';
-    }
 }

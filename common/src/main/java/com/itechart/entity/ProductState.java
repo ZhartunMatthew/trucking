@@ -34,12 +34,4 @@ public class ProductState implements Serializable {
     public void setProductStateDescription(ProductStateEnum productStateDescription) {
         this.productStateDescription = productStateDescription;
     }
-
-    @Override
-    public String toString() {
-        return "ProductState{" +
-                "idProductState=" + idProductState +
-                ", productStateDescription=" + productStateDescription +
-                '}';
-    }
 }

@@ -2,9 +2,9 @@ package com.itechart.entity;
 
 import com.itechart.entity.enums.WaybillStateEnum;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
-import javax.persistence.*;
 
 
 @Entity (name ="waybill_state")
@@ -45,20 +45,4 @@ public class WaybillState implements Serializable {
     public void setWaybills(Set<Waybill> waybills) {
         this.waybills = waybills;
     }
-
-
-    @Override
-    public String toString() {
-        return "WaybillState{" +
-                "idWaybillState=" + idWaybillState +
-                ", WaybillStateEnum=" + WaybillStateEnum +
-                ", waybills=" + waybills +
-                '}';
-    }
-
-
-
-
-
-
 }

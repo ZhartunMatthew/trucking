@@ -107,19 +107,4 @@ public class Auto implements Serializable {
     public void setAvailable(Boolean available) {
         isAvailable = available;
     }
-
-    @Override
-    public String toString() {
-        return "Auto{" +
-                "id=" + id +
-                ", number='" + number + '\'' +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", fuelConsumption=" + fuelConsumption +
-                ", autoType=" + autoType +
-                ", isAvailable=" + isAvailable +
-                ", truckingCompany=" + truckingCompany +
-                ", invoices=" + invoices +
-                '}';
-    }
 }

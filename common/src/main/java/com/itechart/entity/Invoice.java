@@ -151,24 +151,4 @@ public class Invoice implements Serializable {
     public void setWaybill(Waybill waybill) {
         this.waybill = waybill;
     }
-
-
-
-    @Override
-    public String toString() {
-        return "Invoice{" +
-                "idInvoice=" + idInvoice +
-                ", registerDate=" + registerDate +
-                ", checkDate=" + checkDate +
-                ", invoiceState=" + invoiceState +
-                ", customerCompany=" + customerCompany +
-                ", truckingCompany=" + truckingCompany +
-                ", dispatcherUser=" + dispatcherUser +
-                ", managerUser=" + managerUser +
-                ", daraverUser=" + driverUser +
-                ", auto=" + auto +
-                ", waybill=" + waybill +
-                ", productSet=" + productSet +
-                '}';
-    }
 }

@@ -1,8 +1,8 @@
 package com.itechart.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
 
 @Entity(name = "check_point")
 public class CheckPoint implements Serializable {
@@ -18,18 +18,6 @@ public class CheckPoint implements Serializable {
 
     public CheckPoint() {
 
-    }
-
-    @Override
-    public String toString() {
-        return "CheckPoint{" +
-                "idCheckPoint=" + idCheckPoint +
-                ", description='" + description + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
-                ", pathDate=" + pathDate +
-                ", waybill=" + waybill +
-                '}';
     }
 
     @ManyToOne

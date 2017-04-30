@@ -122,21 +122,4 @@ public class TruckingCompany implements Serializable {
     public void setAutos(Set<Auto> autos) {
         this.autos = autos;
     }
-
-    @Override
-    public String toString() {
-        return "TruckingCompany{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", taxpayerNumber='" + taxpayerNumber + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", house='" + house + '\'' +
-                ", invoices=" + invoices +
-                ", users=" + users +
-                ", customerCompanies=" + customerCompanies +
-                ", autos=" + autos +
-                '}';
-    }
 }

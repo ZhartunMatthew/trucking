@@ -45,12 +45,4 @@ public class InvoiceState implements Serializable {
     public void setInvoices(Set<Invoice> invoices) {
         this.invoices = invoices;
     }
-
-    @Override
-    public String toString() {
-        return "InvoiceState{" +
-                "idInvoiceState=" + idInvoiceState +
-                ", invoiceStateDescription=" + invoiceStateDescription +
-                '}';
-    }
 }

@@ -101,19 +101,4 @@ public class CustomerCompany implements Serializable {
     public void setInvoeces(Set<Invoice> invoeces) {
         this.invoeces = invoeces;
     }
-
-    @Override
-    public String toString() {
-        return "CustomerCompany{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", taxpayerNumber='" + taxpayerNumber + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", house='" + house + '\'' +
-                ", truckingCompany=" + truckingCompany +
-                ", invoeces=" + invoeces +
-                '}';
-    }
 }
