@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,7 +32,7 @@ public class UserService {
         userRepository.delete(id);
     }
 
-    public User findByLogin(String login) {
-        return userRepository.findUserByLogin(login);
+    public Optional<User> findByLogin(String login) {
+        return Optional.ofNullable(userRepository.findUserByLogin(login));
     }
 }

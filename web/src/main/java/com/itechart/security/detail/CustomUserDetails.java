@@ -4,7 +4,7 @@ import com.itechart.entity.User;
 import com.itechart.entity.enums.UserRoleEnum;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
@@ -17,7 +17,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public List<? extends UserRoleEnum> getAuthorities() {
-        return Arrays.asList(UserRoleEnum.values());
+        return Collections.singletonList(user.getUserRole().getUserRoleDescription());
     }
 
     @Override
