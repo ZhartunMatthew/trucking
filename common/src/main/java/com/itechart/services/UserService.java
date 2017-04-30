@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional
-    public class UserService {
+public class UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -29,5 +29,9 @@ import java.util.List;
 
     public void delete(Long id){
         userRepository.delete(id);
+    }
+
+    public User findByLogin(String login) {
+        return userRepository.findUserByLogin(login);
     }
 }
