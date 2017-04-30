@@ -34,8 +34,10 @@ public class WaybillService {
         return waybillRepository.findOne(id);
     }
 
-    public void save(Waybill waybill){
-        waybillRepository.save(waybill);
+    public Waybill save(Waybill waybill){
+
+        Waybill waybill1 = waybillRepository.save(waybill);
+        return waybill;
     }
 
     public void delete(long id){

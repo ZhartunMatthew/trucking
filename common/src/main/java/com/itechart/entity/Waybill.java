@@ -1,28 +1,64 @@
 package com.itechart.entity;
 
-import javax.persistence.*;
+
+
+import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 
 
 @Entity(name = "waybill")
 public class Waybill implements Serializable {
 
-    private static final long serialVersionUID = -5749235697982514914l;
+
     private Long IdWaybill;
+
+    @NotNull(message = "waybill number can not be null")
+    @Size(min = 1,max = 30,message = "the lenght should be between 1 and 30")
     private String waybillNumber;
+
+
     private WaybillState waybillState;
+
+    @DateTimeFormat(pattern="yyyy-mm-dd")
+    @NotNull(message = "departure date can not be null")
     private Date departureDate;
+
+
+    @NotNull(message = "departure city can not be null")
+    @Size(min = 1,max = 30,message = "the lenght should be between 1 and 30")
     private String departureCity;
+
+    @NotNull(message = "departure street can not be null")
+    @Size(min = 1,max = 30,message = "the lenght should be between 1 and 30")
     private String departureStreet;
+
+    @NotNull(message = "departure house can not be null")
+    @Size(min = 1,max = 10,message = "the lenght should be between 1 and 10")
     private String departureHouse;
+
     private String departureLatitude;
+
     private String departureLongitude;
+
+    @DateTimeFormat(pattern="yyyy-mm-dd")
     private Date destinationDate;
+
+    @NotNull(message = "destination city can not be null")
+    @Size(min = 1,max = 30,message = "the lenght should be between 1 and 30")
     private String destinationCity;
+
+    @NotNull(message = "destination street can not be null")
+    @Size(min = 1,max = 30,message = "the lenght should be between 1 and 30")
     private String destinationStreet;
+
+    @NotNull(message = "destination house can not be null")
+    @Size(min = 1,max = 10,message = "the lenght should be between 1 and 10")
     private String destinationHouse;
+
     private String destinationeLatitude;
     private String destinationLongitude;
     private Invoice invoice;
@@ -175,6 +211,9 @@ public class Waybill implements Serializable {
     public void setCheckPoints(Set<CheckPoint> checkPoints) {
         this.checkPoints = checkPoints;
     }
+
+
+
 }
 
 

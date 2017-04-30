@@ -37,4 +37,10 @@ import java.util.List;
     public void delete(long id){
         checkPointRepository.delete(id);
     }
+
+    public void deleteAll(){
+        checkPointRepository.deleteAll();
+    }
+
+
 }
