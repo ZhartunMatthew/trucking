@@ -2,9 +2,12 @@ package com.itechart.repository;
 
 
 import com.itechart.entity.WaybillState;
-import org.springframework.data.repository.CrudRepository;
+import com.itechart.entity.enums.WaybillStateEnum;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface WaybillStateRepository extends CrudRepository<WaybillState, Long> {
+
+public interface WaybillStateRepository extends JpaRepository<WaybillState, Long> {
+    WaybillState findByWaybillStateEnum(WaybillStateEnum desc);
 
 }

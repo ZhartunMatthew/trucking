@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+<form action="#" th:action="@{/save-waybill}" th:object="${waybill}" method="post" enctype="multipart/form-data" id="saveForm">
+    <table>
+        <input type="hidden" th:field="*{IdWaybill}"/>
+        <tr>
+            <td>departure city</td>
+            <td><input type="text" th:field="*{departureCity}"/></td>
+            <td th:if="${#fields.hasErrors('departureCity')}" th:errors="*{departureCity}">departureCity error message</td>
+        </tr>
+        <tr>
+            <td>departure date</td>
+            <td><input type="text" th:field="*{departureDate}"/></td>
+            <td th:if="${#fields.hasErrors('departureDate')}" th:errors="*{departureDate}">departureDate error message</td>
+        </tr>
+        <tr>
+            <td>departure house</td>
+            <td><input type="text" th:field="*{departureHouse}"/></td>
+            <td th:if="${#fields.hasErrors('departureHouse')}" th:errors="*{departureHouse}">departureHouse error message</td>
+        </tr>
+        <tr>
+            <td>departure latitude</td>
+            <td><input type="text" th:field="*{departureLatitude}"/></td>
+            <td th:if="${#fields.hasErrors('departureLatitude')}" th:errors="*{departureLatitude}">departureLatitude error message</td>
+        </tr>
+        <tr>
+            <td>departure longitude</td>
+            <td><input type="text" th:field="*{departureLongitude}"/></td>
+            <td th:if="${#fields.hasErrors('departureLongitude')}" th:errors="*{departureLongitude}">departureLongitude error message</td>
+        </tr>
+        <tr>
+            <td>departure street</td>
+            <td><input type="text" th:field="*{departureStreet}"/></td>
+            <td th:if="${#fields.hasErrors('departureStreet')}" th:errors="*{departureStreet}">departureStreet error message</td>
+        </tr>
+        <tr>
+            <td>destination city</td>
+            <td><input type="text" th:field="*{destinationCity}"/></td>
+            <td th:if="${#fields.hasErrors('destinationCity')}" th:errors="*{destinationCity}">destinationCity error message</td>
+        </tr>
+        <tr>
+            <td>destination date</td>
+            <td><input type="text" th:field="*{destinationDate}"/></td>
+            <td th:if="${#fields.hasErrors('destinationDate')}" th:errors="*{destinationDate}">destinationDate error message</td>
+        </tr>
+        <tr>
+            <td>destination house</td>
+            <td><input type="text" th:field="*{destinationHouse}"/></td>
+            <td th:if="${#fields.hasErrors('destinationHouse')}" th:errors="*{destinationHouse}">destinationHouse error message</td>
+        </tr>
+        <tr>
+            <td>destination longtitude</td>
+            <td><input type="text" th:field="*{destinationLongitude}"/></td>
+            <td th:if="${#fields.hasErrors('destinationLongitude')}" th:errors="*{destinationLongitude}">destinationLongitude error message</td>
+        </tr>
+        <tr>
+            <td>destination street</td>
+            <td><input type="text" th:field="*{destinationStreet}"/></td>
+            <td th:if="${#fields.hasErrors('destinationStreet')}" th:errors="*{destinationStreet}">destinationStreet error message</td>
+        </tr>
+        <tr>
+            <td>destination latitude</td>
+            <td><input type="text" th:field="*{destinationeLatitude}"/></td>
+            <td th:if="${#fields.hasErrors('destinationeLatitude')}" th:errors="*{destinationeLatitude}">destinationeLatitude error message</td>
+        </tr>
+        <tr>
+            <td>number</td>
+            <td><input type="text" th:field="*{waybillNumber}"/></td>
+            <td th:if="${#fields.hasErrors('waybillNumber')}" th:errors="*{waybillNumber}">waybillNumber error message</td>
+        </tr>
+        <tr>
+            <td>id invoice</td>
+            <td><input type="text" th:field="*{invoice}"/></td>
+            <td th:if="${#fields.hasErrors('invoice')}" th:errors="*{invoice}">invoice error message</td>
+        </tr>
+    <tr>
+        <select th:field="*{waybillState}" th:remove="all-but-first">
+            <option th:each="state : ${states}"
+                    th:value="${state.idWaybillState}" th:text="${state.WaybillStateEnum}">hhhh</option>
+
+        </select>
+
+    </tr>
+    </table>
+    <input type="submit" value="save"/>
+</form>
+
+
+
+
+<table>
+    <thead>
+    <tr>
+        <th>  </th>
+        <th>description</th>
+        <th>latitud</th>
+        <th>longitude</th>
+        <th>pathDate</th>
+    </tr>
+    </thead>
+    <tbody id="checkPointTable">
+
+    <tr th:each="checkPoint,itrStat : ${checkPoints}">
+        <td><input type="checkbox" form="saveForm" th:name="idCheckPoint+${itrStat.index}" th:value="${checkPoint.idCheckPoint}"/></td>
+        <td><input type='text' form='saveForm'  th:name="description+${itrStat.index}" th:value="${checkPoint.description}" /></td>
+        <td><input type="text" form='saveForm' th:name="latitude+${itrStat.index}" th:value="${checkPoint.latitude}" /></td>
+        <td><input type="text" form='saveForm' th:name="longitude+${itrStat.index}" th:value="${checkPoint.longitude}" /></td>
+        <td><input type="text" form='saveForm' th:name="pathDate+${itrStat.index}" th:value="${checkPoint.pathDate}" /></td>
+        <td><input type='hidden' form='saveForm' th:name="description+${itrStat.index}" th:value="${checkPoint.description}"/></td>
+        <td><input type='hidden' form='saveForm' th:name="latitude+${itrStat.index}" th:value="${checkPoint.latitude}"/></td>
+        <td><input type='hidden' form='saveForm' th:name="longitude+${itrStat.index}" th:value="${checkPoint.longitude}"/></td>
+        <td><input type='hidden' form='saveForm' th:name="pathDate+${itrStat.index}" th:value="${checkPoint.pathDate}"/></td>
+    </tr>
+
+
+    </tbody>
+</table>
+
+</body>
+</html>

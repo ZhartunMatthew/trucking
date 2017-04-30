@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+
+<div>
+    <dd th:remove="all-but-first"></dd>
+    <dd th:each="user : ${users}">
+        <dd><a href="#" th:href="@{'/delete-user'+${user.idUser}}">delete</a></dd>
+        <dd><a href="#" th:href="@{'/edit-user'+${user.idUser}}">edit</a></dd>
+        name<dd th:text="${user.name}"></dd>
+        surname<dd th:text="${user.surname}"></dd>
+        patronymic<dd th:text="${user.patronymic}"></dd>
+        email<dd th:text="${user.email}"></dd>
+        city<dd th:text="${user.city}"></dd>
+        street<dd th:text="${user.street}"></dd>
+        house<dd th:text="${user.house}"></dd>
+        flat<dd th:text="${user.flat}"></dd>
+        userRole<dd th:text="${user.userRole.userRoleDescription}"></dd>
+        login<dd th:text="${user.login}"></dd>
+        password<dd th:text="${user.password}"></dd>
+        salt<dd th:text="${user.salt}"></dd>
+        truckingCompany<dd th:text="${user.truckingCompany.name}"></dd>
+    </dd>
+</div>
+
+<a href="#" th:href="@{/add-user}">add</a>
+</body>
+</html>

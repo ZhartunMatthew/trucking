@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+
+    <div>
+        <dd th:remove="all-but-first"></dd>
+        <dd th:each="waybill : ${waybills}">
+        <dd><a href="#" th:href="@{'/delete-waybill'+${waybill.IdWaybill}}">delete</a></dd>
+        <dd><a href="#" th:href="@{'/edit-waybill'+${waybill.IdWaybill}}">edit</a></dd>
+            waybillNumber<dd th:text="${waybill.waybillNumber}"></dd>
+            waybillState<dd th:text="${waybill.waybillState.WaybillStateEnum}"></dd>
+            departureDate<dd th:text="${waybill.departureDate}"></dd>
+            departureCity<dd th:text="${waybill.departureCity}"></dd>
+            departureStreet<dd th:text="${waybill.departureStreet}"></dd>
+            departureHouse<dd th:text="${waybill.departureHouse}"></dd>
+            departureLatitude<dd th:text="${waybill.departureLatitude}"></dd>
+            departureLongitude<dd th:text="${waybill.departureLongitude}"></dd>
+            destinationDate<dd th:text="${waybill.destinationDate}"></dd>
+            destinationCity<dd th:text="${waybill.destinationCity}"></dd>
+            destinationStreet<dd th:text="${waybill.destinationStreet}"></dd>
+            destinationHouse<dd th:text="${waybill.destinationHouse}"></dd>
+            destinationeLatitude<dd th:text="${waybill.destinationeLatitude}"></dd>
+            destinationLongitude<dd th:text="${waybill.destinationLongitude}"></dd>
+            invoiceNumber<dd th:text="${waybill.invoice.invoiceNumber}"></dd>
+            autoNumber<dd th:text="${waybill.invoice.auto.number}"></dd>
+            destinationStreet<dd th:text="${waybill.destinationStreet}"></dd>
+        </dd>
+    </div>
+
+    <a href="#" th:href="@{/add-waybill}">add</a>
+</body>
+</html>

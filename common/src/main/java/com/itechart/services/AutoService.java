@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 @Transactional
 public class AutoService {
+
     @Autowired
     private AutoRepository autoRepository;
 

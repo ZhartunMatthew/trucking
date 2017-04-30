@@ -33,4 +33,6 @@ public class UserRole implements Serializable {
     public void setUserRoleDescription(UserRoleEnum userRole) {
         this.userRoleDescription = userRole;
     }
+
+
 }

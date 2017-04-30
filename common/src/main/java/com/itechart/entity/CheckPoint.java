@@ -1,8 +1,8 @@
 package com.itechart.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.*;
 
 @Entity(name = "check_point")
 public class CheckPoint implements Serializable {
@@ -19,6 +19,8 @@ public class CheckPoint implements Serializable {
     public CheckPoint() {
 
     }
+
+
 
     @ManyToOne
     @JoinColumn(name = "way_bill", nullable = false)
