@@ -1,7 +1,52 @@
 package com.itechart.security.detail;
 
-/**
- * Created by ZhartunMatthew on 30.04.2017.
- */
-public class CustomUserDetails {
+import com.itechart.entity.User;
+import com.itechart.entity.enums.UserRoleEnum;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class CustomUserDetails implements UserDetails {
+
+    private User user;
+
+    public CustomUserDetails(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public List<? extends UserRoleEnum> getAuthorities() {
+        return Arrays.asList(UserRoleEnum.values());
+    }
+
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return user.getLogin();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

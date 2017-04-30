@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional
-    public class InvoiceService {
+public class InvoiceService {
 
     @Autowired
     private InvoiceRepository invoiceRepository;
