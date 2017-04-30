@@ -95,8 +95,8 @@ INSERT INTO product (name, amount, product_state, invoice) VALUES ('Систем
 /*state c, checked*/
 INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, auto, customer_company,  trucking_company, driver, invoice_state )
   VALUES ('834761', 3, '20.04.2017', 4, '21.04.2017', 3, 1, 1, 4, 2);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 215, 2, 1);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Блок охлаждения', 132, 2, 1);
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 215, 2, 2);
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Блок охлаждения', 132, 2, 2);
 INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
             destination_date, destination_city, destination_street, destination_house, destination_longitude,  destinatione_latitude,
             waybill_number, id_invoice, waybill_state)
@@ -106,8 +106,8 @@ INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure
 /*state d, delivered*/
 INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, auto, customer_company,  trucking_company, driver, invoice_state )
   VALUES ('834760', 3, '20.03.2017', 4, '22.03.2017', 3, 1, 1, 4, 3);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 210, 3, 1); /*delivered*/
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 3, 4, 1);  /*lost*/
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 210, 3, 3); /*delivered*/
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 3, 4, 3);  /*lost*/
 INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
                            destination_date, destination_city, destination_street, destination_house, destination_longitude,  destinatione_latitude,
                            waybill_number, id_invoice, waybill_state)
