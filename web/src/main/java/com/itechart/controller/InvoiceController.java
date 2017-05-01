@@ -30,7 +30,8 @@ public class InvoiceController {
     private ProductService productService;
     @Autowired
     private AutoService autoService;
-    @Autowired UserService userService;
+    @Autowired
+    private UserService userService;
 
     @ModelAttribute("invoice")
     public Invoice getInvoice()
@@ -69,17 +70,17 @@ public class InvoiceController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("createInvoice");
         Map<String, Object> modelMap = new HashMap<>();
-        List<Auto> autos = autoService.findAvailable();
+        List<Auto> availableAutos = autoService.findAvailable();
         //replace findByRole
         List<User> drivers = userService.findAll();
-        modelMap.put("autos", autos);
+        modelMap.put("autos", availableAutos);
         modelMap.put("drivers",drivers);
         modelAndView.addAllObjects(modelMap);
         return modelAndView;
     }
 
     @RequestMapping(value = "/saveInvoice", method = RequestMethod.POST)
-    public String insertWaybill(@Valid Invoice invoice, HttpServletRequest request){
+    public String saveInvoice(@Valid Invoice invoice, HttpServletRequest request){
 
         Invoice savedInvoice = invoiceService.save(invoice);
         saveProducts(savedInvoice, request);
