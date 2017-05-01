@@ -23,8 +23,8 @@ public class InvoiceService {
         return invoiceRepository.findOne(id);
     }
 
-    public void save(Invoice invoice){
-        invoiceRepository.saveAndFlush(invoice);
+    public Invoice save(Invoice invoice){
+        return invoiceRepository.saveAndFlush(invoice);
     }
 
     public void delete(Long id){

@@ -30,4 +30,8 @@ import java.util.List;
     public void delete(Long id){
         productRepository.delete(id);
     }
+
+    public void deleteAll() {
+        productRepository.deleteAll();
+    }
 }

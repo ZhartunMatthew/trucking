@@ -183,7 +183,7 @@ public class User implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "trucking_company", nullable = false)
+    @JoinColumn(name = "trucking_company", nullable = true)
     public TruckingCompany getTruckingCompany() {
         return truckingCompany;
     }
