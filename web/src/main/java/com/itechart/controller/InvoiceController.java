@@ -64,12 +64,12 @@ public class InvoiceController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/createInvoice",method = RequestMethod.POST)
+    @RequestMapping(value = "/createInvoice",method = RequestMethod.GET)
     public ModelAndView createInvoice(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("createInvoice");
         Map<String, Object> modelMap = new HashMap<>();
-        List<Auto> autos = autoService.findAll();
+        List<Auto> autos = autoService.findAvailable();
         //replace findByRole
         List<User> drivers = userService.findAll();
         modelMap.put("autos", autos);
@@ -92,7 +92,6 @@ public class InvoiceController {
         while(paramNames.hasMoreElements()) {
             String paramName = paramNames.nextElement();
 
-
             Product product = new Product();
             /*parse request
             product.setName();
@@ -104,7 +103,5 @@ public class InvoiceController {
         for (Product product : productList){
             productService.save(product);
         }
-
     }
-
 }

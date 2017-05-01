@@ -30,4 +30,8 @@ public class AutoService {
     public void delete(Long id) {
         autoRepository.delete(id);
     }
+
+    public List<Auto> findAvailable() {
+        return autoRepository.findByAvailableTrue();
+    }
 }
