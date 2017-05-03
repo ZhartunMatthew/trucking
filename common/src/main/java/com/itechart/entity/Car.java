@@ -2,34 +2,22 @@ package com.itechart.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
-@Table(name = "auto")
-public class Auto implements Serializable {
+@Table(name = "car")
+public class Car implements Serializable {
 
     private Long id;
     private String number;
     private String brand;
     private String model;
     private Double fuelConsumption;
-    private AutoType autoType;
+    private CarType carType;
     private Boolean isAvailable;
     private TruckingCompany truckingCompany;
-    private Set<Invoice> invoices;
 
-    public Auto() {
+    public Car() {
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auto", cascade = CascadeType.ALL)
-    public Set<Invoice> getInvoices() {
-        return invoices;
-    }
-
-    public void setInvoices(Set<Invoice> invoices) {
-        this.invoices = invoices;
-    }
-
 
     @ManyToOne
     @JoinColumn(name = "trucking_company", nullable = false)
@@ -44,7 +32,7 @@ public class Auto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_auto", nullable = false, insertable = true, updatable = false)
+    @Column(name = "id_car", nullable = false, insertable = true, updatable = false)
     public Long getId() {
         return id;
     }
@@ -91,12 +79,12 @@ public class Auto implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "auto_type", nullable = false)
-    public AutoType getAutoType() {
-        return autoType;
+    public CarType getCarType() {
+        return carType;
     }
 
-    public void setAutoType(AutoType autoType) {
-        this.autoType = autoType;
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 
     @Column(name = "is_available")
@@ -107,4 +95,5 @@ public class Auto implements Serializable {
     public void setAvailable(Boolean available) {
         isAvailable = available;
     }
+
 }

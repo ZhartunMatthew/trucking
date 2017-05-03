@@ -10,9 +10,9 @@ INSERT INTO user_role (description) VALUE ('Company_Owner');
 commit;
 
 /*auto_type*/
-INSERT INTO auto_type (description) VALUE ('Tank');
-INSERT INTO auto_type (description) VALUE ('Сovered_body');
-INSERT INTO auto_type (description) VALUE ('Refrigerator');
+INSERT INTO car_type (description) VALUE ('Tank');
+INSERT INTO car_type (description) VALUE ('Сovered_body');
+INSERT INTO car_type (description) VALUE ('Refrigerator');
 commit;
 
 /*product_state*/
@@ -45,9 +45,9 @@ INSERT INTO trucking_company (name, taxpayer_number, country, city, street, hous
 commit;
 
 /*customer_company*/
-INSERT INTO customer_company (name, taxpayer_number, country, city, house, street, trucking_company)
+INSERT INTO customer_company (name, taxpayer_number, country, city, street, house, trucking_company)
   VALUES ('IBA', '980TH32E', 'Беларусь', 'Минск', 'Богдановича', '155',1);
-INSERT INTO customer_company (name, taxpayer_number, country, city, house, street, trucking_company)
+INSERT INTO customer_company (name, taxpayer_number, country, city, street, house, trucking_company)
   VALUES ('Торговая сила', '730PH99K', 'Беларусь', 'Минск', 'Уральская', '21а',1);
 commit;
 
@@ -72,28 +72,28 @@ INSERT INTO user (name, surname, patronymic, email, city, street, house, flat, l
   VALUES ('Абрамович', 'Аркадий', 'Иванович', 'abram123@mail.ru', 'Абу-Даби', 'Царская', '14', 'е', 'abram_superman', 'dsaf8fsdfsd9', 'ds0fsa8a', 1, 6);
 commit;
 
-/*auto*/
-INSERT INTO auto (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
+/*car*/
+INSERT INTO car (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
   VALUES ('3214-MAN', 1, '15-1566-05', 26.6, TRUE, 1);
-INSERT INTO auto (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
+INSERT INTO car (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
   VALUES ('9999-GTY', 2, 'МАЗ-54323', 26.6, FALSE, 1);
-INSERT INTO auto (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
+INSERT INTO car (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
   VALUES ('3928-ABC', 2, 'МАЗ-54323', 26.6, FALSE , 1);
-INSERT INTO auto (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
+INSERT INTO car (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
   VALUES ('1058-EDF', 3, '15-1566-05', 26.6, FALSE , 1);
 commit;
 
 /*invoice + product + waybill*/
 
 /*state b, registered but not checked*/
-INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, auto, customer_company,  trucking_company, driver, invoice_state )
+INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
   VALUES ('834762', 3, '25.04.2017', NULL, NULL, 2, 1, 1, 4, 1);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 110, 1, 1);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Ноутбук', 300, 1, 1);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Системный блок', 50, 1, 1);
 
 /*state c, checked*/
-INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, auto, customer_company,  trucking_company, driver, invoice_state )
+INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
   VALUES ('834761', 3, '20.04.2017', 4, '21.04.2017', 3, 1, 1, 4, 2);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 215, 2, 2);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Блок охлаждения', 132, 2, 2);
@@ -104,7 +104,7 @@ INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure
             '834761', 2, 1);
 
 /*state d, delivered*/
-INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, auto, customer_company,  trucking_company, driver, invoice_state )
+INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
   VALUES ('834760', 3, '20.03.2017', 4, '22.03.2017', 3, 1, 1, 4, 3);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 210, 3, 3); /*delivered*/
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 3, 4, 3);  /*lost*/

@@ -1,8 +1,6 @@
 package com.itechart.entity;
 
 
-import com.itechart.entity.enums.ProductStateEnum;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,7 +8,7 @@ import java.io.Serializable;
 public class ProductState implements Serializable {
 
     private Long idProductState;
-    private ProductStateEnum productStateDescription;
+    private String productStateDescription;
 
     public ProductState(){}
 
@@ -25,13 +23,12 @@ public class ProductState implements Serializable {
         this.idProductState = idProductState;
     }
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "description", nullable = false)
-    public ProductStateEnum getProductStateDescription() {
+    public String getProductStateDescription() {
         return productStateDescription;
     }
 
-    public void setProductStateDescription(ProductStateEnum productStateDescription) {
+    public void setProductStateDescription(String productStateDescription) {
         this.productStateDescription = productStateDescription;
     }
 }

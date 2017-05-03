@@ -5,7 +5,6 @@ import com.itechart.entity.*;
 import com.itechart.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Controller
 public class InvoiceController {
@@ -29,7 +24,7 @@ public class InvoiceController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private AutoService autoService;
+    private CarService carService;
     @Autowired
     private UserService userService;
 
@@ -70,10 +65,10 @@ public class InvoiceController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("createInvoice");
         Map<String, Object> modelMap = new HashMap<>();
-        List<Auto> availableAutos = autoService.findAvailable();
+        List<Car> availableCars = carService.findAvailable();
         //replace findByRole
         List<User> drivers = userService.findAll();
-        modelMap.put("autos", availableAutos);
+        modelMap.put("cars", availableCars);
         modelMap.put("drivers",drivers);
         modelAndView.addAllObjects(modelMap);
         return modelAndView;

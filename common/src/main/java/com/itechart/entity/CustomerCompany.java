@@ -16,7 +16,7 @@ public class CustomerCompany implements Serializable {
     private String street;
     private String house;
     private TruckingCompany truckingCompany;
-    private Set<Invoice> invoeces;
+    private Set<Invoice> invoices;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -94,11 +94,11 @@ public class CustomerCompany implements Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customerCompany",cascade = CascadeType.ALL)
-    public Set<Invoice> getInvoeces() {
-        return invoeces;
+    public Set<Invoice> getInvoices() {
+        return invoices;
     }
 
-    public void setInvoeces(Set<Invoice> invoeces) {
-        this.invoeces = invoeces;
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
     }
 }

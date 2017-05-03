@@ -1,7 +1,5 @@
 package com.itechart.services;
 
-
-import com.itechart.entity.enums.WaybillStateEnum;
 import com.itechart.repository.WaybillStateRepository;
 import com.itechart.entity.WaybillState;
 import org.springframework.stereotype.Service;
@@ -27,10 +25,6 @@ public class WaybillStateService {
             waybillStates.add(waybillState);
         }
         return waybillStates;
-    }
-
-    public WaybillState findByDescriptionEnum(WaybillStateEnum desc){
-       return waybillStateRepository.findByWaybillStateEnum(desc);
     }
 
     public WaybillState findWaybillState(long id){

@@ -19,7 +19,7 @@ public class Invoice implements Serializable {
     private User dispatcherUser;
     private User managerUser;
     private User driverUser;
-    private Auto auto;
+    private Car car;
     private Waybill waybill;
 
     private Set<Product> productSet = new HashSet<Product>();
@@ -124,13 +124,13 @@ public class Invoice implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "auto", nullable = false)
-    public Auto getAuto() {
-        return auto;
+    @JoinColumn(name = "car", nullable = false)
+    public Car getCar() {
+        return car;
     }
 
-    public void setAuto(Auto auto) {
-        this.auto = auto;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     @ManyToOne

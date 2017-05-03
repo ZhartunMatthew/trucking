@@ -55,6 +55,8 @@ public class User implements Serializable {
     private String salt;
     private TruckingCompany truckingCompany;
 
+    private Boolean isAvailable;
+
     public User() {
     }
 
@@ -171,8 +173,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-
-
     @Column(name = "salt", nullable = false, insertable = true, updatable = false)
     public String getSalt() {
         return salt;
@@ -192,5 +192,12 @@ public class User implements Serializable {
         this.truckingCompany = truckingCompany;
     }
 
+    @Column(name = "is_available", nullable = true)
+    public Boolean getAvailable() {
+        return isAvailable;
+    }
 
+    public void setAvailable(Boolean available) {
+        isAvailable = available;
+    }
 }

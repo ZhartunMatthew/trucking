@@ -1,7 +1,5 @@
 package com.itechart.entity;
 
-import com.itechart.entity.enums.WaybillStateEnum;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -10,12 +8,8 @@ import java.util.Set;
 @Entity (name ="waybill_state")
 public class WaybillState implements Serializable {
 
-    private static final long serialVersionUID = -5749235697982515014l;
-
-
     private Long idWaybillState;
-    private WaybillStateEnum WaybillStateEnum;
-    private Set<Waybill> waybills;
+    private String waybillStateDescription;
 
     public WaybillState(){}
 
@@ -29,20 +23,13 @@ public class WaybillState implements Serializable {
     }
 
 
-    @Column(name = "description_enum")
-    @Enumerated(EnumType.STRING)
-    public WaybillStateEnum getWaybillStateEnum() {return WaybillStateEnum;}
-
-    public void setWaybillStateEnum(WaybillStateEnum waybillStateEnum) {
-        WaybillStateEnum = waybillStateEnum;}
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "waybillState", cascade = CascadeType.ALL)
-    public Set<Waybill> getWaybills() {
-        return waybills;
+    @Column(name = "description")
+    public String getWaybillStateDescription() {
+        return waybillStateDescription;
     }
 
-    public void setWaybills(Set<Waybill> waybills) {
-        this.waybills = waybills;
+    public void setWaybillStateDescription(String waybillStateDescription) {
+        waybillStateDescription = waybillStateDescription;
     }
+
 }

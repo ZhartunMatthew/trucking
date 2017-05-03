@@ -1,7 +1,7 @@
 package com.itechart.controller;
 
-import com.itechart.entity.AutoType;
-import com.itechart.services.AutoTypeService;
+import com.itechart.entity.CarType;
+import com.itechart.services.CarTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,19 +14,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/auto_type/")
-public class AutoTypeController {
+public class CarTypeController {
     @Autowired
-    private AutoTypeService service;
+    private CarTypeService service;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<AutoType>> findAll() {
-        List<AutoType> autoTypeList = service.findAll();
-        return new ResponseEntity<>(autoTypeList, HttpStatus.OK);
+    public ResponseEntity<List<CarType>> findAll() {
+        List<CarType> carTypeList = service.findAll();
+        return new ResponseEntity<>(carTypeList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<AutoType> getById(@PathVariable Long id) {
-        AutoType autoType = service.findOne(id);
-        return new ResponseEntity<>(autoType, HttpStatus.OK);
+    public ResponseEntity<CarType> getById(@PathVariable Long id) {
+        CarType carType = service.findOne(id);
+        return new ResponseEntity<>(carType, HttpStatus.OK);
     }
 }

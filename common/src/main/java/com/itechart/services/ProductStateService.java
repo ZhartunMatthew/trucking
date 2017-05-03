@@ -1,7 +1,6 @@
 package com.itechart.services;
 
 import com.itechart.entity.ProductState;
-import com.itechart.entity.enums.ProductStateEnum;
 import com.itechart.repository.ProductStateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,4 @@ import java.util.List;
         productStateRepository.delete(id);
     }
 
-    public ProductState findByDescription(ProductStateEnum description) {
-        return productStateRepository.findByProductStateDescription(description);
-    }
 }
