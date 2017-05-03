@@ -1,7 +1,7 @@
 package com.itechart.controller;
 
-import com.itechart.entity.Auto;
-import com.itechart.services.AutoService;
+import com.itechart.entity.Car;
+import com.itechart.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,32 +10,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/auto")
-public class AutoController {
+@RequestMapping(value = "/api/car")
+public class CarController {
     @Autowired
-    private AutoService service;
+    private CarService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Auto> getById(@PathVariable Long id) {
-        Auto auto = service.findOne(id);
-        return new ResponseEntity<>(auto, HttpStatus.OK);
+    public ResponseEntity<Car> getById(@PathVariable Long id) {
+        Car car = service.findOne(id);
+        return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<Auto>> findAll() {
-        List<Auto> autos = service.findAll();
-        return new ResponseEntity<>(autos, HttpStatus.OK);
+    public ResponseEntity<List<Car>> findAll() {
+        List<Car> cars = service.findAll();
+        return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public void create(@RequestBody Auto auto) {
-        service.save(auto);
+    public void create(@RequestBody Car car) {
+        service.save(car);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<Auto> update(@RequestBody Auto auto) {
-        service.save(auto);
-        return new ResponseEntity<>(auto, HttpStatus.OK);
+    public ResponseEntity<Car> update(@RequestBody Car car) {
+        service.save(car);
+        return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

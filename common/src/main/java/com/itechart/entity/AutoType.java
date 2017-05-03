@@ -11,7 +11,7 @@ public class AutoType implements Serializable {
 
     private Long idAutoType;
     private AutoTypeEnum autoTypeEnum;
-    private Set<Auto> autos;
+    private Set<Car> cars;
 
     public AutoType() {
     }
@@ -39,11 +39,11 @@ public class AutoType implements Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "autoType", cascade = CascadeType.ALL)
-    public Set<Auto> getAutos() {
-        return autos;
+    public Set<Car> getCars() {
+        return cars;
     }
 
-    public void setAutos(Set<Auto> autos) {
-        this.autos = autos;
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
     }
 }

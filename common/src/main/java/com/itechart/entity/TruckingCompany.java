@@ -18,7 +18,7 @@ public class TruckingCompany implements Serializable {
     private Set<Invoice> invoices;
     private Set<User> users;
     private Set<CustomerCompany> customerCompanies;
-    private Set<Auto> autos;
+    private Set<Car> cars;
     public TruckingCompany() {
     }
 
@@ -115,12 +115,12 @@ public class TruckingCompany implements Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "truckingCompany", cascade = CascadeType.ALL)
-    public Set<Auto> getAutos() {
-        return autos;
+    public Set<Car> getCars() {
+        return cars;
     }
 
-    public void setAutos(Set<Auto> autos) {
-        this.autos = autos;
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
     }
 
 

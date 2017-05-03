@@ -1,8 +1,6 @@
 package com.itechart.controller;
 
-import com.itechart.entity.Auto;
 import com.itechart.entity.CustomerCompany;
-import com.itechart.services.AutoService;
 import com.itechart.services.CustomerCompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

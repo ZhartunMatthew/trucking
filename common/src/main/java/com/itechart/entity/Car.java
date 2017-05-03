@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "auto")
-public class Auto implements Serializable {
+@Table(name = "car")
+public class Car implements Serializable {
 
     private Long id;
     private String number;
@@ -16,20 +16,9 @@ public class Auto implements Serializable {
     private AutoType autoType;
     private Boolean isAvailable;
     private TruckingCompany truckingCompany;
-    private Set<Invoice> invoices;
 
-    public Auto() {
+    public Car() {
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auto", cascade = CascadeType.ALL)
-    public Set<Invoice> getInvoices() {
-        return invoices;
-    }
-
-    public void setInvoices(Set<Invoice> invoices) {
-        this.invoices = invoices;
-    }
-
 
     @ManyToOne
     @JoinColumn(name = "trucking_company", nullable = false)
@@ -44,7 +33,7 @@ public class Auto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_auto", nullable = false, insertable = true, updatable = false)
+    @Column(name = "id_car", nullable = false, insertable = true, updatable = false)
     public Long getId() {
         return id;
     }
@@ -107,4 +96,5 @@ public class Auto implements Serializable {
     public void setAvailable(Boolean available) {
         isAvailable = available;
     }
+
 }
