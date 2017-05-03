@@ -1,18 +1,14 @@
 package com.itechart.entity;
 
 
-import com.itechart.entity.enums.InvoiceStateEnum;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity (name ="invoice_state")
 public class InvoiceState implements Serializable {
 
     private Long idInvoiceState;
-    private InvoiceStateEnum invoiceStateDescription;
-    private Set<Invoice> invoices;
+    private String invoiceStateDescription;
 
     public InvoiceState(){}
 
@@ -27,22 +23,12 @@ public class InvoiceState implements Serializable {
         this.idInvoiceState = idInvoiceState;
     }
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "description", nullable = false)
-    public InvoiceStateEnum getInvoiceStateDescription() {
+    public String getInvoiceStateDescription() {
         return invoiceStateDescription;
     }
 
-    public void setInvoiceStateDescription(InvoiceStateEnum invoiceStateDescription) {
+    public void setInvoiceStateDescription(String invoiceStateDescription) {
         this.invoiceStateDescription = invoiceStateDescription;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "invoiceState",cascade = CascadeType.ALL)
-    public Set<Invoice> getInvoices() {
-        return invoices;
-    }
-
-    public void setInvoices(Set<Invoice> invoices) {
-        this.invoices = invoices;
     }
 }

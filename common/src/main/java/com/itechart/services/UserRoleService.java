@@ -1,7 +1,6 @@
 package com.itechart.services;
 
 import com.itechart.entity.UserRole;
-import com.itechart.entity.enums.UserRoleEnum;
 import com.itechart.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,4 @@ import java.util.List;
         userRoleRepository.delete(id);
     }
 
-    public UserRole findByDescription(UserRoleEnum description) {
-        return userRoleRepository.findByUserRoleDescription(description);
-    }
 }

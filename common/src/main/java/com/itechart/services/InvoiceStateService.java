@@ -1,7 +1,6 @@
 package com.itechart.services;
 
 import com.itechart.entity.InvoiceState;
-import com.itechart.entity.enums.InvoiceStateEnum;
 import com.itechart.repository.InvoiceStateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,10 +29,6 @@ import java.util.List;
 
     public void delete(Long id){
         invoiceStateRepository.delete(id);
-    }
-
-    public InvoiceState findByDescription(InvoiceStateEnum description) {
-        return invoiceStateRepository.findByInvoiceStateDescription(description);
     }
 
 }

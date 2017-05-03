@@ -2,7 +2,6 @@ package com.itechart.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name = "car")
@@ -13,7 +12,7 @@ public class Car implements Serializable {
     private String brand;
     private String model;
     private Double fuelConsumption;
-    private AutoType autoType;
+    private CarType carType;
     private Boolean isAvailable;
     private TruckingCompany truckingCompany;
 
@@ -80,12 +79,12 @@ public class Car implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "auto_type", nullable = false)
-    public AutoType getAutoType() {
-        return autoType;
+    public CarType getCarType() {
+        return carType;
     }
 
-    public void setAutoType(AutoType autoType) {
-        this.autoType = autoType;
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 
     @Column(name = "is_available")

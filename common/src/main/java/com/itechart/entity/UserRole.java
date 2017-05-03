@@ -1,7 +1,5 @@
 package com.itechart.entity;
 
-import com.itechart.entity.enums.UserRoleEnum;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,7 +7,7 @@ import java.io.Serializable;
 public class UserRole implements Serializable {
 
     private Long idUserRole;
-    private UserRoleEnum userRoleDescription;
+    private String userRoleDescription;
 
     public UserRole(){}
 
@@ -24,13 +22,12 @@ public class UserRole implements Serializable {
         this.idUserRole = idUserRole;
     }
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "description", nullable = false)
-    public UserRoleEnum getUserRoleDescription() {
+    public String getUserRoleDescription() {
         return userRoleDescription;
     }
 
-    public void setUserRoleDescription(UserRoleEnum userRole) {
+    public void setUserRoleDescription(String userRole) {
         this.userRoleDescription = userRole;
     }
 

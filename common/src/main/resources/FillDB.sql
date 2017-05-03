@@ -10,9 +10,9 @@ INSERT INTO user_role (description) VALUE ('Company_Owner');
 commit;
 
 /*auto_type*/
-INSERT INTO auto_type (description) VALUE ('Tank');
-INSERT INTO auto_type (description) VALUE ('Сovered_body');
-INSERT INTO auto_type (description) VALUE ('Refrigerator');
+INSERT INTO car_type (description) VALUE ('Tank');
+INSERT INTO car_type (description) VALUE ('Сovered_body');
+INSERT INTO car_type (description) VALUE ('Refrigerator');
 commit;
 
 /*product_state*/
