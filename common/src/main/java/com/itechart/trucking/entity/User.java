@@ -1,12 +1,10 @@
 package com.itechart.trucking.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
-@Entity
-public class User implements Serializable {
+@Entity(name = "user")
+public class User extends BaseEntity {
 
-    private Long idUser;
     private String name;
     private String surname;
     private String patronymic;
@@ -28,12 +26,12 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user", nullable = false, insertable = true, updatable = false)
-    public Long getIdUser() {
-        return idUser;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "name", nullable = true, insertable = true, updatable = true)

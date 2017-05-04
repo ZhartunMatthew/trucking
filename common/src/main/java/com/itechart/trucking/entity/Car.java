@@ -1,13 +1,11 @@
 package com.itechart.trucking.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "car")
-public class Car implements Serializable {
+public class Car extends BaseEntity {
 
-    private Long id;
     private String number;
     private String brand;
     private String model;
@@ -77,7 +75,7 @@ public class Car implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "auto_type", nullable = false)
+    @JoinColumn(name = "car_type", nullable = false)
     public CarType getCarType() {
         return carType;
     }

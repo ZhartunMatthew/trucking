@@ -1,14 +1,12 @@
 package com.itechart.trucking.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @Entity(name = "check_point")
-public class CheckPoint implements Serializable {
+public class CheckPoint extends BaseEntity {
 
     private static final long serialVersionUID = -5748835697982515014l;
-    private Long idCheckPoint;
     private String description;
     private String latitude;
     private String longitude;
@@ -30,7 +28,6 @@ public class CheckPoint implements Serializable {
 
     @Column(name = "path_date")
     public Date getPathDate() {
-
         return pathDate;
     }
 
@@ -40,7 +37,6 @@ public class CheckPoint implements Serializable {
 
     @Column(name = "longitude")
     public String getLongitude() {
-
         return longitude;
     }
 
@@ -50,7 +46,6 @@ public class CheckPoint implements Serializable {
 
     @Column(name = "latitude")
     public String getLatitude() {
-
         return latitude;
     }
 
@@ -60,7 +55,6 @@ public class CheckPoint implements Serializable {
 
     @Column(name = "description")
     public String getDescription() {
-
         return description;
     }
 
@@ -71,12 +65,11 @@ public class CheckPoint implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_checkpoint", nullable = false, updatable = false)
-    public Long getIdCheckPoint() {
-
-        return idCheckPoint;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdCheckPoint(Long idCheckPoint) {
-        this.idCheckPoint = idCheckPoint;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
