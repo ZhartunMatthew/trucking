@@ -7,7 +7,5 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class WaybillStateDTO {
-    private Long idWaybillState;
-    private String description;
+public class WaybillStateDTO extends AbstractStateDTO {
 }

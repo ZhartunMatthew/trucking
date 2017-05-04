@@ -1,17 +1,15 @@
 package com.itechart.dto;
 
-import com.itechart.entity.Invoice;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
 import java.util.Date;
 
 @Getter
 @Setter
 @ToString
-public class WaybillDTO {
-
-    private Long IdWaybill;
+public class WaybillDTO extends AbstractDTO {
     private String waybillNumber;
     private Date departureDate;
     private String departureCity;
@@ -32,5 +30,4 @@ public class WaybillDTO {
     private String driverName;
     private String driverPatronymic;
     private String driverSurname;
-
 }
