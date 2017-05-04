@@ -7,8 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public abstract class AbstractCompanyDTO {
-    private Long id;
+public abstract class AbstractCompanyDTO extends AbstractDTO {
     private String name;
     private String taxpayerNumber;
     private String country;

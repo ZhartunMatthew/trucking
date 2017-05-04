@@ -7,6 +7,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CarTypeDTO extends AbstractDTO {
-    private String description;
+public abstract class AbstractDTO {
+    private Long id;
 }
