@@ -15,7 +15,7 @@ public class InvoiceDTO extends AbstractDTO {
     private Date registerDate;
     private Date checkDate;
     private String invoiceState;
-    private String custimerCompany;
+    private String customerCompany;
     private String truckingCompany;
     private List<ProductDTO> products;
 

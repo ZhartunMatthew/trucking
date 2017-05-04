@@ -20,5 +20,5 @@ public class UserDTO extends AbstractDTO {
     private String login;
     private String password;
     private String truckingCompanyName;
-    private boolean isAvailable;
+    private Boolean isAvailable;
 }

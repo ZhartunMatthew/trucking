@@ -17,7 +17,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public List<? extends UserRoleDTO> getAuthorities() {
-        //return Collections.singletonList(user.getUserRole().getUserRoleDescription());
+        //return Collections.singletonList(user.getUserRole().getDescription());
         return Collections.singletonList(new UserRoleDTO());
     }
 
