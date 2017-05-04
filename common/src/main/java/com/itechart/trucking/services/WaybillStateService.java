@@ -2,6 +2,7 @@ package com.itechart.trucking.services;
 
 import com.itechart.trucking.repository.WaybillStateRepository;
 import com.itechart.trucking.entity.WaybillState;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,11 +14,8 @@ import java.util.List;
 @Transactional
 public class WaybillStateService {
 
-    private final WaybillStateRepository waybillStateRepository;
-
-    public WaybillStateService(WaybillStateRepository waybillStateRepository) {
-        this.waybillStateRepository = waybillStateRepository;
-    }
+    @Autowired
+    private WaybillStateRepository waybillStateRepository;
 
     public List<WaybillState> findAll(){
         List<WaybillState> waybillStates = new ArrayList<>();

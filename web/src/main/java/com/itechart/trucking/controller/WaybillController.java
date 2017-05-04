@@ -21,7 +21,6 @@ import java.util.regex.Pattern;
 @Controller
 public class WaybillController {
 
-
     @Autowired
     private WaybillService waybillService;
     @Autowired
@@ -29,13 +28,11 @@ public class WaybillController {
     @Autowired
     private CheckPointService checkPointService;
 
-
     @ModelAttribute("waybill")
     public Waybill getWaybill()
     {
         return new Waybill();
     }
-
 
     @RequestMapping(value = "/show-waybills",method = RequestMethod.GET)
     public ModelAndView getAllWaybills(){
@@ -50,7 +47,6 @@ public class WaybillController {
         modelAndView.addAllObjects(modelMap);
         return modelAndView;
     }
-
 
     @RequestMapping(value = "/edit-waybill{id}",method = RequestMethod.GET)
     public ModelAndView editWaybill(@PathVariable("id") long id){

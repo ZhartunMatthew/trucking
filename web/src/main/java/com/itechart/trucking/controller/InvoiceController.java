@@ -24,7 +24,6 @@ import java.util.*;
 @Controller
 public class InvoiceController {
 
-
     @Autowired
     private InvoiceService invoiceService;
     @Autowired
@@ -39,7 +38,6 @@ public class InvoiceController {
     {
         return new Invoice();
     }
-
 
     @RequestMapping(value = "/invoiceList",method = RequestMethod.GET)
     public ModelAndView getInvoiceList(){

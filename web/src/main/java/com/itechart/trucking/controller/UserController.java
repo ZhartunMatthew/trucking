@@ -34,7 +34,6 @@ public class UserController {
     @ModelAttribute("user")
     public User getUser(){return new User();}
 
-
     @RequestMapping(value = "/show-users",method = RequestMethod.GET)
     public ModelAndView getUsers(){
 
@@ -44,7 +43,6 @@ public class UserController {
         modelAndView.addObject("users",users);
         return modelAndView;
     }
-
 
     @RequestMapping(value = "/edit-user{id}",method = RequestMethod.GET)
     public ModelAndView editUser(@PathVariable("id") long id){
@@ -61,13 +59,11 @@ public class UserController {
         return modelAndView;
     }
 
-
     @RequestMapping(value = "/delete-user{id}",method = RequestMethod.GET)
     public String deleteUserById(@PathVariable("id") long id){
         userService.delete(id);
         return "redirect:/show-users";
     }
-
 
     @RequestMapping(value = "/add-user",method = RequestMethod.GET)
     public ModelAndView addUser(){
@@ -81,7 +77,6 @@ public class UserController {
         modelAndView.addAllObjects(modelMap);
         return modelAndView;
     }
-
 
     @RequestMapping(value = "/save-user", method = RequestMethod.POST)
     public String insertUser(@Valid User user, BindingResult bindingResult, HttpServletRequest request){

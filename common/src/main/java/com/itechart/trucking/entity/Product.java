@@ -10,7 +10,6 @@ public class Product implements Serializable {
     private String name;
     private Integer amount;
     private ProductState productState;
-
     private Invoice invoice;
 
     public Product() {

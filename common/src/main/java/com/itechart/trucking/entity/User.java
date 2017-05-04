@@ -1,66 +1,29 @@
 package com.itechart.trucking.entity;
 
-
-
-import org.hibernate.validator.constraints.Email;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-
 
 @Entity
 public class User implements Serializable {
 
     private Long idUser;
-
-    @NotNull(message = "name can not be null")
-    @Size(min = 1,max = 30,message = "the lenght should be between 1 and 30")
     private String name;
-
-    @NotNull(message = "surname can not be null")
-    @Size(min = 1,max = 30,message = "the lenght should be between 1 and 30")
     private String surname;
-
-
-    @Size(min = 1,max = 30,message = "the lenght should be between 1 and 30")
     private String patronymic;
-
-    @Email(message = "email is not in the correct format")
     private String email;
-
-    @NotNull(message = "city can not be null")
-    @Size(min = 1,max = 30,message = "the lenght should be between 1 and 30")
     private String city;
-
-    @NotNull(message = "street can not be null")
-    @Size(min = 1,max = 30,message = "the lenght should be between 1 and 30")
     private String street;
-
-    @NotNull(message = "house can not be null")
-    @Size(min = 1,max = 10,message = "the lenght should be between 1 and 10")
     private String house;
-
-    @NotNull(message = "flat can not be null")
-    @Size(min = 1,max = 10,message = "the lenght should be between 1 and 10")
     private String flat;
-
     private UserRole userRole;
     private String login;
-
-    @NotNull(message = "password can not be null")
     private String password;
-
     private String salt;
     private TruckingCompany truckingCompany;
-
     private Boolean isAvailable;
 
     public User() {
     }
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

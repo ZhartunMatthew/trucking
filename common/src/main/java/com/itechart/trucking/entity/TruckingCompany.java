@@ -122,6 +122,4 @@ public class TruckingCompany implements Serializable {
     public void setCars(Set<Car> cars) {
         this.cars = cars;
     }
-
-
 }

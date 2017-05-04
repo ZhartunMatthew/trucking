@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/customer_company/")
 public class CustomerCompanyController {
+
     @Autowired
     private CustomerCompanyService service;
 

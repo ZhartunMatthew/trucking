@@ -4,6 +4,7 @@ import com.itechart.trucking.dto.UserRoleDTO;
 import com.itechart.trucking.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collections;
 import java.util.List;
 //TODO: replace user on DTO
 public class CustomUserDetails implements UserDetails {
@@ -17,7 +18,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public List<? extends UserRoleDTO> getAuthorities() {
         //return Collections.singletonList(user.getUserRole().getUserRoleDescription());
-        return null;
+        return Collections.singletonList(new UserRoleDTO());
     }
 
     @Override

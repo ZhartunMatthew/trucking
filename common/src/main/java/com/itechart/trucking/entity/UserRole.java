@@ -30,6 +30,4 @@ public class UserRole implements Serializable {
     public void setUserRoleDescription(String userRole) {
         this.userRoleDescription = userRole;
     }
-
-
 }

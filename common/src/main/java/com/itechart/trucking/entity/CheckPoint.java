@@ -1,14 +1,13 @@
 package com.itechart.trucking.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
 
 @Entity(name = "check_point")
 public class CheckPoint implements Serializable {
 
     private static final long serialVersionUID = -5748835697982515014l;
-
     private Long idCheckPoint;
     private String description;
     private String latitude;
@@ -17,10 +16,7 @@ public class CheckPoint implements Serializable {
     private Waybill waybill;
 
     public CheckPoint() {
-
     }
-
-
 
     @ManyToOne
     @JoinColumn(name = "way_bill", nullable = false)

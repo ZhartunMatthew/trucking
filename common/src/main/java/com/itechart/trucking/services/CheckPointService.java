@@ -2,6 +2,7 @@ package com.itechart.trucking.services;
 
 import com.itechart.trucking.repository.CheckPointRepository;
 import com.itechart.trucking.entity.CheckPoint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,11 +13,8 @@ import java.util.List;
 @Transactional
     public class CheckPointService {
 
-    private final CheckPointRepository checkPointRepository;
-
-    public CheckPointService(CheckPointRepository checkPointRepository) {
-        this.checkPointRepository = checkPointRepository;
-    }
+    @Autowired
+    private CheckPointRepository checkPointRepository;
 
     public List<CheckPoint> findAll(){
         List<CheckPoint> checkPoints = new ArrayList<>();

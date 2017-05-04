@@ -29,7 +29,6 @@ public class Car implements Serializable {
         this.truckingCompany = truckingCompany;
     }
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_car", nullable = false, insertable = true, updatable = false)

@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 @Transactional
 public class TruckingCompanyService {
+
     @Autowired
     private TruckingCompanyRepository truckingCompanyRepository;
 

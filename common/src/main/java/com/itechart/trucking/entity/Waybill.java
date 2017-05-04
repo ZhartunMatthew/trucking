@@ -1,16 +1,15 @@
 package com.itechart.trucking.entity;
 
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.*;
 
 
 
 @Entity(name = "waybill")
 public class Waybill implements Serializable {
-
 
     private Long IdWaybill;
     private String waybillNumber;
@@ -33,7 +32,6 @@ public class Waybill implements Serializable {
     public Waybill() {
     }
 
-
     @Id
     @Column(name = "id_waybill", nullable = false,updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,7 +40,6 @@ public class Waybill implements Serializable {
     public void setIdWaybill(Long idWaybill) {
         IdWaybill = idWaybill;
     }
-
 
     @Column(name = "waybill_number")
     public String getWaybillNumber() {
@@ -61,14 +58,12 @@ public class Waybill implements Serializable {
         this.waybillState = waybillState;
     }
 
-
     @Column(name = "departure_date")
     public Date getDepartureDate() {return departureDate;}
 
     public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
-
 
     @Column(name = "departure_city")
     public String getDepartureCity() {return departureCity;}
@@ -77,14 +72,12 @@ public class Waybill implements Serializable {
         this.departureCity = departureCity;
     }
 
-
     @Column(name = "departure_stree")
     public String getDepartureStreet() {return departureStreet;}
 
     public void setDepartureStreet(String departureStreet) {
         this.departureStreet = departureStreet;
     }
-
 
     @Column(name = "departure_house")
     public String getDepartureHouse() {return departureHouse;}
@@ -93,14 +86,12 @@ public class Waybill implements Serializable {
         this.departureHouse = departureHouse;
     }
 
-
     @Column(name = "departure_latitude")
     public String getDepartureLatitude() {return departureLatitude;}
 
     public void setDepartureLatitude(String departureLatitude) {
         this.departureLatitude = departureLatitude;
     }
-
 
     @Column(name = "departure_longitude")
     public String getDepartureLongitude() {return departureLongitude;}
@@ -109,14 +100,12 @@ public class Waybill implements Serializable {
         this.departureLongitude = departureLongitude;
     }
 
-
     @Column(name = "destination_date")
     public Date getDestinationDate() {return destinationDate;}
 
     public void setDestinationDate(Date destinationDate) {
         this.destinationDate = destinationDate;
     }
-
 
     @Column(name = "destination_city")
     public String getDestinationCity() {return destinationCity;}
@@ -140,14 +129,12 @@ public class Waybill implements Serializable {
         this.destinationHouse = destinationHouse;
     }
 
-
     @Column(name = "destinatione_latitude")
     public String getDestinationeLatitude() {return destinationeLatitude;}
 
     public void setDestinationeLatitude(String destinationeLatitude) {
         this.destinationeLatitude = destinationeLatitude;
     }
-
 
     @Column(name = "destination_longitude")
     public String getDestinationLongitude() {
@@ -157,7 +144,6 @@ public class Waybill implements Serializable {
     public void setDestinationLongitude(String destinationLongitude) {
         this.destinationLongitude = destinationLongitude;
     }
-
 
     @OneToOne
     @JoinColumn(name = "id_invoice")

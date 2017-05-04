@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/auto_type/")
 public class CarTypeController {
+
     @Autowired
     private CarTypeService service;
 
