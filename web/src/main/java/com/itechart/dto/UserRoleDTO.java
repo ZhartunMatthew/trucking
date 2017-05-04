@@ -7,6 +7,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CarTypeDTO extends AbstractDTO {
-    private String description;
+public class UserRoleDTO extends AbstractDTO {
+    private String name;
 }

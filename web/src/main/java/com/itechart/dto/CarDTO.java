@@ -7,8 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CarDTO {
-    private Long id;
+public class CarDTO extends AbstractDTO {
     private String number;
     private String brand;
     private String model;
