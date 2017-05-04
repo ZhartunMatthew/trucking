@@ -8,6 +8,8 @@ import com.itechart.services.CheckPointService;
 import com.itechart.services.WaybillService;
 import com.itechart.services.WaybillStateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -96,7 +98,7 @@ public class WaybillController {
 
 
 
-    @RequestMapping(value = "/save-waybill", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/save-waybill", method = RequestMethod.POST)
     public String insertWaybill(@Valid Waybill waybill,BindingResult bindingResult,HttpServletRequest request){
 
         if (bindingResult.hasErrors())
@@ -111,7 +113,7 @@ public class WaybillController {
         saveCheckPoints(waybill1, request);
         return "redirect:/show-waybills";
     }
-
+*/
 
 
 
@@ -152,6 +154,8 @@ public class WaybillController {
         }
 
     }
+
+
 
 
 }

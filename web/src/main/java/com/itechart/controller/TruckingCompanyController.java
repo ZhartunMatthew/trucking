@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/trucking_company/")
 public class TruckingCompanyController {
+
     @Autowired
     private TruckingCompanyService service;
 
