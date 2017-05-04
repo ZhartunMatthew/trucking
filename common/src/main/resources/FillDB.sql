@@ -29,8 +29,8 @@ INSERT INTO invoice_state(description) VALUE ('Delivered');
 commit;
 
 /*waybill_state*/
-INSERT INTO waybill_state(description_enum) VALUE ('Transportation_started');
-INSERT INTO waybill_state(description_enum) VALUE ('Transportation_completed');
+INSERT INTO waybill_state(description) VALUE ('Transportation_started');
+INSERT INTO waybill_state(description) VALUE ('Transportation_completed');
 commit;
 
       /*---- ENTITY ----*/
