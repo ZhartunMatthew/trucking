@@ -23,7 +23,8 @@ public class WaybillDTO extends AbstractDTO {
     private String destinationHouse;
     private String destinationLatitude;
     private String destinationLongitude;
-    private String waybillState;
+    private WaybillStateDTO waybillState;
+    private Long invoiceId;
     private String invoiceNumber;
     private Date invoiceDate;
     private String customerCompany;

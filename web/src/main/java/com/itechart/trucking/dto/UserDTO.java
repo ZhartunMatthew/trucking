@@ -16,9 +16,10 @@ public class UserDTO extends AbstractDTO {
     private String street;
     private String house;
     private String flat;
-    private String role;
+    private Long userRoleId;
     private String login;
     private String password;
+    private Long truckingCompanyId;
     private String truckingCompanyName;
     private Boolean isAvailable;
 }

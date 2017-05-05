@@ -12,6 +12,7 @@ public class CarDTO extends AbstractDTO {
     private String brand;
     private String model;
     private Double fuelConsumption;
-    private String type;
+    private CarTypeDTO type;
     private Boolean isAvailable;
+    private Long truckingCompanyId;
 }

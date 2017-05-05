@@ -13,4 +13,5 @@ public class CheckPointDTO extends AbstractDTO {
     private String latitude;
     private String longitude;
     private Date pathDate;
+    private Long waybillId;
 }

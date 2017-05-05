@@ -9,6 +9,8 @@ import lombok.ToString;
 @ToString
 public class ProductDTO extends AbstractDTO {
     private String name;
+    private ProductStateDTO productState;
     private Integer amount;
     private String state;
+    private Long invoiceId;
 }
