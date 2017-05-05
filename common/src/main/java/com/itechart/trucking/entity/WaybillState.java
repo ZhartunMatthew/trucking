@@ -1,33 +1,34 @@
 package com.itechart.trucking.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 
-@Entity (name ="waybill_state")
-public class WaybillState implements Serializable {
+@Entity(name = "waybill_state")
+public class WaybillState extends BaseEntity {
 
-    private Long idWaybillState;
-    private String waybillStateDescription;
+    private String description;
 
-    public WaybillState(){}
+    public WaybillState() {
+    }
 
     @Id
-    @Column(name = "id_waybill_state", nullable = false,updatable = false)
+    @Column(name = "id_waybill_state", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getIdWaybillState() {return idWaybillState;}
+    public Long getId() {
+        return id;
+    }
 
-    public void setIdWaybillState(Long idWaybillState) {
-        this.idWaybillState = idWaybillState;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "description")
-    public String getWaybillStateDescription() {
-        return waybillStateDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setWaybillStateDescription(String waybillStateDescription) {
-        waybillStateDescription = waybillStateDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

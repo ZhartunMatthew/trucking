@@ -2,16 +2,13 @@ package com.itechart.trucking.entity;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
-
+import java.util.List;
 
 
 @Entity(name = "waybill")
-public class Waybill implements Serializable {
+public class Waybill extends BaseEntity {
 
-    private Long IdWaybill;
     private String waybillNumber;
     private WaybillState waybillState;
     private Date departureDate;
@@ -24,21 +21,23 @@ public class Waybill implements Serializable {
     private String destinationCity;
     private String destinationStreet;
     private String destinationHouse;
-    private String destinationeLatitude;
+    private String destinationLatitude;
     private String destinationLongitude;
     private Invoice invoice;
-    private Set<CheckPoint> checkPoints;
+    private List<CheckPoint> checkPoints;
 
     public Waybill() {
     }
 
     @Id
-    @Column(name = "id_waybill", nullable = false,updatable = false)
+    @Column(name = "id_waybill", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getIdWaybill() {return IdWaybill;}
+    public Long getId() {
+        return id;
+    }
 
-    public void setIdWaybill(Long idWaybill) {
-        IdWaybill = idWaybill;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "waybill_number")
@@ -52,70 +51,90 @@ public class Waybill implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "waybill_state", nullable = false)
-    public WaybillState getWaybillState() {return waybillState;}
+    public WaybillState getWaybillState() {
+        return waybillState;
+    }
 
     public void setWaybillState(WaybillState waybillState) {
         this.waybillState = waybillState;
     }
 
     @Column(name = "departure_date")
-    public Date getDepartureDate() {return departureDate;}
+    public Date getDepartureDate() {
+        return departureDate;
+    }
 
     public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
 
     @Column(name = "departure_city")
-    public String getDepartureCity() {return departureCity;}
+    public String getDepartureCity() {
+        return departureCity;
+    }
 
     public void setDepartureCity(String departureCity) {
         this.departureCity = departureCity;
     }
 
     @Column(name = "departure_stree")
-    public String getDepartureStreet() {return departureStreet;}
+    public String getDepartureStreet() {
+        return departureStreet;
+    }
 
     public void setDepartureStreet(String departureStreet) {
         this.departureStreet = departureStreet;
     }
 
     @Column(name = "departure_house")
-    public String getDepartureHouse() {return departureHouse;}
+    public String getDepartureHouse() {
+        return departureHouse;
+    }
 
     public void setDepartureHouse(String departureHouse) {
         this.departureHouse = departureHouse;
     }
 
     @Column(name = "departure_latitude")
-    public String getDepartureLatitude() {return departureLatitude;}
+    public String getDepartureLatitude() {
+        return departureLatitude;
+    }
 
     public void setDepartureLatitude(String departureLatitude) {
         this.departureLatitude = departureLatitude;
     }
 
     @Column(name = "departure_longitude")
-    public String getDepartureLongitude() {return departureLongitude;}
+    public String getDepartureLongitude() {
+        return departureLongitude;
+    }
 
     public void setDepartureLongitude(String departureLongitude) {
         this.departureLongitude = departureLongitude;
     }
 
     @Column(name = "destination_date")
-    public Date getDestinationDate() {return destinationDate;}
+    public Date getDestinationDate() {
+        return destinationDate;
+    }
 
     public void setDestinationDate(Date destinationDate) {
         this.destinationDate = destinationDate;
     }
 
     @Column(name = "destination_city")
-    public String getDestinationCity() {return destinationCity;}
+    public String getDestinationCity() {
+        return destinationCity;
+    }
 
     public void setDestinationCity(String destinationCity) {
         this.destinationCity = destinationCity;
     }
 
     @Column(name = "destination_street")
-    public String getDestinationStreet() {return destinationStreet;}
+    public String getDestinationStreet() {
+        return destinationStreet;
+    }
 
     public void setDestinationStreet(String destinationStreet) {
         this.destinationStreet = destinationStreet;
@@ -123,17 +142,21 @@ public class Waybill implements Serializable {
 
 
     @Column(name = "destination_house")
-    public String getDestinationHouse() {return destinationHouse;}
+    public String getDestinationHouse() {
+        return destinationHouse;
+    }
 
     public void setDestinationHouse(String destinationHouse) {
         this.destinationHouse = destinationHouse;
     }
 
     @Column(name = "destinatione_latitude")
-    public String getDestinationeLatitude() {return destinationeLatitude;}
+    public String getDestinationLatitude() {
+        return destinationLatitude;
+    }
 
-    public void setDestinationeLatitude(String destinationeLatitude) {
-        this.destinationeLatitude = destinationeLatitude;
+    public void setDestinationLatitude(String destinationLatitude) {
+        this.destinationLatitude = destinationLatitude;
     }
 
     @Column(name = "destination_longitude")
@@ -156,14 +179,13 @@ public class Waybill implements Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "waybill", cascade = CascadeType.ALL)
-    public Set<CheckPoint> getCheckPoints() {
+    public List<CheckPoint> getCheckPoints() {
         return checkPoints;
     }
 
-    public void setCheckPoints(Set<CheckPoint> checkPoints) {
+    public void setCheckPoints(List<CheckPoint> checkPoints) {
         this.checkPoints = checkPoints;
     }
-
 
 
 }

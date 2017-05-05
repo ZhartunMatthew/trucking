@@ -73,13 +73,13 @@ INSERT INTO user (name, surname, patronymic, email, city, street, house, flat, l
 commit;
 
 /*car*/
-INSERT INTO car (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
+INSERT INTO car (number, car_type, model, fuel_consumption,  is_available, trucking_company)
   VALUES ('3214-MAN', 1, '15-1566-05', 26.6, TRUE, 1);
-INSERT INTO car (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
+INSERT INTO car (number, car_type, model, fuel_consumption,  is_available, trucking_company)
   VALUES ('9999-GTY', 2, 'МАЗ-54323', 26.6, FALSE, 1);
-INSERT INTO car (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
+INSERT INTO car (number, car_type, model, fuel_consumption,  is_available, trucking_company)
   VALUES ('3928-ABC', 2, 'МАЗ-54323', 26.6, FALSE , 1);
-INSERT INTO car (number, auto_type, model, fuel_consumption,  is_available, trucking_company)
+INSERT INTO car (number, car_type, model, fuel_consumption,  is_available, trucking_company)
   VALUES ('1058-EDF', 3, '15-1566-05', 26.6, FALSE , 1);
 commit;
 

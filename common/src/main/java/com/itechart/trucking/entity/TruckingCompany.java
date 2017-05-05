@@ -1,24 +1,23 @@
 package com.itechart.trucking.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "trucking_company")
-public class TruckingCompany implements Serializable {
+public class TruckingCompany extends BaseEntity {
 
-    private Long id;
     private String name;
     private String taxpayerNumber;
     private String country;
     private String city;
     private String street;
     private String house;
-    private Set<Invoice> invoices;
-    private Set<User> users;
-    private Set<CustomerCompany> customerCompanies;
-    private Set<Car> cars;
+    private List<Invoice> invoices;
+    private List<User> users;
+    private List<CustomerCompany> customerCompanies;
+    private List<Car> cars;
+
     public TruckingCompany() {
     }
 
@@ -88,38 +87,38 @@ public class TruckingCompany implements Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "truckingCompany", cascade = CascadeType.ALL)
-    public Set<Invoice> getInvoices() {
+    public List<Invoice> getInvoices() {
         return invoices;
     }
 
-    public void setInvoices(Set<Invoice> invoices) {
+    public void setInvoices(List<Invoice> invoices) {
         this.invoices = invoices;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "truckingCompany", cascade = CascadeType.ALL)
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "truckingCompany", cascade = CascadeType.ALL)
-    public Set<CustomerCompany> getCustomerCompanies() {
+    public List<CustomerCompany> getCustomerCompanies() {
         return customerCompanies;
     }
 
-    public void setCustomerCompanies(Set<CustomerCompany> customerCompanies) {
+    public void setCustomerCompanies(List<CustomerCompany> customerCompanies) {
         this.customerCompanies = customerCompanies;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "truckingCompany", cascade = CascadeType.ALL)
-    public Set<Car> getCars() {
+    public List<Car> getCars() {
         return cars;
     }
 
-    public void setCars(Set<Car> cars) {
+    public void setCars(List<Car> cars) {
         this.cars = cars;
     }
 }

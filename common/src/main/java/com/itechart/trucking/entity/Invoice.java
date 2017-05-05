@@ -1,15 +1,12 @@
 package com.itechart.trucking.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-@Entity
-public class Invoice implements Serializable {
+@Entity(name = "invoice")
+public class Invoice extends BaseEntity {
 
-    private Long idInvoice;
     private String invoiceNumber;
     private Date registerDate;
     private Date checkDate;
@@ -21,20 +18,20 @@ public class Invoice implements Serializable {
     private User driverUser;
     private Car car;
     private Waybill waybill;
+    private List<Product> products;
 
-    private Set<Product> productSet = new HashSet<Product>();
     public Invoice() {
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_invoice", nullable = false, insertable = true, updatable = false)
-    public Long getIdInvoice() {
-        return idInvoice;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdInvoice(Long idInvoice) {
-        this.idInvoice = idInvoice;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "invoice_number", nullable = false)
@@ -74,13 +71,13 @@ public class Invoice implements Serializable {
         this.invoiceState = invoiceState;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice", cascade = CascadeType.ALL)
-    public Set<Product> getProductSet() {
-        return productSet;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "invoice", cascade = CascadeType.ALL)
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProductSet(Set<Product> productSet) {
-        this.productSet = productSet;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @ManyToOne
@@ -104,7 +101,7 @@ public class Invoice implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "manager", nullable = true,insertable = false, updatable = false)
+    @JoinColumn(name = "manager", nullable = true, insertable = false, updatable = false)
     public User getManagerUser() {
         return managerUser;
     }
@@ -114,7 +111,7 @@ public class Invoice implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "driver", nullable = false,insertable = false, updatable = false)
+    @JoinColumn(name = "driver", nullable = false, insertable = false, updatable = false)
     public User getDriverUser() {
         return driverUser;
     }

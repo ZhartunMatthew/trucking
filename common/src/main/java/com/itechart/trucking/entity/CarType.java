@@ -1,13 +1,11 @@
 package com.itechart.trucking.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity(name = "car_type")
-public class CarType implements Serializable {
+public class CarType extends BaseEntity {
 
-    private Long idCarType;
-    private String descriptionCarType;
+    private String description;
 
     public CarType() {
     }
@@ -15,21 +13,21 @@ public class CarType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_car_type", nullable = false, insertable = true, updatable = false)
-    public Long getIdCarType() {
-        return idCarType;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdCarType(Long idCarType) {
-        this.idCarType = idCarType;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "description", nullable = false)
-    public String getDescriptionCarType() {
-        return descriptionCarType;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptionCarType (String descriptionCarType) {
-        this.descriptionCarType = descriptionCarType;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

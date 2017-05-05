@@ -3,31 +3,31 @@ package com.itechart.trucking.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity (name ="user_role")
-public class UserRole implements Serializable {
+@Entity(name = "user_role")
+public class UserRole extends BaseEntity {
 
-    private Long idUserRole;
-    private String userRoleDescription;
+    private String description;
 
-    public UserRole(){}
+    public UserRole() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user_role", nullable = false, insertable = true, updatable = false)
-    public Long getIdUserRole() {
-        return idUserRole;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdUserRole(Long idUserRole) {
-        this.idUserRole = idUserRole;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "description", nullable = false)
-    public String getUserRoleDescription() {
-        return userRoleDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUserRoleDescription(String userRole) {
-        this.userRoleDescription = userRole;
+    public void setDescription(String userRole) {
+        this.description = userRole;
     }
 }
