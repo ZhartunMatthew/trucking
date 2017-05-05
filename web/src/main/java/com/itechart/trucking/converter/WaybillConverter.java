@@ -2,8 +2,19 @@ package com.itechart.trucking.converter;
 
 import com.itechart.trucking.dto.WaybillDTO;
 import com.itechart.trucking.entity.Waybill;
+import com.itechart.trucking.services.InvoiceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybill> {
+
+    @Autowired
+    private WaybillStateConverter waybillStateConverter;
+
+    @Autowired
+    private InvoiceService invoiceService;
+
     @Override
     protected Waybill convert(WaybillDTO dto) {
         Waybill entity = new Waybill();
@@ -20,6 +31,8 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
         entity.setDestinationHouse(dto.getDestinationHouse());
         entity.setDestinationLatitude(dto.getDestinationLatitude());
         entity.setDepartureLongitude(dto.getDestinationLongitude());
+        entity.setWaybillState(waybillStateConverter.convert(dto.getWaybillState()));
+        entity.setInvoice(invoiceService.findOne(dto.getInvoiceId()));
         return entity;
     }
 
@@ -39,6 +52,8 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
         dto.setDestinationHouse(entity.getDestinationHouse());
         dto.setDestinationLatitude(entity.getDestinationLatitude());
         dto.setDepartureLongitude(entity.getDestinationLongitude());
+        dto.setWaybillState(waybillStateConverter.convertBack(entity.getWaybillState()));
+        dto.setInvoiceId(entity.getWaybillState().getId());
         return dto;
     }
 }

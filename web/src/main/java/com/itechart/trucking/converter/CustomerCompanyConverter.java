@@ -2,8 +2,16 @@ package com.itechart.trucking.converter;
 
 import com.itechart.trucking.dto.CustomerCompanyDTO;
 import com.itechart.trucking.entity.CustomerCompany;
+import com.itechart.trucking.services.TruckingCompanyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomerCompanyConverter extends AbstractTwoWayConverter<CustomerCompanyDTO, CustomerCompany> {
+
+    @Autowired
+    private TruckingCompanyService truckingCompanyService;
+
     @Override
     protected CustomerCompany convert(CustomerCompanyDTO dto) {
         CustomerCompany entity = new CustomerCompany();
@@ -14,6 +22,7 @@ public class CustomerCompanyConverter extends AbstractTwoWayConverter<CustomerCo
         entity.setCity(dto.getCity());
         entity.setStreet(dto.getStreet());
         entity.setHouse(dto.getHouse());
+        entity.setTruckingCompany(truckingCompanyService.findOne(dto.getTruckingCompanyId()));
         return entity;
     }
 
@@ -25,8 +34,9 @@ public class CustomerCompanyConverter extends AbstractTwoWayConverter<CustomerCo
         dto.setTaxpayerNumber(entity.getTaxpayerNumber());
         dto.setCountry(entity.getCountry());
         dto.setCity(entity.getCity());
-        dto.setStreet(dto.getStreet());
-        dto.setHouse(dto.getHouse());
+        dto.setStreet(entity.getStreet());
+        dto.setHouse(entity.getHouse());
+        dto.setTruckingCompanyId(entity.getTruckingCompany().getId());
         return dto;
     }
 }

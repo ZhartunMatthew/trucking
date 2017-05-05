@@ -2,8 +2,11 @@ package com.itechart.trucking.converter;
 
 import com.itechart.trucking.dto.WaybillStateDTO;
 import com.itechart.trucking.entity.WaybillState;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WaybillStateConverter extends AbstractTwoWayConverter<WaybillStateDTO, WaybillState> {
+
     @Override
     protected WaybillState convert(WaybillStateDTO dto) {
         WaybillState productState = new WaybillState();

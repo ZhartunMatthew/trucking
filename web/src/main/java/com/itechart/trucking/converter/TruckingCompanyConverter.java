@@ -2,8 +2,11 @@ package com.itechart.trucking.converter;
 
 import com.itechart.trucking.dto.TruckingCompanyDTO;
 import com.itechart.trucking.entity.TruckingCompany;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TruckingCompanyConverter extends AbstractTwoWayConverter<TruckingCompanyDTO, TruckingCompany> {
+
     @Override
     protected TruckingCompany convert(TruckingCompanyDTO dto) {
         TruckingCompany entity = new TruckingCompany();

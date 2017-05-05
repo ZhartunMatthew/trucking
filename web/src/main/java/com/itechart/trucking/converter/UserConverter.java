@@ -2,8 +2,20 @@ package com.itechart.trucking.converter;
 
 import com.itechart.trucking.dto.UserDTO;
 import com.itechart.trucking.entity.User;
+import com.itechart.trucking.services.TruckingCompanyService;
+import com.itechart.trucking.services.UserRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserConverter extends AbstractTwoWayConverter<UserDTO, User> {
+
+    @Autowired
+    private UserRoleService userRoleService;
+
+    @Autowired
+    private TruckingCompanyService truckingCompanyService;
+
     @Override
     protected User convert(UserDTO dto) {
         User entity = new User();
@@ -19,6 +31,8 @@ public class UserConverter extends AbstractTwoWayConverter<UserDTO, User> {
         entity.setLogin(dto.getLogin());
         entity.setPassword(dto.getPassword());
         entity.setAvailable(dto.getIsAvailable());
+        entity.setUserRole(userRoleService.findOne(dto.getUserRoleId()));
+        entity.setTruckingCompany(truckingCompanyService.findOne(dto.getTruckingCompanyId()));
         return entity;
     }
 
@@ -37,6 +51,9 @@ public class UserConverter extends AbstractTwoWayConverter<UserDTO, User> {
         dto.setLogin(entity.getLogin());
         dto.setPassword(entity.getPassword());
         dto.setIsAvailable(entity.getAvailable());
+        dto.setUserRoleId(entity.getUserRole().getId());
+        dto.setTruckingCompanyId(entity.getTruckingCompany().getId());
+        dto.setTruckingCompanyName(entity.getTruckingCompany().getName());
         return dto;
     }
 }

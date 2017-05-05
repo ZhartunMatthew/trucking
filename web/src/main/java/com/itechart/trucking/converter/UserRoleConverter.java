@@ -2,14 +2,17 @@ package com.itechart.trucking.converter;
 
 import com.itechart.trucking.dto.UserRoleDTO;
 import com.itechart.trucking.entity.UserRole;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserRoleConverter extends AbstractTwoWayConverter<UserRoleDTO, UserRole> {
+
     @Override
     protected UserRole convert(UserRoleDTO dto) {
-        UserRole productState = new UserRole();
-        productState.setId(dto.getId());
-        productState.setDescription(dto.getName());
-        return productState;
+        UserRole entity = new UserRole();
+        entity.setId(dto.getId());
+        entity.setDescription(dto.getName());
+        return entity;
     }
 
     @Override
