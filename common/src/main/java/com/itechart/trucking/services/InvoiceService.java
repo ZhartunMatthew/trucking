@@ -15,19 +15,19 @@ public class InvoiceService {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
-    public List<Invoice> findAll(){
+    public List<Invoice> findAll() {
         return invoiceRepository.findAll();
     }
 
-    public  Invoice findOne(Long id) {
+    public Invoice findOne(Long id) {
         return invoiceRepository.findOne(id);
     }
 
-    public Invoice save(Invoice invoice){
+    public Invoice save(Invoice invoice) {
         return invoiceRepository.saveAndFlush(invoice);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         invoiceRepository.delete(id);
     }
 }

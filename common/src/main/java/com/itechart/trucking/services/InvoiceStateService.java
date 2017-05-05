@@ -10,12 +10,12 @@ import java.util.List;
 
 @Service
 @Transactional
-    public class InvoiceStateService {
+public class InvoiceStateService {
 
     @Autowired
     private InvoiceStateRepository invoiceStateRepository;
 
-    public List<InvoiceState> findAll(){
+    public List<InvoiceState> findAll() {
         return invoiceStateRepository.findAll();
     }
 
@@ -23,11 +23,11 @@ import java.util.List;
         return invoiceStateRepository.findOne(id);
     }
 
-    public void save(InvoiceState invoiceState){
+    public void save(InvoiceState invoiceState) {
         invoiceStateRepository.saveAndFlush(invoiceState);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         invoiceStateRepository.delete(id);
     }
 

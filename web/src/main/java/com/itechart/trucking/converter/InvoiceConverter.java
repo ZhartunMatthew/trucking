@@ -57,7 +57,7 @@ public class InvoiceConverter extends AbstractTwoWayConverter<InvoiceDTO, Invoic
         entity.setManagerUser(userService.findOne(dto.getManagerId()));
         entity.setDispatcherUser(userService.findOne(dto.getDispatcherId()));
         entity.setCar(carService.findOne(dto.getCarId()));
-        entity.setProductSet(products);
+        entity.setProducts(products);
         return entity;
     }
 
@@ -78,7 +78,7 @@ public class InvoiceConverter extends AbstractTwoWayConverter<InvoiceDTO, Invoic
         dto.setDispatcherId(entity.getDispatcherUser().getId());
         dto.setCarId(entity.getCar().getId());
         List<ProductDTO> productDTOs = new ArrayList<>();
-        for (Product product : entity.getProductSet()) {
+        for (Product product : entity.getProducts()) {
             ProductDTO productDTO = productConverter.convertBack(product);
             productDTO.setInvoiceId(entity.getId());
             productDTOs.add(productDTO);

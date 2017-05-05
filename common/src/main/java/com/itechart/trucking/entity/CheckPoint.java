@@ -6,7 +6,6 @@ import java.util.Date;
 @Entity(name = "check_point")
 public class CheckPoint extends BaseEntity {
 
-    private static final long serialVersionUID = -5748835697982515014l;
     private String description;
     private String latitude;
     private String longitude;

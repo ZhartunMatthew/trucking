@@ -16,19 +16,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public  User findOne(Long id) {
+    public User findOne(Long id) {
         return userRepository.findOne(id);
     }
 
-    public void save(User user){
+    public void save(User user) {
         userRepository.saveAndFlush(user);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         userRepository.delete(id);
     }
 

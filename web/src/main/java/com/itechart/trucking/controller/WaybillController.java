@@ -50,7 +50,7 @@ public class WaybillController {
 
     @RequestMapping(value = "/edit-waybill{id}",method = RequestMethod.GET)
     public ModelAndView editWaybill(@PathVariable("id") long id){
-        Waybill waybill = waybillService.findWaybill(id);
+        Waybill waybill = waybillService.findOne(id);
         ModelAndView modelAndView = new ModelAndView();
         List<WaybillState> waybillStates = waybillStateService.findAll();
         List<CheckPoint> checkPoints = checkPointService.findAll();

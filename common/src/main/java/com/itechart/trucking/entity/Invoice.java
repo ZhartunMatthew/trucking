@@ -2,7 +2,6 @@ package com.itechart.trucking.entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 @Entity(name = "invoice")
@@ -19,7 +18,7 @@ public class Invoice extends BaseEntity {
     private User driverUser;
     private Car car;
     private Waybill waybill;
-    private List<Product> productSet;
+    private List<Product> products;
 
     public Invoice() {
     }
@@ -72,13 +71,13 @@ public class Invoice extends BaseEntity {
         this.invoiceState = invoiceState;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice", cascade = CascadeType.ALL)
-    public List<Product> getProductSet() {
-        return productSet;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "invoice", cascade = CascadeType.ALL)
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProductSet(List<Product> productSet) {
-        this.productSet = productSet;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @ManyToOne
