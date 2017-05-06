@@ -8,10 +8,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public abstract class AbstractCompanyDTO extends AbstractDTO {
-    private String name;
-    private String taxpayerNumber;
-    private String country;
-    private String city;
-    private String street;
-    private String house;
+    protected String name;
+    protected String taxpayerNumber;
+    protected String country;
+    protected String city;
+    protected String street;
+    protected String house;
 }

@@ -8,5 +8,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public class AbstractStateDTO extends AbstractDTO {
-    private String name;
+    protected String name;
 }

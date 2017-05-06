@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collections;
 import java.util.List;
-//TODO: replace user on DTO
+
 public class CustomUserDetails implements UserDetails {
 
     private User user;
@@ -17,8 +17,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public List<? extends UserRoleDTO> getAuthorities() {
-        //return Collections.singletonList(user.getUserRole().getDescription());
-        return Collections.singletonList(new UserRoleDTO());
+        return Collections.singletonList(new UserRoleDTO(user.getUserRole()));
     }
 
     @Override

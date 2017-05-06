@@ -8,5 +8,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public abstract class AbstractDTO {
-    private Long id;
+    protected Long id;
 }
