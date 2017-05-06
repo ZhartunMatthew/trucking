@@ -1,5 +1,7 @@
 package com.itechart.trucking.entity;
 
+import com.itechart.trucking.entity.enums.UserRoleEnum;
+
 import javax.persistence.*;
 
 @Entity(name = "user")
@@ -13,7 +15,7 @@ public class User extends BaseEntity {
     private String street;
     private String house;
     private String flat;
-    private UserRole userRole;
+    private UserRoleEnum userRole;
     private String login;
     private String password;
     private String salt;
@@ -106,13 +108,12 @@ public class User extends BaseEntity {
         this.flat = flat;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_role", nullable = false)
-    public UserRole getUserRole() {
+    @Enumerated(EnumType.STRING)
+    public UserRoleEnum getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRole userRole) {
+    public void setUserRole(UserRoleEnum userRole) {
         this.userRole = userRole;
     }
 

@@ -1,14 +1,5 @@
       /*---- ENUMS ----*/
 
-/*user_role*/
-INSERT INTO user_role (description) VALUE ('System_Admin');
-INSERT INTO user_role (description) VALUE ('Admin');
-INSERT INTO user_role (description) VALUE ('Dispatcher');
-INSERT INTO user_role (description) VALUE ('Manager');
-INSERT INTO user_role (description) VALUE ('Driver');
-INSERT INTO user_role (description) VALUE ('Company_Owner');
-commit;
-
 /*auto_type*/
 INSERT INTO car_type (description) VALUE ('Tank');
 INSERT INTO car_type (description) VALUE ('Сovered_body');
@@ -54,22 +45,22 @@ commit;
 /*user*/
 /*System_Admin*/
 INSERT INTO user (name, surname, patronymic, email, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
-  VALUES ('Иван', 'Иванов', 'Иванович', 'ivanov123@mail.ru', 'Минск', 'Калиновского', '21', '65', 'ivan_superman', '1111', '5gds7fs7', NULL, 1 );
+  VALUES ('Иван', 'Иванов', 'Иванович', 'ivanov123@mail.ru', 'Минск', 'Калиновского', '21', '65', 'ivan_superman', '1111', '5gds7fs7', NULL, 'SYSTEM_ADMIN');
 /*Admin*/
 INSERT INTO user (name, surname, patronymic, email, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
-  VALUES ('Петров', 'Петр', 'Петрович', 'petrov123@mail.ru', 'Минск', 'Казинца', '38', '176', 'petya_superman', '2222', 'e89wr78w', 1, 2);
+  VALUES ('Петров', 'Петр', 'Петрович', 'petrov123@mail.ru', 'Минск', 'Казинца', '38', '176', 'petya_superman', '2222', 'e89wr78w', 1, 'ADMIN');
 /*Dispatcher*/
 INSERT INTO user (name, surname, patronymic, email, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
-  VALUES ('Борискин', 'Борис', 'Борисович', 'borisov123@mail.ru', 'Минск', 'пр. Машерова', '32', '567', 'boris_superman', '3333', 'fse5sfr8', 1, 3);
+  VALUES ('Борискин', 'Борис', 'Борисович', 'borisov123@mail.ru', 'Минск', 'пр. Машерова', '32', '567', 'boris_superman', '3333', 'fse5sfr8', 1, 'DISPATCHER');
 /*Manager*/
 INSERT INTO user (name, surname, patronymic, email, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
-  VALUES ('Прекрасная', 'Елена', 'Васильевна', 'lenka123@mail.ru', 'Минск', 'Ульяновская', '123', '4', 'lena_superwoman', '4444', 'ert46xkr', 1, 4);
+  VALUES ('Прекрасная', 'Елена', 'Васильевна', 'lenka123@mail.ru', 'Минск', 'Ульяновская', '123', '4', 'lena_superwoman', '4444', 'ert46xkr', 1, 'MANAGER');
 /*Driver*/
 INSERT INTO user (name, surname, patronymic, email, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
-  VALUES ('Моржов', 'Анатолий', 'Петрович', 'tolik123@mail.ru', 'Минск', 'Асаналиева', '7', '223', 'tolik_superman', '5555', 'c8s0f8sa', 1, 5);
+  VALUES ('Моржов', 'Анатолий', 'Петрович', 'tolik123@mail.ru', 'Минск', 'Асаналиева', '7', '223', 'tolik_superman', '5555', 'c8s0f8sa', 1, 'DRIVER');
 /*Company owner*/
 INSERT INTO user (name, surname, patronymic, email, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
-  VALUES ('Абрамович', 'Аркадий', 'Иванович', 'abram123@mail.ru', 'Абу-Даби', 'Царская', '14', 'е', 'abram_superman', '6666', 'ds0fsa8a', 1, 6);
+  VALUES ('Абрамович', 'Аркадий', 'Иванович', 'abram123@mail.ru', 'Абу-Даби', 'Царская', '14', 'е', 'abram_superman', '6666', 'ds0fsa8a', 1, 'COMPANY_OWNER');
 commit;
 
 /*car*/

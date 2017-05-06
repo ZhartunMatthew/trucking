@@ -1,12 +1,15 @@
 package com.itechart.trucking.dto;
 
+import com.itechart.trucking.entity.enums.UserRoleEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
 @ToString(callSuper = true)
+@Component
 public class UserDTO extends AbstractDTO {
     private String name;
     private String surname;
@@ -16,7 +19,7 @@ public class UserDTO extends AbstractDTO {
     private String street;
     private String house;
     private String flat;
-    private Long userRoleId;
+    private UserRoleEnum userRole;
     private String login;
     private String password;
     private Long truckingCompanyId;
