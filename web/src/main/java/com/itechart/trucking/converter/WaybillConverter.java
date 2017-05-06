@@ -19,6 +19,7 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
     protected Waybill convert(WaybillDTO dto) {
         Waybill entity = new Waybill();
         entity.setId(dto.getId());
+        entity.setWaybillNumber(dto.getWaybillNumber());
         entity.setDepartureDate(dto.getDepartureDate());
         entity.setDepartureCity(dto.getDepartureCity());
         entity.setDepartureStreet(dto.getDepartureStreet());
@@ -40,6 +41,7 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
     protected WaybillDTO convertBack(Waybill entity) {
         WaybillDTO dto = new WaybillDTO();
         dto.setId(entity.getId());
+        dto.setWaybillNumber(entity.getWaybillNumber());
         dto.setDepartureDate(entity.getDepartureDate());
         dto.setDepartureCity(entity.getDepartureCity());
         dto.setDepartureStreet(entity.getDepartureStreet());
@@ -53,7 +55,13 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
         dto.setDestinationLatitude(entity.getDestinationLatitude());
         dto.setDepartureLongitude(entity.getDestinationLongitude());
         dto.setWaybillState(waybillStateConverter.convertBack(entity.getWaybillState()));
-        dto.setInvoiceId(entity.getWaybillState().getId());
+        dto.setInvoiceId(entity.getInvoice().getId());
+        dto.setInvoiceNumber(entity.getInvoice().getInvoiceNumber());
+        dto.setInvoiceDate(entity.getInvoice().getRegisterDate());
+        dto.setCustomerCompany(entity.getInvoice().getCustomerCompany().getName());
+        dto.setDriverName(entity.getInvoice().getDriverUser().getName());
+        dto.setDriverPatronymic(entity.getInvoice().getDriverUser().getPatronymic());
+        dto.setDriverSurname(entity.getInvoice().getDriverUser().getSurname());
         return dto;
     }
 }

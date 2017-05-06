@@ -50,14 +50,16 @@ public class InvoiceConverter extends AbstractTwoWayConverter<InvoiceDTO, Invoic
             product.setInvoice(entity);
             products.add(product);
         }
+        entity.setProducts(products);
         CustomerCompany customerCompany = customerCompanyService.findOne(dto.getCustomerCompanyId());
         entity.setCustomerCompany(customerCompany);
         entity.setTruckingCompany(truckingCompanyService.findOne(dto.getTruckingCompanyId()));
         entity.setDriverUser(userService.findOne(dto.getDriverId()));
-        entity.setManagerUser(userService.findOne(dto.getManagerId()));
+        if(dto.getManagerId() != null) {
+            entity.setManagerUser(userService.findOne(dto.getManagerId()));
+        }
         entity.setDispatcherUser(userService.findOne(dto.getDispatcherId()));
         entity.setCar(carService.findOne(dto.getCarId()));
-        entity.setProducts(products);
         return entity;
     }
 
@@ -74,7 +76,9 @@ public class InvoiceConverter extends AbstractTwoWayConverter<InvoiceDTO, Invoic
         dto.setTruckingCompanyId(entity.getTruckingCompany().getId());
         dto.setTruckingCompany(entity.getTruckingCompany().getName());
         dto.setDriverId(entity.getDriverUser().getId());
-        dto.setManagerId(entity.getManagerUser().getId());
+        if(entity.getManagerUser() != null) {
+            dto.setManagerId(entity.getManagerUser().getId());
+        }
         dto.setDispatcherId(entity.getDispatcherUser().getId());
         dto.setCarId(entity.getCar().getId());
         List<ProductDTO> productDTOs = new ArrayList<>();

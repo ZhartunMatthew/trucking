@@ -6,6 +6,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class TruckingCompanyDTO extends AbstractCompanyDTO {
 }

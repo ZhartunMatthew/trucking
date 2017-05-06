@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class CarDTO extends AbstractDTO {
     private String number;
     private String brand;

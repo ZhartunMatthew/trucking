@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class ProductDTO extends AbstractDTO {
     private String name;
     private ProductStateDTO productState;

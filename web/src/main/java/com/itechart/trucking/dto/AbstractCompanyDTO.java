@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public abstract class AbstractCompanyDTO extends AbstractDTO {
     protected String name;
     protected String taxpayerNumber;

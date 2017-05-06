@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class WaybillDTO extends AbstractDTO {
     private String waybillNumber;
     private Date departureDate;

@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class CustomerCompanyDTO extends AbstractCompanyDTO {
     private Long truckingCompanyId;
 }

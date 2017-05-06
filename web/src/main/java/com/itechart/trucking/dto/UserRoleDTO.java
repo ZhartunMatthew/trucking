@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class UserRoleDTO extends AbstractDTO implements GrantedAuthority {
     private String name;
 

@@ -32,7 +32,9 @@ public class UserConverter extends AbstractTwoWayConverter<UserDTO, User> {
         entity.setPassword(dto.getPassword());
         entity.setAvailable(dto.getIsAvailable());
         entity.setUserRole(userRoleService.findOne(dto.getUserRoleId()));
-        entity.setTruckingCompany(truckingCompanyService.findOne(dto.getTruckingCompanyId()));
+        if(dto.getTruckingCompanyId() != null) {
+            entity.setTruckingCompany(truckingCompanyService.findOne(dto.getTruckingCompanyId()));
+        }
         return entity;
     }
 
@@ -52,8 +54,10 @@ public class UserConverter extends AbstractTwoWayConverter<UserDTO, User> {
         dto.setPassword(entity.getPassword());
         dto.setIsAvailable(entity.getAvailable());
         dto.setUserRoleId(entity.getUserRole().getId());
-        dto.setTruckingCompanyId(entity.getTruckingCompany().getId());
-        dto.setTruckingCompanyName(entity.getTruckingCompany().getName());
+        if(entity.getTruckingCompany() != null) {
+            dto.setTruckingCompanyId(entity.getTruckingCompany().getId());
+            dto.setTruckingCompanyName(entity.getTruckingCompany().getName());
+        }
         return dto;
     }
 }

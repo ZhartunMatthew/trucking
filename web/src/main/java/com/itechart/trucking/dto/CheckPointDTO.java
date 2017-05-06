@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class CheckPointDTO extends AbstractDTO {
     private String description;
     private String latitude;
