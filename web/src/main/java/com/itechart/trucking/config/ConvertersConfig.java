@@ -39,9 +39,6 @@ public class ConvertersConfig {
     private UserConverter userConverter;
 
     @Autowired
-    private UserRoleConverter userRoleConverter;
-
-    @Autowired
     private WaybillConverter waybillConverter;
 
     @Autowired
@@ -55,7 +52,6 @@ public class ConvertersConfig {
         service.addConverter(carTypeConverter);
         service.addConverter(invoiceStateConverter);
         service.addConverter(productStateConverter);
-        service.addConverter(userRoleConverter);
         service.addConverter(waybillStateConverter);
         service.addConverter(productConverter);
         service.addConverter(invoiceConverter);

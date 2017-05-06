@@ -1,7 +1,7 @@
 package com.itechart.trucking.security.detail;
 
-import com.itechart.trucking.dto.UserRoleDTO;
-import com.itechart.trucking.entity.User;
+import com.itechart.trucking.dto.UserDTO;
+import com.itechart.trucking.entity.enums.UserRoleEnum;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collections;
@@ -9,15 +9,15 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
-    private User user;
+    private UserDTO user;
 
-    public CustomUserDetails(User user) {
+    public CustomUserDetails(UserDTO user) {
         this.user = user;
     }
 
     @Override
-    public List<? extends UserRoleDTO> getAuthorities() {
-        return Collections.singletonList(new UserRoleDTO(user.getUserRole()));
+    public List<? extends UserRoleEnum> getAuthorities() {
+        return Collections.singletonList(user.getUserRole());
     }
 
     @Override
@@ -48,5 +48,13 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Long getTruckingCompanyId() {
+        return user.getTruckingCompanyId();
+    }
+
+    public UserRoleEnum getRole() {
+        return user.getUserRole();
     }
 }
