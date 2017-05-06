@@ -1,12 +1,10 @@
 package com.itechart.trucking.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
-@Entity
-public class Product implements Serializable {
+@Entity(name = "product")
+public class Product extends BaseEntity {
 
-    private Long idProduct;
     private String name;
     private Integer amount;
     private ProductState productState;
@@ -18,12 +16,12 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_product", nullable = false, insertable = true, updatable = false)
-    public Long getIdProduct() {
-        return idProduct;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdProduct(Long idProduct) {
-        this.idProduct = idProduct;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "name", nullable = false, insertable = true, updatable = true)

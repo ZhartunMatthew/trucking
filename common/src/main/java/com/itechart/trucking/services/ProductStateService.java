@@ -10,24 +10,24 @@ import java.util.List;
 
 @Service
 @Transactional
-    public class ProductStateService {
+public class ProductStateService {
 
     @Autowired
     private ProductStateRepository productStateRepository;
 
-    public List<ProductState> findAll(){
+    public List<ProductState> findAll() {
         return productStateRepository.findAll();
     }
 
-    public  ProductState findOne(Long id) {
+    public ProductState findOne(Long id) {
         return productStateRepository.findOne(id);
     }
 
-    public void save(ProductState product){
+    public void save(ProductState product) {
         productStateRepository.saveAndFlush(product);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         productStateRepository.delete(id);
     }
 

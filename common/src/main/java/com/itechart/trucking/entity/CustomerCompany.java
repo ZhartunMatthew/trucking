@@ -1,14 +1,12 @@
 package com.itechart.trucking.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "customer_company")
-public class CustomerCompany implements Serializable {
+public class CustomerCompany extends BaseEntity {
 
-    private Long id;
     private String name;
     private String taxpayerNumber;
     private String country;
@@ -16,7 +14,7 @@ public class CustomerCompany implements Serializable {
     private String street;
     private String house;
     private TruckingCompany truckingCompany;
-    private Set<Invoice> invoices;
+    private List<Invoice> invoices;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -93,12 +91,12 @@ public class CustomerCompany implements Serializable {
         this.truckingCompany = truckingCompany;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customerCompany",cascade = CascadeType.ALL)
-    public Set<Invoice> getInvoices() {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customerCompany", cascade = CascadeType.ALL)
+    public List<Invoice> getInvoices() {
         return invoices;
     }
 
-    public void setInvoices(Set<Invoice> invoices) {
+    public void setInvoices(List<Invoice> invoices) {
         this.invoices = invoices;
     }
 }

@@ -2,33 +2,32 @@ package com.itechart.trucking.entity;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 
-@Entity (name ="product_state")
-public class ProductState implements Serializable {
+@Entity(name = "product_state")
+public class ProductState extends BaseEntity {
 
-    private Long idProductState;
-    private String productStateDescription;
+    private String description;
 
-    public ProductState(){}
+    public ProductState() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_product_state", nullable = false, insertable = true, updatable = false)
-    public Long getIdProductState() {
-        return idProductState;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdProductState(Long idProductState) {
-        this.idProductState = idProductState;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "description", nullable = false)
-    public String getProductStateDescription() {
-        return productStateDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProductStateDescription(String productStateDescription) {
-        this.productStateDescription = productStateDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

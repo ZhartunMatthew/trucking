@@ -2,33 +2,32 @@ package com.itechart.trucking.entity;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 
-@Entity (name ="invoice_state")
-public class InvoiceState implements Serializable {
+@Entity(name = "invoice_state")
+public class InvoiceState extends BaseEntity {
 
-    private Long idInvoiceState;
-    private String invoiceStateDescription;
+    private String description;
 
-    public InvoiceState(){}
+    public InvoiceState() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_invoice_state", nullable = false, insertable = true, updatable = false)
-    public Long getIdInvoiceState() {
-        return idInvoiceState;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdInvoiceState(Long idInvoiceState) {
-        this.idInvoiceState = idInvoiceState;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "description", nullable = false)
-    public String getInvoiceStateDescription() {
-        return invoiceStateDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setInvoiceStateDescription(String invoiceStateDescription) {
-        this.invoiceStateDescription = invoiceStateDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

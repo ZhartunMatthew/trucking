@@ -1,14 +1,12 @@
 package com.itechart.trucking.services;
 
 
-
-import com.itechart.trucking.repository.WaybillRepository;
 import com.itechart.trucking.entity.Waybill;
+import com.itechart.trucking.repository.WaybillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,26 +17,19 @@ public class WaybillService {
     @Autowired
     private WaybillRepository waybillRepository;
 
-    public List<Waybill> findAll(){
-        List<Waybill> waybills = new ArrayList<>();
-        for(Waybill waybill : waybillRepository.findAll()){
-            waybills.add(waybill);
-        }
-
-       return waybills;
+    public List<Waybill> findAll() {
+        return waybillRepository.findAll();
     }
 
-    public Waybill findWaybill(long id){
+    public Waybill findOne(Long id) {
         return waybillRepository.findOne(id);
     }
 
-    public Waybill save(Waybill waybill){
-
-        Waybill waybill1 = waybillRepository.save(waybill);
-        return waybill;
+    public void save(Waybill waybill) {
+        waybillRepository.save(waybill);
     }
 
-    public void delete(long id){
+    public void delete(Long id) {
         waybillRepository.delete(id);
     }
 
