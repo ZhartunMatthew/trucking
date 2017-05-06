@@ -1,4 +1,4 @@
-package com.itechart.trucking.viewResolver;
+package com.itechart.trucking.viewresolver;
 
 import com.itechart.trucking.entity.User;
 import org.apache.poi.hssf.util.HSSFColor;

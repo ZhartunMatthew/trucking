@@ -1,4 +1,4 @@
-package com.itechart.trucking.viewResolver;
+package com.itechart.trucking.viewresolver;
 
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;

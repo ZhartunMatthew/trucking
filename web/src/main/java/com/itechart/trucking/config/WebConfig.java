@@ -1,6 +1,6 @@
 package com.itechart.trucking.config;
 
-import com.itechart.trucking.viewResolver.ExcelViewResolver;
+import com.itechart.trucking.viewresolver.ExcelViewResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
