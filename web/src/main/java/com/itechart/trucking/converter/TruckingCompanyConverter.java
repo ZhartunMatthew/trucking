@@ -28,8 +28,8 @@ public class TruckingCompanyConverter extends AbstractTwoWayConverter<TruckingCo
         dto.setTaxpayerNumber(entity.getTaxpayerNumber());
         dto.setCountry(entity.getCountry());
         dto.setCity(entity.getCity());
-        dto.setStreet(dto.getStreet());
-        dto.setHouse(dto.getHouse());
+        dto.setStreet(entity.getStreet());
+        dto.setHouse(entity.getHouse());
         return dto;
     }
 }
