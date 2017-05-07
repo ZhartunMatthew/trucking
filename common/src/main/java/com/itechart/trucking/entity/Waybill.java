@@ -24,6 +24,7 @@ public class Waybill extends BaseEntity {
     private String destinationLatitude;
     private String destinationLongitude;
     private Invoice invoice;
+    private TruckingCompany truckingCompany;
     private List<CheckPoint> checkPoints;
 
     public Waybill() {

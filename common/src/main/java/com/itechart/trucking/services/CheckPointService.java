@@ -23,17 +23,15 @@ public class CheckPointService {
         return checkPointRepository.findOne(id);
     }
 
-    public void save(CheckPoint checkPoint) {
-        checkPointRepository.save(checkPoint);
+    public CheckPoint save(CheckPoint checkPoint) {
+        return checkPointRepository.save(checkPoint);
     }
 
     public void delete(Long id) {
         checkPointRepository.delete(id);
     }
 
-    public void deleteAll() {
-        checkPointRepository.deleteAll();
-    }
+    public List<CheckPoint> findByWaybillId(Long id){return checkPointRepository.findByWaybillId(id);}
 
 
 }
