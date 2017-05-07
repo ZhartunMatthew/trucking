@@ -22,6 +22,7 @@ public class UserDTO extends AbstractDTO {
     private UserRoleEnum userRole;
     private String login;
     private String password;
+    private String salt;
     private Long truckingCompanyId;
     private String truckingCompanyName;
     private Boolean isAvailable;

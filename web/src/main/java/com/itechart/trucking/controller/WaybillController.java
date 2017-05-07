@@ -8,6 +8,7 @@ import com.itechart.trucking.services.WaybillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
@@ -23,7 +24,7 @@ public class WaybillController {
     private ConversionService conversionService;
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<WaybillDTO> getById(@PathVariable Long id) {
         UserRoleEnum userRole = CustomUserDetailsProvider.getUserDetails().getRole();
         WaybillDTO waybillDTO = conversionService.convert(waybillService.findOne(id), WaybillDTO.class);
@@ -34,7 +35,7 @@ public class WaybillController {
         else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/waybills", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<WaybillDTO>> findAll() {
         UserRoleEnum userRole = CustomUserDetailsProvider.getUserDetails().getRole();
         if(userRole.equals(UserRoleEnum.MANAGER) || userRole.equals(UserRoleEnum.COMPANY_OWNER)) {
@@ -50,21 +51,21 @@ public class WaybillController {
         else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<WaybillDTO> create(@RequestBody WaybillDTO waybillDTO) {
         Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
         WaybillDTO resultWaybill = conversionService.convert(waybillEntity,WaybillDTO.class);
         return new ResponseEntity<>(resultWaybill,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<WaybillDTO> update(@RequestBody WaybillDTO waybillDTO) {
         Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
         WaybillDTO resultWaybill = conversionService.convert(waybillEntity,WaybillDTO.class);
         return new ResponseEntity<>(resultWaybill,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
         waybillService.delete(id);
     }

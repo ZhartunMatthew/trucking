@@ -7,12 +7,14 @@ import com.itechart.trucking.repository.TruckingCompanyRepository;
 import com.itechart.trucking.repository.WaybillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 
+
+
 @Service
-@Transactional
 public class WaybillService {
 
     @Autowired
@@ -21,21 +23,25 @@ public class WaybillService {
     @Autowired
     private TruckingCompanyRepository truckingCompanyRepository;
 
-
+    @Transactional(readOnly = true)
     public List<Waybill> findAll() {
         return waybillRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Waybill findOne(Long id) {
         return waybillRepository.findOne(id);
     }
 
-    public Waybill save(Waybill waybill) {return waybillRepository.save(waybill);}
+    @Transactional
+    public Waybill save(Waybill waybill) {return waybillRepository.saveAndFlush(waybill);}
 
+    @Transactional
     public void delete(Long id) {
         waybillRepository.delete(id);
     }
 
+    @Transactional(readOnly = true)
     public List<Waybill> findByInvoice_TruckingCompany(Long id){
         TruckingCompany truckingCompany = truckingCompanyRepository.findOne(id);
         return waybillRepository.findByInvoice_TruckingCompany(truckingCompany);
