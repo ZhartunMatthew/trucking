@@ -47,13 +47,14 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>> findAll(@RequestBody List<ProductDTO> products) {
         CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
         List<ProductDTO> dtos = new LinkedList<>();
+        List<Product> tempList = new LinkedList<>();
         Long trId = details.getTruckingCompanyId();
         UserRoleEnum role = details.getRole();
         if(trId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else if(role == UserRoleEnum.DRIVER) {
-            products.forEach(product ->
-                    productService.save(conversionService.convert(product, Product.class)));
+            products.forEach(product -> tempList.add(productService.save(conversionService.convert(product, Product.class))));
+            tempList.forEach(product -> dtos.add(conversionService.convert(product, ProductDTO.class)));
             return new ResponseEntity<>(dtos, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
