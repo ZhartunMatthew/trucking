@@ -18,16 +18,4 @@ public class CarTypeService {
     public List<CarType> findAll() {
         return carTypeRepository.findAll();
     }
-
-    public CarType findOne(Long id) {
-        return carTypeRepository.findOne(id);
-    }
-
-    public void save(CarType carType) {
-        carTypeRepository.saveAndFlush(carType);
-    }
-
-    public void delete(Long id) {
-        carTypeRepository.delete(id);
-    }
 }
