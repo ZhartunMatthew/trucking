@@ -34,4 +34,8 @@ public class ProductService {
     public void deleteAll() {
         productRepository.deleteAll();
     }
+
+    public List<Product> findAllByInvoiceId(Long id) {
+        return productRepository.findAllByInvoice_Id(id);
+    }
 }
