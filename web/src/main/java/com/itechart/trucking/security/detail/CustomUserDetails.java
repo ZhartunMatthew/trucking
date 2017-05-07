@@ -50,6 +50,10 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
+    public Long getId() {
+        return user.getId();
+    }
+
     public Long getTruckingCompanyId() {
         return user.getTruckingCompanyId();
     }

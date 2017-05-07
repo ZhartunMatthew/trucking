@@ -91,7 +91,7 @@ public class Invoice extends BaseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dispatcher", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "dispatcher", nullable = false, insertable = true, updatable = false)
     public User getDispatcherUser() {
         return dispatcherUser;
     }
@@ -101,7 +101,7 @@ public class Invoice extends BaseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "manager", nullable = true, insertable = false, updatable = false)
+    @JoinColumn(name = "manager", nullable = true, insertable = true, updatable = false)
     public User getManagerUser() {
         return managerUser;
     }
@@ -111,7 +111,7 @@ public class Invoice extends BaseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "driver", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "driver", nullable = false, insertable = true, updatable = false)
     public User getDriverUser() {
         return driverUser;
     }

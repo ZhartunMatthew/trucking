@@ -23,8 +23,8 @@ public class ProductService {
         return productRepository.findOne(id);
     }
 
-    public void save(Product product) {
-        productRepository.saveAndFlush(product);
+    public Product save(Product product) {
+        return productRepository.saveAndFlush(product);
     }
 
     public void delete(Long id) {
@@ -33,5 +33,9 @@ public class ProductService {
 
     public void deleteAll() {
         productRepository.deleteAll();
+    }
+
+    public List<Product> findAllByInvoiceId(Long id) {
+        return productRepository.findAllByInvoice_Id(id);
     }
 }
