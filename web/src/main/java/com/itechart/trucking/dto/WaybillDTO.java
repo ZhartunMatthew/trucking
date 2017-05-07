@@ -31,4 +31,5 @@ public class WaybillDTO extends AbstractDTO {
     private String driverName;
     private String driverPatronymic;
     private String driverSurname;
+    private Long idTruckingCompany;
 }

@@ -1,153 +1,72 @@
 package com.itechart.trucking.controller;
 
-
-import com.itechart.trucking.entity.CheckPoint;
+import com.itechart.trucking.dto.WaybillDTO;
 import com.itechart.trucking.entity.Waybill;
-import com.itechart.trucking.entity.WaybillState;
-import com.itechart.trucking.services.CheckPointService;
+import com.itechart.trucking.entity.enums.UserRoleEnum;
+import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import com.itechart.trucking.services.WaybillService;
-import com.itechart.trucking.services.WaybillStateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
-import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-@Controller
+@RestController
+@RequestMapping(value = "/api/waybill")
 public class WaybillController {
 
     @Autowired
     private WaybillService waybillService;
+
     @Autowired
-    private WaybillStateService waybillStateService;
-    @Autowired
-    private CheckPointService checkPointService;
-
-    @ModelAttribute("waybill")
-    public Waybill getWaybill()
-    {
-        return new Waybill();
-    }
-
-    @RequestMapping(value = "/show-waybills",method = RequestMethod.GET)
-    public ModelAndView getAllWaybills(){
-
-        List<Waybill> waybills = waybillService.findAll();
-        List<CheckPoint> checkPoints = checkPointService.findAll();
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("waybill");
-        Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("waybills", waybills);
-        modelMap.put("checkPoints",checkPoints);
-        modelAndView.addAllObjects(modelMap);
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/edit-waybill{id}",method = RequestMethod.GET)
-    public ModelAndView editWaybill(@PathVariable("id") long id){
-        Waybill waybill = waybillService.findOne(id);
-        ModelAndView modelAndView = new ModelAndView();
-        List<WaybillState> waybillStates = waybillStateService.findAll();
-        List<CheckPoint> checkPoints = checkPointService.findAll();
-        modelAndView.setViewName("saveWaybill");
-        Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("states",waybillStates);
-        modelMap.put("checkPoints",checkPoints);
-        modelMap.put("waybill",waybill);
-        modelAndView.addAllObjects(modelMap);
-        return modelAndView;
-    }
+    private ConversionService conversionService;
 
 
-
-    @RequestMapping(value = "/delete-waybill{id}",method = RequestMethod.GET)
-    public String deleteWaybillById(@PathVariable("id") long id){
-        waybillService.delete(id);
-        return "redirect:/show-waybills";
-    }
-
-
-
-
-    @RequestMapping(value = "/add-waybill",method = RequestMethod.GET)
-    public ModelAndView addWaybill(){
-        ModelAndView modelAndView = new ModelAndView();
-        List<WaybillState> waybillStates = waybillStateService.findAll();
-        List<CheckPoint> checkPoints = checkPointService.findAll();
-        modelAndView.setViewName("saveWaybill");
-        Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("states",waybillStates);
-        modelMap.put("checkPoints",checkPoints);
-        modelAndView.addAllObjects(modelMap);
-        return modelAndView;
-    }
-
-
-
-
-    /*@RequestMapping(value = "/save-waybill", method = RequestMethod.POST)
-    public String insertWaybill(@Valid Waybill waybill,BindingResult bindingResult,HttpServletRequest request){
-
-        if (bindingResult.hasErrors())
-        {
-            List<WaybillState> waybillStates = waybillStateService.findAll();
-            List<CheckPoint> checkPoints = checkPointService.findAll();
-            request.setAttribute("checkPoints", checkPoints);
-            request.setAttribute("states",waybillStates);
-            return "saveWaybill";
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<WaybillDTO> getById(@PathVariable Long id) {
+        UserRoleEnum userRole = CustomUserDetailsProvider.getUserDetails().getRole();
+        WaybillDTO waybillDTO = conversionService.convert(waybillService.findOne(id), WaybillDTO.class);
+        Long idTruckingCompany = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        if(idTruckingCompany == waybillDTO.getIdTruckingCompany() && userRole.equals(UserRoleEnum.MANAGER) || userRole.equals(UserRoleEnum.DRIVER) || userRole.equals(UserRoleEnum.COMPANY_OWNER)){
+            return new ResponseEntity<>(waybillDTO, HttpStatus.OK);
         }
-        Waybill waybill1 = waybillService.save(waybill);
-        saveCheckPoints(waybill1, request);
-        return "redirect:/show-waybills";
+        else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-*/
 
-
-
-    private void saveCheckPoints(Waybill waybill, HttpServletRequest request){
-        Enumeration<String> paramNames = request.getParameterNames();
-        List<CheckPoint> checkPoints = new ArrayList<>();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Pattern p = Pattern.compile("description\\d+");
-        while(paramNames.hasMoreElements()) {
-            String paramName = paramNames.nextElement();
-            Matcher m = p.matcher(paramName);
-
-            if (m.matches()) {
-                long i = Long.parseLong(paramName.substring(11));
-                String desc = request.getParameter("description"+i);
-                String latitude = request.getParameter("latitude"+i);
-                String longitude = request.getParameter("longitude"+i);
-                String pathDate = request.getParameter("pathDate"+i);
-                java.util.Date date = null;
-
-                try {
-                    date = format.parse(pathDate);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                CheckPoint checkPoint = new CheckPoint();
-                checkPoint.setWaybill(waybill);
-                checkPoint.setDescription(desc);
-                checkPoint.setLongitude(longitude);
-                checkPoint.setLatitude(latitude);
-                checkPoint.setPathDate(date);
-                checkPoints.add(checkPoint);
+    @RequestMapping(value = "/waybills", method = RequestMethod.GET)
+    public ResponseEntity<List<WaybillDTO>> findAll() {
+        UserRoleEnum userRole = CustomUserDetailsProvider.getUserDetails().getRole();
+        if(userRole.equals(UserRoleEnum.MANAGER) || userRole.equals(UserRoleEnum.COMPANY_OWNER)) {
+            Long idTruckingCompany = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+            List<Waybill> waybills = waybillService.findByInvoice_TruckingCompany(idTruckingCompany);
+            List<WaybillDTO> waybillDTOs = new ArrayList<>();
+            for (Waybill waybill : waybills) {
+                WaybillDTO waybillDTO = conversionService.convert(waybill, WaybillDTO.class);
+                waybillDTOs.add(waybillDTO);
             }
+            return new ResponseEntity<>(waybillDTOs, HttpStatus.OK);
         }
-        checkPointService.deleteAll();
-        for (CheckPoint checkPoint : checkPoints){
-            checkPointService.save(checkPoint);
-        }
-
+        else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<WaybillDTO> create(@RequestBody WaybillDTO waybillDTO) {
+        Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
+        WaybillDTO resultWaybill = conversionService.convert(waybillEntity,WaybillDTO.class);
+        return new ResponseEntity<>(resultWaybill,HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public ResponseEntity<WaybillDTO> update(@RequestBody WaybillDTO waybillDTO) {
+        Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
+        WaybillDTO resultWaybill = conversionService.convert(waybillEntity,WaybillDTO.class);
+        return new ResponseEntity<>(resultWaybill,HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable Long id) {
+        waybillService.delete(id);
+    }
 
 }
