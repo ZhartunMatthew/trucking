@@ -26,6 +26,7 @@ public class UserConverter extends AbstractTwoWayConverter<UserDTO, User> {
         entity.setFlat(dto.getFlat());
         entity.setLogin(dto.getLogin());
         entity.setPassword(dto.getPassword());
+        entity.setSalt(dto.getSalt());
         entity.setAvailable(dto.getIsAvailable());
         entity.setUserRole(dto.getUserRole());
         if(dto.getTruckingCompanyId() != null) {
@@ -48,6 +49,7 @@ public class UserConverter extends AbstractTwoWayConverter<UserDTO, User> {
         dto.setFlat(entity.getFlat());
         dto.setLogin(entity.getLogin());
         dto.setPassword(entity.getPassword());
+        dto.setSalt(entity.getSalt());
         dto.setIsAvailable(entity.getAvailable());
         dto.setUserRole(entity.getUserRole());
         if(entity.getTruckingCompany() != null) {
