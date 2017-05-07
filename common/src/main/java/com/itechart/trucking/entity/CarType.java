@@ -2,7 +2,8 @@ package com.itechart.trucking.entity;
 
 import javax.persistence.*;
 
-@Entity(name = "car_type")
+@Entity
+@Table(name = "car_type")
 public class CarType extends BaseEntity {
 
     private String description;
