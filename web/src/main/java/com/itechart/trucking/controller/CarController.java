@@ -30,7 +30,7 @@ public class CarController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CarDTO>> findAll() {
         List<Car> cars = service.findAll();
         List<CarDTO> carDTOs = new ArrayList<>();
@@ -40,8 +40,9 @@ public class CarController {
         return new ResponseEntity<>(carDTOs, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<CarDTO>> findAvailableCars(@RequestParam(value = "available") Boolean available) {
+    @RequestMapping(value = "", params = "available", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<CarDTO>> findAvailableCars(@RequestParam Boolean available) {
         if (!available) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
