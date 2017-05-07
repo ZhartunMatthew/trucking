@@ -4,8 +4,8 @@ import com.itechart.trucking.entity.Invoice;
 import com.itechart.trucking.repository.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -29,5 +29,13 @@ public class InvoiceService {
 
     public void delete(Long id) {
         invoiceRepository.delete(id);
+    }
+
+    public List<Invoice> findByTruckingCompanyId(Long id) {
+        return invoiceRepository.findAllByTruckingCompany_Id(id);
+    }
+
+    public Invoice findByIdAndTruckingCompanyId(Long id, Long trId) {
+        return invoiceRepository.findByIdAndTruckingCompany_Id(id, trId);
     }
 }
