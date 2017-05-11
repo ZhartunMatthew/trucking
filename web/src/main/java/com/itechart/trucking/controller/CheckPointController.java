@@ -3,6 +3,8 @@ package com.itechart.trucking.controller;
 import com.itechart.trucking.dto.CheckPointDTO;
 import com.itechart.trucking.entity.CheckPoint;
 import com.itechart.trucking.services.CheckPointService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ import java.util.List;
 @RequestMapping(value = "/api/checkPoint")
 public class CheckPointController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CheckPointController.class);
+
     @Autowired
     private CheckPointService checkPointService;
 
@@ -25,12 +29,14 @@ public class CheckPointController {
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CheckPointDTO>> findAll() {
+        LOGGER.info("REST request. Path:/api/checkPoint  method: GET");
         List<CheckPoint> checkPoints = checkPointService.findAll();
         List<CheckPointDTO> checkPointDTOs = new ArrayList<>();
         for (CheckPoint checkPoint : checkPoints){
             CheckPointDTO checkPointDTO = conversionService.convert(checkPoint, CheckPointDTO.class);
             checkPointDTOs.add(checkPointDTO);
         }
+        LOGGER.info("Return checkPointList.size:{}", checkPointDTOs.size());
         return new ResponseEntity<>(checkPointDTOs, HttpStatus.OK);
     }
 
