@@ -1,4 +1,4 @@
-package com.itechart.trucking.security;
+package com.itechart.trucking.config.security;
 
 import com.itechart.trucking.security.detail.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/api/user/**").hasRole("ADMIN")
             .anyRequest().authenticated()
             .and()
             .formLogin().permitAll()

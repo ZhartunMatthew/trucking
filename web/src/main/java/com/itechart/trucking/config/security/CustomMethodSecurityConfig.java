@@ -1,5 +1,6 @@
-package com.itechart.trucking.security;
+package com.itechart.trucking.config.security;
 
+import com.itechart.trucking.security.CustomPermissionEvaluator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
