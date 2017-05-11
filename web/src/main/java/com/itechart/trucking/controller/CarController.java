@@ -34,9 +34,7 @@ public class CarController {
     public ResponseEntity<List<CarDTO>> findAll() {
         List<Car> cars = service.findAll();
         List<CarDTO> carDTOs = new ArrayList<>();
-        cars.forEach(car ->
-                carDTOs.add(conversionService.convert(car, CarDTO.class))
-        );
+        cars.forEach(car -> carDTOs.add(conversionService.convert(car, CarDTO.class)));
         return new ResponseEntity<>(carDTOs, HttpStatus.OK);
     }
 
@@ -48,17 +46,15 @@ public class CarController {
         }
         List<Car> cars = service.findAvailable();
         List<CarDTO> carDTOs = new ArrayList<>();
-        cars.forEach(car ->
-                carDTOs.add(conversionService.convert(car, CarDTO.class))
-        );
+        cars.forEach(car -> carDTOs.add(conversionService.convert(car, CarDTO.class)));
         return new ResponseEntity<>(carDTOs, HttpStatus.OK);
     }
 
-
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public void create(@RequestBody CarDTO dto) {
+    public ResponseEntity<CarDTO> create(@RequestBody CarDTO dto) {
         Car car = conversionService.convert(dto, Car.class);
-        service.save(car);
+        CarDTO dtoFromDB = conversionService.convert(service.save(car), CarDTO.class);
+        return new ResponseEntity<>(dtoFromDB, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

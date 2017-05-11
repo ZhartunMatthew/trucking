@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/product_state")
+@RequestMapping(value = "/api/product-state")
 public class ProductStateController {
 
     @Autowired

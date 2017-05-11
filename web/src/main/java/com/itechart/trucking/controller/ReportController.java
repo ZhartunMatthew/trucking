@@ -18,6 +18,4 @@ public class ReportController {
     public void download(Model model) {
         model.addAttribute("users", userService.findAll());
     }
-
-
 }

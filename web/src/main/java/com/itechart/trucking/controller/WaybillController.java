@@ -23,13 +23,15 @@ public class WaybillController {
     @Autowired
     private ConversionService conversionService;
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<WaybillDTO> getById(@PathVariable Long id) {
         UserRoleEnum userRole = CustomUserDetailsProvider.getUserDetails().getRole();
         WaybillDTO waybillDTO = conversionService.convert(waybillService.findOne(id), WaybillDTO.class);
         Long idTruckingCompany = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
-        if(idTruckingCompany == waybillDTO.getIdTruckingCompany() && userRole.equals(UserRoleEnum.MANAGER) || userRole.equals(UserRoleEnum.DRIVER) || userRole.equals(UserRoleEnum.COMPANY_OWNER)){
+        if(idTruckingCompany == waybillDTO.getIdTruckingCompany() &&
+                userRole.equals(UserRoleEnum.MANAGER) ||
+                userRole.equals(UserRoleEnum.DRIVER) ||
+                userRole.equals(UserRoleEnum.COMPANY_OWNER)){
             return new ResponseEntity<>(waybillDTO, HttpStatus.OK);
         }
         else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

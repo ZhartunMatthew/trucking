@@ -41,14 +41,14 @@ public class TruckingCompanyController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public void create(@RequestBody TruckingCompanyDTO dto) {
+    public ResponseEntity<TruckingCompanyDTO> create(@RequestBody TruckingCompanyDTO dto) {
         TruckingCompany company = conversionService.convert(dto, TruckingCompany.class);
-        service.save(company);
+        TruckingCompanyDTO dtoFromDB = conversionService.convert(service.save(company), TruckingCompanyDTO.class);
+        return new ResponseEntity<>(dtoFromDB, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<TruckingCompanyDTO> update(@PathVariable Long id,
-                                                     @RequestBody TruckingCompanyDTO dtoForUpdate) {
+    public ResponseEntity<TruckingCompanyDTO> update(@PathVariable Long id, @RequestBody TruckingCompanyDTO dtoForUpdate) {
         TruckingCompany currentCompany = service.findOne(id);
         if (currentCompany == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
