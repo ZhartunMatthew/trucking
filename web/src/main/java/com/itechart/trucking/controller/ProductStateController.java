@@ -2,6 +2,8 @@ package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.ProductStateDTO;
 import com.itechart.trucking.services.ProductStateService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import java.util.List;
 @RequestMapping(value = "/api/product_state")
 public class ProductStateController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductStateController.class);
+
     @Autowired
     private ProductStateService productStateService;
 
@@ -26,9 +30,11 @@ public class ProductStateController {
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<ProductStateDTO>> getAll() {
+        LOGGER.info("REST request. Path:/api/product_state  method: GET");
         List<ProductStateDTO> dtos = new LinkedList<>();
         productStateService.findAll().forEach(entity ->
                 dtos.add(conversionService.convert(entity, ProductStateDTO.class)));
+        LOGGER.info("Return productStateList.size:{}", dtos.size());
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 }
