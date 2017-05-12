@@ -1,60 +1,84 @@
 package com.itechart.trucking.security;
 
-import com.itechart.trucking.dto.UserDTO;
 import com.itechart.trucking.entity.enums.UserRoleEnum;
 import com.itechart.trucking.security.detail.CustomUserDetails;
-import com.itechart.trucking.services.InvoiceService;
-import com.itechart.trucking.services.UserService;
+import com.itechart.trucking.security.providers.CarProvider;
+import com.itechart.trucking.security.providers.CheckPointProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CustomPermissionsProvider {
 
     @Autowired
-    private InvoiceService invoiceService;
+    private CarProvider carProvider;
 
     @Autowired
-    private UserService userService;
+    private CheckPointProvider checkPointProvider;
 
-    @Autowired
-    private ConversionService conversionService;
+    public boolean provideCarPermission(CustomUserDetails details, Long id, String action) {
+        UserRoleEnum role = details.getRole();
+        Long currTrId = details.getTruckingCompanyId();
+        switch (action) {
+            case "GET":
+                return carProvider.provideGET(role, currTrId, id);
 
-    public boolean provideCarPermission(CustomUserDetails details, Long id) {
-        System.out.println("CURRENT USER: " +
-                conversionService.convert(userService.findOne(details.getId()), UserDTO.class));
-        if(details.getRole() != UserRoleEnum.ADMIN) {
-            return false;
+            case "POST":
+                return carProvider.providePOST(role, currTrId, id);
+
+            case "PUT":
+                return carProvider.providePUT(role, currTrId, id);
+
+            case "DELETE":
+                return carProvider.provideDELETE(role, currTrId, id);
+
+            default:
+                return false;
         }
+    }
+
+    public boolean provideCheckPointPermission(CustomUserDetails details, Long id, String action) {
+        UserRoleEnum role = details.getRole();
+        Long currTrId = details.getTruckingCompanyId();
+        switch (action) {
+            case "GET":
+                return checkPointProvider.provideGET(role, currTrId, id);
+
+            case "POST":
+                return checkPointProvider.providePOST(role, currTrId, id);
+
+            case "PUT":
+                return checkPointProvider.providePUT(role, currTrId, id);
+
+            case "DELETE":
+                return checkPointProvider.provideDELETE(role, currTrId, id);
+
+            default:
+                return false;
+        }
+    }
+
+    public boolean provideCustomerCompanyPermission(CustomUserDetails details, Long id, String action) {
         return true;
     }
 
-    public boolean provideCheckPointPermission(CustomUserDetails details, Long id) {
+    public boolean provideInvoicePermission(CustomUserDetails details, Long id, String action) {
         return true;
     }
 
-    public boolean provideCustomerCompanyPermission(CustomUserDetails details, Long id) {
+    public boolean provideProductPermission(CustomUserDetails details, Long id, String action) {
         return true;
     }
 
-    public boolean provideInvoicePermission(CustomUserDetails details, Long id) {
+    public boolean provideTruckingCompanyPermission(CustomUserDetails details, Long id, String action) {
         return true;
     }
 
-    public boolean provideProductPermission(CustomUserDetails details, Long id) {
+    public boolean provideUserPermission(CustomUserDetails details, Long id, String action) {
         return true;
     }
 
-    public boolean provideTruckingCompanyPermission(CustomUserDetails details, Long id) {
-        return true;
-    }
-
-    public boolean provideUserPermission(CustomUserDetails details, Long id) {
-        return true;
-    }
-
-    public boolean provideWaybillPermission(CustomUserDetails details, Long id) {
+    public boolean provideWaybillPermission(CustomUserDetails details, Long id, String action) {
         return true;
     }
 }
