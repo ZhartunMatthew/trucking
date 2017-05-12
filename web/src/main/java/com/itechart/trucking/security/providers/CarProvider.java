@@ -14,7 +14,7 @@ public class CarProvider implements AbstractDataProvider {
     @Autowired
     private TruckingCompanyService truckingCompanyService;
 
-    public boolean provideGET(UserRoleEnum role, Long trId, Long carId) {
+    public boolean provideGET(UserRoleEnum role, Long companyId, Long carId) {
         if (role == UserRoleEnum.SYSTEM_ADMIN) {
             return false;
         }
@@ -24,7 +24,7 @@ public class CarProvider implements AbstractDataProvider {
         if (carId == null) {
             return true;
         } else {
-            List<Car> cars = truckingCompanyService.findOne(trId).getCars();
+            List<Car> cars = truckingCompanyService.findOne(companyId).getCars();
             for (Car car : cars) {
                 if (car.getId().equals(carId)) {
                     return true;
@@ -34,16 +34,16 @@ public class CarProvider implements AbstractDataProvider {
         }
     }
 
-    public boolean providePOST(UserRoleEnum role, Long trId, Long carId) {
+    public boolean providePOST(UserRoleEnum role, Long companyId, Long carId) {
         if (role == UserRoleEnum.ADMIN) {
             return true;
         }
         return false;
     }
 
-    public boolean providePUT(UserRoleEnum role, Long trId, Long carId) {
+    public boolean providePUT(UserRoleEnum role, Long companyId, Long carId) {
         if (role == UserRoleEnum.ADMIN) {
-            List<Car> cars = truckingCompanyService.findOne(trId).getCars();
+            List<Car> cars = truckingCompanyService.findOne(companyId).getCars();
             for (Car car : cars) {
                 if (car.getId().equals(carId)) {
                     return true;
@@ -53,9 +53,9 @@ public class CarProvider implements AbstractDataProvider {
         return false;
     }
 
-    public boolean provideDELETE(UserRoleEnum role, Long trId, Long carId) {
+    public boolean provideDELETE(UserRoleEnum role, Long companyId, Long carId) {
         if (role == UserRoleEnum.ADMIN) {
-            List<Car> cars = truckingCompanyService.findOne(trId).getCars();
+            List<Car> cars = truckingCompanyService.findOne(companyId).getCars();
             for (Car car : cars) {
                 if (car.getId().equals(carId)) {
                     return true;

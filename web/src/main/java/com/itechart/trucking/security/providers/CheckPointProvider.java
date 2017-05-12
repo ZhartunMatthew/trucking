@@ -6,22 +6,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class CheckPointProvider implements AbstractDataProvider {
     @Override
-    public boolean provideGET(UserRoleEnum role, Long trId, Long carId) {
+    public boolean provideGET(UserRoleEnum role, Long companyId, Long carId) {
         return false;
     }
 
     @Override
-    public boolean providePOST(UserRoleEnum role, Long trId, Long carId) {
+    public boolean providePOST(UserRoleEnum role, Long companyId, Long carId) {
         return false;
     }
 
     @Override
-    public boolean providePUT(UserRoleEnum role, Long trId, Long carId) {
+    public boolean providePUT(UserRoleEnum role, Long companyId, Long carId) {
         return false;
     }
 
     @Override
-    public boolean provideDELETE(UserRoleEnum role, Long trId, Long carId) {
+    public boolean provideDELETE(UserRoleEnum role, Long companyId, Long carId) {
         return false;
     }
 }
