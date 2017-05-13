@@ -1,6 +1,5 @@
 package com.itechart.trucking.security;
 
-import com.itechart.trucking.entity.enums.UserRoleEnum;
 import com.itechart.trucking.security.detail.CustomUserDetails;
 import com.itechart.trucking.security.providers.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +33,18 @@ public class CustomPermissionsProvider {
     private WaybillProvider waybillProvider;
 
     public boolean provideCarPermission(CustomUserDetails details, Long id, String action) {
-        UserRoleEnum role = details.getRole();
-        Long currentCompanyId = details.getTruckingCompanyId();
         switch (action) {
             case "GET":
-                return carProvider.provideGET(role, currentCompanyId, id);
+                return carProvider.provideGET(details, id);
 
             case "POST":
-                return carProvider.providePOST(role, currentCompanyId, id);
+                return carProvider.providePOST(details, id);
 
             case "PUT":
-                return carProvider.providePUT(role, currentCompanyId, id);
+                return carProvider.providePUT(details, id);
 
             case "DELETE":
-                return carProvider.provideDELETE(role, currentCompanyId, id);
+                return carProvider.provideDELETE(details, id);
 
             default:
                 return false;
@@ -55,20 +52,18 @@ public class CustomPermissionsProvider {
     }
 
     public boolean provideCheckPointPermission(CustomUserDetails details, Long id, String action) {
-        UserRoleEnum role = details.getRole();
-        Long currentCompanyId = details.getTruckingCompanyId();
         switch (action) {
             case "GET":
-                return checkPointProvider.provideGET(role, currentCompanyId, id);
+                return checkPointProvider.provideGET(details, id);
 
             case "POST":
-                return checkPointProvider.providePOST(role, currentCompanyId, id);
+                return checkPointProvider.providePOST(details, id);
 
             case "PUT":
-                return checkPointProvider.providePUT(role, currentCompanyId, id);
+                return checkPointProvider.providePUT(details, id);
 
             case "DELETE":
-                return checkPointProvider.provideDELETE(role, currentCompanyId, id);
+                return checkPointProvider.provideDELETE(details, id);
 
             default:
                 return false;
@@ -76,20 +71,18 @@ public class CustomPermissionsProvider {
     }
 
     public boolean provideCustomerCompanyPermission(CustomUserDetails details, Long id, String action) {
-        UserRoleEnum role = details.getRole();
-        Long currentCompanyId = details.getTruckingCompanyId();
         switch (action) {
             case "GET":
-                return customerCompanyProvider.provideGET(role, currentCompanyId, id);
+                return customerCompanyProvider.provideGET(details, id);
 
             case "POST":
-                return customerCompanyProvider.providePOST(role, currentCompanyId, id);
+                return customerCompanyProvider.providePOST(details, id);
 
             case "PUT":
-                return customerCompanyProvider.providePUT(role, currentCompanyId, id);
+                return customerCompanyProvider.providePUT(details, id);
 
             case "DELETE":
-                return customerCompanyProvider.provideDELETE(role, currentCompanyId, id);
+                return customerCompanyProvider.provideDELETE(details, id);
 
             default:
                 return false;
@@ -97,20 +90,18 @@ public class CustomPermissionsProvider {
     }
 
     public boolean provideInvoicePermission(CustomUserDetails details, Long id, String action) {
-        UserRoleEnum role = details.getRole();
-        Long currentCompanyId = details.getTruckingCompanyId();
         switch (action) {
             case "GET":
-                return invoiceProvider.provideGET(role, currentCompanyId, id);
+                return invoiceProvider.provideGET(details, id);
 
             case "POST":
-                return invoiceProvider.providePOST(role, currentCompanyId, id);
+                return invoiceProvider.providePOST(details, id);
 
             case "PUT":
-                return invoiceProvider.providePUT(role, currentCompanyId, id);
+                return invoiceProvider.providePUT(details, id);
 
             case "DELETE":
-                return invoiceProvider.provideDELETE(role, currentCompanyId, id);
+                return invoiceProvider.provideDELETE(details, id);
 
             default:
                 return false;
@@ -118,20 +109,21 @@ public class CustomPermissionsProvider {
     }
 
     public boolean provideProductPermission(CustomUserDetails details, Long id, String action) {
-        UserRoleEnum role = details.getRole();
-        Long currentCompanyId = details.getTruckingCompanyId();
         switch (action) {
             case "GET":
-                return productProvider.provideGET(role, currentCompanyId, id);
+                return productProvider.provideGET(details, id);
 
             case "POST":
-                return productProvider.providePOST(role, currentCompanyId, id);
+                return productProvider.providePOST(details, id);
 
             case "PUT":
-                return productProvider.providePUT(role, currentCompanyId, id);
+                return productProvider.providePUT(details, id);
 
             case "DELETE":
-                return productProvider.provideDELETE(role, currentCompanyId, id);
+                return productProvider.provideDELETE(details, id);
+
+            case "GET_BY_INVOICE":
+                return productProvider.provideGETbyInvoice(details, id);
 
             default:
                 return false;
@@ -139,20 +131,18 @@ public class CustomPermissionsProvider {
     }
 
     public boolean provideTruckingCompanyPermission(CustomUserDetails details, Long id, String action) {
-        UserRoleEnum role = details.getRole();
-        Long currentCompanyId = details.getTruckingCompanyId();
         switch (action) {
             case "GET":
-                return truckingCompanyProvider.provideGET(role, currentCompanyId, id);
+                return truckingCompanyProvider.provideGET(details, id);
 
             case "POST":
-                return truckingCompanyProvider.providePOST(role, currentCompanyId, id);
+                return truckingCompanyProvider.providePOST(details, id);
 
             case "PUT":
-                return truckingCompanyProvider.providePUT(role, currentCompanyId, id);
+                return truckingCompanyProvider.providePUT(details, id);
 
             case "DELETE":
-                return truckingCompanyProvider.provideDELETE(role, currentCompanyId, id);
+                return truckingCompanyProvider.provideDELETE(details, id);
 
             default:
                 return false;
@@ -160,20 +150,18 @@ public class CustomPermissionsProvider {
     }
 
     public boolean provideUserPermission(CustomUserDetails details, Long id, String action) {
-        UserRoleEnum role = details.getRole();
-        Long currentCompanyId = details.getTruckingCompanyId();
         switch (action) {
             case "GET":
-                return userProvider.provideGET(role, currentCompanyId, id);
+                return userProvider.provideGET(details, id);
 
             case "POST":
-                return userProvider.providePOST(role, currentCompanyId, id);
+                return userProvider.providePOST(details, id);
 
             case "PUT":
-                return userProvider.providePUT(role, currentCompanyId, id);
+                return userProvider.providePUT(details, id);
 
             case "DELETE":
-                return userProvider.provideDELETE(role, currentCompanyId, id);
+                return userProvider.provideDELETE(details, id);
 
             default:
                 return false;
@@ -181,20 +169,21 @@ public class CustomPermissionsProvider {
     }
 
     public boolean provideWaybillPermission(CustomUserDetails details, Long id, String action) {
-        UserRoleEnum role = details.getRole();
-        Long currentCompanyId = details.getTruckingCompanyId();
         switch (action) {
             case "GET":
-                return waybillProvider.provideGET(role, currentCompanyId, id);
+                return waybillProvider.provideGET(details, id);
 
             case "POST":
-                return waybillProvider.providePOST(role, currentCompanyId, id);
+                return waybillProvider.providePOST(details, id);
 
             case "PUT":
-                return waybillProvider.providePUT(role, currentCompanyId, id);
+                return waybillProvider.providePUT(details, id);
 
             case "DELETE":
-                return waybillProvider.provideDELETE(role, currentCompanyId, id);
+                return waybillProvider.provideDELETE(details, id);
+
+            case "GET_BY_TRUCKING_ID":
+                return waybillProvider.provideGETbyTruckingId(details, id);
 
             default:
                 return false;
