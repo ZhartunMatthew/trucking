@@ -32,4 +32,9 @@ public class TruckingCompanyService {
     public TruckingCompany save(TruckingCompany truckingCompany) {
         return truckingCompanyRepository.saveAndFlush(truckingCompany);
     }
+
+    public TruckingCompany securedFindOne(Long id) {
+        return truckingCompanyRepository.findOne(id);
+    }
+
 }

@@ -78,14 +78,14 @@ commit;
 
 /*state b, registered but not checked*/
 INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834762', 3, '25.04.2017', NULL, NULL, 2, 1, 1, 4, 1);
+  VALUES ('834762', 3, '25.04.2017', NULL, NULL, 2, 1, 1, 5, 1);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 110, 1, 1);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Ноутбук', 300, 1, 1);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Системный блок', 50, 1, 1);
 
 /*state c, checked*/
 INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834761', 3, '20.04.2017', 4, '21.04.2017', 3, 1, 1, 4, 2);
+  VALUES ('834761', 3, '20.04.2017', 4, '21.04.2017', 3, 1, 1, 5, 2);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 215, 2, 2);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Блок охлаждения', 132, 2, 2);
 INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
@@ -96,7 +96,7 @@ INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure
 
 /*state d, delivered*/
 INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834760', 3, '20.03.2017', 4, '22.03.2017', 3, 1, 1, 4, 3);
+  VALUES ('834760', 3, '20.03.2017', 4, '22.03.2017', 3, 1, 1, 5, 3);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 210, 3, 3); /*delivered*/
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 3, 4, 3);  /*lost*/
 INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,

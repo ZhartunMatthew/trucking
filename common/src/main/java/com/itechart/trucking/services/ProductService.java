@@ -16,11 +16,6 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    @PreAuthorize("hasPermission(null , 'Product', 'GET')")
-    public List<Product> findAll() {
-        return productRepository.findAll();
-    }
-
     @PreAuthorize("hasPermission(#id, 'Product', 'GET')")
     public Product findOne(Long id) {
         return productRepository.findOne(id);
@@ -36,8 +31,13 @@ public class ProductService {
         productRepository.delete(id);
     }
 
-    @PreAuthorize("hasPermission(#id, 'Product', 'GET')")
+    @PreAuthorize("hasPermission(#id, 'Product', 'GET_BY_INVOICE')")
     public List<Product> findAllByInvoiceId(Long id) {
         return productRepository.findAllByInvoice_Id(id);
+    }
+
+    @PreAuthorize("hasAnyRole('DISPATCHER', 'MANAGER', 'DRIVER', 'COMPANY_OWNER')")
+    public Product securedFindOne(Long id) {
+        return productRepository.findOne(id);
     }
 }

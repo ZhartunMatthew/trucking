@@ -43,5 +43,8 @@ public class CheckPointService {
     @Transactional(readOnly = true)
     public List<CheckPoint> findByWaybillId(Long id){return checkPointRepository.findByWaybillId(id);}
 
-
+    @PreAuthorize("hasAnyRole('DRIVER', 'MANAGER')")
+    public CheckPoint securedFindOne(Long id) {
+        return checkPointRepository.findOne(id);
+    }
 }

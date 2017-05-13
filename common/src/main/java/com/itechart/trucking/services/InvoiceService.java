@@ -45,4 +45,14 @@ public class InvoiceService {
     public Invoice findByIdAndTruckingCompanyId(Long id, Long trId) {
         return invoiceRepository.findByIdAndTruckingCompany_Id(id, trId);
     }
+
+    @PreAuthorize("hasAnyRole('DRIVER', 'MANAGER')")
+    public Invoice findByWaybillId(Long id) {
+        return invoiceRepository.findByWaybill_Id(id);
+    }
+
+    @PreAuthorize("hasAnyRole('DISPATCHER', 'MANAGER', 'DRIVER', 'COMPANY_OWNER')")
+    public Invoice securedFindOne(Long id) {
+        return invoiceRepository.findOne(id);
+    }
 }

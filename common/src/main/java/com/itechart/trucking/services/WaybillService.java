@@ -46,11 +46,16 @@ public class WaybillService {
         waybillRepository.delete(id);
     }
 
-    @PreAuthorize("hasPermission(#id, 'Waybill', 'GET')")
+    @PreAuthorize("hasPermission(#id, 'Waybill', 'GET_BY_TRUCKING_ID')")
     @Transactional(readOnly = true)
     public List<Waybill> findByInvoice_TruckingCompany(Long id){
         TruckingCompany truckingCompany = truckingCompanyRepository.findOne(id);
         return waybillRepository.findByInvoice_TruckingCompany(truckingCompany);
+    }
+
+    @PreAuthorize("hasAnyRole('MANAGER', 'DRIVER')")
+    public Waybill securedFindOne(Long id) {
+        return waybillRepository.findOne(id);
     }
 
 

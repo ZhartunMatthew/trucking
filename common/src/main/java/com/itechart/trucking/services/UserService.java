@@ -44,4 +44,9 @@ public class UserService {
     public Optional<User> findByLogin(String login) {
         return Optional.ofNullable(userRepository.findUserByLogin(login));
     }
+
+    @PreAuthorize("hasAnyRole('SYSTEM_ADMIN', 'ADMIN', 'DISPATCHER', 'MANAGER', 'DRIVER', 'COMPANY_OWNER')")
+    public User securedFindOne(Long id) {
+        return userRepository.findOne(id);
+    }
 }

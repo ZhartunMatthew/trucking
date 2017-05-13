@@ -44,4 +44,9 @@ public class CustomerCompanyService {
     public List<CustomerCompany> findByNameContaining(String name) {
         return customerCompanyRepository.findByNameIgnoreCaseContaining(name);
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'DISPATCHER', 'MANAGER', 'DRIVER', 'COMPANY_OWNER')")
+    public CustomerCompany securedFindOne(Long id) {
+        return customerCompanyRepository.findOne(id);
+    }
 }
