@@ -3,7 +3,6 @@ package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.InvoiceDTO;
 import com.itechart.trucking.entity.Invoice;
-import com.itechart.trucking.entity.enums.UserRoleEnum;
 import com.itechart.trucking.security.detail.CustomUserDetails;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import com.itechart.trucking.services.InvoiceService;
@@ -38,18 +37,8 @@ public class InvoiceController {
         CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
         List<InvoiceDTO> dtos = new LinkedList<>();
         Long trId = details.getTruckingCompanyId();
-        UserRoleEnum role = details.getRole();
-        if(trId == null) {
-            LOGGER.warn("Not found truckingCompany for current user");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else if(role == UserRoleEnum.ADMIN || role == UserRoleEnum.DISPATCHER || role == UserRoleEnum.MANAGER) {
             invoiceService.findByTruckingCompanyId(trId).forEach(entity ->
                     dtos.add(conversionService.convert(entity, InvoiceDTO.class)));
-        } else {
-            LOGGER.warn("Permission denied for current user");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        LOGGER.info("Return invoiceList.size:{}", dtos.size());
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
@@ -58,42 +47,19 @@ public class InvoiceController {
         LOGGER.info("REST request. Path:/api/invoice/{} method: GET", id);
         CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
         Long trId = details.getTruckingCompanyId();
-        UserRoleEnum role = details.getRole();
-        if(trId == null) {
-            LOGGER.warn("Not found truckingCompany for current user");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else if(role == UserRoleEnum.ADMIN || role == UserRoleEnum.DISPATCHER || role == UserRoleEnum.MANAGER) {
             InvoiceDTO dto = conversionService.convert(
                     invoiceService.findByIdAndTruckingCompanyId(id, trId), InvoiceDTO.class);
-            LOGGER.info("Return invoice:{}", dto);
-            return new ResponseEntity<>(dto, HttpStatus.OK);
-        } else {
-            LOGGER.warn("Permission denied for current user");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<InvoiceDTO> update(@PathVariable Long id, @RequestBody InvoiceDTO dto) {
-        LOGGER.info("REST request. Path:/api/invoice/{}  method: PUT.  invoiceInfo: {}", id, dto);
-        CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
-        Long trId = details.getTruckingCompanyId();
-        UserRoleEnum role = details.getRole();
-        if(trId == null) {
-            LOGGER.warn("Not found truckingCompany for current user");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else if(role == UserRoleEnum.ADMIN || role == UserRoleEnum.DISPATCHER || role == UserRoleEnum.MANAGER) {
-            Invoice invoice = invoiceService.findByIdAndTruckingCompanyId(id, trId);
-            if(invoice == null) {
-                LOGGER.warn("Not found invoice id: {}", id);
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
-            return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
-        } else {
-            LOGGER.warn("Permission denied for current user");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        Invoice invoice = invoiceService.findOne(id);
+        if(invoice == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
+        return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -101,19 +67,10 @@ public class InvoiceController {
         LOGGER.info("REST request. Path:/api/invoice  method: POST. invoice: {}", dto);
         CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
         Long trId = details.getTruckingCompanyId();
-        UserRoleEnum role = details.getRole();
-        if(trId == null) {
-            LOGGER.warn("Not found truckingCompany for current user");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else if(role == UserRoleEnum.DISPATCHER) {
-            dto.setTruckingCompanyId(trId);
-            dto.setRegisterDate(new Date());
-            dto.setDispatcherId(details.getId());
-            Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
-            return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
-        } else {
-            LOGGER.warn("Permission denied for current user");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        dto.setTruckingCompanyId(trId);
+        dto.setRegisterDate(new Date());
+        dto.setDispatcherId(details.getId());
+        Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
+        return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
     }
 }

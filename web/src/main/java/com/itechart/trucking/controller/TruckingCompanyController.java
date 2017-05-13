@@ -48,10 +48,11 @@ public class TruckingCompanyController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public void create(@RequestBody TruckingCompanyDTO dto) {
+    public ResponseEntity<TruckingCompanyDTO> create(@RequestBody TruckingCompanyDTO dto) {
         LOGGER.info("REST request. Path:/api/trucking-company  method: POST. company: {}", dto);
         TruckingCompany company = conversionService.convert(dto, TruckingCompany.class);
-        service.save(company);
+        TruckingCompanyDTO dtoFromDB = conversionService.convert(service.save(company), TruckingCompanyDTO.class);
+        return new ResponseEntity<>(dtoFromDB, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

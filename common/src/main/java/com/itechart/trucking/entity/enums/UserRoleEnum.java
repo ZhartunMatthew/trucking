@@ -10,8 +10,10 @@ public enum UserRoleEnum implements GrantedAuthority {
     DRIVER,
     COMPANY_OWNER;
 
+    private static final String ROLE = "ROLE_";
+
     @Override
     public String getAuthority() {
-        return name();
+        return ROLE + name();
     }
 }

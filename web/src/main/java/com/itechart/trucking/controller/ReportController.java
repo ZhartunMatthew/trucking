@@ -23,6 +23,4 @@ public class ReportController {
         LOGGER.info("Path:/report/download  method: GET");
         model.addAttribute("users", userService.findAll());
     }
-
-
 }

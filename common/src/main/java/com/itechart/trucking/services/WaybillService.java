@@ -6,6 +6,7 @@ import com.itechart.trucking.entity.Waybill;
 import com.itechart.trucking.repository.TruckingCompanyRepository;
 import com.itechart.trucking.repository.WaybillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,28 +24,38 @@ public class WaybillService {
     @Autowired
     private TruckingCompanyRepository truckingCompanyRepository;
 
+    @PreAuthorize("hasPermission(null, 'Waybill', 'GET')")
     @Transactional(readOnly = true)
     public List<Waybill> findAll() {
         return waybillRepository.findAll();
     }
 
+    @PreAuthorize("hasPermission(#id, 'Waybill', 'GET')")
     @Transactional(readOnly = true)
     public Waybill findOne(Long id) {
         return waybillRepository.findOne(id);
     }
 
+    @PreAuthorize("hasPermission(null, 'Waybill', 'POST') or hasPermission(#waybill.id, 'Waybill', 'PUT')")
     @Transactional
     public Waybill save(Waybill waybill) {return waybillRepository.saveAndFlush(waybill);}
 
+    @PreAuthorize("hasPermission(#id, 'Waybill', 'DELETE')")
     @Transactional
     public void delete(Long id) {
         waybillRepository.delete(id);
     }
 
+    @PreAuthorize("hasPermission(#id, 'Waybill', 'GET_BY_TRUCKING_ID')")
     @Transactional(readOnly = true)
     public List<Waybill> findByInvoice_TruckingCompany(Long id){
         TruckingCompany truckingCompany = truckingCompanyRepository.findOne(id);
         return waybillRepository.findByInvoice_TruckingCompany(truckingCompany);
+    }
+
+    @PreAuthorize("hasAnyRole('MANAGER', 'DRIVER')")
+    public Waybill securedFindOne(Long id) {
+        return waybillRepository.findOne(id);
     }
 
 

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/checkPoint")
+@RequestMapping(value = "/api/checkpoint")
 public class CheckPointController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CheckPointController.class);
