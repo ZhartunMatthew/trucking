@@ -1,3 +1,4 @@
+/*
 package com.itechart.trucking.viewresolver;
 
 import com.itechart.trucking.entity.User;
@@ -58,3 +59,4 @@ public class ExcelView extends AbstractXlsView {
             }
     }
 }
+*/

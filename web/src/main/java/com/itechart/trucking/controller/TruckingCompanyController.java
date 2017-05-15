@@ -69,4 +69,6 @@ public class TruckingCompanyController {
         LOGGER.info("Return updated truckingCompany: {}", updatedDTO);
         return new ResponseEntity<>(updatedDTO, HttpStatus.OK);
     }
+
+
 }

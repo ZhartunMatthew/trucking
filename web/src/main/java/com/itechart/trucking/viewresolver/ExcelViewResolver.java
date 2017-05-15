@@ -1,3 +1,4 @@
+/*
 package com.itechart.trucking.viewresolver;
 
 import org.springframework.web.servlet.View;
@@ -12,3 +13,4 @@ public class ExcelViewResolver implements ViewResolver {
         return view;
     }
 }
+*/

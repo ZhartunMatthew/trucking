@@ -64,14 +64,14 @@ INSERT INTO user (name, surname, patronymic, email, city, street, house, flat, l
 commit;
 
 /*car*/
-INSERT INTO car (number, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('3214-MAN', 1, '15-1566-05', 26.6, TRUE, 1);
-INSERT INTO car (number, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('9999-GTY', 2, 'МАЗ-54323', 26.6, FALSE, 1);
-INSERT INTO car (number, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('3928-ABC', 2, 'МАЗ-54323', 26.6, FALSE , 1);
-INSERT INTO car (number, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('1058-EDF', 3, '15-1566-05', 26.6, FALSE , 1);
+INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
+  VALUES ('3214-MAN', 'bmw',  1, '15-1566-05', 26.6, TRUE, 1);
+INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
+  VALUES ('9999-GTY', 'bmw', 2, 'МАЗ-54323', 26.6, FALSE, 1);
+INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
+  VALUES ('3928-ABC', 'bmw', 2, 'МАЗ-54323', 26.6, FALSE , 1);
+INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
+  VALUES ('1058-EDF', 'bmw', 3, '15-1566-05', 26.6, FALSE , 1);
 commit;
 
 /*invoice + product + waybill*/

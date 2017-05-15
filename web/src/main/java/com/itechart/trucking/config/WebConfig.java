@@ -1,6 +1,6 @@
 package com.itechart.trucking.config;
 
-import com.itechart.trucking.viewresolver.ExcelViewResolver;
+//import com.itechart.trucking.viewresolver.ExcelViewResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -23,7 +23,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 .favorPathExtension(true);
     }
 
-    @Bean
+   /* @Bean
     public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
         ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
         resolver.setContentNegotiationManager(manager);
@@ -38,6 +38,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver excelViewResolver() {
         return new ExcelViewResolver();
-    }
+    }*/
 
 }

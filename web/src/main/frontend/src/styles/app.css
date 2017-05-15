@@ -1,0 +1,25 @@
+.main {
+  display: block;
+	padding: 30px;
+	padding-top:40px;
+	width:90%;
+}
+
+.custom-menu-item > a{
+	cursor: pointer;
+	color: black;
+}
+
+.menu-link {
+	color: black;
+}
+
+.nav > .active {
+	background: rgba(0, 0, 0, 0.1);
+	color: #f6f6f6;
+}
+
+.btn {
+  margin-right : 10px;
+  cursor: pointer;
+}
