@@ -7,6 +7,6 @@ import rootReducer from '../reducers/root.reducer.js';
 //Also, it makes some middleware function listed to each state update
 export default function configureStore() {
   const logger = createLogger();
-  const store = createStore(rootReducer, {truckingCompanies: {truckingCompanies: []}, authors : {authors: []}}, applyMiddleware(thunk, logger));
+  const store = createStore(rootReducer, {truckingCompanies: {truckingCompanies: []}, cars: {cars: []}}, applyMiddleware(thunk, logger));
   return store;
 }

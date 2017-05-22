@@ -1,20 +1,21 @@
 import {
-  INIT_TRUCKINGCOMPANIES
+  INIT_CUSTOMERS
 } from '../constants/actionTypes';
 
 const initialState = {
-  truckingCompanies: []
+  customers: []
 };
 /*
  Given the same arguments, it should calculate the next state and return it. No surprises. No side effects. No API calls. No mutations. Just a calculation.
  */
-const TruckingCompaniesReducer = (state = initialState, action = {}) => {
+const CustomersReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case INIT_TRUCKINGCOMPANIES:
-      return Object.assign({}, state, {truckingCompanies: action.payload});
+    case INIT_CUSTOMERS:
+      return Object.assign({}, state, {customers: action.payload});
     default:
       return state;
   }
 };
 
-export default TruckingCompaniesReducer;
+export default CustomersReducer;
+

@@ -2,6 +2,7 @@ package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.CustomerCompanyDTO;
 import com.itechart.trucking.entity.CustomerCompany;
+import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import com.itechart.trucking.services.CustomerCompanyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +63,8 @@ public class CustomerCompanyController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<CustomerCompanyDTO> create(@RequestBody CustomerCompanyDTO dto) {
         LOGGER.info("REST request. Path:/api/customer-company  method: POST. company: {}", dto);
+        Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        dto.setTruckingCompanyId(truckingCompanyId);
         CustomerCompany company = conversionService.convert(dto, CustomerCompany.class);
         CustomerCompanyDTO dtoFromDB = conversionService.convert(service.save(company), CustomerCompanyDTO.class);
         return new ResponseEntity<>(dtoFromDB, HttpStatus.OK);
