@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import truckingCompaniesReducer from './genre.reducer';
+import truckingCompaniesReducer from './truckingCompany.reducer';
 import OperationReducer from './operation.reducer';
 import NavigationReducer from './navigation.reducer';
 
