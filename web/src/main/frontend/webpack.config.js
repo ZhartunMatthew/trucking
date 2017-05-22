@@ -43,7 +43,7 @@ module.exports = {
     })
   ],
   output: {
-    path: path.resolve('../../../target/classes/static/'),
+    path: '../../../target/classes/static/',
     filename: 'bundle.js'
   },
   resolve: {

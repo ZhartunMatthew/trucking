@@ -2,7 +2,10 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './stores/configureStore';
-import TruckingCompaniesPage from './components/truckingCompanies';
+import UserRole from './components/userRole';
+import IndexComponent from './components/index';
+import {routes} from './components/routes';
+import { Router, Route, browserHistory } from 'react-router';
 import LogoImg from './images/logo.png';
 require('./styles/app.css');
 
@@ -17,6 +20,8 @@ let store = configureStore();
 //When using Redux, you should wrap you component into Provider component. It "enables" connect function
 render((
 	<Provider store={store}>
-    <TruckingCompaniesPage />
+    <IndexComponent>
+      <UserRole/>
+    </IndexComponent>
 	</Provider>
 ), document.getElementById('app'));

@@ -1,13 +1,13 @@
 import $ from 'jquery';
 import { startOperation, cancelOperation } from './operation.action';
 import {
-  INIT_TRUCKINGCOMPANIES
+  INIT_CUSTOMERS
 } from '../constants/actionTypes';
 
-export function loadTruckingCompanies() {
+export function loadCustomers() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/trucking-company',
+      url: '/api/customer-company',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -15,19 +15,19 @@ export function loadTruckingCompanies() {
     }).done(json => {
       //CREATE ACTION
       dispatch({
-        type: INIT_TRUCKINGCOMPANIES, //action type, name according to convention
+        type: INIT_CUSTOMERS, //action type, name according to convention
         payload: json //action data, name according to convention
       });
     }).fail(() => {
-      console.log('Could not get list of trucking companies');
+      console.log('Could not get list of customer companies');
     });
   }
 }
 
-export function fetchTruckingCompany(companyId) {
+export function fetchCustomer(companyId) {
   return (dispatch) => {
     $.ajax({
-      url: '/api/trucking-company/' + companyId,
+      url: '/api/customer-company/' + companyId,
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -41,11 +41,11 @@ export function fetchTruckingCompany(companyId) {
   }
 }
 
-export function makeNewTruckingCompany(company) {
+export function makeNewCustomerCompany(company) {
   return (dispatch) => {
     $.ajax({
       type: 'POST',
-      url: '/api/trucking-company',
+      url: '/api/customer-company',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(company),
       headers: {
@@ -54,18 +54,18 @@ export function makeNewTruckingCompany(company) {
       dataType: 'json'
     }).always((json) => {
       dispatch(startOperation(json));
-      loadTruckingCompanies()(dispatch);
+      loadCustomers()(dispatch);
     }).fail(() => {
       console.log('Could not save company');
     });
   }
 }
 
-export function updateTruckingCompany(company) {
+export function updateCustomerCompany(company) {
   return (dispatch) => {
     $.ajax({
       type: 'PUT',
-      url: '/api/trucking-company/' + company.id,
+      url: '/api/customer-company/' + company.id,
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(company),
       headers: {
@@ -73,7 +73,7 @@ export function updateTruckingCompany(company) {
       },
       dataType: 'json'
     }).done((json) => {
-      loadTruckingCompanies()(dispatch);
+      loadCustomers()(dispatch);
       dispatch(startOperation(json));
     }).fail(() => {
       console.log('Could not update company');
@@ -82,20 +82,21 @@ export function updateTruckingCompany(company) {
 }
 
 
-export function deleteTruckingCompany(company) {
+export function deleteCustomerCompany(company) {
   return (dispatch) => {
     $.ajax({
       type: 'DELETE',
-      url: '/api/trucking-company/' + company.id,
+      url: '/api/customer-company/' + company.id,
       contentType: 'application/json; charset=utf-8',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       }
     }).done(() => {
-      loadTruckingCompanies()(dispatch);
+      loadCustomers()(dispatch);
       dispatch(cancelOperation(null));
     }).fail(() => {
       console.log('Could not delete company');
     });
   }
 }
+
