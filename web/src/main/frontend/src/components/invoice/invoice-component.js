@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InvoiceForm from './invoice-form';
 import InvoiceTable from './invoice-table';
+import ProductTable from '../product/product-table';
 
 class InvoiceComponent extends React.Component {
 
@@ -12,7 +13,7 @@ class InvoiceComponent extends React.Component {
           <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice}/>
         </div>
         <div className='col-sm-6'>
-          <InvoiceTable invoices={this.props.invoices}/>
+          <ProductTable products={this.props.currentInvoice.products}/>
         </div>
       </div>
     ) : (

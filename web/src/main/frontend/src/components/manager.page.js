@@ -5,14 +5,10 @@ import { selectTab } from '../actions/navigation.action';
 import { loadInvoices, fetchInvoice } from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import { Link } from 'react-router';
-import {
-  NAVIGATION_TAB_GENRES
-} from '../constants/constants';
 
 class ManagerPage extends React.Component {
 
   componentDidMount() {
-    this.props.selectTab(NAVIGATION_TAB_GENRES);
     this.props.loadInvoices();
     this.props.cancelCurrentOperation();
   }
