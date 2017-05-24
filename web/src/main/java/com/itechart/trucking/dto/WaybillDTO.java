@@ -1,5 +1,6 @@
 package com.itechart.trucking.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,12 +12,14 @@ import java.util.Date;
 @ToString(callSuper = true)
 public class WaybillDTO extends AbstractDTO {
     private String waybillNumber;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date departureDate;
     private String departureCity;
     private String departureStreet;
     private String departureHouse;
     private String departureLatitude;
     private String departureLongitude;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date destinationDate;
     private String destinationCity;
     private String destinationStreet;

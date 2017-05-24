@@ -87,41 +87,41 @@
 
             /*state b, registered but not checked*/
             INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-            VALUES ('834762', 3, '25.04.2005', NULL, NULL, 2, 1, 1, 4, 1);
+            VALUES ('834762', 3, '2005-04-25', NULL, NULL, 2, 1, 1, 4, 1);
             INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 110, 1, 1);
             INSERT INTO product (name, amount, product_state, invoice) VALUES ('Ноутбук', 300, 1, 1);
             INSERT INTO product (name, amount, product_state, invoice) VALUES ('Системный блок', 50, 1, 1);
 
             /*state c, checked*/
             INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-            VALUES ('834761', 3, '20.04.2005', 4, '21.04.2005', 3, 1, 1, 4, 2);
+            VALUES ('834761', 3, '2005-04-20', 4, '2005-04-21', 3, 1, 1, 4, 2);
             INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 215, 2, 2);
             INSERT INTO product (name, amount, product_state, invoice) VALUES ('Блок охлаждения', 132, 2, 2);
             INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
             destination_date, destination_city, destination_street, destination_house, destination_longitude,  destinatione_latitude,
             waybill_number, id_invoice, waybill_state)
-            VALUES ('21.04.2005', 'Минск', 'ул. Богдановича', '117а', 'широта', 'долгота', NULL, 'Москва', 'пр.Свободы', '31', 'широта', 'долгота',
+            VALUES ('2005-04-21', 'Минск', 'ул. Богдановича', '117а', 'широта', 'долгота', NULL, 'Москва', 'пр.Свободы', '31', 'широта', 'долгота',
             '834761', 2, 1);
 
             /*state d, delivered*/
             INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-            VALUES ('834760', 3, '20.03.2005', 4, '22.03.2005', 3, 1, 1, 4, 3);
+            VALUES ('834760', 3, '2005-03-20', 4, '2005-03-20', 3, 1, 1, 4, 3);
             INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 210, 3, 3); /*delivered*/
             INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 3, 4, 3);  /*lost*/
             INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
             destination_date, destination_city, destination_street, destination_house, destination_longitude,  destinatione_latitude,
             waybill_number, id_invoice, waybill_state)
-            VALUES ('22.03.2005', 'Минск', 'ул. Богдановича', '117а', 'широта', 'долгота', '24.03.2005', 'Москва', 'пр.Свободы', '31', 'широта', 'долгота',
+            VALUES ('2005-03-22', 'Минск', 'ул. Богдановича', '117а', 'широта', 'долгота', '2005-03-24', 'Москва', 'пр.Свободы', '31', 'широта', 'долгота',
             '834760', 3, 2);
             commit;
 
             /*checkpoint*/
             INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
-            VALUES ('Могилев', 'широта', 'долгота', '21.04.2005', 1);
+            VALUES ('Могилев', 'широта', 'долгота', '2005-04-21', 1);
             INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
             VALUES ('Смоленск', 'широта', 'долгота', NULL, 1);
             INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
-            VALUES ('Смоленск', 'широта', 'долгота', '23.03.2013', 2);
+            VALUES ('Смоленск', 'широта', 'долгота', '2013-03-23', 2);
             commit;
         </sql>
     </changeSet>
