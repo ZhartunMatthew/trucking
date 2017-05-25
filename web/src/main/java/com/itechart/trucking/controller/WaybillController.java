@@ -44,6 +44,18 @@ public class WaybillController {
         return new ResponseEntity<>(waybillDTOs, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/driver", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<WaybillDTO>> findAllForDriver() {
+        Long idDriver = CustomUserDetailsProvider.getUserDetails().getId();
+        List<Waybill> waybills = waybillService.findByInvoice_DriverUser(idDriver);
+        List<WaybillDTO> waybillDTOs = new ArrayList<>();
+        for (Waybill waybill : waybills) {
+            WaybillDTO waybillDTO = conversionService.convert(waybill, WaybillDTO.class);
+            waybillDTOs.add(waybillDTO);
+        }
+        return new ResponseEntity<>(waybillDTOs, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<WaybillDTO> create(@RequestBody WaybillDTO waybillDTO) {
         LOGGER.info("REST request. Path:/api/waybill  method: POST. waybill: {}", waybillDTO);

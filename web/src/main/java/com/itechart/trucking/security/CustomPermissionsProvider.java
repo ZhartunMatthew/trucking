@@ -185,6 +185,9 @@ public class CustomPermissionsProvider {
             case "GET_BY_TRUCKING_ID":
                 return waybillProvider.provideGETbyTruckingId(details, id);
 
+            case "GET_BY_DRIVER_ID":
+                return waybillProvider.provideGETbyDriverId(details, id);
+
             default:
                 return false;
         }

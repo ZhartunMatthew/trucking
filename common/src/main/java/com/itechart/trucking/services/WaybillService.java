@@ -2,8 +2,10 @@ package com.itechart.trucking.services;
 
 
 import com.itechart.trucking.entity.TruckingCompany;
+import com.itechart.trucking.entity.User;
 import com.itechart.trucking.entity.Waybill;
 import com.itechart.trucking.repository.TruckingCompanyRepository;
+import com.itechart.trucking.repository.UserRepository;
 import com.itechart.trucking.repository.WaybillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +25,9 @@ public class WaybillService {
 
     @Autowired
     private TruckingCompanyRepository truckingCompanyRepository;
+
+    @Autowired
+    private  UserRepository userRepository;
 
     @PreAuthorize("hasPermission(null, 'Waybill', 'GET')")
     @Transactional(readOnly = true)
@@ -51,6 +56,13 @@ public class WaybillService {
     public List<Waybill> findByInvoice_TruckingCompany(Long id){
         TruckingCompany truckingCompany = truckingCompanyRepository.findOne(id);
         return waybillRepository.findByInvoice_TruckingCompany(truckingCompany);
+    }
+
+    @PreAuthorize("hasPermission(#id, 'Waybill', 'GET_BY_DRIVER_ID')")
+    @Transactional(readOnly = true)
+    public List<Waybill> findByInvoice_DriverUser(Long id){
+        User driver =  userRepository.findOne(id);
+        return waybillRepository.findByInvoice_DriverUser(driver);
     }
 
     @PreAuthorize("hasAnyRole('MANAGER', 'DRIVER')")

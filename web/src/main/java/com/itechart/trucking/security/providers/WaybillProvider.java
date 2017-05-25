@@ -85,4 +85,19 @@ public class WaybillProvider implements AbstractDataProvider {
         }
         return false;
     }
+
+    public boolean provideGETbyDriverId(CustomUserDetails details, Long driverId) {
+        UserRoleEnum role = details.getRole();
+        if(role == UserRoleEnum.DRIVER) {
+            if(driverId == null) {
+                return true;
+            }
+            if(driverId.equals(details.getId())) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
 }
