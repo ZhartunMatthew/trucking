@@ -6,6 +6,7 @@ import { loadUserRole } from '../actions/userRole.action';
 import Error from '../components/error';
 import {routes} from './routes';
 import {ways} from './ways';
+import {driverNavigation} from './driverNavigation'
 
 
 class UserRole extends React.Component {
@@ -16,18 +17,24 @@ class UserRole extends React.Component {
 
   render() {
     console.log('HERE');
-    if (this.props.userRole === 'SYSTEM_ADMIN'){
-       return (
-         <Router history={hashHistory} routes={ways} />
-       )}
-    else if(this.props.userRole === 'ADMIN'){
-      return (
-      <Router history={hashHistory} routes={routes} />
-      )}
-      else return (
-        <Error/>
-      )
-
+    switch (this.props.userRole) {
+      case 'SYSTEM_ADMIN':
+        return (
+          <Router history={hashHistory} routes={ways} />
+        );
+      case 'ADMIN':
+        return (
+          <Router history={hashHistory} routes={routes} />
+        );
+      case 'DRIVER':
+        return (
+          <Router history={hashHistory} routes={driverNavigation} />
+        );
+      default:
+        return (
+          <Error/>
+        )
+    }
   }
 }
 

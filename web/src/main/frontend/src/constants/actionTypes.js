@@ -10,4 +10,4 @@ export const INIT_ROLES = 'INIT_ROLES';
 export const INIT_CUSTOMERS = 'INIT_CUSTOMERS';
 export const INIT_CARS = 'INIT_CARS';
 export const INIT_CARTYPES = 'INIT_CARTYPES';
-
+export const INIT_DRIVERWAYBILLS = 'INIT_DRIVERWAYBILLS';
