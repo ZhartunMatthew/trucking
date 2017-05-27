@@ -1,10 +1,8 @@
 package com.itechart.trucking.entity;
 
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
 
 @Entity(name = "waybill")
 public class Waybill extends BaseEntity {
@@ -24,7 +22,6 @@ public class Waybill extends BaseEntity {
     private String destinationLatitude;
     private String destinationLongitude;
     private Invoice invoice;
-    private TruckingCompany truckingCompany;
     private List<CheckPoint> checkPoints;
 
     public Waybill() {

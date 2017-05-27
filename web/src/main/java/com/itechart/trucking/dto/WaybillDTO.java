@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,4 +36,5 @@ public class WaybillDTO extends AbstractDTO {
     private String driverPatronymic;
     private String driverSurname;
     private Long idTruckingCompany;
+    private List<CheckPointDTO> checkPoints;
 }
