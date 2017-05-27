@@ -2,6 +2,7 @@ import React from 'react';
 import Input from '../common/text-input';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Select from '../common/select';
 import { loadRoles } from '../../actions/userRole.action';
 import { updateUser, makeNewUser } from '../../actions/user.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
@@ -61,7 +62,7 @@ class UserForm extends React.Component {
   }
 
   handleUserRoleChange(event) {
-    this.props.updateOperation('role', event.target.value);
+    this.props.updateOperation('userRole', event.target.value);
   }
 
   save() {
@@ -109,17 +110,9 @@ class UserForm extends React.Component {
                    value={this.props.user.house  || ''} onChange={this.handleHouseChange.bind(this)}/>
             <Input id='flat' type='text' label='flat' placeholder='Enter flat here'
                    value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)}/>
-            <Input id='truckingCompanyId' type='text' label='company id' placeholder='Enter company id'
-                   value={this.props.user.truckingCompanyId  || ''} onChange={this.handleCompanyIdChange.bind(this)}/>
-            <Input id='truckingCompanyName' type='text' label='trucking company' placeholder='Enter trucking company'
-                   value={this.props.user.truckingCompanyName  || ''} onChange={this.handleCompanyChange.bind(this)}/>
-            <select id="role" label="role" onChange={this.handleUserRoleChange.bind(this)}>
-              <option value={this.props.userRolesList[1]}>ADMIN</option>
-              <option value={this.props.userRolesList[2]}>DISPATCHER</option>
-              <option value={this.props.userRolesList[3]}>MANAGER</option>
-              <option value={this.props.userRolesList[4]}>DRIVER</option>
-              <option value={this.props.userRolesList[5]}>COMPANY_OWNER</option>
-            </select>
+            <Select id="userRole" label="userRole" onChange={this.handleUserRoleChange.bind(this)}
+                    options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
+                    value={this.props.userRolesList}/>
 
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>

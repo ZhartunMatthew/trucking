@@ -1,3 +1,4 @@
+
 package com.itechart.trucking.dto;
 
 import lombok.Getter;
@@ -10,3 +11,4 @@ import lombok.ToString;
 public class CarTypeDTO extends AbstractDTO {
     private String description;
 }
+
