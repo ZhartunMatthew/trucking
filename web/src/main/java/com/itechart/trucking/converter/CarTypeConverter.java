@@ -1,3 +1,4 @@
+
 package com.itechart.trucking.converter;
 
 import com.itechart.trucking.dto.CarTypeDTO;
@@ -23,3 +24,4 @@ public class CarTypeConverter extends AbstractTwoWayConverter<CarTypeDTO, CarTyp
         return dto;
     }
 }
+

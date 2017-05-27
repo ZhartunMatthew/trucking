@@ -32,7 +32,6 @@ class TruckingCompanyTable extends React.Component {
           <td>
             <div className='btn-toolbar text-center'>
               <button className='btn btn-primary' onClick={this.onShowUpdateGenreForm.bind(this, truckingCompany)}>Update</button>
-              <button className='btn btn-danger' onClick={this.deleteGenre.bind(this, truckingCompany)}>Delete</button>
             </div>
           </td>
         </tr>

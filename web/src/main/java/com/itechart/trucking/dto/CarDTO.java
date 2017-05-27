@@ -1,5 +1,6 @@
 package com.itechart.trucking.dto;
 
+import com.itechart.trucking.entity.CarType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

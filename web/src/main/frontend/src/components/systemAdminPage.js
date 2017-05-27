@@ -15,7 +15,6 @@ class SystemAdminPage extends React.Component {
   componentDidMount() {
     this.props.selectTab(NAVIGATION_TAB_GENRES);
     this.props.loadTruckingCompanies();
-    this.props.loadUsers();
     this.props.cancelCurrentOperation();
   }
 
@@ -45,8 +44,6 @@ function mapDispatchToProps(dispatch) {
     selectTab: bindActionCreators(selectTab, dispatch),
     loadTruckingCompanies: bindActionCreators(loadTruckingCompanies, dispatch),
     fetchTruckingCompany: bindActionCreators(fetchTruckingCompany, dispatch),
-    loadUsers: bindActionCreators(loadUsers, dispatch),
-    fetchUser: bindActionCreators(fetchUser, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }
