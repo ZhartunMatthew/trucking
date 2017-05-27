@@ -18,26 +18,53 @@ class CustomerTable extends React.Component {
     this.props.deleteCustomer(customerCompany);
   }
 
+  showCreateInvoiceForm() {
+    console.log("GETTING STARTED");
+  }
+
   render() {
     let rows = this.props.customers.map((customer, index) => {
-      return (
-        <tr key={customer.id}>
-          <th scope='row'> {index + 1} </th>
-          <td> {customer.number}</td>
-          <td> {customer.taxpayerNumber}</td>
-          <td> {customer.country}</td>
-          <td> {customer.city}</td>
-          <td> {customer.street}</td>
-          <td> {customer.house}</td>
-          <td>
-            <div className='btn-toolbar text-center'>
-              <button className='btn btn-primary' onClick={this.onShowUpdateCustomerForm.bind(this, customer)}>Update</button>
-              <button className='btn btn-danger' onClick={this.deleteCustomer.bind(this, customer)}>Delete</button>
-            </div>
-          </td>
-        </tr>
-      )
+      if(this.props.userRole === "ADMIN") {
+        return (
+          <tr key={customer.id}>
+            <th scope='row'> {index + 1} </th>
+            <td> {customer.number}</td>
+            <td> {customer.taxpayerNumber}</td>
+            <td> {customer.country}</td>
+            <td> {customer.city}</td>
+            <td> {customer.street}</td>
+            <td> {customer.house}</td>
+            <td>
+              <div className='btn-toolbar text-center'>
+                <button className='btn btn-primary' onClick={this.onShowUpdateCustomerForm.bind(this, customer)}> Update </button>
+                <button className='btn btn-danger' onClick={this.deleteCustomer.bind(this, customer)}> Delete </button>
+              </div>
+            </td>
+          </tr>
+        )
+      }
+
+      if(this.props.userRole === "DISPATCHER") {
+        return (
+          <tr key={customer.id}>
+            <th scope='row'> {index + 1} </th>
+            <td> {customer.number}</td>
+            <td> {customer.taxpayerNumber}</td>
+            <td> {customer.country}</td>
+            <td> {customer.city}</td>
+            <td> {customer.street}</td>
+            <td> {customer.house}</td>
+            <td>
+              <div className='btn-toolbar text-center'>
+                <button className='btn btn-primary' onClick={this.showCreateInvoiceForm.bind(this, customer)}> Create invoice </button>
+              </div>
+            </td>
+          </tr>
+        )
+      }
+
     });
+
     return (
       <div>
         <h1>List of companies</h1>
@@ -72,12 +99,15 @@ class CustomerTable extends React.Component {
 CustomerTable.propTypes = {
   customers: React.PropTypes.array.isRequired,
   startOperation: React.PropTypes.func.isRequired,
-  deleteCustomer: React.PropTypes.func.isRequired
+  deleteCustomer: React.PropTypes.func.isRequired,
+  userRole: React.PropTypes.String
 };
 
 
-let mapStateToProps = function () {
-  return {};
+let mapStateToProps = function (state) {
+  return {
+    userRole: state.userRole.userRole
+  };
 };
 
 function mapDispatchToProps(dispatch) {
