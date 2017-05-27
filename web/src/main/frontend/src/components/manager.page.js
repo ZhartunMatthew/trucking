@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectTab } from '../actions/navigation.action';
 import { loadInvoices, fetchInvoice } from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import { Link } from 'react-router';
@@ -31,7 +30,6 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectTab: bindActionCreators(selectTab, dispatch),
     loadInvoices: bindActionCreators(loadInvoices, dispatch),
     fetchInvoice: bindActionCreators(fetchInvoice, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)

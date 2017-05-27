@@ -31,8 +31,8 @@ export function fetchInvoice(invoiceId) {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).done(company => {
-        dispatch(startOperation(company));
+    }).done(json => {
+        dispatch(startOperation(json));
       }
     ).fail(() => {
       console.log('Could get a single invoice');

@@ -5,12 +5,17 @@ import InvoiceTable from './invoice-table';
 import ProductTable from '../product/product-table';
 
 class InvoiceComponent extends React.Component {
+  constructor() {
+    super();
+    this.onSubmitInvoiceForm = this.onSubmitInvoiceForm.bind(this);
+  }
 
   render() {
     let content = this.props.currentInvoice ? (
       <div className='row'>
         <div className='col-sm-6'>
-          <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice}/>
+          <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice}
+          onSubmit={this.onSubmitInvoiceForm}/>
         </div>
         <div className='col-sm-6'>
           <ProductTable products={this.props.currentInvoice.products}/>
@@ -29,7 +34,15 @@ class InvoiceComponent extends React.Component {
       </div>
     );
   }
+
+  onSubmitInvoiceForm() {
+    this.context.router.push('/waybill');
+  }
 }
+
+InvoiceComponent.contextTypes = {
+    router: React.PropTypes.func
+};
 
 let mapStateToProps = function (state) {
   return {

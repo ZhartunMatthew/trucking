@@ -19,9 +19,9 @@ class InvoiceForm extends React.Component {
     this.props.updateOperation('customer-company', event.target.value);
   }
 
-
   save() {
     this.props.updateInvoice(this.props.invoice);
+    this.props.onSubmit();
   }
 
   cancel() {
@@ -30,7 +30,6 @@ class InvoiceForm extends React.Component {
 
   render() {
     let editingLabel = <span> Check invoice №<b>{this.props.invoice.number}</b> </span>;
-    const disabledClass = this.props.changes ? '' : 'disabled';
     return (
       <div>
         <form className='form-horizontal'>
@@ -49,8 +48,7 @@ class InvoiceForm extends React.Component {
                 <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
               </div>
               <div className='btn-group float-right' role='group'>
-                <button type='button' className={`${disabledClass} btn btn-primary`}
-                        onClick={this.props.changes ? this.save.bind(this) : null}>Save
+                <button type='button' className={`btn btn-primary`} onClick={this.save.bind(this)}>OK
                 </button>
               </div>
             </div>
@@ -63,10 +61,10 @@ class InvoiceForm extends React.Component {
 
 InvoiceForm.propTypes = {
   invoice: React.PropTypes.object.isRequired,
-  changes: React.PropTypes.bool,
   updateInvoice: React.PropTypes.func.isRequired,
   updateOperation: React.PropTypes.func.isRequired,
-  cancelOperation: React.PropTypes.func.isRequired
+  cancelOperation: React.PropTypes.func.isRequired,
+  onSubmit: React.PropTypes.func.isRequired
 };
 
 let mapStateToProps = function () {
@@ -77,7 +75,7 @@ function mapDispatchToProps(dispatch) {
   return {
     updateInvoice: bindActionCreators(updateInvoice, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
-    cancelOperation: bindActionCreators(cancelOperation, dispatch)
+    cancelOperation: bindActionCreators(cancelOperation, dispatch),
   }
 }
 
