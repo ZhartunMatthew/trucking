@@ -7,7 +7,7 @@ class ProductTable extends React.Component {
 
   render() {
     let rows = null;
-    if(this.props.products !== undefined) {
+    if(this.props.products !== undefined && this.props.products !== null) {
       rows = this.props.products.map((product, index) => {
         return (
           <tr key={product.id}>
