@@ -59,3 +59,23 @@ export function updateInvoice(invoice) {
     });
   }
 }
+
+export function createInvoice(invoice) {
+  return (dispatch) => {
+    $.ajax({
+      type: 'POST',
+      url: '/api/invoice/',
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(invoice),
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      dataType: 'json'
+    }).done((json) => {
+      loadInvoices()(dispatch);
+      dispatch(startOperation(json));
+    }).fail(() => {
+      console.log('Could not create invoice');
+    });
+  }
+}
