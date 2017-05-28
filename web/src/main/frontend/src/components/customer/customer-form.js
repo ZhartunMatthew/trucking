@@ -67,8 +67,6 @@ class CustomerForm extends React.Component {
           <button type='button' className='btn btn-success'
                   onClick={this.cancel.bind(this)}>Close
           </button>
-        </div>
-        <div className='btn-group float-right' role='group'>
           <button type='button' className={`${disabledClass} btn btn-default`}
                   onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
           </button>
@@ -81,14 +79,8 @@ class CustomerForm extends React.Component {
     let dispatcherActions =
       <div className='btn-toolbar text-center'>
         <div className='btn-group' role='group'>
-          <button type='button' className='btn btn-primary'
-                  onClick={this.showCreateInvoiceFrom.bind(this)}> Create invoice
-          </button>
-          <div className='btn-group' role='group'>
-            <button type='button' className='btn btn-success'
-                    onClick={this.cancel.bind(this)}>Close
-            </button>
-          </div>
+          <button type='button' className='btn btn-primary' onClick={this.showCreateInvoiceFrom.bind(this)}> Create invoice </button>
+          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}> Close </button>
         </div>
       </div>;
 
