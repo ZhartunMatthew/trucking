@@ -5,16 +5,19 @@ import { startOperation } from '../../actions/operation.action';
 
 class CheckPointTable extends React.Component {
 
+  constructor(props) {
+    super(props);
+  }
+
   onShowUpdateCheckPointForm(checkPoint) {
     this.props.startOperation(checkPoint);
   }
 
   onShowCreateCheckPointForm() {
-    this.props.startOperation({description: ''});
   }
 
   render() {
-    let rows = this.props.checkPoints.map((checkPoint, index) => {
+    let rows = this.props.waybill.checkPoints.map((checkPoint, index) => {
       return (
         <tr key={checkPoint.id}>
           <th scope='row'> {index + 1} </th>
@@ -34,7 +37,7 @@ class CheckPointTable extends React.Component {
           <thead>
           <tr>
             <th>#</th>
-            <th>checkPoint description</th>
+            <th>description</th>
           </tr>
           </thead>
           <tbody>
@@ -53,13 +56,15 @@ class CheckPointTable extends React.Component {
 }
 
 CheckPointTable.propTypes = {
-  checkPoints: React.PropTypes.array.isRequired,
+  waybill: React.PropTypes.object.isRequired,
   startOperation: React.PropTypes.func.isRequired,
 };
 
 
-let mapStateToProps = function () {
-  return {};
+let mapStateToProps = function (state) {
+  return {
+    waybill: state.operation.modifiedValue
+  };
 };
 
 function mapDispatchToProps(dispatch) {

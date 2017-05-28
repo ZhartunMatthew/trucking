@@ -23,23 +23,6 @@ export function loadInvoices() {
   }
 }
 
-export function fetchInvoice(invoiceId) {
-  return (dispatch) => {
-    $.ajax({
-      url: '/api/invoice/' + invoiceId,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      dataType: 'json'
-    }).done(json => {
-        dispatch(startOperation(json));
-      }
-    ).fail(() => {
-      console.log('Could get a single invoice');
-    });
-  }
-}
-
 export function updateInvoice(invoice) {
   return (dispatch) => {
     $.ajax({
@@ -53,7 +36,6 @@ export function updateInvoice(invoice) {
       dataType: 'json'
     }).done((json) => {
       loadInvoices()(dispatch);
-      dispatch(startOperation(json));
     }).fail(() => {
       console.log('Could not update invoice');
     });

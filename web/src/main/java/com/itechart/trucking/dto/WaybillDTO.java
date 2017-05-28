@@ -30,6 +30,7 @@ public class WaybillDTO extends AbstractDTO {
     private WaybillStateDTO waybillState;
     private Long invoiceId;
     private String invoiceNumber;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date invoiceDate;
     private String customerCompany;
     private String driverName;

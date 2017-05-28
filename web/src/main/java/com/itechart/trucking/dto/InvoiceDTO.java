@@ -23,6 +23,7 @@ public class InvoiceDTO extends AbstractDTO {
     private Long truckingCompanyId;
     private String truckingCompany;
     private Long driverId;
+    private String driverFullName;
     private Long managerId;
     private Long dispatcherId;
     private Long carId;

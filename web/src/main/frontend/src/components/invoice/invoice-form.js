@@ -12,11 +12,11 @@ class InvoiceForm extends React.Component {
   }
 
   handleRegisterDate(event) {
-    this.props.updateOperation('register-date', event.target.value);
+    this.props.updateOperation('registerDate', event.target.value);
   }
 
   handleCustomerCompany(event) {
-    this.props.updateOperation('customer-company', event.target.value);
+    this.props.updateOperation('customerCompany', event.target.value);
   }
 
   save() {
@@ -37,10 +37,10 @@ class InvoiceForm extends React.Component {
             <legend>{editingLabel} </legend>
             <Input id='number' type='text' label='Invoice number' placeholder='' value={this.props.invoice.number || ''}
                    onChange={this.handleNumberChange.bind(this)} readOnly={true}/>
-            <Input id='register-date' type='text' label='Register date' placeholder=''
+            <Input id='registerDate' type='text' label='Register date' placeholder=''
                    value={this.props.invoice.registerDate || ''} onChange={this.handleRegisterDate.bind(this)}
                    readOnly={true}/>
-            <Input id='customer-company' type='text' label='Customer company' placeholder=''
+            <Input id='customerCompany' type='text' label='Customer company' placeholder=''
                    value={this.props.invoice.customerCompany || ''} onChange={this.handleCustomerCompany.bind(this)}
                    readOnly={true}/>
             <div className='btn-toolbar text-center'>
