@@ -19,7 +19,7 @@ class InvoiceTable extends React.Component {
           <td> {invoice.customerCompany}</td>
           <td>
             <div className='btn-toolbar text-center'>
-              <button className='btn btn-primary' onClick={this.onShowUpdateInvoiceForm.bind(this, invoice)}>Update</button>
+              <button className='btn btn-primary' onClick={this.onShowUpdateInvoiceForm.bind(this, invoice)}> Update </button>
             </div>
           </td>
         </tr>
