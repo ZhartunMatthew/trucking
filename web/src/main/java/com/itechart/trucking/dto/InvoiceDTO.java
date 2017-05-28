@@ -1,5 +1,6 @@
 package com.itechart.trucking.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,7 +13,9 @@ import java.util.List;
 @ToString(callSuper = true)
 public class InvoiceDTO extends AbstractDTO {
     private String number;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date registerDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date checkDate;
     private InvoiceStateDTO invoiceState;
     private Long customerCompanyId;
