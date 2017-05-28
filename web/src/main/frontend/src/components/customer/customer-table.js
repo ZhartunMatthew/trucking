@@ -18,10 +18,6 @@ class CustomerTable extends React.Component {
     this.props.deleteCustomer(customerCompany);
   }
 
-  showCreateInvoiceForm() {
-    console.log("GETTING STARTED");
-  }
-
   render() {
     let rows = this.props.customers.map((customer, index) => {
       if(this.props.userRole === "ADMIN") {
@@ -56,7 +52,7 @@ class CustomerTable extends React.Component {
             <td> {customer.house}</td>
             <td>
               <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.showCreateInvoiceForm.bind(this, customer)}> Create invoice </button>
+                <button className='btn btn-primary' onClick={this.onShowUpdateCustomerForm.bind(this, customer)}> Open </button>
               </div>
             </td>
           </tr>
@@ -64,6 +60,22 @@ class CustomerTable extends React.Component {
       }
 
     });
+
+    let adminActions =
+      <td colSpan={3}>
+        <button className='btn btn-default' onClick={this.onShowCreateCustomerForm.bind(this)}>
+          Create new company
+        </button>
+      </td>;
+
+    let dispatcherActions = null;
+
+    let userActions = null;
+
+    let role = this.props.userRole;
+    userActions = role === "ADMIN" ? adminActions : userActions;
+    userActions = role === "DISPATCHER" ? dispatcherActions : userActions;
+
 
     return (
       <div>
@@ -82,13 +94,10 @@ class CustomerTable extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {rows}
-          <tr>
-            <td colSpan={3}>
-              <button className='btn btn-default' onClick={this.onShowCreateCustomerForm.bind(this)}>Create new company
-              </button>
-            </td>
-          </tr>
+            {rows}
+            <tr>
+              {userActions}
+            </tr>
           </tbody>
         </table>
       </div>

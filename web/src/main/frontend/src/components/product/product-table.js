@@ -6,15 +6,18 @@ import { startOperation } from '../../actions/operation.action';
 class ProductTable extends React.Component {
 
   render() {
-    let rows = this.props.products.map((product, index) => {
-      return (
-        <tr key={product.id}>
-          <th scope='row'> {index + 1} </th>
-          <td> {product.name}</td>
-          <td> {product.amount}</td>
-        </tr>
-      )
-    });
+    let rows = null;
+    if(this.props.products !== undefined) {
+      rows = this.props.products.map((product, index) => {
+        return (
+          <tr key={product.id}>
+            <th scope='row'> {index + 1} </th>
+            <td> {product.name}</td>
+            <td> {product.amount}</td>
+          </tr>
+        )
+      });
+    }
     return (
       <div>
         <h1>List of products</h1>
