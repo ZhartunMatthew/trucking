@@ -84,6 +84,7 @@ class UserForm extends React.Component {
   render() {
     let editingLabel = <span> Editing of <b> {this.props.user.name} </b> user </span>;
     let creatingLabel = <span>Create new user</span>;
+    const defaultUserRole = this.props.user.userRole ? this.props.user.userRole : [];
     const disabledClass = this.props.changes ? '' : 'disabled';
     return (
       <div>
@@ -112,7 +113,7 @@ class UserForm extends React.Component {
                    value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)}/>
             <Select id="userRole" label="userRole" onChange={this.handleUserRoleChange.bind(this)}
                     options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
-                    value={this.props.userRolesList}/>
+                    value={defaultUserRole}/>
 
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
