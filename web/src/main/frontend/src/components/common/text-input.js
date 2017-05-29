@@ -23,6 +23,7 @@ InputComponent.propTypes = {
   placeholder: React.PropTypes.string,
   readOnly: React.PropTypes.bool
 };
+
 InputComponent.defaultProps = {
   placeholder: '',
   readOnly: false

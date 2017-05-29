@@ -23,6 +23,23 @@ export function loadInvoices() {
   }
 }
 
+export function fetchInvoice(invoiceId) {
+  return (dispatch) => {
+    $.ajax({
+      url: '/api/invoice/' + invoiceId,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      dataType: 'json'
+    }).done(company => {
+        dispatch(startOperation(company));
+      }
+    ).fail(() => {
+      console.log('Could get a single invoice');
+    });
+  }
+}
+
 export function updateInvoice(invoice) {
   return (dispatch) => {
     $.ajax({
@@ -38,6 +55,26 @@ export function updateInvoice(invoice) {
       loadInvoices()(dispatch);
     }).fail(() => {
       console.log('Could not update invoice');
+    });
+  }
+}
+
+export function createInvoice(invoice) {
+  return (dispatch) => {
+    $.ajax({
+      type: 'POST',
+      url: '/api/invoice/',
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(invoice),
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      dataType: 'json'
+    }).done((json) => {
+      loadInvoices()(dispatch);
+      dispatch(startOperation(json));
+    }).fail(() => {
+      console.log('Could not create invoice');
     });
   }
 }

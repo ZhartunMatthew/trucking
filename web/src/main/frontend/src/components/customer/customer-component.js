@@ -7,6 +7,7 @@ import CustomerForm from './customer-form';
 class CustomerComponent extends React.Component {
 
   render() {
+
     let content = this.props.currentCustomer ? (
         <div className='row'>
           <div className='col-sm-6'>
