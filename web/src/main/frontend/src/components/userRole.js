@@ -6,6 +6,7 @@ import { loadUserRole } from '../actions/userRole.action';
 import Error from '../components/error';
 import {routes} from './routes';
 import {ways} from './ways';
+import {managerRoutes} from './manager.routes';
 
 
 class UserRole extends React.Component {
@@ -23,6 +24,10 @@ class UserRole extends React.Component {
     else if(this.props.userRole === 'ADMIN'){
       return (
       <Router history={hashHistory} routes={routes} />
+      )}
+    else if(this.props.userRole === 'MANAGER'){
+      return (
+        <Router history={hashHistory} routes={managerRoutes} />
       )}
       else return (
         <Error/>

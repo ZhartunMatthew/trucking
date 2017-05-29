@@ -1,16 +1,24 @@
 package com.itechart.trucking.converter;
 
+import com.itechart.trucking.dto.CheckPointDTO;
 import com.itechart.trucking.dto.WaybillDTO;
+import com.itechart.trucking.entity.CheckPoint;
 import com.itechart.trucking.entity.Waybill;
 import com.itechart.trucking.services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybill> {
 
     @Autowired
     private WaybillStateConverter waybillStateConverter;
+
+    @Autowired
+    private CheckPointConverter checkPointConverter;
 
     @Autowired
     private InvoiceService invoiceService;
@@ -34,6 +42,13 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
         entity.setDestinationLongitude(dto.getDestinationLongitude());
         entity.setWaybillState(waybillStateConverter.convert(dto.getWaybillState()));
         entity.setInvoice(invoiceService.findOne(dto.getInvoiceId()));
+        List<CheckPoint> checkPointList = new ArrayList<>();
+        for (CheckPointDTO checkPointDTO : dto.getCheckPoints()) {
+            CheckPoint checkPoint = checkPointConverter.convert(checkPointDTO);
+            checkPoint.setWaybill(entity);
+            checkPointList.add(checkPoint);
+        }
+        entity.setCheckPoints(checkPointList);
         return entity;
     }
 
@@ -63,6 +78,13 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
         dto.setDriverPatronymic(entity.getInvoice().getDriverUser().getPatronymic());
         dto.setDriverSurname(entity.getInvoice().getDriverUser().getSurname());
         dto.setIdTruckingCompany(entity.getInvoice().getTruckingCompany().getId());
+        List<CheckPointDTO> checkPointDTOs = new ArrayList<>();
+        for (CheckPoint checkPoint : entity.getCheckPoints()) {
+            CheckPointDTO checkPointDTO = checkPointConverter.convertBack(checkPoint);
+            checkPointDTO.setWaybillId(entity.getId());
+            checkPointDTOs.add(checkPointDTO);
+        }
+        dto.setCheckPoints(checkPointDTOs);
         return dto;
     }
 }
