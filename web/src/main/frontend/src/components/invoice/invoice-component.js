@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InvoiceForm from './invoice-form';
 import InvoiceTable from './invoice-table';
+import ProductTable from '../product/product-table';
 import ProductComponent from "../product/product-component";
 import { bindActionCreators } from 'redux';
 import { startOperation, cancelOperation } from '../../actions/operation.action';
@@ -38,23 +39,46 @@ class InvoiceComponent extends React.Component {
 
   render() {
     let role = this.props.userRole;
+    let content = null;
 
-    let content = this.props.currentInvoice ? (
-      <div className='row'>
-        <div className='col-sm-6'>
-          <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice} onSubmit={this.onSubmitInvoiceForm}/>
+    if(role === 'MANAGER') {
+      content = this.props.currentInvoice ? (
+        <div className='row'>
+          <div className='col-sm-6'>
+            <InvoiceForm changes={this.props.changes}
+                         invoice={this.props.currentInvoice}
+                         onSubmit={this.onSubmitInvoiceForm}/>
+          </div>
+          <div className='col-sm-6'>
+            <ProductTable products={this.props.currentInvoice.products}/>
+          </div>
         </div>
-        <div className='col-sm-6'>
-          <ProductTable products={this.props.currentInvoice.products}/>
+      ) : (
+        <div className='row'>
+          <div className='col align-self-center'>
+            <InvoiceTable invoices={this.props.invoices}/>
+          </div>
         </div>
-      </div>
-    ) : (
-      <div className='row'>
-        <div className='col align-self-center'>
-          <InvoiceTable invoices={this.props.invoices}/>
+      );
+    }
+    if(role === 'DISPATCHER') {
+      content = this.props.currentInvoice ? (
+        <div className='row'>
+          <div className='col-sm-6'>
+            <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice}/>
+          </div>
+          <div className='col-sm-6'>
+            <ProductComponent/>
+          </div>
         </div>
-      </div>
-    );
+      ) : (
+        <div className='row'>
+          <div className='col align-self-center'>
+            <InvoiceTable invoices={this.props.invoices}/>
+          </div>
+        </div>
+      );
+    }
 
     if(role === "DISPATCHER" && this.props.currentInvoice === null) {
       content =
