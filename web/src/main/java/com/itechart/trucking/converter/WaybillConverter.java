@@ -40,6 +40,8 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
         entity.setDestinationHouse(dto.getDestinationHouse());
         entity.setDestinationLatitude(dto.getDestinationLatitude());
         entity.setDestinationLongitude(dto.getDestinationLongitude());
+        entity.setPrice(dto.getPrice());
+        entity.setTotalDistance(dto.getTotalDistance());
         entity.setWaybillState(waybillStateConverter.convert(dto.getWaybillState()));
         entity.setInvoice(invoiceService.findOne(dto.getInvoiceId()));
         List<CheckPoint> checkPointList = new ArrayList<>();
@@ -69,6 +71,8 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
         dto.setDestinationHouse(entity.getDestinationHouse());
         dto.setDestinationLatitude(entity.getDestinationLatitude());
         dto.setDestinationLongitude(entity.getDestinationLongitude());
+        dto.setPrice(entity.getPrice());
+        dto.setTotalDistance(entity.getTotalDistance());
         dto.setWaybillState(waybillStateConverter.convertBack(entity.getWaybillState()));
         dto.setInvoiceId(entity.getInvoice().getId());
         dto.setInvoiceNumber(entity.getInvoice().getInvoiceNumber());
