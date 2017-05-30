@@ -65,45 +65,45 @@ commit;
 
 /*car*/
 INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('3214-MAN', 'bmw',  1, '15-1566-05', 26.6, TRUE, 1);
+  VALUES ('3214-MAN', 'bmw',  'TANK', '15-1566-05', 26.6, TRUE, 1);
 INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('9999-GTY', 'bmw', 2, 'МАЗ-54323', 26.6, FALSE, 1);
+  VALUES ('9999-GTY', 'bmw', 'COVERED_BODY', 'МАЗ-54323', 26.6, TRUE , 1);
 INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('3928-ABC', 'bmw', 2, 'МАЗ-54323', 26.6, FALSE , 1);
+  VALUES ('3928-ABC', 'bmw', 'REFRIGIRATOR', 'МАЗ-54323', 26.6, FALSE , 1);
 INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('1058-EDF', 'bmw', 3, '15-1566-05', 26.6, FALSE , 1);
+  VALUES ('1058-EDF', 'bmw', 'REFRIGIRATOR', '15-1566-05', 26.6, FALSE , 1);
 commit;
 
 /*invoice + product + waybill*/
 
 /*state b, registered but not checked*/
 INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834762', 3, '25.04.2017', NULL, NULL, 2, 1, 1, 5, 1);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 110, 1, 1);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Ноутбук', 300, 1, 1);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Системный блок', 50, 1, 1);
+  VALUES ('834762', 3, '25.04.2017', NULL, NULL, 2, 1, 1, 5, 'ISSUED');
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 110, 'REGISTERED', 1);
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Ноутбук', 300, 'REGISTERED', 1);
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Системный блок', 50, 'REGISTERED', 1);
 
 /*state c, checked*/
 INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834761', 3, '20.04.2017', 4, '21.04.2017', 3, 1, 1, 5, 2);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 215, 2, 2);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Блок охлаждения', 132, 2, 2);
+  VALUES ('834761', 3, '20.04.2017', 4, '21.04.2017', 3, 1, 1, 5, 'ISSUED');
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 215, 'REGISTERED', 2);
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Блок охлаждения', 132, 'REGISTERED', 2);
 INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
             destination_date, destination_city, destination_street, destination_house, destination_longitude,  destinatione_latitude,
             waybill_number, id_invoice, waybill_state)
     VALUES ('21.04.2017', 'Минск', 'ул. Богдановича', '117а', 'широта', 'долгота', NULL, 'Москва', 'пр.Свободы', '31', 'широта', 'долгота',
-            '834761', 2, 1);
+            '834761', 2, 'TRANSPORTATION_STARTED');
 
 /*state d, delivered*/
 INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834760', 3, '20.03.2017', 4, '22.03.2017', 3, 1, 1, 5, 3);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 210, 3, 3); /*delivered*/
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 3, 4, 3);  /*lost*/
+  VALUES ('834760', 3, '20.03.2017', 4, '22.03.2017', 3, 1, 1, 5, 'ISSUED');
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 210, 'REGISTERED', 3); /*delivered*/
+INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 3, 'REGISTERED', 3);  /*lost*/
 INSERT INTO waybill (departure_date, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
                            destination_date, destination_city, destination_street, destination_house, destination_longitude,  destinatione_latitude,
                            waybill_number, id_invoice, waybill_state)
       VALUES ('22.03.2017', 'Минск', 'ул. Богдановича', '117а', 'широта', 'долгота', '24.03.2017', 'Москва', 'пр.Свободы', '31', 'широта', 'долгота',
-              '834760', 3, 2);
+              '834760', 3, 'TRANSPORTATION_STARTED');
 commit;
 
 /*checkpoint*/

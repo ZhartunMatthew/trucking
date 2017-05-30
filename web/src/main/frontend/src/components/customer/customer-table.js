@@ -40,11 +40,11 @@ class CustomerTable extends React.Component {
         )
       }
 
-      if(this.props.userRole === "DISPATCHER") {
+      if(this.props.userRole === "DISPATCHER" || this.props.userRole === "COMPANY_OWNER") {
         return (
           <tr key={customer.id}>
             <th scope='row'> {index + 1} </th>
-            <td> {customer.number}</td>
+            <td> {customer.name}</td>
             <td> {customer.taxpayerNumber}</td>
             <td> {customer.country}</td>
             <td> {customer.city}</td>
@@ -75,6 +75,7 @@ class CustomerTable extends React.Component {
     let role = this.props.userRole;
     userActions = role === "ADMIN" ? adminActions : userActions;
     userActions = role === "DISPATCHER" ? dispatcherActions : userActions;
+    userActions = role === "COMPANY_OWNER" ? dispatcherActions : userActions;
 
 
     return (

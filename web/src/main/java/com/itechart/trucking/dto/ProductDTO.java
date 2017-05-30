@@ -1,5 +1,6 @@
 package com.itechart.trucking.dto;
 
+import com.itechart.trucking.entity.enums.ProductStateEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,7 +10,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class ProductDTO extends AbstractDTO {
     private String name;
-    private ProductStateDTO productState;
+    private ProductStateEnum productState;
     private Integer amount;
     private Long invoiceId;
 }

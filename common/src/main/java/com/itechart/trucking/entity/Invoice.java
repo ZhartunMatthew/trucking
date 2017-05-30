@@ -1,5 +1,7 @@
 package com.itechart.trucking.entity;
 
+import com.itechart.trucking.entity.enums.InvoiceStateEnum;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +12,7 @@ public class Invoice extends BaseEntity {
     private String invoiceNumber;
     private Date registerDate;
     private Date checkDate;
-    private InvoiceState invoiceState;
+    private InvoiceStateEnum invoiceState;
     private CustomerCompany customerCompany;
     private TruckingCompany truckingCompany;
     private User dispatcherUser;
@@ -61,13 +63,12 @@ public class Invoice extends BaseEntity {
         this.checkDate = checkDate;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "invoice_state", nullable = false)
-    public InvoiceState getInvoiceState() {
+    @Enumerated(EnumType.STRING)
+    public InvoiceStateEnum getInvoiceState() {
         return invoiceState;
     }
 
-    public void setInvoiceState(InvoiceState invoiceState) {
+    public void setInvoiceState(InvoiceStateEnum invoiceState) {
         this.invoiceState = invoiceState;
     }
 

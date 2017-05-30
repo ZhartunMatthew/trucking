@@ -1,5 +1,7 @@
 package com.itechart.trucking.entity;
 
+import com.itechart.trucking.entity.enums.CarTypeEnum;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +12,7 @@ public class Car extends BaseEntity {
     private String brand;
     private String model;
     private Double fuelConsumption;
-    private CarType carType;
+    private CarTypeEnum carType;
     private Boolean isAvailable;
     private TruckingCompany truckingCompany;
 
@@ -74,13 +76,12 @@ public class Car extends BaseEntity {
         this.fuelConsumption = fuelConsumption;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "car_type", nullable = false)
-    public CarType getCarType() {
+    @Enumerated(EnumType.STRING)
+    public CarTypeEnum getCarType() {
         return carType;
     }
 
-    public void setCarType(CarType carType) {
+    public void setCarType(CarTypeEnum carType) {
         this.carType = carType;
     }
 

@@ -4,10 +4,11 @@ import { bindActionCreators } from 'redux';
 import { Router, Route, browserHistory, hashHistory } from 'react-router';
 import { loadUserRole } from '../actions/userRole.action';
 import Error from '../components/error';
-import { routes} from './routes';
-import { ways} from './ways';
+import { adminRoutes} from './admin.routes';
+import { systemAdminRoutes} from './systemAdmin.routes';
 import { dispatcherRoutes} from './dispatcher.routes';
 import { managerRoutes} from './manager.routes';
+import { ownerRoutes} from './companyOwner.routes';
 import {driverNavigation} from './driverNavigation'
 
 
@@ -18,15 +19,17 @@ class UserRole extends React.Component {
   }
 
   render() {
-    console.log('HERE');
+
     if (this.props.userRole === 'SYSTEM_ADMIN') {
-       return (<Router history={hashHistory} routes={ways} />)
+       return (<Router history={hashHistory} routes={systemAdminRoutes} />)
     } else if(this.props.userRole === 'ADMIN') {
-      return (<Router history={hashHistory} routes={routes} />)
+      return (<Router history={hashHistory} routes={adminRoutes} />)
     } else if(this.props.userRole === "MANAGER") {
       return (<Router history={hashHistory} routes={managerRoutes} />)
     } else if(this.props.userRole === "DISPATCHER") {
       return (<Router history={hashHistory} routes={dispatcherRoutes} />)
+    }  else if(this.props.userRole === "COMPANY_OWNER") {
+      return (<Router history={hashHistory} routes={ownerRoutes} />)
     } else if (this.props.userRole === "DRIVER") {
       return (<Router history={hashHistory} routes={driverNavigation}/>)
     } else {

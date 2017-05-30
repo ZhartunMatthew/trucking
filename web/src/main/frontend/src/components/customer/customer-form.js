@@ -84,10 +84,18 @@ class CustomerForm extends React.Component {
         </div>
       </div>;
 
+    let ownerActions =
+      <div className='btn-toolbar text-center'>
+        <div className='btn-group' role='group'>
+          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}> Close </button>
+        </div>
+      </div>;
+
     let userActions = null;
     let role = this.props.userRole;
     userActions = role === "ADMIN" ? adminActions : userActions;
     userActions = role === "DISPATCHER" ? dispatcherActions : userActions;
+    userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
     let disableEditing = role !== "ADMIN";
 
     return (

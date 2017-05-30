@@ -1,5 +1,7 @@
 package com.itechart.trucking.entity;
 
+import com.itechart.trucking.entity.enums.WaybillStateEnum;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
 public class Waybill extends BaseEntity {
 
     private String waybillNumber;
-    private WaybillState waybillState;
+    private WaybillStateEnum waybillState;
     private Date departureDate;
     private String departureCity;
     private String departureStreet;
@@ -49,13 +51,12 @@ public class Waybill extends BaseEntity {
         this.waybillNumber = waybillNumber;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "waybill_state", nullable = false)
-    public WaybillState getWaybillState() {
+    @Enumerated(EnumType.STRING)
+    public WaybillStateEnum getWaybillState() {
         return waybillState;
     }
 
-    public void setWaybillState(WaybillState waybillState) {
+    public void setWaybillState(WaybillStateEnum waybillState) {
         this.waybillState = waybillState;
     }
 

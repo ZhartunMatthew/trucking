@@ -3,6 +3,7 @@ package com.itechart.trucking.controller;
 import com.itechart.trucking.dto.CarDTO;
 import com.itechart.trucking.dto.CarTypeDTO;
 import com.itechart.trucking.entity.Car;
+import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import com.itechart.trucking.services.CarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,30 +48,31 @@ public class CarController {
                 carDTOs.add(conversionService.convert(car, CarDTO.class))
         );
         LOGGER.info("Return carList.size:{}", carDTOs.size());
-        cars.forEach(car -> carDTOs.add(conversionService.convert(car, CarDTO.class)));
         return new ResponseEntity<>(carDTOs, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", params = "available", method = RequestMethod.GET,
+    @RequestMapping(value = "/available", /*params = "available",*/ method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<CarDTO>> findAvailableCars(@RequestParam Boolean available) {
+    public ResponseEntity<List<CarDTO>> findAvailableCars(/*@RequestParam Boolean available*/) {
         LOGGER.info("REST request. Path:/api/car  method: GET");
-        if (!available) {
+        /*if (!available) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        }*/
         List<Car> cars = service.findAvailable();
         List<CarDTO> carDTOs = new ArrayList<>();
         cars.forEach(car ->
                 carDTOs.add(conversionService.convert(car, CarDTO.class))
         );
         LOGGER.info("Return carList.size:{}", carDTOs.size());
-        cars.forEach(car -> carDTOs.add(conversionService.convert(car, CarDTO.class)));
         return new ResponseEntity<>(carDTOs, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<CarDTO> create(@RequestBody CarDTO dto) {
         LOGGER.info("REST request. Path:/api/car  method: POST. car: {}", dto);
+        Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        dto.setTruckingCompanyId(truckingCompanyId);
+        dto.setIsAvailable(true);
         Car car = conversionService.convert(dto, Car.class);
         CarDTO dtoFromDB = conversionService.convert(service.save(car), CarDTO.class);
         return new ResponseEntity<>(dtoFromDB, HttpStatus.OK);

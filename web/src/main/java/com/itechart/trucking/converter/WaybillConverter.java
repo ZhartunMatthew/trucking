@@ -15,9 +15,6 @@ import java.util.List;
 public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybill> {
 
     @Autowired
-    private WaybillStateConverter waybillStateConverter;
-
-    @Autowired
     private CheckPointConverter checkPointConverter;
 
     @Autowired
@@ -42,7 +39,7 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
         entity.setDestinationLongitude(dto.getDestinationLongitude());
         entity.setPrice(dto.getPrice());
         entity.setTotalDistance(dto.getTotalDistance());
-        entity.setWaybillState(waybillStateConverter.convert(dto.getWaybillState()));
+        entity.setWaybillState(dto.getWaybillState());
         entity.setInvoice(invoiceService.findOne(dto.getInvoiceId()));
         List<CheckPoint> checkPointList = new ArrayList<>();
         for (CheckPointDTO checkPointDTO : dto.getCheckPoints()) {
@@ -73,7 +70,7 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
         dto.setDestinationLongitude(entity.getDestinationLongitude());
         dto.setPrice(entity.getPrice());
         dto.setTotalDistance(entity.getTotalDistance());
-        dto.setWaybillState(waybillStateConverter.convertBack(entity.getWaybillState()));
+        dto.setWaybillState(entity.getWaybillState());
         dto.setInvoiceId(entity.getInvoice().getId());
         dto.setInvoiceNumber(entity.getInvoice().getInvoiceNumber());
         dto.setInvoiceDate(entity.getInvoice().getRegisterDate());

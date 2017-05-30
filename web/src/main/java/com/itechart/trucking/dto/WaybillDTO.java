@@ -1,6 +1,7 @@
 package com.itechart.trucking.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.itechart.trucking.entity.enums.WaybillStateEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,7 +28,7 @@ public class WaybillDTO extends AbstractDTO {
     private String destinationHouse;
     private String destinationLatitude;
     private String destinationLongitude;
-    private WaybillStateDTO waybillState;
+    private WaybillStateEnum waybillState;
     private Long invoiceId;
     private String invoiceNumber;
     @JsonFormat(pattern = "yyyy-MM-dd")

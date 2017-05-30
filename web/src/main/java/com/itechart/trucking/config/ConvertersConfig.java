@@ -15,19 +15,10 @@ public class ConvertersConfig {
     private CarConverter carConverter;
 
     @Autowired
-    private CarTypeConverter carTypeConverter;
-
-    @Autowired
     private CustomerCompanyConverter customerCompanyConverter;
 
     @Autowired
     private TruckingCompanyConverter truckingCompanyConverter;
-
-    @Autowired
-    private InvoiceStateConverter invoiceStateConverter;
-
-    @Autowired
-    private ProductStateConverter productStateConverter;
 
     @Autowired
     private InvoiceConverter invoiceConverter;
@@ -42,17 +33,10 @@ public class ConvertersConfig {
     private WaybillConverter waybillConverter;
 
     @Autowired
-    private WaybillStateConverter waybillStateConverter;
-
-    @Autowired
     private CheckPointConverter checkPointConverter;
 
     public ConversionService conversionService() {
         DefaultConversionService service = new DefaultConversionService();
-        service.addConverter(carTypeConverter);
-        service.addConverter(invoiceStateConverter);
-        service.addConverter(productStateConverter);
-        service.addConverter(waybillStateConverter);
         service.addConverter(productConverter);
         service.addConverter(invoiceConverter);
         service.addConverter(customerCompanyConverter);

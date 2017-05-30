@@ -2,6 +2,7 @@ package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.UserDTO;
 import com.itechart.trucking.entity.User;
+import com.itechart.trucking.entity.enums.UserRoleEnum;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import com.itechart.trucking.services.UserService;
 import org.slf4j.Logger;
@@ -48,12 +49,28 @@ public class UserController {
         return new ResponseEntity<>(userDTOs, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/freeDrivers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<UserDTO>> findFreeDrivers() {
+        LOGGER.info("REST request. Path:/api/freeDrivers  method: GET");
+        List<User> users = userService.findAvailable();
+        List<UserDTO> userDTOs = new ArrayList<>();
+        for (User user : users){
+            UserDTO userDTO = conversionService.convert(user, UserDTO.class);
+            userDTOs.add(userDTO);
+        }
+        LOGGER.info("Return userList.size:{}", userDTOs.size());
+        return new ResponseEntity<>(userDTOs, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) {
         LOGGER.info("REST request. Path:/api/user  method: POST. user: {}", userDTO);
         userDTO.setSalt("qqqqqqqq");
         Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
         userDTO.setTruckingCompanyId(truckingCompanyId);
+        if (userDTO.getUserRole().equals(UserRoleEnum.DRIVER)){
+            userDTO.setIsAvailable(true);
+        } else userDTO.setIsAvailable(null);
         User userEntity = userService.save(conversionService.convert(userDTO, User.class));
         UserDTO resultUser = conversionService.convert(userEntity, UserDTO.class);
         return new ResponseEntity<>(resultUser, HttpStatus.OK);

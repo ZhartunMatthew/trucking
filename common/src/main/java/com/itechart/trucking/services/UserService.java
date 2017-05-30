@@ -45,6 +45,12 @@ public class UserService {
         return Optional.ofNullable(userRepository.findUserByLogin(login));
     }
 
+    @PreAuthorize("hasPermission(null, 'User', 'GET')")
+    @Transactional(readOnly = true)
+    public List<User> findAvailable() {
+        return userRepository.findByAvailableTrue();
+    }
+
     @PreAuthorize("hasAnyRole('SYSTEM_ADMIN', 'ADMIN', 'DISPATCHER', 'MANAGER', 'DRIVER', 'COMPANY_OWNER')")
     public User securedFindOne(Long id) {
         return userRepository.findOne(id);

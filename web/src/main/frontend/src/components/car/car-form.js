@@ -49,6 +49,7 @@ class CarForm extends React.Component {
     let editingLabel = <span> Editing of <b> {this.props.car.number} </b> car </span>;
     let creatingLabel = <span>Create new car</span>;
     const disabledClass = this.props.changes ? '' : 'disabled';
+    const defaultType = this.props.car.type ? this.props.car.type : [];
     return (
       <div>
         <form className='form-horizontal'>
@@ -63,8 +64,8 @@ class CarForm extends React.Component {
             <Input id='fuelConsumption' type='text' label='Fuel consumption' placeholder='Enter fuel consumption here'
                    value={this.props.car.fuelConsumption  || ''} onChange={this.handleFuelConsumptionChange.bind(this)}/>
             <Select id="type" label="type" onChange={this.handleTypeChange.bind(this)}
-                    options={this.props.carTypes.map((type)=>{return ( <option key={type.id}> {type.description} </option> )})}
-                    value={this.props.carTypes.map((type)=>{return ( type.description )})}/>
+                    options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
+                    value={defaultType}/>
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
                 <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
