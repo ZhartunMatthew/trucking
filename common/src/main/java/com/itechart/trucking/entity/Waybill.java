@@ -23,6 +23,8 @@ public class Waybill extends BaseEntity {
     private String destinationLongitude;
     private Invoice invoice;
     private List<CheckPoint> checkPoints;
+    private Double price;
+    private Double totalDistance;
 
     public Waybill() {
     }
@@ -164,6 +166,24 @@ public class Waybill extends BaseEntity {
 
     public void setDestinationLongitude(String destinationLongitude) {
         this.destinationLongitude = destinationLongitude;
+    }
+
+    @Column (name = "price")
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    @Column (name = "total_distance")
+    public Double getTotalDistance() {
+        return totalDistance;
+    }
+
+    public void setTotalDistance(Double totalDistance) {
+        this.totalDistance = totalDistance;
     }
 
     @OneToOne

@@ -38,4 +38,6 @@ public class WaybillDTO extends AbstractDTO {
     private String driverSurname;
     private Long idTruckingCompany;
     private List<CheckPointDTO> checkPoints;
+    private Double price;
+    private Double totalDistance;
 }
