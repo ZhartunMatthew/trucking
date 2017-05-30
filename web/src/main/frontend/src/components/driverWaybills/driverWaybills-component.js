@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import TruckingCompanyForm from './truckingCompany-form';
+import DriverWaybillsForm from './driverWaybills-form';
 import DriverWaybillsTable from './driverWaybills-table';
 
 class DriverWaybillComponent extends React.Component {
@@ -10,10 +10,10 @@ class DriverWaybillComponent extends React.Component {
     let content = this.props.currentDriverWaybill ? (
       <div className='row'>
         <div className='col-sm-6'>
-          <TruckingCompanyForm changes={this.props.changes} truckingCompany={this.props.currentDriverWaybill}/>
+          <DriverWaybillsForm changes={this.props.changes} driverWaybill={this.props.currentDriverWaybill}/>
         </div>
         <div className='col-sm-6'>
-          <TruckingCompanyTable truckingCompanies={this.props.driverWaybills}/>
+          <DriverWaybillsTable driverWaybills={this.props.driverWaybills}/>
         </div>
       </div>
     ) : (

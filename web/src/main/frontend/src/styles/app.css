@@ -23,3 +23,8 @@
   margin-right : 10px;
   cursor: pointer;
 }
+
+.checkPointBox {
+  width: 20px;
+  height: 20px;
+}
