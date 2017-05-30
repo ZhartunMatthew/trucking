@@ -1,12 +1,24 @@
 import React from 'react';
 import Input from '../common/text-input';
+import Select from '../common/select';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateInvoice, createInvoice } from '../../actions/invoice.action';
+import {loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
 import { updateOperation, cancelOperation } from '../../actions/operation.action';
 
 
 class InvoiceForm extends React.Component {
+
+  constructor() {
+    super();
+    this.cancel = this.cancel.bind(this);
+  }
+
+  componentDidMount() {
+ this.props.loadFreeDrivers();
+ this.props.loadFreeCars(true);
+ }
 
   handleNumberChange(event) {
     this.props.updateOperation('number', event.target.value);
@@ -20,12 +32,21 @@ class InvoiceForm extends React.Component {
     this.props.updateOperation('customerCompany', event.target.value);
   }
 
+  handleDriverChange(event) {
+    this.props.updateOperation('driverId', event.target.value);
+  }
+
+  handleCarChange(event) {
+    this.props.updateOperation('carId', event.target.value);
+  }
+
   save() {
     this.props.updateInvoice(this.props.invoice);
     this.props.onSubmit();
   }
 
   cancel() {
+    this.context.router.push('/');
     this.props.cancelOperation();
   }
 
@@ -34,10 +55,9 @@ class InvoiceForm extends React.Component {
   }
 
   render() {
-    let label =
-      <span> {this.props.invoice !== null ? 'Editing' : 'Creating'} invoice №
-        <b> {this.props.invoice !== null ? this.props.invoice.number || '' : ''} </b>
-      </span>;
+
+    let editingLabel = <span> Editing invoice № <b> {this.props.invoice.number} </b></span>;
+    let creatingLabel = <span>Create new invoice</span>;
 
     let role = this.props.userRole;
 
@@ -55,14 +75,16 @@ class InvoiceForm extends React.Component {
     userActions = role === "MANAGER" ? managerActions : userActions;
     userActions = role === "DISPATCHER" ? dispatcherActions : userActions;
     let disableEditing = role !== "DISPATCHER";
-
+    const defaultDriver = this.props.invoice.driverId ? this.props.invoice.driverId : [];
+    const defaultCar = this.props.invoice.carId ? this.props.invoice.carId : [];
     return (
       <div>
         <form className='form-horizontal'>
           <fieldset>
+            <legend>{this.props.invoice.id ? editingLabel : creatingLabel} </legend>
             <div> Customer company ID <b> {this.props.invoice !== null ? this.props.invoice.customerCompanyId || '' : ''} </b> </div>
             <div> Customer company <b> {this.props.invoice !== null ? this.props.invoice.customerCompany || '' : ''} </b> </div>
-            <legend> {label} </legend>
+
             <Input id='number' type='text' label='Invoice number' placeholder=''
                    value={this.props.invoice !== null ? this.props.invoice.number || '' : ''} onChange={this.handleNumberChange.bind(this)}
                    readOnly={disableEditing}/>
@@ -72,6 +94,13 @@ class InvoiceForm extends React.Component {
             <Input id='customerCompany' type='text' label='Customer company' placeholder=''
                    value={this.props.invoice !== null ? this.props.invoice.customerCompany || '' : ''} onChange={this.handleCustomerCompany.bind(this)}
                    readOnly={true}/>
+            <Select id="driverId" label="driver" onChange={this.handleDriverChange.bind(this)}
+                    options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.surname} </option> )})}
+                    value={defaultDriver} />
+            <Select id="carId" label="car" onChange={this.handleCarChange.bind(this)}
+                    options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number},{car.type.description} </option> )})}
+                    value={defaultCar} />
+
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
                 <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
@@ -95,9 +124,15 @@ InvoiceForm.propTypes = {
   onSubmit: React.PropTypes.func.isRequired
 };
 
+InvoiceForm.contextTypes = {
+  router: React.PropTypes.func
+};
+
 let mapStateToProps = function (state) {
   return {
-    userRole: state.userRole.userRole
+    userRole: state.userRole.userRole,
+    users: state.users.users,
+    cars: state.cars.cars
   };
 };
 
@@ -106,7 +141,9 @@ function mapDispatchToProps(dispatch) {
     updateInvoice: bindActionCreators(updateInvoice, dispatch),
     createInvoice: bindActionCreators(createInvoice, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
-    cancelOperation: bindActionCreators(cancelOperation, dispatch)
+    cancelOperation: bindActionCreators(cancelOperation, dispatch),
+    loadFreeDrivers: bindActionCreators(loadFreeDrivers, dispatch),
+    loadFreeCars: bindActionCreators(loadFreeCars, dispatch)
   }
 }
 

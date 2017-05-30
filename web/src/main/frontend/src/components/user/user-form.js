@@ -86,48 +86,64 @@ class UserForm extends React.Component {
     let creatingLabel = <span>Create new user</span>;
     const defaultUserRole = this.props.user.userRole ? this.props.user.userRole : [];
     const disabledClass = this.props.changes ? '' : 'disabled';
+
+    let adminActions =
+      <div className='btn-toolbar text-center'>
+        <div className='btn-group' role='group'>
+          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+        </div>
+        <div className='btn-group float-right' role='group'>
+          <button type='button' className={`${disabledClass} btn btn-default`}
+                onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
+          </button>
+          <button type='button' className={`${disabledClass} btn btn-primary`}
+                onClick={this.props.changes ? this.save.bind(this) : null}>Save
+          </button>
+        </div>
+      </div>;
+
+     let ownerActions =
+       <div className='btn-toolbar text-center'>
+         <div className='btn-group' role='group'>
+           <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+         </div>
+       </div>;
+
+    let userActions = null;
+    let role = this.props.userRole;
+    userActions = role === "ADMIN" ? adminActions : userActions;
+    userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
+    let disableEditing = role !== "ADMIN";
+
     return (
       <div>
         <form className='form-horizontal'>
           <fieldset>
             <legend>{this.props.user.id ? editingLabel : creatingLabel} </legend>
             <Input id='name' type='text' label='name' placeholder='Enter name here'
-                   value={this.props.user.name || ''} onChange={this.handleNameChange.bind(this)}/>
+                   value={this.props.user.name || ''} onChange={this.handleNameChange.bind(this)} readOnly={disableEditing}/>
             <Input id='surname' type='text' label='surname' placeholder='Enter surname here'
-                   value={this.props.user.surname  || ''} onChange={this.handleSurnameChange.bind(this)}/>
+                   value={this.props.user.surname  || ''} onChange={this.handleSurnameChange.bind(this)} readOnly={disableEditing}/>
             <Input id='patronymic' type='text' label='patronymic' placeholder='Enter patronymic here'
-                   value={this.props.user.patronymic  || ''} onChange={this.handlePatronymicChange.bind(this)}/>
+                   value={this.props.user.patronymic  || ''} onChange={this.handlePatronymicChange.bind(this)} readOnly={disableEditing}/>
             <Input id='email' type='text' label='email' placeholder='Enter email here'
-                   value={this.props.user.email  || ''} onChange={this.handleEmailChange.bind(this)}/>
+                   value={this.props.user.email  || ''} onChange={this.handleEmailChange.bind(this)} readOnly={disableEditing}/>
             <Input id='login' type='text' label='login' placeholder='Enter login here'
-                   value={this.props.user.login  || ''} onChange={this.handleLoginChange.bind(this)}/>
+                   value={this.props.user.login  || ''} onChange={this.handleLoginChange.bind(this)} readOnly={disableEditing}/>
             <Input id='password' type='text' label='password' placeholder='Enter password here'
-                   value={this.props.user.password  || ''} onChange={this.handlePasswordChange.bind(this)}/>
+                   value={this.props.user.password  || ''} onChange={this.handlePasswordChange.bind(this)} readOnly={disableEditing}/>
             <Input id='city' type='text' label='city' placeholder='Enter city here'
-                   value={this.props.user.city  || ''} onChange={this.handleCityChange.bind(this)}/>
+                   value={this.props.user.city  || ''} onChange={this.handleCityChange.bind(this)} readOnly={disableEditing}/>
             <Input id='street' type='text' label='street' placeholder='Enter street here'
-                   value={this.props.user.street  || ''} onChange={this.handleStreetChange.bind(this)}/>
+                   value={this.props.user.street  || ''} onChange={this.handleStreetChange.bind(this)} readOnly={disableEditing}/>
             <Input id='house' type='text' label='house' placeholder='Enter house here'
-                   value={this.props.user.house  || ''} onChange={this.handleHouseChange.bind(this)}/>
+                   value={this.props.user.house  || ''} onChange={this.handleHouseChange.bind(this)} readOnly={disableEditing}/>
             <Input id='flat' type='text' label='flat' placeholder='Enter flat here'
-                   value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)}/>
+                   value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)} readOnly={disableEditing}/>
             <Select id="userRole" label="userRole" onChange={this.handleUserRoleChange.bind(this)}
                     options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultUserRole}/>
-
-            <div className='btn-toolbar text-center'>
-              <div className='btn-group' role='group'>
-                <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
-              </div>
-              <div className='btn-group float-right' role='group'>
-                <button type='button' className={`${disabledClass} btn btn-default`}
-                        onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
-                </button>
-                <button type='button' className={`${disabledClass} btn btn-primary`}
-                        onClick={this.props.changes ? this.save.bind(this) : null}>Save
-                </button>
-              </div>
-            </div>
+                    value={defaultUserRole} readOnly={disableEditing}/>
+            {userActions}
           </fieldset>
         </form>
       </div>
@@ -144,12 +160,14 @@ UserForm.propTypes = {
   resetOperation: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired,
   loadUsersRoles: React.PropTypes.func.isRequired,
-  userRolesList: React.PropTypes.array.isRequired
+  userRolesList: React.PropTypes.array.isRequired,
+  userRole: React.PropTypes.String
 };
 
 let mapStateToProps = function (state) {
   return {
-    userRolesList: state.userRolesList.userRolesList
+    userRolesList: state.userRolesList.userRolesList,
+    userRole: state.userRole.userRole
   };
 };
 

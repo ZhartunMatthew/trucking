@@ -7,6 +7,7 @@ import ProductComponent from "../product/product-component";
 import { bindActionCreators } from 'redux';
 import { startOperation, cancelOperation } from '../../actions/operation.action';
 
+
 class InvoiceComponent extends React.Component {
   constructor() {
     super();
@@ -16,6 +17,7 @@ class InvoiceComponent extends React.Component {
   componentDidMount() {
     if(this.props.userRole === 'DISPATCHER') {
       this.props.cancelOperation();
+
       this.props.startOperation({
         number: '',
         registerDate: '',

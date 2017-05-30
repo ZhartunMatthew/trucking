@@ -33,8 +33,8 @@ class ProductForm extends React.Component {
         <div>
           <form className='form-horizontal'>
             <fieldset>
-              <Input id='name' type='text' label='Product name' placeholder='' value='Кампутер' onChange={this.handleProductNameChange.bind(this)}/>
-              <Input id='amount' type='text' label='Amount' placeholder='' value='1337' onChange={this.handleAmountChange.bind(this)}/>
+              <Input id='name' type='text' label='Product name' placeholder='' value='' onChange={this.handleProductNameChange.bind(this)}/>
+              <Input id='amount' type='text' label='Amount' placeholder='' value='' onChange={this.handleAmountChange.bind(this)}/>
               <div className='btn-toolbar text-center'>
                 <div className='btn-group' role='group'>
                   <button type='button' className='btn btn-success' onClick={this.create.bind(this)}> Add </button>

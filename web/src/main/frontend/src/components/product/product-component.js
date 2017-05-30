@@ -8,7 +8,7 @@ class ProductComponent extends React.Component {
     let role = this.props.userRole;
     let productForm = null;
     if(role === 'DISPATCHER') {
-      productForm = <ProductForm hanges={this.props.changes} product={null}/>;
+      productForm = <ProductForm changes={this.props.changes} product={null}/>;
     } else {
       productForm = null;
     }

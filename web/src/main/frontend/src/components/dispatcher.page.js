@@ -21,9 +21,9 @@ class DispatcherPage extends React.Component {
           <li>
             <Link to='/customer'> Customers </Link>
           </li>
-          {/*<li>*/}
-            {/*<Link to='/invoice'> Invoices </Link>*/}
-          {/*</li>*/}
+          <li>
+            <Link to='/invoice'> Invoices </Link>
+          </li>
         </ul>
         {this.props.children}
       </div>

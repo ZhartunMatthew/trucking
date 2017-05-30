@@ -9,7 +9,8 @@ import CustomerReducer from './customer.reducer';
 import CarReducer from './car.reducer';
 import CarTypesReducer from './carTypes.reducer';
 import InvoiceReducer from './invoice.reducer';
-import DriverWaybillsReducer from './driverWaybill.reducer'
+import ProductsReducer from './product.reducer';
+import DriverWaybillsReducer from './driverWaybill.reducer';
 
 //This attached each reducer to particular field in application state
 export default combineReducers({
@@ -23,5 +24,6 @@ export default combineReducers({
   cars: CarReducer,
   carTypes: CarTypesReducer,
   invoices: InvoiceReducer,
+  products: ProductsReducer,
   driverWaybills: DriverWaybillsReducer
 });

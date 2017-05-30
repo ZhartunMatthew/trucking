@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import configureStore from './stores/configureStore';
 import UserRole from './components/userRole';
 import IndexComponent from './components/index';
-import {routes} from './components/routes';
 import { Router, Route, browserHistory } from 'react-router';
 import LogoImg from './images/logo.png';
 require('./styles/app.css');

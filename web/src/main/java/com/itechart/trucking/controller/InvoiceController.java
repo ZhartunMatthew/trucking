@@ -82,13 +82,7 @@ public class InvoiceController {
         stateDTO.setId(1L);
         dto.setInvoiceState(stateDTO);
         ///////////temp replace
-        if(dto.getDriverId() == null) {
-            dto.setDriverId(5L);
-        }
-        if(dto.getCarId() == null) {
-            dto.setCarId(1L);
-        }
-        ////////////////
+
         Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
         return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
     }
