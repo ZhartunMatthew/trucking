@@ -6,5 +6,6 @@
             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <include file="2017-05-10--V1-create-db.xml" relativeToChangelogFile="true"/>
-    <include file="2017-05-10--V1-fill-db.xml" relativeToChangelogFile="true"/>
+    <!--<include file="2017-05-10&#45;&#45;V1-fill-db.xml" relativeToChangelogFile="true"/>-->
+    <include file="2017-05-30--V1-add-columns-waybill.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
