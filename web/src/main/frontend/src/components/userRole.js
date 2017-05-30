@@ -21,9 +21,9 @@ class UserRole extends React.Component {
   render() {
 
     if (this.props.userRole === 'SYSTEM_ADMIN') {
-       return (<Router history={hashHistory} routes={ways} />)
+       return (<Router history={hashHistory} routes={systemAdminRoutes} />)
     } else if(this.props.userRole === 'ADMIN') {
-      return (<Router history={hashHistory} routes={routes} />)
+      return (<Router history={hashHistory} routes={adminRoutes} />)
     } else if(this.props.userRole === "MANAGER") {
       return (<Router history={hashHistory} routes={managerRoutes} />)
     } else if(this.props.userRole === "DISPATCHER") {

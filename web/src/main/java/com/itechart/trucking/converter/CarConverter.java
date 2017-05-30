@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component;
 public class CarConverter extends AbstractTwoWayConverter<CarDTO, Car> {
 
     @Autowired
-    private CarTypeConverter carTypeConverter;
-
-    @Autowired
     private TruckingCompanyService truckingCompanyService;
 
     @Override
@@ -24,7 +21,7 @@ public class CarConverter extends AbstractTwoWayConverter<CarDTO, Car> {
         entity.setModel(dto.getModel());
         entity.setFuelConsumption(dto.getFuelConsumption());
         entity.setAvailable(dto.getIsAvailable());
-        entity.setCarType(carTypeConverter.convert(dto.getType()));
+        entity.setCarType(dto.getType());
         entity.setTruckingCompany(truckingCompanyService.findOne(dto.getTruckingCompanyId()));
         return entity;
     }
@@ -38,7 +35,7 @@ public class CarConverter extends AbstractTwoWayConverter<CarDTO, Car> {
         dto.setModel(entity.getModel());
         dto.setFuelConsumption(entity.getFuelConsumption());
         dto.setIsAvailable(entity.getAvailable());
-        dto.setType(carTypeConverter.convertBack(entity.getCarType()));
+        dto.setType(entity.getCarType());
         dto.setTruckingCompanyId(entity.getTruckingCompany().getId());
         return dto;
     }

@@ -27,7 +27,7 @@ class CarTable extends React.Component {
           <td> {car.brand}</td>
           <td> {car.model}</td>
           <td> {car.fuelConsumption}</td>
-          <td> {car.type.description}</td>
+          <td> {car.type}</td>
           <td>
             <div className='btn-toolbar text-center'>
               <button className='btn btn-primary' onClick={this.onShowUpdateCarForm.bind(this, car)}>Update</button>

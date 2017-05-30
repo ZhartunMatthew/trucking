@@ -1,5 +1,7 @@
 package com.itechart.trucking.entity;
 
+import com.itechart.trucking.entity.enums.ProductStateEnum;
+
 import javax.persistence.*;
 
 @Entity(name = "product")
@@ -7,7 +9,7 @@ public class Product extends BaseEntity {
 
     private String name;
     private Integer amount;
-    private ProductState productState;
+    private ProductStateEnum productState;
     private Invoice invoice;
 
     public Product() {
@@ -42,13 +44,12 @@ public class Product extends BaseEntity {
         this.amount = amount;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "product_state", nullable = false)
-    public ProductState getProductState() {
+    @Enumerated(EnumType.STRING)
+    public ProductStateEnum getProductState() {
         return productState;
     }
 
-    public void setProductState(ProductState productState) {
+    public void setProductState(ProductStateEnum productState) {
         this.productState = productState;
     }
 

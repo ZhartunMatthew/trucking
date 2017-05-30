@@ -3,6 +3,7 @@ package com.itechart.trucking.controller;
 import com.itechart.trucking.dto.InvoiceDTO;
 import com.itechart.trucking.dto.InvoiceStateDTO;
 import com.itechart.trucking.entity.Invoice;
+import com.itechart.trucking.entity.enums.InvoiceStateEnum;
 import com.itechart.trucking.security.detail.CustomUserDetails;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import com.itechart.trucking.services.InvoiceService;
@@ -78,11 +79,7 @@ public class InvoiceController {
         dto.setTruckingCompanyId(trId);
         dto.setRegisterDate(new Date());
         dto.setDispatcherId(details.getId());
-        InvoiceStateDTO stateDTO = new InvoiceStateDTO();
-        stateDTO.setId(1L);
-        dto.setInvoiceState(stateDTO);
-        ///////////temp replace
-
+        dto.setInvoiceState(InvoiceStateEnum.ISSUED);
         Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
         return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
     }

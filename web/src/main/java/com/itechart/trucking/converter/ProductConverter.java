@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component;
 public class ProductConverter extends AbstractTwoWayConverter<ProductDTO, Product> {
 
     @Autowired
-    private ProductStateConverter productStateConverter;
-
-    @Autowired
     private InvoiceService invoiceService;
 
     @Override
@@ -21,7 +18,7 @@ public class ProductConverter extends AbstractTwoWayConverter<ProductDTO, Produc
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setAmount(dto.getAmount());
-        entity.setProductState(productStateConverter.convert(dto.getProductState()));
+        entity.setProductState(dto.getProductState());
         entity.setInvoice(invoiceService.findOne(dto.getInvoiceId()));
         return entity;
     }
@@ -32,7 +29,7 @@ public class ProductConverter extends AbstractTwoWayConverter<ProductDTO, Produc
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setAmount(entity.getAmount());
-        dto.setProductState(productStateConverter.convertBack(entity.getProductState()));
+        dto.setProductState(entity.getProductState());
         dto.setInvoiceId(entity.getInvoice().getId());
         return dto;
     }

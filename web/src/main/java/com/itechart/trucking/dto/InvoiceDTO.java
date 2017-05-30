@@ -1,6 +1,7 @@
 package com.itechart.trucking.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.itechart.trucking.entity.enums.InvoiceStateEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,7 +18,7 @@ public class InvoiceDTO extends AbstractDTO {
     private Date registerDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date checkDate;
-    private InvoiceStateDTO invoiceState;
+    private InvoiceStateEnum invoiceState;
     private Long customerCompanyId;
     private String customerCompany;
     private Long truckingCompanyId;

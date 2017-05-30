@@ -31,9 +31,6 @@ public class InvoiceConverter extends AbstractTwoWayConverter<InvoiceDTO, Invoic
     private CarService carService;
 
     @Autowired
-    private InvoiceStateConverter invoiceStateConverter;
-
-    @Autowired
     private ProductConverter productConverter;
 
     @Override
@@ -43,7 +40,7 @@ public class InvoiceConverter extends AbstractTwoWayConverter<InvoiceDTO, Invoic
         entity.setInvoiceNumber(dto.getNumber());
         entity.setRegisterDate(dto.getRegisterDate());
         entity.setCheckDate(dto.getCheckDate());
-        entity.setInvoiceState(invoiceStateConverter.convert(dto.getInvoiceState()));
+        entity.setInvoiceState(dto.getInvoiceState());
         List<Product> products = new ArrayList<>();
         for (ProductDTO productDTO : dto.getProducts()) {
             Product product = productConverter.convert(productDTO);
@@ -70,7 +67,7 @@ public class InvoiceConverter extends AbstractTwoWayConverter<InvoiceDTO, Invoic
         dto.setNumber(entity.getInvoiceNumber());
         dto.setRegisterDate(entity.getRegisterDate());
         dto.setCheckDate(entity.getCheckDate());
-        dto.setInvoiceState(invoiceStateConverter.convertBack(entity.getInvoiceState()));
+        dto.setInvoiceState(entity.getInvoiceState());
         dto.setCustomerCompanyId(entity.getCustomerCompany().getId());
         dto.setCustomerCompany(entity.getCustomerCompany().getName());
         dto.setTruckingCompanyId(entity.getTruckingCompany().getId());

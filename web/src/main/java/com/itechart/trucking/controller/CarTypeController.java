@@ -1,8 +1,6 @@
 package com.itechart.trucking.controller;
 
-import com.itechart.trucking.dto.CarTypeDTO;
-import com.itechart.trucking.entity.CarType;
-import com.itechart.trucking.services.CarTypeService;
+import com.itechart.trucking.entity.enums.CarTypeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -24,20 +22,13 @@ public class CarTypeController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CarTypeController.class);
 
     @Autowired
-    private CarTypeService service;
-
-    @Autowired
     private ConversionService conversionService;
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<CarTypeDTO>> findAll() {
+    public ResponseEntity<List> findAll() {
         LOGGER.info("REST request. Path:/api/car-type  method: GET");
-        List<CarType> carTypes = service.findAll();
-        List<CarTypeDTO> carTypeDTOs = new ArrayList<>();
-        carTypes.forEach(carType ->
-                carTypeDTOs.add(conversionService.convert(carType, CarTypeDTO.class))
-        );
-        LOGGER.info("Return carTypeList.size={}", carTypeDTOs.size());
-        return new ResponseEntity<>(carTypeDTOs, HttpStatus.OK);
+        List carTypes = Arrays.asList(CarTypeEnum.values());
+        LOGGER.info("Return carTypeList.size={}", carTypes.size());
+        return new ResponseEntity<>(carTypes, HttpStatus.OK);
     }
 }
