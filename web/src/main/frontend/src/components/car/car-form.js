@@ -45,10 +45,6 @@ class CarForm extends React.Component {
     this.props.cancelOperation();
   }
 
-  option() {
-    let rows = this.props.carTypes.map((type) => {})
-  }
-
   render() {
     let editingLabel = <span> Editing of <b> {this.props.car.number} </b> car </span>;
     let creatingLabel = <span>Create new car</span>;
@@ -66,15 +62,9 @@ class CarForm extends React.Component {
                    value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)}/>
             <Input id='fuelConsumption' type='text' label='Fuel consumption' placeholder='Enter fuel consumption here'
                    value={this.props.car.fuelConsumption  || ''} onChange={this.handleFuelConsumptionChange.bind(this)}/>
-            {/*<select id="type" label="type" onChange={this.handleTypeChange.bind(this)}>
-              <option value={this.props.carTypes[1]}>Tank</option>
-              <option value={this.props.carTypes[2]}>Сovered_body</option>
-              <option value={this.props.carTypes[3]}>Refrigerator</option>
-            </select>*/}
-
-            {/*<Select id="type" label="type" onChange={this.handleTypeChange.bind(this)}
-                    options={this.props.carTypes.map((type)=>{return (<option key={type.id}>{type.description}</option>)})}
-                    value={this.props.carTypes}/>*/}
+            <Select id="type" label="type" onChange={this.handleTypeChange.bind(this)}
+                    options={this.props.carTypes.map((type)=>{return ( <option key={type.id}> {type.description} </option> )})}
+                    value={this.props.carTypes.map((type)=>{return ( type.description )})}/>
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
                 <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
@@ -103,7 +93,6 @@ CarForm.propTypes = {
   updateOperation: React.PropTypes.func.isRequired,
   resetOperation: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired,
-  loadCarTypes: React.PropTypes.func.isRequired,
   carTypes: React.PropTypes.array.isRequired
 };
 

@@ -13,7 +13,6 @@ export function loadCars() {
       },
       dataType: 'json'
     }).done(json => {
-      //CREATE ACTION
       dispatch({
         type: INIT_CARS, //action type, name according to convention
         payload: json //action data, name according to convention

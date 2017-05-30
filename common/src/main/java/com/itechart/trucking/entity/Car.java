@@ -93,4 +93,5 @@ public class Car extends BaseEntity {
         isAvailable = available;
     }
 
+
 }

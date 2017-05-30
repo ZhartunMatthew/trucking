@@ -8,7 +8,7 @@ class InputComponent extends React.Component {
           {this.props.label}
         </label>
         <input id={this.props.id} type={this.props.type} className='form-control' value={this.props.value}
-               placeholder={this.props.placeholder} onChange={this.props.onChange}/>
+               placeholder={this.props.placeholder} onChange={this.props.onChange} readOnly={this.props.readOnly}/>
       </div>
     );
   }
@@ -20,10 +20,13 @@ InputComponent.propTypes = {
   label: React.PropTypes.any.isRequired,
   value: React.PropTypes.any.isRequired,
   onChange: React.PropTypes.func.isRequired,
-  placeholder: React.PropTypes.string
+  placeholder: React.PropTypes.string,
+  readOnly: React.PropTypes.bool
 };
+
 InputComponent.defaultProps = {
-  placeholder: ''
+  placeholder: '',
+  readOnly: false
 };
 
 export default InputComponent;

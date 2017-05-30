@@ -12,7 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/waybill")
@@ -56,20 +59,21 @@ public class WaybillController {
         return new ResponseEntity<>(waybillDTOs, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<WaybillDTO> create(@RequestBody WaybillDTO waybillDTO) {
         LOGGER.info("REST request. Path:/api/waybill  method: POST. waybill: {}", waybillDTO);
+        waybillDTO.setDepartureDate(Calendar.getInstance().getTime());
         Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
-        WaybillDTO resultWaybill = conversionService.convert(waybillEntity,WaybillDTO.class);
-        return new ResponseEntity<>(resultWaybill,HttpStatus.OK);
+        WaybillDTO resultWaybill = conversionService.convert(waybillEntity, WaybillDTO.class);
+        return new ResponseEntity<>(resultWaybill, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<WaybillDTO> update(@PathVariable Long id, @RequestBody WaybillDTO waybillDTO) {
         LOGGER.info("REST request. Path:/api/waybill/{}  method: PUT.  waybillInfo: {}", id, waybillDTO);
         Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
-        WaybillDTO resultWaybill = conversionService.convert(waybillEntity,WaybillDTO.class);
-        return new ResponseEntity<>(resultWaybill,HttpStatus.OK);
+        WaybillDTO resultWaybill = conversionService.convert(waybillEntity, WaybillDTO.class);
+        return new ResponseEntity<>(resultWaybill, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

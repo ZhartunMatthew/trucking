@@ -52,7 +52,7 @@ public class Invoice extends BaseEntity {
         this.registerDate = registerDate;
     }
 
-    @Column(name = "check_date", nullable = true, insertable = true, updatable = false)
+    @Column(name = "check_date", nullable = true, insertable = true, updatable = true)
     public Date getCheckDate() {
         return checkDate;
     }
@@ -101,7 +101,7 @@ public class Invoice extends BaseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "manager", nullable = true, insertable = true, updatable = false)
+    @JoinColumn(name = "manager", nullable = true, insertable = true, updatable = true)
     public User getManagerUser() {
         return managerUser;
     }

@@ -1,7 +1,7 @@
 package com.itechart.trucking.controller;
 
-
 import com.itechart.trucking.dto.InvoiceDTO;
+import com.itechart.trucking.dto.InvoiceStateDTO;
 import com.itechart.trucking.entity.Invoice;
 import com.itechart.trucking.security.detail.CustomUserDetails;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
@@ -37,8 +37,8 @@ public class InvoiceController {
         CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
         List<InvoiceDTO> dtos = new LinkedList<>();
         Long trId = details.getTruckingCompanyId();
-            invoiceService.findByTruckingCompanyId(trId).forEach(entity ->
-                    dtos.add(conversionService.convert(entity, InvoiceDTO.class)));
+        invoiceService.findByTruckingCompanyId(trId).forEach(entity ->
+                dtos.add(conversionService.convert(entity, InvoiceDTO.class)));
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
@@ -47,19 +47,27 @@ public class InvoiceController {
         LOGGER.info("REST request. Path:/api/invoice/{} method: GET", id);
         CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
         Long trId = details.getTruckingCompanyId();
-            InvoiceDTO dto = conversionService.convert(
-                    invoiceService.findByIdAndTruckingCompanyId(id, trId), InvoiceDTO.class);
+        InvoiceDTO dto = conversionService.convert(
+                invoiceService.findByIdAndTruckingCompanyId(id, trId), InvoiceDTO.class);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<InvoiceDTO> update(@PathVariable Long id, @RequestBody InvoiceDTO dto) {
+    public ResponseEntity<InvoiceDTO> update(@PathVariable Long id,
+                                             @RequestBody InvoiceDTO dtoForUpdate) {
+        LOGGER.info("REST request. Path:/api/invoice/{}  method: PUT.  invoice: {}", id, dtoForUpdate);
         Invoice invoice = invoiceService.findOne(id);
-        if(invoice == null) {
+        if (invoice == null) {
+            LOGGER.warn("Not found invoice id: {}", id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
-        return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
+        CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
+        dtoForUpdate.setManagerId(details.getId());
+        dtoForUpdate.setCheckDate(new Date());
+        Invoice updatedInvoice = invoiceService.save(conversionService.convert(dtoForUpdate, Invoice.class));
+        InvoiceDTO updatedDTO = conversionService.convert(updatedInvoice, InvoiceDTO.class);
+        LOGGER.info("Return updated invoice: {}", updatedDTO);
+        return new ResponseEntity<>(updatedDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -70,7 +78,19 @@ public class InvoiceController {
         dto.setTruckingCompanyId(trId);
         dto.setRegisterDate(new Date());
         dto.setDispatcherId(details.getId());
+        InvoiceStateDTO stateDTO = new InvoiceStateDTO();
+        stateDTO.setId(1L);
+        dto.setInvoiceState(stateDTO);
+        ///////////temp replace
+        if(dto.getDriverId() == null) {
+            dto.setDriverId(5L);
+        }
+        if(dto.getCarId() == null) {
+            dto.setCarId(1L);
+        }
+        ////////////////
         Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
         return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
     }
+
 }

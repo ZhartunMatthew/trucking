@@ -7,10 +7,10 @@ import CarComponent from './car/car-component';
 
 export const routes = (
   <div>
-  <Route path='/' component={AdminPage}>
-    <Route path ='/user' component={UserComponent}/>
-    <Route path ='/customer' component={CustomerComponent}/>
-    <Route path='/car' component={CarComponent}/>
-  </Route>
+    <Route path='/' component={AdminPage}>
+      <Route path ='/user' component={UserComponent}/>
+      <Route path ='/customer' component={CustomerComponent}/>
+      <Route path='/car' component={CarComponent}/>
+    </Route>
   </div>
 );

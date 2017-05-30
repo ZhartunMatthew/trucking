@@ -2,6 +2,7 @@ package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.UserDTO;
 import com.itechart.trucking.entity.User;
+import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import com.itechart.trucking.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,9 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) {
         LOGGER.info("REST request. Path:/api/user  method: POST. user: {}", userDTO);
+        userDTO.setSalt("qqqqqqqq");
+        Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        userDTO.setTruckingCompanyId(truckingCompanyId);
         User userEntity = userService.save(conversionService.convert(userDTO, User.class));
         UserDTO resultUser = conversionService.convert(userEntity, UserDTO.class);
         return new ResponseEntity<>(resultUser, HttpStatus.OK);
