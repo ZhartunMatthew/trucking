@@ -8,4 +8,5 @@
     <include file="2017-05-10--V1-create-db.xml" relativeToChangelogFile="true"/>
     <!--<include file="2017-05-10&#45;&#45;V1-fill-db.xml" relativeToChangelogFile="true"/>-->
     <include file="2017-05-30--V1-add-columns-waybill.xml" relativeToChangelogFile="true"/>
+    <include file="2017-05-30--V1-change-fields-to-enum.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
