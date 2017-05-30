@@ -22,7 +22,6 @@ export default combineReducers({
   customers: CustomerReducer,
   cars: CarReducer,
   carTypes: CarTypesReducer,
-  invoices: InvoiceReducer
-  carTypes: CarTypesReducer,
+  invoices: InvoiceReducer,
   driverWaybills: DriverWaybillsReducer
 });
