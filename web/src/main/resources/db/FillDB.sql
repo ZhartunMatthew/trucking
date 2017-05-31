@@ -51,15 +51,15 @@ commit;
 /*invoice + product + waybill*/
 
 /*state b, registered but not checked*/
-INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834762', 3, '2017-04-25', NULL, NULL, 2, 1, 1, 5, 'ISSUED');
+INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company, destination_customer_company,  trucking_company, driver, invoice_state )
+  VALUES ('834762', 3, '2017-04-25', NULL, NULL, 2, 1, 2, 1, 5, 'ISSUED');
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 110, 'REGISTERED', 1);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Ноутбук', 300, 'REGISTERED', 1);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Системный блок', 50, 'REGISTERED', 1);
 
 /*state c, checked*/
-INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834761', 3, '2017-04-20', 4, '2017-04-21', 3, 1, 1, 5, 'CHECKED');
+INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company, destination_customer_company,  trucking_company, driver, invoice_state )
+  VALUES ('834761', 3, '2017-04-20', 4, '2017-04-21', 3, 1, 2, 1, 5, 'CHECKED');
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 215, 'CHECKED', 2);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Блок охлаждения', 132, 'CHECKED', 2);
 INSERT INTO waybill (departure_date, departure_country, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
@@ -69,8 +69,8 @@ INSERT INTO waybill (departure_date, departure_country, departure_city,  departu
             '834761', 2, 'TRANSPORTATION_STARTED', 1200, 2900);
 
 /*state d, delivered*/
-INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834760', 3, '2017-03-22', 4, '2017-03-23', 3, 1, 1, 5, 'DELIVERED');
+INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company, destination_customer_company, trucking_company, driver, invoice_state )
+  VALUES ('834760', 3, '2017-03-22', 4, '2017-03-23', 3, 1, 2, 1, 5, 'DELIVERED');
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 210, 'DELIVERED', 3); /*delivered*/
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 3, 'LOST', 3);  /*lost*/
 INSERT INTO waybill (departure_date, departure_country, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,

@@ -10,4 +10,5 @@
     <include file="2017-05-30--V1-change-fields-to-enum.xml" relativeToChangelogFile="true"/>
     <include file="2017-05-31--V1-add-country-columns.xml" relativeToChangelogFile="true"/>
     <include file="2017-05-31--V1-change-car-type.xml" relativeToChangelogFile="true"/>
+    <include file="2017-05-31--V1-add-destination_company-in-invoice.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
