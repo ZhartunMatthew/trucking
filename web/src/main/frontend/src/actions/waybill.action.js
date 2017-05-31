@@ -12,7 +12,7 @@ export function createWaybill(waybill) {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).always((json) => {
+    }).done((json) => {
       dispatch(startOperation(json));
     }).fail(() => {
       console.log('Could not create waybill');

@@ -1,7 +1,6 @@
 package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.InvoiceDTO;
-import com.itechart.trucking.dto.InvoiceStateDTO;
 import com.itechart.trucking.entity.Invoice;
 import com.itechart.trucking.entity.enums.InvoiceStateEnum;
 import com.itechart.trucking.security.detail.CustomUserDetails;
