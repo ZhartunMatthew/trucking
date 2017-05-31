@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="ScherbinaDina" id="drop-car_type">
+        <dropForeignKeyConstraint baseTableName="car"
+                                  constraintName="FKs9n98ppiuoel0ew5hy5pgmm04"/>
+        <dropColumn columnName="car_type"
+                    tableName="car"/>
+        <dropTable cascadeConstraints="true"
+                   tableName="car_type"/>
+    </changeSet>
+    <changeSet author="ScherbinaDina" id="add-car_type-field">
+        <addColumn tableName="car">
+            <column name="car_type" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

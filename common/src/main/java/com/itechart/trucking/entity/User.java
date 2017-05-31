@@ -11,6 +11,7 @@ public class User extends BaseEntity {
     private String surname;
     private String patronymic;
     private String email;
+    private String country;
     private String city;
     private String street;
     private String house;
@@ -70,6 +71,15 @@ public class User extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Column(name = "country")
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Column(name = "city", nullable = true, insertable = true, updatable = true)

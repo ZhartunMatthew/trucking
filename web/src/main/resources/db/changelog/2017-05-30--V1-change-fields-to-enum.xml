@@ -6,6 +6,8 @@
             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet author="ScherbinaDina" id="drop-product-state-table">
+        <dropForeignKeyConstraint baseTableName="product"
+                                  constraintName="FK3bxn6pkkk09yl8w6e45vths5k"/>
         <dropColumn columnName="product_state"
                     tableName="product"/>
         <dropTable cascadeConstraints="true"

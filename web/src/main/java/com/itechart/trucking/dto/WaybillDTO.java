@@ -16,6 +16,7 @@ public class WaybillDTO extends AbstractDTO {
     private String waybillNumber;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date departureDate;
+    private String departureCountry;
     private String departureCity;
     private String departureStreet;
     private String departureHouse;
@@ -23,6 +24,7 @@ public class WaybillDTO extends AbstractDTO {
     private String departureLongitude;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date destinationDate;
+    private String destinationCountry;
     private String destinationCity;
     private String destinationStreet;
     private String destinationHouse;

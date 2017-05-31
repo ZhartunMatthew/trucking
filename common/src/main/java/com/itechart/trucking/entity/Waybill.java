@@ -12,12 +12,14 @@ public class Waybill extends BaseEntity {
     private String waybillNumber;
     private WaybillStateEnum waybillState;
     private Date departureDate;
+    private String departureCountry;
     private String departureCity;
     private String departureStreet;
     private String departureHouse;
     private String departureLatitude;
     private String departureLongitude;
     private Date destinationDate;
+    private String destinationCountry;
     private String destinationCity;
     private String destinationStreet;
     private String destinationHouse;
@@ -67,6 +69,15 @@ public class Waybill extends BaseEntity {
 
     public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
+    }
+
+    @Column(name = "departure_country")
+    public String getDepartureCountry() {
+        return departureCountry;
+    }
+
+    public void setDepartureCountry(String departureCountry) {
+        this.departureCountry = departureCountry;
     }
 
     @Column(name = "departure_city")
@@ -123,6 +134,15 @@ public class Waybill extends BaseEntity {
         this.destinationDate = destinationDate;
     }
 
+    @Column(name = "destination_country")
+    public String getDestinationCountry() {
+        return destinationCountry;
+    }
+
+    public void setDestinationCountry(String destinationCountry) {
+        this.destinationCountry = destinationCountry;
+    }
+
     @Column(name = "destination_city")
     public String getDestinationCity() {
         return destinationCity;
@@ -140,7 +160,6 @@ public class Waybill extends BaseEntity {
     public void setDestinationStreet(String destinationStreet) {
         this.destinationStreet = destinationStreet;
     }
-
 
     @Column(name = "destination_house")
     public String getDestinationHouse() {

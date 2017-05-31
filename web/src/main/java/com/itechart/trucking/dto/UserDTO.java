@@ -15,6 +15,7 @@ public class UserDTO extends AbstractDTO {
     private String surname;
     private String patronymic;
     private String email;
+    private String country;
     private String city;
     private String street;
     private String house;

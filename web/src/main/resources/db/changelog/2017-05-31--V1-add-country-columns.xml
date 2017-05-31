@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="ScherbinaDina" id="add-country-1">
+        <addColumn tableName="user">
+            <column name="country" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="ScherbinaDina" id="add-country-2">
+        <addColumn tableName="waybill">
+            <column name="departure_country" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="ScherbinaDina" id="add-country-3">
+        <addColumn tableName="waybill">
+            <column name="destination_country" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
