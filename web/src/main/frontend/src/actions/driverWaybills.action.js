@@ -23,3 +23,23 @@ export function loadDriverWaybills() {
     });
   }
 }
+
+export function checkCheckPoint(checkPoint) {
+  return (dispatch) => {
+    $.ajax({
+      type: 'PUT',
+      url: '/api/checkpoint/check',
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(checkPoint),
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      dataType: 'json'
+    }).done((json) => {
+      loadDriverWaybills()(dispatch);
+      dispatch(startOperation(json));
+    }).fail(() => {
+      console.log('Could not update checkPoint');
+    });
+  }
+}
