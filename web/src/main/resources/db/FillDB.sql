@@ -86,5 +86,5 @@ INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
 INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
       VALUES ('Смоленск', 'широта', 'долгота', NULL, 1);
 INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
-VALUES ('Смоленск', 'широта', 'долгота', '2013-03-23', 2);
+VALUES ('Смоленск', 'широта', 'долгота', '2017-03-23', 2);
 commit;

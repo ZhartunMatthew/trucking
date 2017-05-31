@@ -21,9 +21,6 @@ class DriverWaybillsForm extends React.Component {
   }
 
   render() {
-    let viewLabel = <span> Waybill №<b>{this.props.driverWaybill.waybillNumber}</b></span>;
-    let checkLabel = <span>Current waybill </span>;
-    const disabledClass = this.props.changes ? '' : 'disabled';
     let checkPoints = this.props.driverWaybill.checkPoints.map((checkPoint, index) => {
       return (
         <tr key={checkPoint.id}>
@@ -46,17 +43,18 @@ class DriverWaybillsForm extends React.Component {
       <div>
         <form className='form-horizontal'>
           <fieldset>
-            <legend>
-              {
-                this.props.driverWaybill.waybillState === 'TRANSPORTATION_COMPLETED' ? viewLabel : checkLabel
-              }
-            </legend>
-
-            <Input id='departureCity' type='text' label='departureCity' placeholder='Enter departureCity here'
-                   value={this.props.driverWaybill.departureCity || ''} onChange={this.handleNameChange.bind(this)}/>
-
+            <legend><span> Waybill №<b>{this.props.driverWaybill.waybillNumber}</b></span></legend>
+            <label><b>Departure date:</b></label>
+            <p>{this.props.driverWaybill.departureDate}</p>
+            <label><b>Departure place:</b></label>
+            <p>{this.props.driverWaybill.departureCountry}, г.{this.props.driverWaybill.departureCity},
+                    {this.props.driverWaybill.departureStreet}, д.{this.props.driverWaybill.departureHouse}</p>
+            <label><b>Price:</b></label>
+            <p>{this.props.driverWaybill.price}</p>
+            <label><b>Total distance:</b></label>
+            <p>{this.props.driverWaybill.totalDistance}</p>
             <div>
-              <h1>Checkpoints</h1>
+              <h3>Checkpoints {this.props.driverWaybill.allCheckPoints}/{this.props.driverWaybill.passedCheckPoints}</h3>
               <table className='table table-hover'>
                 <thead>
                 <tr>
@@ -78,8 +76,9 @@ class DriverWaybillsForm extends React.Component {
                       )
                     }
                   </td>
-                  <td> {this.props.driverWaybill.destinationCity}</td>
-                  <td> {this.props.driverWaybill.destinationDate}</td>
+                  <td>{this.props.driverWaybill.destinationCountry}, г.{this.props.driverWaybill.destinationCity},
+                    {this.props.driverWaybill.destinationStreet}, д.{this.props.driverWaybill.destinationHouse}</td>
+                  <td>{this.props.driverWaybill.destinationDate}</td>
                 </tr>
                 </tbody>
               </table>
