@@ -3,8 +3,8 @@ import Input from '../common/text-input';
 import CheckBox from '../common/checkbox';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateTruckingCompany, makeNewTruckingCompany } from '../../actions/truckingCompany.action';
-import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
+import { checkCheckPoint} from '../../actions/driverWaybills.action';
+import { updateOperation, cancelOperation } from '../../actions/operation.action';
 
 class DriverWaybillsForm extends React.Component {
 
@@ -12,16 +12,8 @@ class DriverWaybillsForm extends React.Component {
     this.props.updateOperation('departureCity', event.target.value);
   }
 
-  save() {
-    if (this.props.driverWaybill.id) {
-      this.props.updateTruckingCompany(this.props.driverWaybill);
-    } else {
-      this.props.createTruckingCompany(this.props.driverWaybill);
-    }
-  }
-
-  reset() {
-    this.props.resetOperation();
+  check(checkPoint) {
+    this.props.checkCheckPoint(checkPoint);
   }
 
   cancel() {
@@ -40,7 +32,7 @@ class DriverWaybillsForm extends React.Component {
             {checkPoint.pathDate ? (
                 <CheckBox className="checkPointBox" checked disabled/>
               ) : (
-                <CheckBox className="checkPointBox"/>
+                <CheckBox className="checkPointBox" onChange={this.check.bind(this, checkPoint)}/>
               )
             }
           </td>
@@ -56,7 +48,7 @@ class DriverWaybillsForm extends React.Component {
           <fieldset>
             <legend>
               {
-                this.props.driverWaybill.waybillState.name === 'Transportation_completed' ? viewLabel : checkLabel
+                this.props.driverWaybill.waybillState === 'TRANSPORTATION_COMPLETED' ? viewLabel : checkLabel
               }
             </legend>
 
@@ -95,15 +87,7 @@ class DriverWaybillsForm extends React.Component {
 
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
-                <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
-              </div>
-              <div className='btn-group float-right' role='group'>
-                <button type='button' className={`${disabledClass} btn btn-default`}
-                        onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
-                </button>
-                <button type='button' className={`${disabledClass} btn btn-primary`}
-                        onClick={this.props.changes ? this.save.bind(this) : null}>Save
-                </button>
+                <button type='button' className='btn btn-primary' onClick={this.cancel.bind(this)}>Close</button>
               </div>
             </div>
           </fieldset>
@@ -116,10 +100,8 @@ class DriverWaybillsForm extends React.Component {
 DriverWaybillsForm.propTypes = {
   driverWaybill: React.PropTypes.object.isRequired,
   changes: React.PropTypes.bool,
-  createTruckingCompany: React.PropTypes.func.isRequired,
-  updateTruckingCompany: React.PropTypes.func.isRequired,
+  checkCheckPoint: React.PropTypes.func.isRequired,
   updateOperation: React.PropTypes.func.isRequired,
-  resetOperation: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired
 };
 
@@ -129,10 +111,8 @@ let mapStateToProps = function () {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createTruckingCompany: bindActionCreators(makeNewTruckingCompany, dispatch),
-    updateTruckingCompany: bindActionCreators(updateTruckingCompany, dispatch),
+    checkCheckPoint: bindActionCreators(checkCheckPoint, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
-    resetOperation: bindActionCreators(resetOperation, dispatch),
     cancelOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }

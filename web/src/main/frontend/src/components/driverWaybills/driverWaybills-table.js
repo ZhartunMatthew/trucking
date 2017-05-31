@@ -9,22 +9,17 @@ class DriverWaybillsTable extends React.Component {
     this.props.startOperation(driverWaybill);
   }
 
-  onShowCreateWaybillForm() {
-    this.props.startOperation({waybillNumber: '', departureCity: '', waybillState:''});
-  }
-
   render() {
-    //{ driverWaybill.waybillState.name === 'Transportation_started' : }
     let rows = this.props.driverWaybills.map((driverWaybill, index) => {
       return (
         <tr key={driverWaybill.id}>
           <th scope='row'> {index + 1} </th>
           <td> {driverWaybill.waybillNumber}</td>
           <td> {driverWaybill.departureCity}</td>
-          <td> {driverWaybill.waybillState.name}</td>
+          <td> {driverWaybill.waybillState}</td>
           <td>
             <div className='btn-toolbar text-center'>
-              { driverWaybill.waybillState.name === 'Transportation_completed' ? (
+              { driverWaybill.waybillState === 'TRANSPORTATION_COMPLETED' ? (
                 <button className='btn btn-info' onClick={this.onShowUpdateWaybillForm.bind(this, driverWaybill)}>
                   Show
                 </button>
@@ -55,12 +50,6 @@ class DriverWaybillsTable extends React.Component {
           </thead>
           <tbody>
           {rows}
-          <tr>
-            <td colSpan={3}>
-              <button className='btn btn-default' onClick={this.onShowCreateWaybillForm.bind(this)}>Create New Trucking company
-              </button>
-            </td>
-          </tr>
           </tbody>
         </table>
       </div>
@@ -72,7 +61,6 @@ DriverWaybillsTable.propTypes = {
   driverWaybills: React.PropTypes.array.isRequired,
   startOperation: React.PropTypes.func.isRequired
 };
-
 
 let mapStateToProps = function () {
   return {};
