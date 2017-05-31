@@ -20,6 +20,7 @@ public class UserConverter extends AbstractTwoWayConverter<UserDTO, User> {
         entity.setSurname(dto.getSurname());
         entity.setPatronymic(dto.getPatronymic());
         entity.setEmail(dto.getEmail());
+        entity.setCountry(dto.getCountry());
         entity.setCity(dto.getCity());
         entity.setStreet(dto.getStreet());
         entity.setHouse(dto.getHouse());
@@ -43,6 +44,7 @@ public class UserConverter extends AbstractTwoWayConverter<UserDTO, User> {
         dto.setSurname(entity.getSurname());
         dto.setPatronymic(entity.getPatronymic());
         dto.setEmail(entity.getEmail());
+        dto.setCountry(entity.getCountry());
         dto.setCity(entity.getCity());
         dto.setStreet(entity.getStreet());
         dto.setHouse(entity.getHouse());
