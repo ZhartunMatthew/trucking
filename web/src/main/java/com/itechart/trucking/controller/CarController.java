@@ -1,7 +1,6 @@
 package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.CarDTO;
-import com.itechart.trucking.dto.CarTypeDTO;
 import com.itechart.trucking.entity.Car;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import com.itechart.trucking.services.CarService;
