@@ -14,6 +14,7 @@ public class Invoice extends BaseEntity {
     private Date checkDate;
     private InvoiceStateEnum invoiceState;
     private CustomerCompany customerCompany;
+    private CustomerCompany destinationCustomerCompany;
     private TruckingCompany truckingCompany;
     private User dispatcherUser;
     private User managerUser;
@@ -79,6 +80,16 @@ public class Invoice extends BaseEntity {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    @ManyToOne
+    @JoinColumn (name = "destination_customer_company", nullable = false)
+    public CustomerCompany getDestinationCustomerCompany() {
+        return destinationCustomerCompany;
+    }
+
+    public void setDestinationCustomerCompany(CustomerCompany destinationCustomerCompany) {
+        this.destinationCustomerCompany = destinationCustomerCompany;
     }
 
     @ManyToOne

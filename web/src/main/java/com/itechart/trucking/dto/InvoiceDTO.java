@@ -19,6 +19,8 @@ public class InvoiceDTO extends AbstractDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date checkDate;
     private InvoiceStateEnum invoiceState;
+    private Long destinationCustomerCompanyId;
+    private String destinationCustomerCompany;
     private Long customerCompanyId;
     private String customerCompany;
     private Long truckingCompanyId;
