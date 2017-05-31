@@ -9,7 +9,7 @@ import { systemAdminRoutes} from './systemAdmin.routes';
 import { dispatcherRoutes} from './dispatcher.routes';
 import { managerRoutes} from './manager.routes';
 import { ownerRoutes} from './companyOwner.routes';
-import {driverNavigation} from './driverNavigation'
+import {driverRoutes} from './driver.routes'
 
 
 class UserRole extends React.Component {
@@ -19,21 +19,35 @@ class UserRole extends React.Component {
   }
 
   render() {
-
-    if (this.props.userRole === 'SYSTEM_ADMIN') {
-       return (<Router history={hashHistory} routes={systemAdminRoutes} />)
-    } else if(this.props.userRole === 'ADMIN') {
-      return (<Router history={hashHistory} routes={adminRoutes} />)
-    } else if(this.props.userRole === "MANAGER") {
-      return (<Router history={hashHistory} routes={managerRoutes} />)
-    } else if(this.props.userRole === "DISPATCHER") {
-      return (<Router history={hashHistory} routes={dispatcherRoutes} />)
-    }  else if(this.props.userRole === "COMPANY_OWNER") {
-      return (<Router history={hashHistory} routes={ownerRoutes} />)
-    } else if (this.props.userRole === "DRIVER") {
-      return (<Router history={hashHistory} routes={driverNavigation}/>)
-    } else {
-      return (<Error/>)
+    switch (this.props.userRole) {
+      case "SYSTEM_ADMIN":
+        return (
+          <Router history={hashHistory} routes={systemAdminRoutes} />
+        );
+      case "ADMIN":
+        return (
+          <Router history={hashHistory} routes={adminRoutes} />
+        );
+      case "MANAGER":
+        return (
+          <Router history={hashHistory} routes={managerRoutes} />
+        );
+      case "DISPATCHER":
+        return (
+          <Router history={hashHistory} routes={dispatcherRoutes} />
+        );
+      case "DRIVER":
+        return (
+          <Router history={hashHistory} routes={driverRoutes} />
+        );
+      case "COMPANY_OWNER":
+        return (
+          <Router history={hashHistory} routes={ownerRoutes} />
+        );
+      default:
+        return (
+          <Error/>
+        )
     }
   }
 }
