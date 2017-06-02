@@ -16,7 +16,7 @@ class DriverWaybillsTable extends React.Component {
           <th scope='row'> {index + 1} </th>
           <td>{driverWaybill.waybillNumber}</td>
           <td>{driverWaybill.departureDate}</td>
-          <td>{driverWaybill.allCheckPoints}/{driverWaybill.passedCheckPoints}</td>
+          <td>{driverWaybill.passedCheckPoints}/{driverWaybill.allCheckPoints}</td>
           <td>
             <div className='btn-toolbar text-center'>
               { driverWaybill.waybillState === 'TRANSPORTATION_COMPLETED' ? (
@@ -44,7 +44,7 @@ class DriverWaybillsTable extends React.Component {
             <th>#</th>
             <th>number</th>
             <th>departure date</th>
-            <th>checkpoint</th>
+            <th>checkpoints: passed/all </th>
           </tr>
           </thead>
           <tbody>

@@ -3,18 +3,19 @@ import Input from '../common/text-input';
 import CheckBox from '../common/checkbox';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { checkCheckPoint} from '../../actions/driverWaybills.action';
-import { updateOperation, cancelOperation } from '../../actions/operation.action';
+import { passCheckPoint, passDestination} from '../../actions/driverWaybills.action';
+import { cancelOperation } from '../../actions/operation.action';
 
 class DriverWaybillsForm extends React.Component {
 
-  handleNameChange(event) {
-    this.props.updateOperation('departureCity', event.target.value);
+  passCheckpoint(checkPoint) {
+    this.props.passCheckPoint(checkPoint);
   }
 
-  check(checkPoint) {
-    this.props.checkCheckPoint(checkPoint);
+  passDestination(waybill) {
+    this.props.passDestination(waybill);
   }
+
 
   cancel() {
     this.props.cancelOperation();
@@ -29,7 +30,7 @@ class DriverWaybillsForm extends React.Component {
             {checkPoint.pathDate ? (
                 <CheckBox className="checkPointBox" checked disabled/>
               ) : (
-                <CheckBox className="checkPointBox" onChange={this.check.bind(this, checkPoint)}/>
+                <CheckBox className="checkPointBox" onChange={this.passCheckpoint.bind(this, checkPoint)}/>
               )
             }
           </td>
@@ -54,7 +55,7 @@ class DriverWaybillsForm extends React.Component {
             <label><b>Total distance:</b></label>
             <p>{this.props.driverWaybill.totalDistance}</p>
             <div>
-              <h3>Checkpoints {this.props.driverWaybill.allCheckPoints}/{this.props.driverWaybill.passedCheckPoints}</h3>
+              <h3>Checkpoints {this.props.driverWaybill.passedCheckPoints}/{this.props.driverWaybill.allCheckPoints}</h3>
               <table className='table table-hover'>
                 <thead>
                 <tr>
@@ -72,7 +73,7 @@ class DriverWaybillsForm extends React.Component {
                     {this.props.driverWaybill.destinationDate ? (
                         <CheckBox className="checkPointBox" checked disabled/>
                       ) : (
-                        <CheckBox className="checkPointBox"/>
+                        <CheckBox className="checkPointBox"  onChange={this.passDestination.bind(this, this.props.driverWaybill)}/>
                       )
                     }
                   </td>
@@ -99,8 +100,8 @@ class DriverWaybillsForm extends React.Component {
 DriverWaybillsForm.propTypes = {
   driverWaybill: React.PropTypes.object.isRequired,
   changes: React.PropTypes.bool,
-  checkCheckPoint: React.PropTypes.func.isRequired,
-  updateOperation: React.PropTypes.func.isRequired,
+  passCheckPoint: React.PropTypes.func.isRequired,
+  passDestination: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired
 };
 
@@ -110,8 +111,8 @@ let mapStateToProps = function () {
 
 function mapDispatchToProps(dispatch) {
   return {
-    checkCheckPoint: bindActionCreators(checkCheckPoint, dispatch),
-    updateOperation: bindActionCreators(updateOperation, dispatch),
+    passCheckPoint: bindActionCreators(passCheckPoint, dispatch),
+    passDestination: bindActionCreators(passDestination, dispatch),
     cancelOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }
