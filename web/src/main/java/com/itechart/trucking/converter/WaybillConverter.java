@@ -83,13 +83,19 @@ public class WaybillConverter extends AbstractTwoWayConverter<WaybillDTO, Waybil
         dto.setDriverPatronymic(entity.getInvoice().getDriverUser().getPatronymic());
         dto.setDriverSurname(entity.getInvoice().getDriverUser().getSurname());
         dto.setIdTruckingCompany(entity.getInvoice().getTruckingCompany().getId());
+        int passedCheckPoints=0;
         List<CheckPointDTO> checkPointDTOs = new ArrayList<>();
         for (CheckPoint checkPoint : entity.getCheckPoints()) {
             CheckPointDTO checkPointDTO = checkPointConverter.convertBack(checkPoint);
             checkPointDTO.setWaybillId(entity.getId());
             checkPointDTOs.add(checkPointDTO);
+            if (checkPointDTO.getPathDate()!=null) {
+                passedCheckPoints++;
+            }
         }
         dto.setCheckPoints(checkPointDTOs);
+        dto.setAllCheckPoints(checkPointDTOs.size());
+        dto.setPassedCheckPoints(passedCheckPoints);
         return dto;
     }
 }

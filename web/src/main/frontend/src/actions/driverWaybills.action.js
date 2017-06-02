@@ -23,3 +23,43 @@ export function loadDriverWaybills() {
     });
   }
 }
+
+export function passCheckPoint(checkPoint) {
+  return (dispatch) => {
+    $.ajax({
+      type: 'PUT',
+      url: '/api/checkpoint/check',
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(checkPoint),
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      dataType: 'json'
+    }).done((json) => {
+      loadDriverWaybills()(dispatch);
+      dispatch(startOperation(json));
+    }).fail(() => {
+      console.log('Could not update checkPoint');
+    });
+  }
+}
+
+export function passDestination(waybill) {
+  return (dispatch) => {
+    $.ajax({
+      type: 'PUT',
+      url: '/api/waybill/check',
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(waybill),
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      dataType: 'json'
+    }).done((json) => {
+      loadDriverWaybills()(dispatch);
+      dispatch(startOperation(json));
+    }).fail(() => {
+      console.log('Could not update waybill');
+    });
+  }
+}

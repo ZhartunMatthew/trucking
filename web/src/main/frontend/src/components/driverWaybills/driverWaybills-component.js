@@ -9,10 +9,10 @@ class DriverWaybillComponent extends React.Component {
   render() {
     let content = this.props.currentDriverWaybill ? (
       <div className='row'>
-        <div className='col-sm-6'>
+        <div className='col-sm-7'>
           <DriverWaybillsForm changes={this.props.changes} driverWaybill={this.props.currentDriverWaybill}/>
         </div>
-        <div className='col-sm-6'>
+        <div className='col-sm-5'>
           <DriverWaybillsTable driverWaybills={this.props.driverWaybills}/>
         </div>
       </div>

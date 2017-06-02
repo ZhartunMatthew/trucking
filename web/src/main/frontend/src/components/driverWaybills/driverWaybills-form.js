@@ -3,35 +3,25 @@ import Input from '../common/text-input';
 import CheckBox from '../common/checkbox';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateTruckingCompany, makeNewTruckingCompany } from '../../actions/truckingCompany.action';
-import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
+import { passCheckPoint, passDestination} from '../../actions/driverWaybills.action';
+import { cancelOperation } from '../../actions/operation.action';
 
 class DriverWaybillsForm extends React.Component {
 
-  handleNameChange(event) {
-    this.props.updateOperation('departureCity', event.target.value);
+  passCheckpoint(checkPoint) {
+    this.props.passCheckPoint(checkPoint);
   }
 
-  save() {
-    if (this.props.driverWaybill.id) {
-      this.props.updateTruckingCompany(this.props.driverWaybill);
-    } else {
-      this.props.createTruckingCompany(this.props.driverWaybill);
-    }
+  passDestination(waybill) {
+    this.props.passDestination(waybill);
   }
 
-  reset() {
-    this.props.resetOperation();
-  }
 
   cancel() {
     this.props.cancelOperation();
   }
 
   render() {
-    let viewLabel = <span> Waybill №<b>{this.props.driverWaybill.waybillNumber}</b></span>;
-    let checkLabel = <span>Current waybill </span>;
-    const disabledClass = this.props.changes ? '' : 'disabled';
     let checkPoints = this.props.driverWaybill.checkPoints.map((checkPoint, index) => {
       return (
         <tr key={checkPoint.id}>
@@ -40,7 +30,7 @@ class DriverWaybillsForm extends React.Component {
             {checkPoint.pathDate ? (
                 <CheckBox className="checkPointBox" checked disabled/>
               ) : (
-                <CheckBox className="checkPointBox"/>
+                <CheckBox className="checkPointBox" onChange={this.passCheckpoint.bind(this, checkPoint)}/>
               )
             }
           </td>
@@ -54,17 +44,18 @@ class DriverWaybillsForm extends React.Component {
       <div>
         <form className='form-horizontal'>
           <fieldset>
-            <legend>
-              {
-                this.props.driverWaybill.waybillState.name === 'Transportation_completed' ? viewLabel : checkLabel
-              }
-            </legend>
-
-            <Input id='departureCity' type='text' label='departureCity' placeholder='Enter departureCity here'
-                   value={this.props.driverWaybill.departureCity || ''} onChange={this.handleNameChange.bind(this)}/>
-
+            <legend><span> Waybill №<b>{this.props.driverWaybill.waybillNumber}</b></span></legend>
+            <label><b>Departure date:</b></label>
+            <p>{this.props.driverWaybill.departureDate}</p>
+            <label><b>Departure place:</b></label>
+            <p>{this.props.driverWaybill.departureCountry}, г.{this.props.driverWaybill.departureCity},
+                    {this.props.driverWaybill.departureStreet}, д.{this.props.driverWaybill.departureHouse}</p>
+            <label><b>Price:</b></label>
+            <p>{this.props.driverWaybill.price}</p>
+            <label><b>Total distance:</b></label>
+            <p>{this.props.driverWaybill.totalDistance}</p>
             <div>
-              <h1>Checkpoints</h1>
+              <h3>Checkpoints {this.props.driverWaybill.passedCheckPoints}/{this.props.driverWaybill.allCheckPoints}</h3>
               <table className='table table-hover'>
                 <thead>
                 <tr>
@@ -82,12 +73,13 @@ class DriverWaybillsForm extends React.Component {
                     {this.props.driverWaybill.destinationDate ? (
                         <CheckBox className="checkPointBox" checked disabled/>
                       ) : (
-                        <CheckBox className="checkPointBox"/>
+                        <CheckBox className="checkPointBox"  onChange={this.passDestination.bind(this, this.props.driverWaybill)}/>
                       )
                     }
                   </td>
-                  <td> {this.props.driverWaybill.destinationCity}</td>
-                  <td> {this.props.driverWaybill.destinationDate}</td>
+                  <td>{this.props.driverWaybill.destinationCountry}, г.{this.props.driverWaybill.destinationCity},
+                    {this.props.driverWaybill.destinationStreet}, д.{this.props.driverWaybill.destinationHouse}</td>
+                  <td>{this.props.driverWaybill.destinationDate}</td>
                 </tr>
                 </tbody>
               </table>
@@ -95,15 +87,7 @@ class DriverWaybillsForm extends React.Component {
 
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
-                <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
-              </div>
-              <div className='btn-group float-right' role='group'>
-                <button type='button' className={`${disabledClass} btn btn-default`}
-                        onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
-                </button>
-                <button type='button' className={`${disabledClass} btn btn-primary`}
-                        onClick={this.props.changes ? this.save.bind(this) : null}>Save
-                </button>
+                <button type='button' className='btn btn-primary' onClick={this.cancel.bind(this)}>Close</button>
               </div>
             </div>
           </fieldset>
@@ -116,10 +100,8 @@ class DriverWaybillsForm extends React.Component {
 DriverWaybillsForm.propTypes = {
   driverWaybill: React.PropTypes.object.isRequired,
   changes: React.PropTypes.bool,
-  createTruckingCompany: React.PropTypes.func.isRequired,
-  updateTruckingCompany: React.PropTypes.func.isRequired,
-  updateOperation: React.PropTypes.func.isRequired,
-  resetOperation: React.PropTypes.func.isRequired,
+  passCheckPoint: React.PropTypes.func.isRequired,
+  passDestination: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired
 };
 
@@ -129,10 +111,8 @@ let mapStateToProps = function () {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createTruckingCompany: bindActionCreators(makeNewTruckingCompany, dispatch),
-    updateTruckingCompany: bindActionCreators(updateTruckingCompany, dispatch),
-    updateOperation: bindActionCreators(updateOperation, dispatch),
-    resetOperation: bindActionCreators(resetOperation, dispatch),
+    passCheckPoint: bindActionCreators(passCheckPoint, dispatch),
+    passDestination: bindActionCreators(passDestination, dispatch),
     cancelOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }

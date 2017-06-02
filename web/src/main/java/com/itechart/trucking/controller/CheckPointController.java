@@ -1,8 +1,10 @@
 package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.CheckPointDTO;
+import com.itechart.trucking.dto.WaybillDTO;
 import com.itechart.trucking.entity.CheckPoint;
 import com.itechart.trucking.services.CheckPointService;
+import com.itechart.trucking.services.WaybillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -23,6 +26,8 @@ public class CheckPointController {
 
     @Autowired
     private CheckPointService checkPointService;
+    @Autowired
+    private WaybillService waybillService;
 
     @Autowired
     private ConversionService conversionService;
@@ -68,6 +73,15 @@ public class CheckPointController {
         CheckPoint checkPointEntity = checkPointService.save(conversionService.convert(checkPointDTO, CheckPoint.class));
         CheckPointDTO resultCheckPoint = conversionService.convert(checkPointEntity, CheckPointDTO.class);
         return new ResponseEntity<>(resultCheckPoint,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/check", method = RequestMethod.PUT)
+    public ResponseEntity<WaybillDTO> checkPassed(@RequestBody CheckPointDTO checkPointDTO) {
+        LOGGER.info("REST request. Path:/api/checkPoint/check  method: PUT.  checkPointInfo: {}", checkPointDTO);
+        checkPointDTO.setPathDate(new Date());
+        checkPointService.save(conversionService.convert(checkPointDTO, CheckPoint.class));
+        WaybillDTO waybillDTO = conversionService.convert(waybillService.findOne(checkPointDTO.getWaybillId()), WaybillDTO.class);
+        return new ResponseEntity<>(waybillDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

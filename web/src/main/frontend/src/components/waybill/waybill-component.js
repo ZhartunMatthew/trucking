@@ -9,9 +9,9 @@ class WaybillComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.props.startOperation({waybillNumber: '', departureCity: '', departureStreet: '', departureHouse: '',
-      destinationCity: '', destinationStreet: '', destinationHouse: '', invoiceId: this.props.invoice.id,
-      invoiceNumber: this.props.invoice.number, invoiceDate: this.props.invoice.registerDate,
+    this.props.startOperation({waybillNumber: '', departureDate: '', departureCountry: '', departureCity: '', departureStreet: '', departureHouse: '',
+      destinationCountry:'', destinationCity: '', destinationStreet: '', destinationHouse: '', price: '',
+      invoiceId: this.props.invoice.id, invoiceNumber: this.props.invoice.number, invoiceDate: this.props.invoice.registerDate,
       customerCompany: this.props.invoice.customerCompany, driverFullName: this.props.invoice.driverFullName,
       checkPoints: [], idTruckingCompany: this.props.invoice.truckingCompanyId});
   }
