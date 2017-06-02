@@ -43,4 +43,6 @@ public class WaybillDTO extends AbstractDTO {
     private List<CheckPointDTO> checkPoints;
     private Double price;
     private Double totalDistance;
+    private Integer allCheckPoints;
+    private Integer passedCheckPoints;
 }
