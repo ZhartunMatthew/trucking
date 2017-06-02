@@ -51,7 +51,7 @@ export function makeNewCar(car) {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).always((json) => {
+    }).done((json) => {
       dispatch(startOperation(json));
       loadCars()(dispatch);
     }).fail(() => {

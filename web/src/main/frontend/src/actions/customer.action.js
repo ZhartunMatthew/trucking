@@ -52,7 +52,7 @@ export function makeNewCustomerCompany(company) {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).always((json) => {
+    }).done((json) => {
       dispatch(startOperation(json));
       loadCustomers()(dispatch);
     }).fail(() => {

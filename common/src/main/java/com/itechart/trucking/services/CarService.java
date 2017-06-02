@@ -35,9 +35,7 @@ public class CarService {
 
     @PreAuthorize("hasPermission(#id, 'Car', 'DELETE')")
     @Transactional
-    public void delete(Long id) {
-        carRepository.delete(id);
-    }
+    public void delete(Long id) {carRepository.delete(id);}
 
     @PreAuthorize("hasPermission(null, 'Car', 'GET')")
     @Transactional(readOnly = true)
