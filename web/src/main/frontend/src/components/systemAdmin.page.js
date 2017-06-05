@@ -20,9 +20,23 @@ class SystemAdminPage extends React.Component {
   render() {
     return (
       <div>
-        <ul>
-          <li><Link to='/companies'>Trucking companies</Link></li>
-        </ul>
+        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+          <a className="navbar-brand" href="#">Trucking</a>
+          <div className="collapse navbar-collapse" id="containerNavbar">
+
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <Link className="nav-link" to='/companies'>Trucking companies</Link>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li><a className="nav-link" href="#">Log out</a></li>
+            </ul>
+          </div>
+        </nav>
+        {/*<ul>*/}
+          {/*<li><Link to='/companies'>Trucking companies</Link></li>*/}
+        {/*</ul>*/}
         {this.props.children}
       </div>
   );

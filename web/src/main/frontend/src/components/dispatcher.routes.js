@@ -7,7 +7,7 @@ import Customer from './customer/customer-component'
 export const dispatcherRoutes = (
   <div>
     <Route path='/' component={DispatcherPage}>
-      <Route path ='/invoice' component={InvoiceComponent}/>
+      {/*<Route path ='/invoice' component={InvoiceComponent}/>*/}
       <React path ='/customer' component={Customer}/>
     </Route>
   </div>

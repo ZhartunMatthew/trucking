@@ -24,11 +24,32 @@ class AdminPage extends React.Component {
   render() {
     return (
       <div>
-        <ul>
-          <li><Link to='/user'>Users</Link></li>
-          <li><Link to='/customer'>Customers</Link></li>
-          <li><Link to='/car'>Cars</Link></li>
-        </ul>
+        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+          <a className="navbar-brand" href="#">Trucking</a>
+          <div className="collapse navbar-collapse" id="containerNavbar">
+
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <Link className="nav-link" to='/user'>Users</Link>
+              </li>
+              <li className="nav-item active">
+                <Link className="nav-link" to='/customer'>Customers</Link>
+              </li>
+              <li className="nav-item active">
+                <Link className="nav-link" to='/car'>Cars</Link>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li><a className="nav-link" href="#">Log out</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        {/*<ul>*/}
+          {/*<li><Link to='/user'>Users</Link></li>*/}
+          {/*<li><Link to='/customer'>Customers</Link></li>*/}
+          {/*<li><Link to='/car'>Cars</Link></li>*/}
+        {/*</ul>*/}
         {this.props.children}
       </div>
     )

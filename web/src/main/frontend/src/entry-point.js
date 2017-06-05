@@ -19,8 +19,8 @@ let store = configureStore();
 //When using Redux, you should wrap you component into Provider component. It "enables" connect function
 render((
 	<Provider store={store}>
-    <IndexComponent>
+    {/*<IndexComponent>*/}
       <UserRole/>
-    </IndexComponent>
+    {/*</IndexComponent>*/}
 	</Provider>
 ), document.getElementById('app'));
