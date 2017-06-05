@@ -15,9 +15,23 @@ class DriverPage extends React.Component {
   render() {
     return (
       <div>
-        <ul>
-          <li><Link to='/waybills'>Waybills</Link></li>
-        </ul>
+        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+          <a className="navbar-brand" href="#">Trucking</a>
+          <div className="collapse navbar-collapse" id="containerNavbar">
+
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <Link className="nav-link" to='/waybills'>Waybills</Link>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li><a className="nav-link" href="#">Log out</a></li>
+            </ul>
+          </div>
+        </nav>
+        {/*<ul>*/}
+          {/*<li><Link to='/waybills'>Waybills</Link></li>*/}
+        {/*</ul>*/}
         {this.props.children}
       </div>
   );
@@ -36,7 +50,6 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
   return {
     loadDriverWaybills:bindActionCreators(loadDriverWaybills, dispatch),
-    // fetchTruckingCompany: bindActionCreators(fetchTruckingCompany, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }
