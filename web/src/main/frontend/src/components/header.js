@@ -11,7 +11,7 @@ class HeaderComponent extends React.Component {
   }
 
   render() {
-    let navItems = this.props.items.map((item)=> {
+    let navItems = this.props.navItems.map((item)=> {
       return (
         <li className="nav-item active">
           <Link className="nav-link" to={item.url}>{item.caption}</Link>
@@ -35,7 +35,7 @@ class HeaderComponent extends React.Component {
 }
 
 HeaderComponent.propTypes = {
-  items: React.PropTypes.array.isRequired,
+  navItems: React.PropTypes.array.isRequired,
   logOut: React.PropTypes.func
 };
 
