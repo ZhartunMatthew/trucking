@@ -5,41 +5,28 @@ import { selectTab } from '../actions/navigation.action';
 import { loadTruckingCompanies, fetchTruckingCompany} from '../actions/truckingCompany.action';
 import { cancelOperation } from '../actions/operation.action';
 import { Link } from 'react-router';
-import {
-  NAVIGATION_TAB_GENRES
-} from '../constants/constants';
+import HeaderComponent from './header';
+import FooterComponent from './footer';
 
 class SystemAdminPage extends React.Component {
 
   componentDidMount() {
-    this.props.selectTab(NAVIGATION_TAB_GENRES);
     this.props.loadTruckingCompanies();
     this.props.cancelCurrentOperation();
   }
 
   render() {
+    var navItems = [{
+      url: '/companies',
+      caption: 'Trucking companies'
+    }];
     return (
-      <div>
-        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-md">
-          <a className="navbar-brand" href="#">Trucking</a>
-          <div className="collapse navbar-collapse" id="containerNavbar">
-
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link className="nav-link" to='/companies'>Trucking companies</Link>
-              </li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><a className="nav-link" href="#">Log out</a></li>
-            </ul>
-          </div>
-        </nav>
-        {/*<ul>*/}
-          {/*<li><Link to='/companies'>Trucking companies</Link></li>*/}
-        {/*</ul>*/}
-        {this.props.children}
-      </div>
-  );
+        <div>
+          <HeaderComponent navItems={navItems}/>
+          {this.props.children}
+          <FooterComponent/>
+        </div>
+    );
   }
 }
 /*
@@ -54,7 +41,6 @@ function mapStateToProps() {
  */
 function mapDispatchToProps(dispatch) {
   return {
-    selectTab: bindActionCreators(selectTab, dispatch),
     loadTruckingCompanies: bindActionCreators(loadTruckingCompanies, dispatch),
     fetchTruckingCompany: bindActionCreators(fetchTruckingCompany, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)

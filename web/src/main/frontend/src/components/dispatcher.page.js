@@ -5,6 +5,8 @@ import { loadCustomers, fetchCustomer } from '../actions/customer.action';
 import { loadInvoices, fetchInvoice} from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import { Link } from 'react-router';
+import HeaderComponent from './header';
+import FooterComponent from './footer';
 
 class DispatcherPage extends React.Component {
 
@@ -15,36 +17,17 @@ class DispatcherPage extends React.Component {
   }
 
   render() {
+    var navItems = [{
+      url: '/customer',
+      caption: 'Customers'
+    }];
     return (
       <div>
-        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-md">
-          <a className="navbar-brand" href="#">Trucking</a>
-          <div className="collapse navbar-collapse" id="containerNavbar">
-
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link className="nav-link" to='/customer'>Customers</Link>
-              </li>
-              {/*<li className="nav-item active">*/}
-                {/*<Link className="nav-link" to='/invoice'>Invoices</Link>*/}
-              {/*</li>*/}
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><a className="nav-link" href="#">Log out</a></li>
-            </ul>
-          </div>
-        </nav>
-        {/*<ul>*/}
-          {/*<li>*/}
-            {/*<Link to='/customer'> Customers </Link>*/}
-          {/*</li>*/}
-          {/*<li>*/}
-            {/*<Link to='/invoice'> Invoices </Link>*/}
-          {/*</li>*/}
-        {/*</ul>*/}
+        <HeaderComponent navItems={navItems}/>
         {this.props.children}
+        <FooterComponent/>
       </div>
-    )
+    );
   }
 }
 

@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { cancelOperation } from '../actions/operation.action';
 import { Link } from 'react-router';
 import {loadDriverWaybills} from "../actions/driverWaybills.action";
+import HeaderComponent from './header';
+import FooterComponent from './footer';
 
 class DriverPage extends React.Component {
 
@@ -13,40 +15,24 @@ class DriverPage extends React.Component {
   }
 
   render() {
+    var navItems = [{
+      url: '/waybills',
+      caption: 'Waybills'
+    }];
     return (
       <div>
-        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-md">
-          <a className="navbar-brand" href="#">Trucking</a>
-          <div className="collapse navbar-collapse" id="containerNavbar">
-
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link className="nav-link" to='/waybills'>Waybills</Link>
-              </li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><a className="nav-link" href="#">Log out</a></li>
-            </ul>
-          </div>
-        </nav>
-        {/*<ul>*/}
-          {/*<li><Link to='/waybills'>Waybills</Link></li>*/}
-        {/*</ul>*/}
+      <HeaderComponent navItems={navItems}/>
         {this.props.children}
+      <FooterComponent/>
       </div>
   );
   }
 }
-/*
- We don't need copy anything to props from app state here
- */
+
 function mapStateToProps() {
   return {}
 }
 
-/*
- Here we assign handlers to some actions
- */
 function mapDispatchToProps(dispatch) {
   return {
     loadDriverWaybills:bindActionCreators(loadDriverWaybills, dispatch),
