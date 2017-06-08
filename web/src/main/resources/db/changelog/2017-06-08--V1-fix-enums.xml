@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="ScherbinaDina" id="update-car-type">
+        <modifyDataType columnName="car_type"
+                        newDataType="ENUM('TANK','COVERED_BODY','REFRIGIRATOR')"
+                        tableName="car"/>
+    </changeSet>
+
+    <changeSet author="ScherbinaDina" id="update-invoice-state">
+        <modifyDataType columnName="invoice_state"
+                        newDataType="ENUM('ISSUED','CHECKED','DELIVERED')"
+                        tableName="invoice"/>
+    </changeSet>
+
+    <changeSet author="ScherbinaDina" id="update-product-state">
+        <modifyDataType columnName="product_state"
+                        newDataType="ENUM('REGISTERED','CHECKED','DELIVERED','LOST')"
+                        tableName="product"/>
+    </changeSet>
+
+    <changeSet author="ScherbinaDina" id="update-waybill-state">
+        <modifyDataType columnName="waybill_state"
+                        newDataType="ENUM('TRANSPORTATION_STARTED','TRANSPORTATION_COMPLETED')"
+                        tableName="waybill"/>
+    </changeSet>
+
+    <changeSet author="ScherbinaDina" id="update-user-role">
+        <modifyDataType columnName="user_role"
+                        newDataType="ENUM('SYSTEM_ADMIN','ADMIN','DISPATCHER','MANAGER','DRIVER','COMPANY_OWNER')"
+                        tableName="user"/>
+    </changeSet>
+</databaseChangeLog>

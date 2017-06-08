@@ -11,4 +11,5 @@
     <include file="2017-05-31--V1-add-country-columns.xml" relativeToChangelogFile="true"/>
     <include file="2017-05-31--V1-change-car-type.xml" relativeToChangelogFile="true"/>
     <include file="2017-05-31--V1-add-destination_company-in-invoice.xml" relativeToChangelogFile="true"/>
+    <include file="2017-06-08--V1-fix-enums.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
