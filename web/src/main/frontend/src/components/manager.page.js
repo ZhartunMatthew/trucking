@@ -6,6 +6,7 @@ import { loadInvoices, fetchInvoice } from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import { Link } from 'react-router';
 import HeaderComponent from './header';
+import FooterComponent from './footer';
 
 class ManagerPage extends React.Component {
 
@@ -23,6 +24,7 @@ class ManagerPage extends React.Component {
       <div>
         <HeaderComponent navItems={navItems}/>
         {this.props.children}
+        <FooterComponent/>
       </div>
     );
   }

@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import { cancelOperation } from '../actions/operation.action';
 import { Link } from 'react-router';
 import {loadDriverWaybills} from "../actions/driverWaybills.action";
-import HeaderComponent from './header'
+import HeaderComponent from './header';
+import FooterComponent from './footer';
 
 class DriverPage extends React.Component {
 
@@ -22,6 +23,7 @@ class DriverPage extends React.Component {
       <div>
       <HeaderComponent navItems={navItems}/>
         {this.props.children}
+      <FooterComponent/>
       </div>
   );
   }

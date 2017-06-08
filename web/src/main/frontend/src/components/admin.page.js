@@ -7,6 +7,7 @@ import { loadCars, fetchCar } from '../actions/car.action';
 import { cancelOperation } from '../actions/operation.action';
 import { Link } from 'react-router';
 import HeaderComponent from './header';
+import FooterComponent from './footer';
 
 class AdminPage extends React.Component {
 
@@ -34,6 +35,7 @@ class AdminPage extends React.Component {
       <div>
         <HeaderComponent navItems={navItems}/>
         {this.props.children}
+        <FooterComponent/>
       </div>
     );
   }
