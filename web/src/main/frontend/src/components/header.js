@@ -1,43 +1,52 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  NAVIGATION_TAB_GENRES
-} from '../constants/constants';
+import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+import {logOut} from "../actions/authorization.action";
 
 class HeaderComponent extends React.Component {
 
+  onLogOut() {
+    this.props.logOut();
+  }
+
   render() {
+    let navItems = this.props.items.map((item)=> {
+      return (
+        <li className="nav-item active">
+          <Link className="nav-link" to={item.url}>{item.caption}</Link>
+        </li>
+      )
+    });
     return (
-      <header>
-        <div className='row'>
-          <div className='col-xs-12'>
-            <nav className='navbar navbar-toggleable-md navbar-light bg-faded' role='navigation'>
-
-              <img alt='Logo' src='src/images/logo.png' style={{width:'100px', height: '70px'}}></img>
-
-              <div className='collapse navbar-collapse' id='navbarNav'>
-                <ul className='navbar-nav'>
-                  <li className={this.props.activeItem === NAVIGATION_TAB_GENRES ? 'nav-item active' : 'nav-item'}>
-                    <a>Trucking</a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
+        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+          <a className="navbar-brand" href="#">Trucking</a>
+          <div className="collapse navbar-collapse" id="containerNavbar">
+            <ul className="navbar-nav mr-auto">
+              {navItems}
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li><a className="nav-link" href="#" onClick={this.onLogOut.bind(this)}>Log out</a></li>
+            </ul>
           </div>
-        </div>
-      </header>
+        </nav>
     );
   }
 }
 
 HeaderComponent.propTypes = {
-  activeItem: React.PropTypes.string
+  items: React.PropTypes.array.isRequired,
+  logOut: React.PropTypes.func
 };
 
-function mapStateToProps(state) {
+function mapStateToProps() {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
   return {
-    activeItem: state.navigation.currentTab
+    logOut: bindActionCreators(logOut, dispatch)
   }
 }
 
-export default connect(mapStateToProps)(HeaderComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);
