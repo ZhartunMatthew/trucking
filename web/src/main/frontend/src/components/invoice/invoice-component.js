@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import InvoiceForm from './invoice-form';
 import InvoiceTable from './invoice-table';
 import ProductTable from '../product/product-table';
+import ProductForm from '../product/product-form';
 import ProductComponent from "../product/product-component";
 import { bindActionCreators } from 'redux';
 import { startOperation, cancelOperation } from '../../actions/operation.action';
-
 
 class InvoiceComponent extends React.Component {
   constructor() {
@@ -22,18 +22,17 @@ class InvoiceComponent extends React.Component {
         number: '',
         registerDate: '',
         checkDate: '',
-        invoiceState: {
-          id: 1,
-          name: 'Issued'
-        },
+        invoiceState: 'ISSUED',
         customerCompanyId: this.props.customerCompany.id,
         customerCompany: this.props.customerCompany.name,
         truckingCompanyId: this.props.customerCompany.truckingCompanyId,
         truckingCompany: '',
-        driverId: '',
+        driverId: 5,
         managerId: '',
         dispatcherId: '',
-        carId: '',
+        carId: 1,
+        currentProductName: '',
+        currentProductAmount: '',
         products: []
       });
     }
@@ -42,7 +41,6 @@ class InvoiceComponent extends React.Component {
   render() {
     let role = this.props.userRole;
     let content = null;
-
     if(role === 'MANAGER') {
       content = this.props.currentInvoice ? (
         <div className='row'>
@@ -63,7 +61,9 @@ class InvoiceComponent extends React.Component {
         </div>
       );
     }
+
     if(role === 'DISPATCHER') {
+      this.props.currentInvoice.products = this.props.products;
       content = this.props.currentInvoice ? (
         <div className='row'>
           <div className='col-sm-6'>
@@ -81,19 +81,6 @@ class InvoiceComponent extends React.Component {
         </div>
       );
     }
-
-    if(role === "DISPATCHER" && this.props.currentInvoice === null) {
-      content =
-        <div className='row'>
-          <div className='col-sm-6'>
-            <InvoiceForm changes={this.props.changes} invoice={null}/>
-          </div>
-          <div className='col-sm-6'>
-            <ProductComponent/>
-          </div>
-        </div>
-    }
-
     return (
       <div className='container'>
         {content}
@@ -107,16 +94,17 @@ class InvoiceComponent extends React.Component {
 }
 
 InvoiceComponent.contextTypes = {
-    router: React.PropTypes.func,
-    userRole: React.PropTypes.String
+  router: React.PropTypes.func,
+  userRole: React.PropTypes.String,
+  products: React.PropTypes.Array
 };
 
-  function mapDispatchToProps(dispatch) {
-    return {
-      cancelOperation: bindActionCreators(cancelOperation, dispatch),
-      startOperation: bindActionCreators(startOperation, dispatch)
-    }
+function mapDispatchToProps(dispatch) {
+  return {
+    cancelOperation: bindActionCreators(cancelOperation, dispatch),
+    startOperation: bindActionCreators(startOperation, dispatch)
   }
+}
 
 let mapStateToProps = function (state) {
   return {
@@ -124,7 +112,8 @@ let mapStateToProps = function (state) {
     currentInvoice: state.operation.modifiedValue,
     changes: state.operation.changes,
     userRole: state.userRole.userRole,
-    customerCompany: state.operation.modifiedValue
+    customerCompany: state.operation.modifiedValue,
+    products: state.products.products
   };
 };
 
