@@ -16,8 +16,8 @@ class DriverWaybillsForm extends React.Component {
     this.props.passCheckPoint(checkPoint);
   }
 
-  passDestination(waybill) {
-    this.props.passDestination(waybill);
+  passDestination() {
+    this.props.passDestination(this.props.driverWaybill);
   }
 
 
@@ -60,15 +60,20 @@ class DriverWaybillsForm extends React.Component {
         <form className='form-horizontal'>
           <fieldset>
             <legend><span> Waybill №<b>{this.props.driverWaybill.waybillNumber}</b></span></legend>
-            <label><b>Departure date:</b></label>
-            <p>{this.props.driverWaybill.departureDate}</p>
             <label><b>Departure place:</b></label>
             <p>{this.props.driverWaybill.departureCountry}, г.{this.props.driverWaybill.departureCity},
                     {this.props.driverWaybill.departureStreet}, д.{this.props.driverWaybill.departureHouse}</p>
-            <label><b>Price:</b></label>
-            <p>{this.props.driverWaybill.price}</p>
-            <label><b>Total distance:</b></label>
-            <p>{this.props.driverWaybill.totalDistance}</p>
+            <label><b>Departure date:</b></label>
+            <p>{this.props.driverWaybill.departureDate}</p>
+            <label><b>Destination place:</b></label>
+            <p>{this.props.driverWaybill.destinationCountry}, г.{this.props.driverWaybill.destinationCity},
+              {this.props.driverWaybill.destinationStreet}, д.{this.props.driverWaybill.destinationHouse}</p>
+            <label><b>Destination date:</b></label>
+            <p>{this.props.driverWaybill.destinationDate}</p>
+            {/*<label><b>Price:</b></label>*/}
+            {/*<p>{this.props.driverWaybill.price}</p>*/}
+            {/*<label><b>Total distance:</b></label>*/}
+            {/*<p>{this.props.driverWaybill.totalDistance}</p>*/}
             <div>
               <h3>Checkpoints {this.props.driverWaybill.passedCheckPoints}/{this.props.driverWaybill.allCheckPoints}</h3>
               <table className='table table-hover'>
@@ -82,33 +87,19 @@ class DriverWaybillsForm extends React.Component {
                 </thead>
                 <tbody>
                 {checkPoints}
-                <tr>
-                  <th scope='row'> destination </th>
-                  <td>
-                    {this.props.driverWaybill.destinationDate ? (
-                        <CheckBox className="checkPointBox" checked disabled/>
-                      ) : (
-                        <CheckBox className="checkPointBox" onChange={this.passDestination.bind(this, this.props.driverWaybill)}/>
-                      )
-                    }
-                  </td>
-                  <td>{this.props.driverWaybill.destinationCountry}, г.{this.props.driverWaybill.destinationCity},
-                    {this.props.driverWaybill.destinationStreet}, д.{this.props.driverWaybill.destinationHouse}</td>
-                  <td>{this.props.driverWaybill.destinationDate}</td>
-                </tr>
                 </tbody>
               </table>
             </div>
-
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
-                <button type='button' className='btn btn-primary' onClick={this.cancel.bind(this)}>Close</button>
+                { !this.props.driverWaybill.destinationDate &&
+                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">Pass</button>
+                }
+                <button type='button' className='btn btn-default' onClick={this.cancel.bind(this)}>Close</button>
               </div>
             </div>
           </fieldset>
         </form>
-
-        <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open product list</button>
 
         {/*Modal*/}
         <div id="myModal" className="modal fade" role="dialog">
@@ -136,7 +127,7 @@ class DriverWaybillsForm extends React.Component {
                 </table>
               </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-success" data-dismiss="modal">Save</button>
+                  <button type="button" className="btn btn-success" data-dismiss="modal" onClick={this.passDestination.bind(this)}>Save</button>
                   <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
