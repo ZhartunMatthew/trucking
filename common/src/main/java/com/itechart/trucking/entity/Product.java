@@ -9,6 +9,7 @@ public class Product extends BaseEntity {
 
     private String name;
     private Integer amount;
+    private Integer lost;
     private ProductStateEnum productState;
     private Invoice invoice;
 
@@ -33,6 +34,15 @@ public class Product extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Column(name = "lost")
+    public Integer getLost() {
+        return lost;
+    }
+
+    public void setLost(Integer lost) {
+        this.lost = lost;
     }
 
     @Column(name = "amount", nullable = false, insertable = true, updatable = true)
