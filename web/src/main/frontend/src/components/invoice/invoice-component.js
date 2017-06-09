@@ -7,6 +7,8 @@ import ProductForm from '../product/product-form';
 import ProductComponent from "../product/product-component";
 import { bindActionCreators } from 'redux';
 import { startOperation, cancelOperation } from '../../actions/operation.action';
+import { loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
+import { loadCustomers } from '../../actions/customer.action'
 
 class InvoiceComponent extends React.Component {
   constructor() {
@@ -18,6 +20,10 @@ class InvoiceComponent extends React.Component {
     if(this.props.userRole === 'DISPATCHER') {
       this.props.cancelOperation();
 
+      this.props.loadFreeDrivers();
+      this.props.loadFreeCars(true);
+      this.props.loadAllCustomers();
+
       this.props.startOperation({
         number: '',
         registerDate: '',
@@ -25,12 +31,14 @@ class InvoiceComponent extends React.Component {
         invoiceState: 'ISSUED',
         customerCompanyId: this.props.customerCompany.id,
         customerCompany: this.props.customerCompany.name,
+        customerCompanyCity: this.props.customerCompany.city,
+        destinationCustomerCompanyId: getFirstId(this.props.destinationCustomers, 1),
         truckingCompanyId: this.props.customerCompany.truckingCompanyId,
         truckingCompany: '',
-        driverId: 5,
+        driverId: getFirstId(this.props.users, 5),
         managerId: '',
         dispatcherId: '',
-        carId: 1,
+        carId: getFirstId(this.props.cars, 1),
         currentProductName: '',
         currentProductAmount: '',
         products: []
@@ -45,9 +53,7 @@ class InvoiceComponent extends React.Component {
       content = this.props.currentInvoice ? (
         <div className='row'>
           <div className='col-sm-6'>
-            <InvoiceForm changes={this.props.changes}
-                         invoice={this.props.currentInvoice}
-                         onSubmit={this.onSubmitInvoiceForm}/>
+            <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice} onSubmit={this.onSubmitInvoiceForm}/>
           </div>
           <div className='col-sm-6'>
             <ProductTable products={this.props.currentInvoice.products}/>
@@ -102,7 +108,10 @@ InvoiceComponent.contextTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     cancelOperation: bindActionCreators(cancelOperation, dispatch),
-    startOperation: bindActionCreators(startOperation, dispatch)
+    startOperation: bindActionCreators(startOperation, dispatch),
+    loadFreeDrivers: bindActionCreators(loadFreeDrivers, dispatch),
+    loadFreeCars: bindActionCreators(loadFreeCars, dispatch),
+    loadAllCustomers: bindActionCreators(loadCustomers, dispatch)
   }
 }
 
@@ -113,9 +122,21 @@ let mapStateToProps = function (state) {
     changes: state.operation.changes,
     userRole: state.userRole.userRole,
     customerCompany: state.operation.modifiedValue,
-    products: state.products.products
+    products: state.products.products,
+    users: state.users.users,
+    cars: state.cars.cars,
+    destinationCustomers: state.customers.customers
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InvoiceComponent);
 
+function getFirstId(list, val) {
+  if(list !== null && list !== undefined) {
+    if(list[0] !== null && list[0] !== undefined) {
+      return list[0].id;
+    } else {
+      return val;
+    }
+  }
+}
