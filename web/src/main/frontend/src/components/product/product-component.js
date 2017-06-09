@@ -4,11 +4,12 @@ import ProductForm from '../product/product-form';
 import ProductTable from '../product/product-table';
 
 class ProductComponent extends React.Component {
+
   render() {
     let role = this.props.userRole;
     let productForm = null;
     if(role === 'DISPATCHER') {
-      productForm = <ProductForm changes={this.props.changes} product={null}/>;
+      productForm = <ProductForm/>;
     } else {
       productForm = null;
     }
@@ -16,12 +17,13 @@ class ProductComponent extends React.Component {
     let content =
       <div className='col'>
         <div className='col-sm-8'>
-          <ProductTable products={[]}/>
+          <ProductTable/>
         </div>
         <div className='col-sm-8'>
           {productForm}
         </div>
       </div>;
+
     return (
       <div> {content} </div>
     );

@@ -10,7 +10,7 @@ class ProductTable extends React.Component {
     if(this.props.products !== undefined && this.props.products !== null) {
       rows = this.props.products.map((product, index) => {
         return (
-          <tr key={product.id}>
+          <tr key={index + 1}>
             <th scope='row'> {index + 1} </th>
             <td> {product.name}</td>
             <td> {product.amount}</td>
@@ -20,7 +20,7 @@ class ProductTable extends React.Component {
     }
     return (
       <div>
-        <h1>List of products</h1>
+        <h1> List of products </h1>
         <table className='table table-hover'>
           <thead>
           <tr>
@@ -36,16 +36,26 @@ class ProductTable extends React.Component {
       </div>
     );
   }
+
+  shouldComponentUpdate(nextState, nextProp) {
+    console.log("UPDATE????");
+    return true;
+  }
 }
 
 ProductTable.propTypes = {
   products: React.PropTypes.array.isRequired,
-  startOperation: React.PropTypes.func.isRequired,
+  startOperation: React.PropTypes.func.isRequired
 };
 
-
-let mapStateToProps = function () {
-  return {};
+let mapStateToProps = function (state, param) {
+  console.log("TABLE STATE TO PROPS");
+  console.log("TABLE MAP: ", state.products.products); // вот тут точно приходит новый стейт
+  console.log("STATE", state);
+  console.log("PARAM", param);
+  return {
+    products: state.products.products
+  };
 };
 
 function mapDispatchToProps(dispatch) {
@@ -54,6 +64,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductTable); //вот тут связываем это дело с компонентом
 
 
