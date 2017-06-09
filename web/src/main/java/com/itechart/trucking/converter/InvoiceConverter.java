@@ -50,7 +50,8 @@ public class InvoiceConverter extends AbstractTwoWayConverter<InvoiceDTO, Invoic
         entity.setProducts(products);
         CustomerCompany customerCompany = customerCompanyService.findOne(dto.getCustomerCompanyId());
         entity.setCustomerCompany(customerCompany);
-        CustomerCompany destinationCustomerCompany = customerCompanyService.findOne(dto.getDestinationCustomerCompanyId());
+        //CustomerCompany destinationCustomerCompany = customerCompanyService.findOne(dto.getDestinationCustomerCompanyId());
+        CustomerCompany destinationCustomerCompany = customerCompanyService.findOne(1L);
         entity.setDestinationCustomerCompany(destinationCustomerCompany);
         entity.setTruckingCompany(truckingCompanyService.findOne(dto.getTruckingCompanyId()));
         entity.setDriverUser(userService.findOne(dto.getDriverId()));
