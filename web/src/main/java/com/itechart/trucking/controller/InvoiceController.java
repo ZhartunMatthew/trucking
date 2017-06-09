@@ -53,8 +53,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<InvoiceDTO> update(@PathVariable Long id,
-                                             @RequestBody InvoiceDTO dtoForUpdate) {
+    public ResponseEntity<InvoiceDTO> update(@PathVariable Long id, @RequestBody InvoiceDTO dtoForUpdate) {
         LOGGER.info("REST request. Path:/api/invoice/{}  method: PUT.  invoice: {}", id, dtoForUpdate);
         Invoice invoice = invoiceService.findOne(id);
         if (invoice == null) {
