@@ -79,6 +79,10 @@ public class InvoiceController {
         dto.setRegisterDate(new Date());
         dto.setDispatcherId(details.getId());
         dto.setInvoiceState(InvoiceStateEnum.ISSUED);
+        if(dto.getDriverId() == null) {
+            dto.setDriverId(5L);
+            LOGGER.info("DRIVER IS NULL");
+        }
         Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
         return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
     }
