@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { startOperation, cancelOperation } from './operation.action';
 import {
-  INIT_DRIVERWAYBILLS
+  INIT_DRIVERWAYBILLS, INIT_PRODUCTS
 } from '../constants/actionTypes';
 
 export function loadDriverWaybills() {
@@ -16,6 +16,25 @@ export function loadDriverWaybills() {
       //CREATE ACTION
       dispatch({
         type: INIT_DRIVERWAYBILLS,
+        payload: json
+      });
+    }).fail(() => {
+      console.log('Could not get list of waybills');
+    });
+  }
+}
+
+export function loadProducts(idInvoice) {
+  return (dispatch) => {
+    $.ajax({
+      url: '/api/product/' + idInvoice,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      dataType: 'json'
+    }).done(json => {
+      dispatch({
+        type: INIT_PRODUCTS,
         payload: json
       });
     }).fail(() => {
