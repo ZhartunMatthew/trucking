@@ -4,9 +4,13 @@ import CheckBox from '../common/checkbox';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { passCheckPoint, passDestination} from '../../actions/driverWaybills.action';
-import { cancelOperation } from '../../actions/operation.action';
+import { cancelOperation, updateOperation } from '../../actions/operation.action';
 
 class DriverWaybillsForm extends React.Component {
+
+  handleProductLostChange(event, id) {
+    this.props.updateOperation(id, event.target.value);
+  }
 
   passCheckpoint(checkPoint) {
     this.props.passCheckPoint(checkPoint);
@@ -39,7 +43,18 @@ class DriverWaybillsForm extends React.Component {
         </tr>
       )
     });
-
+    let products = this.props.products.map((product, index) => {
+      return (
+        <tr key={product.id}>
+          <th scope='row'> {index + 1} </th>
+          <td>{product.name}</td>
+          <td>{product.amount}</td>
+          <td>
+            <Input label='Lost products' id={product.id} type='text' value={product.lost} onChange={this.handleProductLostChange.bind(this, product.id)}/>
+          </td>
+        </tr>
+      )
+    });
     return (
       <div>
         <form className='form-horizontal'>
@@ -73,7 +88,7 @@ class DriverWaybillsForm extends React.Component {
                     {this.props.driverWaybill.destinationDate ? (
                         <CheckBox className="checkPointBox" checked disabled/>
                       ) : (
-                        <CheckBox className="checkPointBox"  onChange={this.passDestination.bind(this, this.props.driverWaybill)}/>
+                        <CheckBox className="checkPointBox" onChange={this.passDestination.bind(this, this.props.driverWaybill)}/>
                       )
                     }
                   </td>
@@ -92,6 +107,41 @@ class DriverWaybillsForm extends React.Component {
             </div>
           </fieldset>
         </form>
+
+        <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open product list</button>
+
+        {/*Modal*/}
+        <div id="myModal" className="modal fade" role="dialog">
+          <div className="modal-dialog">
+            {/*Modal content*/}
+            <div className="modal-content">
+              <div className="modal-header">
+                <h3 className="modal-title">Product list</h3>
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div className="modal-body">
+                <p>Please, enter amount of losed product</p>
+                <table className='table table-hover'>
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Lost</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {products}
+                  </tbody>
+                </table>
+              </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-success" data-dismiss="modal">Save</button>
+                  <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -102,18 +152,22 @@ DriverWaybillsForm.propTypes = {
   changes: React.PropTypes.bool,
   passCheckPoint: React.PropTypes.func.isRequired,
   passDestination: React.PropTypes.func.isRequired,
-  cancelOperation: React.PropTypes.func.isRequired
+  cancelOperation: React.PropTypes.func.isRequired,
+  updateOperation: React.PropTypes.func.isRequired,
 };
 
-let mapStateToProps = function () {
-  return {};
+let mapStateToProps = function (state) {
+  return {
+    products: state.driverWaybills.productsInWaybill,
+  };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     passCheckPoint: bindActionCreators(passCheckPoint, dispatch),
     passDestination: bindActionCreators(passDestination, dispatch),
-    cancelOperation: bindActionCreators(cancelOperation, dispatch)
+    cancelOperation: bindActionCreators(cancelOperation, dispatch),
+    updateOperation: bindActionCreators(updateOperation, dispatch),
   }
 }
 

@@ -2,11 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startOperation } from '../../actions/operation.action';
+import { loadProducts} from '../../actions/driverWaybills.action';
 
 class DriverWaybillsTable extends React.Component {
 
   onShowUpdateWaybillForm(driverWaybill) {
     this.props.startOperation(driverWaybill);
+    this.props.loadProducts(driverWaybill.invoiceId);
   }
 
   render() {
@@ -58,7 +60,7 @@ class DriverWaybillsTable extends React.Component {
 
 DriverWaybillsTable.propTypes = {
   driverWaybills: React.PropTypes.array.isRequired,
-  startOperation: React.PropTypes.func.isRequired
+  startOperation: React.PropTypes.func.isRequired,
 };
 
 let mapStateToProps = function () {
@@ -67,7 +69,8 @@ let mapStateToProps = function () {
 
 function mapDispatchToProps(dispatch) {
   return {
-    startOperation: bindActionCreators(startOperation, dispatch)
+    startOperation: bindActionCreators(startOperation, dispatch),
+    loadProducts: bindActionCreators(loadProducts, dispatch),
   }
 }
 
