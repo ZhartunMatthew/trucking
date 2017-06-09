@@ -27,7 +27,9 @@ const operationReducer = (state = initialState, action = {}) => {
     case UPDATE_OPERATION:
     {
       const updatedObject = Object.assign({}, state.modifiedValue);
-      updatedObject[action.payload.field] = action.payload.value;
+      if(action.payload.field !== null) {
+        updatedObject[action.payload.field] = action.payload.value;
+      }
       return Object.assign({}, state, {modifiedValue : updatedObject,  changes: true});
     }
     case RESET_OPERATION:
