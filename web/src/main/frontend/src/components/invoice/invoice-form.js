@@ -97,10 +97,10 @@ class InvoiceForm extends React.Component {
                    value={this.props.invoice !== null ? this.props.invoice.customerCompany || '' : ''} onChange={this.handleCustomerCompany.bind(this)}
                    readOnly={true}/>
             <Select id="driverId" label="driver" onChange={this.handleDriverChange.bind(this)}
-                    options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.surname} </option> )})}
+                    options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
                     value={defaultDriver} />
             <Select id="carId" label="car" onChange={this.handleCarChange.bind(this)}
-                    options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number},{car.type} </option> )})}
+                    options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number}, {car.type} </option> )})}
                     value={defaultCar} />
 
             <div className='btn-toolbar text-center'>

@@ -36,3 +36,7 @@
 a {
   text-decoration: none;
 }
+
+.small-select {
+  height: 50px !important;
+}
