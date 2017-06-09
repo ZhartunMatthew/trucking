@@ -102,18 +102,29 @@ class UserForm extends React.Component {
         </div>
       </div>;
 
-     let ownerActions =
-       <div className='btn-toolbar text-center'>
-         <div className='btn-group' role='group'>
-           <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
-         </div>
-       </div>;
+    let ownerActions =
+      <div className='btn-toolbar text-center'>
+        <div className='btn-group' role='group'>
+          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+        </div>
+      </div>;
+
+    let userRoleAdmin =
+      <Select id="userRole" label="user role" onChange={this.handleUserRoleChange.bind(this)}
+              options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
+              value={defaultUserRole} readOnly={disableEditing}/>;
+
+    let userRoleOwner =
+      <Input id='userRole' type='text' label='user role' placeholder=''
+             value={this.props.user.userRole  || ''} onChange='' readOnly={true}/>;
 
     let userActions = null;
     let role = this.props.userRole;
     userActions = role === "ADMIN" ? adminActions : userActions;
     userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
     let disableEditing = role !== "ADMIN";
+
+    let userRoleField = role === "ADMIN" ? userRoleAdmin : userRoleOwner;
 
     return (
       <div>
@@ -140,9 +151,7 @@ class UserForm extends React.Component {
                    value={this.props.user.house  || ''} onChange={this.handleHouseChange.bind(this)} readOnly={disableEditing}/>
             <Input id='flat' type='text' label='flat' placeholder='Enter flat here'
                    value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)} readOnly={disableEditing}/>
-            <Select id="userRole" label="userRole" onChange={this.handleUserRoleChange.bind(this)}
-                    options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultUserRole} readOnly={disableEditing}/>
+            {userRoleField}
             {userActions}
           </fieldset>
         </form>

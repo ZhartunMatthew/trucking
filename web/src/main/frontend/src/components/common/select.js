@@ -2,7 +2,6 @@ import React from 'react';
 
 class SelectComponent extends React.Component {
   render() {
-    console.log("Select Component", this.props.value);
     return (
       <div className='form-group'>
         <label className='control-label' htmlFor={this.props.id}>
