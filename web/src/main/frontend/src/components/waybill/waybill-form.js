@@ -52,11 +52,12 @@ class WaybillForm extends React.Component {
   }
 
   save() {
+    this.props.waybill.checkPoints = this.props.checkPoints;
     this.props.createWaybill(this.props.waybill);
   }
 
   cancel() {
-    this.props.cancelOperation();
+
   }
 
   render() {
@@ -99,7 +100,7 @@ class WaybillForm extends React.Component {
               </div>
               <div className='btn-group float-right' role='group'>
                 <button type='button' className={`${disabledClass} btn btn-primary`}
-                        onClick={null}>Save
+                        onClick={this.save.bind(this)}>Save
                 </button>
               </div>
             </div>
@@ -112,6 +113,7 @@ class WaybillForm extends React.Component {
 
 WaybillForm.propTypes = {
   waybill: React.PropTypes.object.isRequired,
+  checkPoints: React.PropTypes.array.isRequired,
   createWaybill: React.PropTypes.func.isRequired,
   changes: React.PropTypes.bool,
   updateOperation: React.PropTypes.func.isRequired,
@@ -122,7 +124,8 @@ WaybillForm.propTypes = {
 let mapStateToProps = function (state) {
   return {
     waybill: state.operation.modifiedValue,
-    changes: state.operation.changes
+    changes: state.operation.changes,
+    checkPoints: state.checkPoints.checkPoints
   };
 };
 

@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { selectTab } from '../actions/navigation.action';
 import { loadInvoices, fetchInvoice } from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
-import { Link } from 'react-router';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 
