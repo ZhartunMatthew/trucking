@@ -85,7 +85,7 @@ class InvoiceForm extends React.Component {
     const defaultDriver = this.props.invoice.driverId ? this.props.invoice.driverId : [];
     const defaultCar = this.props.invoice.carId ? this.props.invoice.carId : [];
     const defaultDestination = this.props.invoice.destinationCustomerCompanyId ? this.props.invoice.destinationCustomerCompanyId : [];
-
+    console.log(role);
     return (
       <div>
         <form className='form-horizontal'>
@@ -107,15 +107,15 @@ class InvoiceForm extends React.Component {
 
             <Select id="destinationCustomerCompanyId" label="Destination customer" onChange={this.handleDestinationCustomerChange.bind(this)}
                     options={this.props.destinationCustomers.map((customer)=>{return ( <option value={customer.id}> {customer.name}, {customer.city} </option> )})}
-                    value={defaultDestination} />
+                    value={defaultDestination} disabled={disableEditing} />
 
             <Select id="driverId" label="driver" onChange={this.handleDriverChange.bind(this)}
                     options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
-                    value={defaultDriver} />
+                    value={defaultDriver} disabled={disableEditing} />
 
             <Select id="carId" label="car" onChange={this.handleCarChange.bind(this)}
                     options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number}, {car.type} </option> )})}
-                    value={defaultCar} />
+                    value={defaultCar} disabled={disableEditing} />
 
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
