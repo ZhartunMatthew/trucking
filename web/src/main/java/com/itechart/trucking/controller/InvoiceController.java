@@ -3,6 +3,8 @@ package com.itechart.trucking.controller;
 import com.itechart.trucking.dto.InvoiceDTO;
 import com.itechart.trucking.entity.Invoice;
 import com.itechart.trucking.entity.enums.InvoiceStateEnum;
+import com.itechart.trucking.entity.enums.ProductStateEnum;
+import com.itechart.trucking.entity.enums.UserRoleEnum;
 import com.itechart.trucking.security.detail.CustomUserDetails;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import com.itechart.trucking.services.InvoiceService;
@@ -62,8 +64,12 @@ public class InvoiceController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
-        dtoForUpdate.setManagerId(details.getId());
-        dtoForUpdate.setCheckDate(new Date());
+        if (details.getRole() == UserRoleEnum.MANAGER) {
+            dtoForUpdate.setManagerId(details.getId());
+            dtoForUpdate.setCheckDate(new Date());
+            dtoForUpdate.getProducts().forEach(product -> product.setProductState(ProductStateEnum.CHECKED));
+            dtoForUpdate.setInvoiceState(InvoiceStateEnum.CHECKED);
+        }
         Invoice updatedInvoice = invoiceService.save(conversionService.convert(dtoForUpdate, Invoice.class));
         InvoiceDTO updatedDTO = conversionService.convert(updatedInvoice, InvoiceDTO.class);
         LOGGER.info("Return updated invoice: {}", updatedDTO);
