@@ -38,7 +38,6 @@ class ProductTable extends React.Component {
   }
 
   shouldComponentUpdate(nextState, nextProp) {
-    console.log("UPDATE????");
     return true;
   }
 }

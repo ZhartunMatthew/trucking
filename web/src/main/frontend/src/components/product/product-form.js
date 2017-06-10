@@ -62,14 +62,14 @@ class ProductForm extends React.Component {
   }
 }
 
-// ProductForm.propTypes = {
-//   updateOperation: React.PropTypes.func.isRequired,
-//   cancelOperation: React.PropTypes.func.isRequired,
-//   updateProducts: React.PropTypes.func.isRequired,
-//   userRole: React.PropTypes.String,
-//   currentProductName: React.PropTypes.String,
-//   currentProductAmount: React.PropTypes.String
-// };
+ProductForm.propTypes = {
+  updateOperation: React.PropTypes.func.isRequired,
+  cancelOperation: React.PropTypes.func.isRequired,
+  updateProducts: React.PropTypes.func.isRequired,
+  userRole: React.PropTypes.String,
+  currentProductName: React.PropTypes.String,
+  currentProductAmount: React.PropTypes.String
+};
 
 let mapStateToProps = function (state) {
   return {
