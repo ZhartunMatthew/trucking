@@ -9,12 +9,36 @@ import { updateOperation, resetOperation, cancelOperation } from '../../actions/
 
 class UserForm extends React.Component {
 
+  constructor(props) {
+    super(props);
+    let name = this.props.user.name;
+    console.log(name);
+    let nameIsValid = this.validateName(name);
+    this.state = {name: name, nameValid: nameIsValid};
+  }
+
   componentDidMount() {
     this.props.loadUsersRoles();
   }
 
   handleNameChange(event) {
     this.props.updateOperation('name', event.target.value);
+    let val = event.target.value;
+    let valid = this.validateName(val);
+    this.setState({name: val, nameValid: valid});
+  }
+
+  validateName(name){
+    const error = document.getElementById(`usernameError`);
+    if(name.length>2){
+      error.textContent = ``;
+      return true;
+    }else {
+      if(error !== null){
+        error.textContent = `user name should be longer than 4 chars`;
+      }
+      return false;
+    }
   }
 
   handleSurnameChange(event) {
@@ -66,11 +90,12 @@ class UserForm extends React.Component {
   }
 
   save() {
-    if (this.props.user.id) {
-      this.props.updateUser(this.props.user);
-    } else {
-      this.props.createUser(this.props.user);
-    }
+      if (this.props.user.id) {
+        this.props.updateUser(this.props.user);
+      } else {
+        this.props.createUser(this.props.user);
+      }
+
   }
 
   reset() {
@@ -86,7 +111,7 @@ class UserForm extends React.Component {
     let creatingLabel = <span>Create new user</span>;
     const defaultUserRole = this.props.user.userRole ? this.props.user.userRole : [];
     const disabledClass = this.props.changes ? '' : 'disabled';
-
+    let nameColor = this.state.nameValid===true?"green":"red";
     let adminActions =
       <div className='btn-toolbar text-center'>
         <div className='btn-group' role='group'>
@@ -132,7 +157,9 @@ class UserForm extends React.Component {
           <fieldset>
             <legend>{this.props.user.id ? editingLabel : creatingLabel} </legend>
             <Input id='name' type='text' label='name' placeholder='Enter name here'
-                   value={this.props.user.name || ''} onChange={this.handleNameChange.bind(this)} readOnly={disableEditing}/>
+                   value={this.props.user.name || ''} onChange={this.handleNameChange.bind(this)}
+                   readOnly={disableEditing} style={{borderColor:nameColor}}/>
+            <div className="error" id="usernameError" />
             <Input id='surname' type='text' label='surname' placeholder='Enter surname here'
                    value={this.props.user.surname  || ''} onChange={this.handleSurnameChange.bind(this)} readOnly={disableEditing}/>
             <Input id='patronymic' type='text' label='patronymic' placeholder='Enter patronymic here'
