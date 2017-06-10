@@ -53,8 +53,7 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<InvoiceDTO> update(@PathVariable Long id,
-                                             @RequestBody InvoiceDTO dtoForUpdate) {
+    public ResponseEntity<InvoiceDTO> update(@PathVariable Long id, @RequestBody InvoiceDTO dtoForUpdate) {
         LOGGER.info("REST request. Path:/api/invoice/{}  method: PUT.  invoice: {}", id, dtoForUpdate);
         Invoice invoice = invoiceService.findOne(id);
         if (invoice == null) {
@@ -79,6 +78,10 @@ public class InvoiceController {
         dto.setRegisterDate(new Date());
         dto.setDispatcherId(details.getId());
         dto.setInvoiceState(InvoiceStateEnum.ISSUED);
+        if(dto.getDriverId() == null) {
+            dto.setDriverId(5L);
+            LOGGER.info("DRIVER IS NULL");
+        }
         Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
         return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
     }

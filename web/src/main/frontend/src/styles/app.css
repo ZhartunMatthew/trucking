@@ -37,14 +37,15 @@ a {
   text-decoration: none;
 }
 
+.small-select {
+  height: 50px !important;
+}
+
 .error {
   color: red;
   font-size: 12px;
   margin-top: 5px;
 }
 
-.small-select {
-  height: 50px !important;
-}
 
 

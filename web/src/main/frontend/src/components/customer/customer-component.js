@@ -7,6 +7,11 @@ import CustomerForm from './customer-form';
 class CustomerComponent extends React.Component {
 
   render() {
+    if(this.props.currentCustomer !== null && this.props.currentCustomer !== undefined) {
+      if(this.props.currentCustomer.hasOwnProperty('checkDate')) {
+        this.props.currentCustomer = null;
+      }
+    }
 
     let content = this.props.currentCustomer ? (
         <div className='row'>

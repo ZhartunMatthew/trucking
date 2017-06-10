@@ -3,15 +3,16 @@ import Input from '../common/text-input';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateOperation, cancelOperation } from '../../actions/operation.action';
+import { updateProducts } from  '../../actions/product.action';
 
 class ProductForm extends React.Component {
 
   handleProductNameChange(event) {
-    this.props.updateOperation('name', event.target.value);
+    this.props.updateOperation('currentProductName', event.target.value);
   }
 
   handleAmountChange(event) {
-    this.props.updateOperation('amount', event.target.value);
+    this.props.updateOperation('currentProductAmount', event.target.value);
   }
 
   save() {
@@ -23,7 +24,17 @@ class ProductForm extends React.Component {
   }
 
   create() {
-
+    let productItem = {
+      name: '',
+      amount: 0,
+      productState: 'REGISTERED'
+    };
+    productItem.amount = this.props.currentProductAmount;
+    productItem.name = this.props.currentProductName;
+    this.props.updateProducts(productItem);
+    this.props.updateOperation(null, {});
+    this.props.updateOperation('currentProductName', '');
+    this.props.updateOperation('currentProductAmount', '');
   }
 
   render() {
@@ -33,8 +44,8 @@ class ProductForm extends React.Component {
         <div>
           <form className='form-horizontal'>
             <fieldset>
-              <Input id='name' type='text' label='Product name' placeholder='' value='' onChange={this.handleProductNameChange.bind(this)}/>
-              <Input id='amount' type='text' label='Amount' placeholder='' value='' onChange={this.handleAmountChange.bind(this)}/>
+              <Input id='currentProductName' type='text' label='Product name' placeholder='' value={this.props.currentProductName} onChange={this.handleProductNameChange.bind(this)}/>
+              <Input id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount} onChange={this.handleAmountChange.bind(this)}/>
               <div className='btn-toolbar text-center'>
                 <div className='btn-group' role='group'>
                   <button type='button' className='btn btn-success' onClick={this.create.bind(this)}> Add </button>
@@ -52,22 +63,30 @@ class ProductForm extends React.Component {
 }
 
 ProductForm.propTypes = {
-  product: React.PropTypes.object.isRequired,
   updateOperation: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired,
-  userRole: React.PropTypes.String
+  updateProducts: React.PropTypes.func.isRequired,
+  userRole: React.PropTypes.String,
+  currentProductName: React.PropTypes.String,
+  currentProductAmount: React.PropTypes.String
 };
 
 let mapStateToProps = function (state) {
   return {
-    userRole: state.userRole.userRole
+    userRole: state.userRole.userRole,
+    currentProductName: state.operation.modifiedValue === null ?
+          '' : state.operation.modifiedValue.currentProductName,
+
+    currentProductAmount: state.operation.modifiedValue === null ?
+          '' : state.operation.modifiedValue.currentProductAmount
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     updateOperation: bindActionCreators(updateOperation, dispatch),
-    cancelOperation: bindActionCreators(cancelOperation, dispatch)
+    cancelOperation: bindActionCreators(cancelOperation, dispatch),
+    updateProducts: bindActionCreators(updateProducts,dispatch)
   }
 }
 
