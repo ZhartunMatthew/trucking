@@ -7,6 +7,7 @@ import { updateInvoice, createInvoice } from '../../actions/invoice.action';
 import { loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
 import { startOperation, updateOperation, cancelOperation } from '../../actions/operation.action';
 import { loadCustomers } from '../../actions/customer.action'
+import { clearProducts } from '../../actions/product.action';
 
 class InvoiceForm extends React.Component {
 
@@ -80,6 +81,7 @@ class InvoiceForm extends React.Component {
   }
 
   create() {
+    this.props.clearProducts();
     this.props.createInvoice(this.props.invoice);
     this.context.router.push('/');
     this.props.cancelOperation();
@@ -124,6 +126,11 @@ class InvoiceForm extends React.Component {
     userActions = role === "MANAGER" ? managerActions : userActions;
     userActions = role === "DISPATCHER" ? dispatcherActions : userActions;
     dispatcherSelects = role === "DISPATCHER" ? dispatcherSelects : null;
+
+    let customerInfo = null;
+    customerInfo = role === "DISPATCHER"
+      ? this.props.invoice.customerCompany + ', ' + this.props.invoice.customerCompanyCity : this.props.invoice.customerCompany;
+
     return (
       <div>
         <form className='form-horizontal'>
@@ -139,8 +146,7 @@ class InvoiceForm extends React.Component {
                    value={this.props.invoice !== null ? this.props.invoice.registerDate || '' : ''} onChange={this.handleRegisterDate.bind(this)}
                    readOnly={true}/>
             <Input id='customerCompany' type='text' label='Customer company' placeholder=''
-                   value={this.props.invoice !== null ?
-                     this.props.invoice.customerCompany + ', ' + this.props.invoice.customerCompanyCity || '' : ''} onChange={this.handleCustomerCompany.bind(this)}
+                   value={this.props.invoice !== null ? customerInfo || '' : ''} onChange={this.handleCustomerCompany.bind(this)}
                    readOnly={true}/>
             {dispatcherSelects}
             <div className='btn-toolbar text-center'>
@@ -187,7 +193,8 @@ function mapDispatchToProps(dispatch) {
     cancelOperation: bindActionCreators(cancelOperation, dispatch),
     loadFreeDrivers: bindActionCreators(loadFreeDrivers, dispatch),
     loadFreeCars: bindActionCreators(loadFreeCars, dispatch),
-    loadAllCustomers: bindActionCreators(loadCustomers, dispatch)
+    loadAllCustomers: bindActionCreators(loadCustomers, dispatch),
+    clearProducts: bindActionCreators(clearProducts, dispatch)
   }
 }
 

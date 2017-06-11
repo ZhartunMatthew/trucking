@@ -47,14 +47,12 @@ ProductTable.propTypes = {
   startOperation: React.PropTypes.func.isRequired
 };
 
-let mapStateToProps = function (state, param) {
-  console.log("TABLE STATE TO PROPS");
-  console.log("TABLE MAP: ", state.products.products); // вот тут точно приходит новый стейт
-  console.log("STATE", state);
-  console.log("PARAM", param);
-  return {
-    products: state.products.products
-  };
+let mapStateToProps = function (state) {
+  if(state.userRole.userRole === "DISPATCHER") {
+    return {
+      products: state.products.products
+    };
+  }
 };
 
 function mapDispatchToProps(dispatch) {
@@ -63,6 +61,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductTable); //вот тут связываем это дело с компонентом
+export default connect(mapStateToProps, mapDispatchToProps)(ProductTable);
 
 
