@@ -8,8 +8,9 @@ import { cancelOperation, updateOperation } from '../../actions/operation.action
 
 class DriverWaybillsForm extends React.Component {
 
-  handleProductLostChange(event, id) {
+  handleProductLostChange(id, product, event) {
     this.props.updateOperation(id, event.target.value);
+    product.lost = event.target.value;
   }
 
   passCheckpoint(checkPoint) {
@@ -17,7 +18,7 @@ class DriverWaybillsForm extends React.Component {
   }
 
   passDestination() {
-    this.props.passDestination(this.props.driverWaybill);
+    this.props.passDestination(this.props.products);
   }
 
 
@@ -50,7 +51,7 @@ class DriverWaybillsForm extends React.Component {
           <td>{product.name}</td>
           <td>{product.amount}</td>
           <td>
-            <Input label='Lost products' id={product.id} type='text' value={product.lost} onChange={this.handleProductLostChange.bind(this, product.id)}/>
+            <Input label='Lost products' id={product.id} type='text' value={product.lost} onChange={this.handleProductLostChange.bind(this, product.id, product)}/>
           </td>
         </tr>
       )
@@ -92,7 +93,7 @@ class DriverWaybillsForm extends React.Component {
             </div>
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
-                { !this.props.driverWaybill.destinationDate &&
+                { this.props.driverWaybill.passedCheckPoints === this.props.driverWaybill.allCheckPoints &&
                   <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">Pass</button>
                 }
                 <button type='button' className='btn btn-default' onClick={this.cancel.bind(this)}>Close</button>
@@ -111,7 +112,7 @@ class DriverWaybillsForm extends React.Component {
                 <button type="button" className="close" data-dismiss="modal">&times;</button>
               </div>
               <div className="modal-body">
-                <p>Please, enter amount of losed product</p>
+                <p>Please, enter amount of lost products</p>
                 <table className='table table-hover'>
                   <thead>
                   <tr>
@@ -145,6 +146,7 @@ DriverWaybillsForm.propTypes = {
   passDestination: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired,
   updateOperation: React.PropTypes.func.isRequired,
+  products: React.PropTypes.array,
 };
 
 let mapStateToProps = function (state) {
