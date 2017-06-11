@@ -65,9 +65,7 @@ class UserTable extends React.Component {
       </td>;
 
     let ownerActions = null;
-
     let userActions = null;
-
     let role = this.props.userRole;
     userActions = role === "ADMIN" ? adminActions : userActions;
     userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;

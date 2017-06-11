@@ -15,6 +15,7 @@ class UserForm extends React.Component {
 
   handleNameChange(event) {
     this.props.updateOperation('name', event.target.value);
+
   }
 
   handleSurnameChange(event) {
@@ -66,11 +67,12 @@ class UserForm extends React.Component {
   }
 
   save() {
-    if (this.props.user.id) {
-      this.props.updateUser(this.props.user);
-    } else {
-      this.props.createUser(this.props.user);
-    }
+      if (this.props.user.id) {
+        this.props.updateUser(this.props.user);
+      } else {
+        this.props.createUser(this.props.user);
+      }
+
   }
 
   reset() {
@@ -102,12 +104,12 @@ class UserForm extends React.Component {
         </div>
       </div>;
 
-     let ownerActions =
-       <div className='btn-toolbar text-center'>
-         <div className='btn-group' role='group'>
-           <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
-         </div>
-       </div>;
+    let ownerActions =
+      <div className='btn-toolbar text-center'>
+        <div className='btn-group' role='group'>
+          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+        </div>
+      </div>;
 
     let userActions = null;
     let role = this.props.userRole;
@@ -121,7 +123,8 @@ class UserForm extends React.Component {
           <fieldset>
             <legend>{this.props.user.id ? editingLabel : creatingLabel} </legend>
             <Input id='name' type='text' label='name' placeholder='Enter name here'
-                   value={this.props.user.name || ''} onChange={this.handleNameChange.bind(this)} readOnly={disableEditing}/>
+                   value={this.props.user.name || ''} onChange={this.handleNameChange.bind(this)}
+                   readOnly={disableEditing}/>
             <Input id='surname' type='text' label='surname' placeholder='Enter surname here'
                    value={this.props.user.surname  || ''} onChange={this.handleSurnameChange.bind(this)} readOnly={disableEditing}/>
             <Input id='patronymic' type='text' label='patronymic' placeholder='Enter patronymic here'
@@ -140,9 +143,9 @@ class UserForm extends React.Component {
                    value={this.props.user.house  || ''} onChange={this.handleHouseChange.bind(this)} readOnly={disableEditing}/>
             <Input id='flat' type='text' label='flat' placeholder='Enter flat here'
                    value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)} readOnly={disableEditing}/>
-            <Select id="userRole" label="userRole" onChange={this.handleUserRoleChange.bind(this)}
+            <Select id="userRole" label="user role" onChange={this.handleUserRoleChange.bind(this)}
                     options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultUserRole} readOnly={disableEditing}/>
+                    value={defaultUserRole} disabled={disableEditing}/>
             {userActions}
           </fieldset>
         </form>

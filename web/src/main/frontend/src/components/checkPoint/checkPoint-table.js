@@ -42,9 +42,11 @@ CheckPointTable.propTypes = {
 };
 
 let mapStateToProps = function (state) {
-  return {
-    checkPoints: state.checkPoints.checkPoints
-  };
+  if(state.userRole.userRole === "MANAGER") {
+    return {
+      checkPoints: state.checkPoints.checkPoints
+    };
+  }
 };
 
 function mapDispatchToProps(dispatch) {

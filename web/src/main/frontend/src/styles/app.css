@@ -40,3 +40,30 @@ a {
 .small-select {
   height: 50px !important;
 }
+
+.validation-error {
+  color: red;
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.error {
+  border-color: red !important;
+}
+
+.required.label:after {
+  content: ' *';
+}
+
+.label {
+  display: inline-block;
+  max-width: 100%;
+  margin-top: 5px;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+
+

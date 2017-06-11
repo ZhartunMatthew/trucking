@@ -45,7 +45,7 @@ class InvoiceComponent extends React.Component {
   render() {
     let role = this.props.userRole;
     let content = null;
-    if(role === 'MANAGER') {
+    if(role === 'MANAGER' || role === 'COMPANY_OWNER') {
       content = this.props.currentInvoice ? (
         <div className='row'>
           <div className='col-sm-6'>
