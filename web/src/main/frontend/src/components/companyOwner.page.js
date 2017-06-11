@@ -7,6 +7,7 @@ import { loadCustomers } from '../actions/customer.action';
 import { loadCars } from '../actions/car.action';
 import { loadInvoices } from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
+import { loadWaybills } from '../actions/waybill.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 
@@ -18,6 +19,7 @@ class CompanyOwnerPage extends React.Component {
     this.props.loadCustomers();
     this.props.loadCars();
     this.props.loadInvoices();
+    this.props.loadWaybills();
   }
 
   render() {
@@ -66,6 +68,7 @@ function mapDispatchToProps(dispatch) {
     loadCustomers: bindActionCreators(loadCustomers, dispatch),
     loadCars: bindActionCreators(loadCars, dispatch),
     loadInvoices: bindActionCreators(loadInvoices, dispatch),
+    loadWaybills: bindActionCreators(loadWaybills, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }

@@ -9,38 +9,13 @@ import { updateOperation, resetOperation, cancelOperation } from '../../actions/
 
 class UserForm extends React.Component {
 
-  constructor(props) {
-    super(props);
-    let name = this.props.user.name;
-    console.log(name);
-    let nameIsValid = this.validateName(name);
-    this.state = {name: name, nameValid: nameIsValid};
-  }
-
   componentDidMount() {
     this.props.loadUsersRoles();
   }
 
   handleNameChange(event) {
     this.props.updateOperation('name', event.target.value);
-    let val = event.target.value;
-    let valid = this.validateName(val);
-    this.setState({name: val, nameValid: valid});
-  }
 
-  validateName(name){
-    const error = document.getElementById(`usernameError`);
-    if(name.length>2){
-      if(error !== null) {
-        error.textContent = ``;
-      }
-      return true;
-    }else {
-      if(error !== null){
-        error.textContent = `user name should be longer than 4 chars`;
-      }
-      return false;
-    }
   }
 
   handleSurnameChange(event) {
@@ -92,12 +67,11 @@ class UserForm extends React.Component {
   }
 
   save() {
-      if (this.props.user.id) {
-        this.props.updateUser(this.props.user);
-      } else {
-        this.props.createUser(this.props.user);
-      }
-
+    if (this.props.user.id) {
+      this.props.updateUser(this.props.user);
+    } else {
+      this.props.createUser(this.props.user);
+    }
   }
 
   reset() {
@@ -113,7 +87,7 @@ class UserForm extends React.Component {
     let creatingLabel = <span>Create new user</span>;
     const defaultUserRole = this.props.user.userRole ? this.props.user.userRole : [];
     const disabledClass = this.props.changes ? '' : 'disabled';
-    let nameColor = this.state.nameValid===true?"green":"red";
+
     let adminActions =
       <div className='btn-toolbar text-center'>
         <div className='btn-group' role='group'>
@@ -129,12 +103,12 @@ class UserForm extends React.Component {
         </div>
       </div>;
 
-    let ownerActions =
-      <div className='btn-toolbar text-center'>
-        <div className='btn-group' role='group'>
-          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
-        </div>
-      </div>;
+     let ownerActions =
+       <div className='btn-toolbar text-center'>
+         <div className='btn-group' role='group'>
+           <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+         </div>
+       </div>;
 
     let userActions = null;
     let role = this.props.userRole;
@@ -148,9 +122,7 @@ class UserForm extends React.Component {
           <fieldset>
             <legend>{this.props.user.id ? editingLabel : creatingLabel} </legend>
             <Input id='name' type='text' label='name' placeholder='Enter name here'
-                   value={this.props.user.name || ''} onChange={this.handleNameChange.bind(this)}
-                   readOnly={disableEditing} style={{borderColor:nameColor}}/>
-            <div className="error" id="usernameError" />
+                   value={this.props.user.name || ''} onChange={this.handleNameChange.bind(this)} readOnly={disableEditing}/>
             <Input id='surname' type='text' label='surname' placeholder='Enter surname here'
                    value={this.props.user.surname  || ''} onChange={this.handleSurnameChange.bind(this)} readOnly={disableEditing}/>
             <Input id='patronymic' type='text' label='patronymic' placeholder='Enter patronymic here'
@@ -169,9 +141,9 @@ class UserForm extends React.Component {
                    value={this.props.user.house  || ''} onChange={this.handleHouseChange.bind(this)} readOnly={disableEditing}/>
             <Input id='flat' type='text' label='flat' placeholder='Enter flat here'
                    value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)} readOnly={disableEditing}/>
-            <Select id="userRole" label="user role" onChange={this.handleUserRoleChange.bind(this)}
+            <Select id="userRole" label="userRole" onChange={this.handleUserRoleChange.bind(this)}
                     options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultUserRole} disabled={disableEditing}/>
+                    value={defaultUserRole} readOnly={disableEditing}/>
             {userActions}
           </fieldset>
         </form>

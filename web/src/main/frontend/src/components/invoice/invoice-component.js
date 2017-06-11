@@ -11,10 +11,6 @@ import { loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
 import { loadCustomers } from '../../actions/customer.action'
 
 class InvoiceComponent extends React.Component {
-  constructor() {
-    super();
-    this.onSubmitInvoiceForm = this.onSubmitInvoiceForm.bind(this);
-  }
 
   componentDidMount() {
     if(this.props.userRole === 'DISPATCHER') {
@@ -53,7 +49,8 @@ class InvoiceComponent extends React.Component {
       content = this.props.currentInvoice ? (
         <div className='row'>
           <div className='col-sm-6'>
-            <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice} onSubmit={this.onSubmitInvoiceForm}/>
+            <InvoiceForm changes={this.props.changes}
+                         invoice={this.props.currentInvoice}/>
           </div>
           <div className='col-sm-6'>
             <ProductTable products={this.props.currentInvoice.products}/>
@@ -92,10 +89,6 @@ class InvoiceComponent extends React.Component {
         {content}
       </div>
     );
-  }
-
-  onSubmitInvoiceForm() {
-    this.context.router.push('/waybill');
   }
 }
 

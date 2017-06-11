@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -39,6 +38,7 @@ public class WaybillController {
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<WaybillDTO>> findAll() {
+        LOGGER.info("REST request. Path:/api/waybill  method: GET");
         Long idTruckingCompany = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
         List<Waybill> waybills = waybillService.findByInvoice_TruckingCompany(idTruckingCompany);
         List<WaybillDTO> waybillDTOs = new ArrayList<>();
@@ -64,7 +64,8 @@ public class WaybillController {
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<WaybillDTO> create(@RequestBody WaybillDTO waybillDTO) {
         LOGGER.info("REST request. Path:/api/waybill  method: POST. waybill: {}", waybillDTO);
-        waybillDTO.setDepartureDate(Calendar.getInstance().getTime());
+        waybillDTO.setDepartureDate(new Date());
+        waybillDTO.setWaybillState(WaybillStateEnum.TRANSPORTATION_STARTED);
         Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
         WaybillDTO resultWaybill = conversionService.convert(waybillEntity, WaybillDTO.class);
         return new ResponseEntity<>(resultWaybill, HttpStatus.OK);

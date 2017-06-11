@@ -27,6 +27,18 @@ class WaybillForm extends React.Component {
     this.props.updateOperation('driverFullName', event.target.value);
   }
 
+  handlePrice(event) {
+    this.props.updateOperation('price', event.target.value);
+  }
+
+  handleTotalDistance(event) {
+    this.props.updateOperation('totalDistance', event.target.value);
+  }
+
+  handleDepartureCountry(event) {
+    this.props.updateOperation('departureCountry', event.target.value);
+  }
+
   handleDepartureCity(event) {
     this.props.updateOperation('departureCity', event.target.value);
   }
@@ -37,6 +49,10 @@ class WaybillForm extends React.Component {
 
   handleDepartureHouse(event) {
     this.props.updateOperation('departureHouse', event.target.value);
+  }
+
+  handleDestinationCountry(event) {
+    this.props.updateOperation('destinationCountry', event.target.value);
   }
 
   handleDestinationCity(event) {
@@ -52,22 +68,49 @@ class WaybillForm extends React.Component {
   }
 
   save() {
+    this.props.waybill.checkPoints = this.props.checkPoints;
     this.props.createWaybill(this.props.waybill);
+    this.cancel();
   }
 
   cancel() {
     this.props.cancelOperation();
+    this.context.router.push('/waybill');
   }
 
   render() {
     let creatingLabel = <span> Create waybill </span>;
     const disabledClass = this.props.changes ? '' : 'disabled';
+
+    let managerActions =
+      <div className='btn-toolbar text-center'>
+        <div className='btn-group' role='group'>
+          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+        </div>
+        <div className='btn-group float-right' role='group'>
+          <button type='button' className={`${disabledClass} btn btn-primary`}
+                  onClick={this.save.bind(this)}>Save
+          </button>
+        </div>
+      </div>;
+
+    let userActions =
+      <div className='btn-toolbar text-center'>
+        <div className='btn-group' role='group'>
+          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+        </div>
+      </div>;
+
+    let role = this.props.userRole;
+    userActions = role === "MANAGER" ? managerActions : userActions;
+    let disableEditing = role !== "MANAGER";
+
     return (
       <div>
         <form className='form-horizontal'>
           <fieldset>
             <legend> {creatingLabel} </legend>
-            <Input id='waybillNumber' type='text' label='Waybill number' placeholder=''
+            <Input id='waybillNumber' type='text' label='Waybill number' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.waybillNumber || ''} onChange={this.handleWaybillNumberChange.bind(this)}/>
             <Input id='number' type='text' label='Invoice number' placeholder=''
                    value={this.props.waybill.invoiceNumber || ''} onChange={this.handleInvoiceNumberChange.bind(this)}
@@ -81,28 +124,27 @@ class WaybillForm extends React.Component {
             <Input id='driverFullName' type='text' label='Full name of driver' placeholder=''
                    value={this.props.waybill.driverFullName || ''} onChange={this.handleDriverFullName.bind(this)}
                    readOnly={true}/>
-            <Input id='departureCity' type='text' label='Departure city' placeholder=''
+            <Input id='price' type='text' label='Price' placeholder='' readOnly={disableEditing}
+                   value={this.props.waybill.price || ''} onChange={this.handlePrice.bind(this)}/>
+            <Input id='totalDistance' type='text' label='Total distance' placeholder='' readOnly={disableEditing}
+                   value={this.props.waybill.totalDistance || ''} onChange={this.handleTotalDistance.bind(this)}/>
+            <Input id='departureCountry' type='text' label='Departure country' placeholder='' readOnly={disableEditing}
+                   value={this.props.waybill.departureCountry || ''} onChange={this.handleDepartureCountry.bind(this)}/>
+            <Input id='departureCity' type='text' label='Departure city' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.departureCity || ''} onChange={this.handleDepartureCity.bind(this)}/>
-            <Input id='departureStreet' type='text' label='Departure street' placeholder=''
+            <Input id='departureStreet' type='text' label='Departure street' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.departureStreet || ''} onChange={this.handleDepartureStreet.bind(this)}/>
-            <Input id='departureHouse' type='text' label='Departure house' placeholder=''
+            <Input id='departureHouse' type='text' label='Departure house' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.departureHouse || ''} onChange={this.handleDepartureHouse.bind(this)}/>
-            <Input id='destinationCity' type='text' label='Destination city' placeholder=''
+            <Input id='destinationCountry' type='text' label='Destination country' placeholder='' readOnly={disableEditing}
+                   value={this.props.waybill.destinationCountry || ''} onChange={this.handleDestinationCountry.bind(this)}/>
+            <Input id='destinationCity' type='text' label='Destination city' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.destinationCity || ''} onChange={this.handleDestinationCity.bind(this)}/>
-            <Input id='destinationStreet' type='text' label='Destination street' placeholder=''
+            <Input id='destinationStreet' type='text' label='Destination street' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.destinationStreet || ''} onChange={this.handleDestinationStreet.bind(this)}/>
-            <Input id='destinationHouse' type='text' label='Destination house' placeholder=''
+            <Input id='destinationHouse' type='text' label='Destination house' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.destinationHouse || ''} onChange={this.handleDestinationHouse.bind(this)}/>
-            <div className='btn-toolbar text-center'>
-              <div className='btn-group' role='group'>
-                <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
-              </div>
-              <div className='btn-group float-right' role='group'>
-                <button type='button' className={`${disabledClass} btn btn-primary`}
-                        onClick={null}>Save
-                </button>
-              </div>
-            </div>
+            {userActions}
           </fieldset>
         </form>
       </div>
@@ -110,8 +152,13 @@ class WaybillForm extends React.Component {
   }
 }
 
+WaybillForm.contextTypes = {
+  router: React.PropTypes.func
+};
+
 WaybillForm.propTypes = {
   waybill: React.PropTypes.object.isRequired,
+  checkPoints: React.PropTypes.array.isRequired,
   createWaybill: React.PropTypes.func.isRequired,
   changes: React.PropTypes.bool,
   updateOperation: React.PropTypes.func.isRequired,
@@ -122,7 +169,9 @@ WaybillForm.propTypes = {
 let mapStateToProps = function (state) {
   return {
     waybill: state.operation.modifiedValue,
-    changes: state.operation.changes
+    changes: state.operation.changes,
+    checkPoints: state.checkPoints.checkPoints,
+    userRole: state.userRole.userRole
   };
 };
 

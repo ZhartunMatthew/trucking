@@ -5,34 +5,21 @@ import { startOperation } from '../../actions/operation.action';
 
 class CheckPointTable extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
-  onShowUpdateCheckPointForm(checkPoint) {
-    this.props.startOperation(checkPoint);
-  }
-
-  onShowCreateCheckPointForm() {
-  }
-
   render() {
-    let rows = this.props.waybill.checkPoints.map((checkPoint, index) => {
-      return (
-        <tr key={checkPoint.id}>
-          <th scope='row'> {index + 1} </th>
-          <td> {checkPoint.description}</td>
-          <td>
-            <div className='btn-toolbar text-center'>
-              <button className='btn btn-primary' onClick={this.onShowUpdateCheckPointForm.bind(this, checkPoint)}>Update</button>
-            </div>
-          </td>
-        </tr>
-      )
-    });
+    let rows = null;
+    if(this.props.checkPoints !== undefined && this.props.checkPoints !== null) {
+      rows = this.props.checkPoints.map((checkPoint, index) => {
+        return (
+          <tr key={index + 1}>
+            <th scope='row'> {index + 1} </th>
+            <td> {checkPoint.description}</td>
+          </tr>
+        )
+      });
+    }
     return (
       <div>
-        <h1>List of checkPoints</h1>
+        <h1> List of check points </h1>
         <table className='table table-hover'>
           <thead>
           <tr>
@@ -42,12 +29,6 @@ class CheckPointTable extends React.Component {
           </thead>
           <tbody>
           {rows}
-          <tr>
-            <td colSpan={3}>
-              <button className='btn btn-default' onClick={this.onShowCreateCheckPointForm.bind(this)}>Create new check point
-              </button>
-            </td>
-          </tr>
           </tbody>
         </table>
       </div>
@@ -56,15 +37,16 @@ class CheckPointTable extends React.Component {
 }
 
 CheckPointTable.propTypes = {
-  waybill: React.PropTypes.object.isRequired,
-  startOperation: React.PropTypes.func.isRequired,
+  checkPoints: React.PropTypes.array.isRequired,
+  startOperation: React.PropTypes.func.isRequired
 };
 
-
 let mapStateToProps = function (state) {
-  return {
-    waybill: state.operation.modifiedValue
-  };
+  if(state.userRole.userRole === "MANAGER") {
+    return {
+      checkPoints: state.checkPoints.checkPoints
+    };
+  }
 };
 
 function mapDispatchToProps(dispatch) {
@@ -74,5 +56,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckPointTable);
-
-

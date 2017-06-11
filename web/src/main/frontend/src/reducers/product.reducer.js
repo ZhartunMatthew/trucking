@@ -1,5 +1,5 @@
 import {
-  INIT_PRODUCTS, UPDATE_PRODUCTS
+  INIT_PRODUCTS, UPDATE_PRODUCTS, CLEAR_PRODUCTS
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -21,6 +21,9 @@ const ProductsReducer = (state = initialState, action) => {
       Object.assign(newProducts, state.products);
       newProducts.push(action.payload);
       return Object.assign({}, state, {products: newProducts});
+
+    case CLEAR_PRODUCTS:
+      return Object.assign({}, state, {products: []});
 
     default:
       return state;
