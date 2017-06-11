@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateCar, makeNewCar } from '../../actions/car.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
-import InputComponent from '../common/text-input';
+import Input from '../common/text-input';
 
 
 
@@ -90,7 +90,7 @@ class CarForm extends React.Component {
 
     return (
       <div>
-        <Form className='form-horizontal'>
+        <form className='form-horizontal'>
           <fieldset>
             <legend>{this.props.car.id ? editingLabel : creatingLabel} </legend>
             <Input id='number' type='text' label='Car number' placeholder='Enter number here'
@@ -99,14 +99,14 @@ class CarForm extends React.Component {
                    value={this.props.car.brand  || ''} onChange={this.handleBrandChange.bind(this)} readOnly={disableEditing}/>
             <Input id='model' type='text' label='Car model' placeholder='Enter model here'
                    value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='fuelConsumption' type='text' onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here'
+            <Input id='fuelConsumption' type='text' label="Fuel consumption" onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here'
                    value={this.props.car.fuelConsumption  || ''}  readOnly={disableEditing}/>
             <Select id="type" label="Type" onChange={this.handleTypeChange.bind(this)}
                     options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
                     value={defaultType} disabled={disableEditing}/>
             {userActions}
           </fieldset>
-        </Form>
+        </form>
       </div>
     );
   }
