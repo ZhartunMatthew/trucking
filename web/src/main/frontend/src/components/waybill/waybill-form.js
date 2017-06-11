@@ -27,6 +27,18 @@ class WaybillForm extends React.Component {
     this.props.updateOperation('driverFullName', event.target.value);
   }
 
+  handlePrice(event) {
+    this.props.updateOperation('price', event.target.value);
+  }
+
+  handleTotalDistance(event) {
+    this.props.updateOperation('totalDistance', event.target.value);
+  }
+
+  handleDepartureCountry(event) {
+    this.props.updateOperation('departureCountry', event.target.value);
+  }
+
   handleDepartureCity(event) {
     this.props.updateOperation('departureCity', event.target.value);
   }
@@ -37,6 +49,10 @@ class WaybillForm extends React.Component {
 
   handleDepartureHouse(event) {
     this.props.updateOperation('departureHouse', event.target.value);
+  }
+
+  handleDestinationCountry(event) {
+    this.props.updateOperation('destinationCountry', event.target.value);
   }
 
   handleDestinationCity(event) {
@@ -54,10 +70,12 @@ class WaybillForm extends React.Component {
   save() {
     this.props.waybill.checkPoints = this.props.checkPoints;
     this.props.createWaybill(this.props.waybill);
+    this.cancel();
   }
 
   cancel() {
-
+    this.props.cancelOperation();
+    this.context.router.push('/');
   }
 
   render() {
@@ -82,12 +100,20 @@ class WaybillForm extends React.Component {
             <Input id='driverFullName' type='text' label='Full name of driver' placeholder=''
                    value={this.props.waybill.driverFullName || ''} onChange={this.handleDriverFullName.bind(this)}
                    readOnly={true}/>
+            <Input id='price' type='text' label='Price' placeholder=''
+                   value={this.props.waybill.price || ''} onChange={this.handlePrice.bind(this)}/>
+            <Input id='totalDistance' type='text' label='Total distance' placeholder=''
+                   value={this.props.waybill.totalDistance || ''} onChange={this.handleTotalDistance.bind(this)}/>
+            <Input id='departureCountry' type='text' label='Departure country' placeholder=''
+                   value={this.props.waybill.departureCountry || ''} onChange={this.handleDepartureCountry.bind(this)}/>
             <Input id='departureCity' type='text' label='Departure city' placeholder=''
                    value={this.props.waybill.departureCity || ''} onChange={this.handleDepartureCity.bind(this)}/>
             <Input id='departureStreet' type='text' label='Departure street' placeholder=''
                    value={this.props.waybill.departureStreet || ''} onChange={this.handleDepartureStreet.bind(this)}/>
             <Input id='departureHouse' type='text' label='Departure house' placeholder=''
                    value={this.props.waybill.departureHouse || ''} onChange={this.handleDepartureHouse.bind(this)}/>
+            <Input id='destinationCountry' type='text' label='Destination country' placeholder=''
+                   value={this.props.waybill.destinationCountry || ''} onChange={this.handleDestinationCountry.bind(this)}/>
             <Input id='destinationCity' type='text' label='Destination city' placeholder=''
                    value={this.props.waybill.destinationCity || ''} onChange={this.handleDestinationCity.bind(this)}/>
             <Input id='destinationStreet' type='text' label='Destination street' placeholder=''
@@ -110,6 +136,10 @@ class WaybillForm extends React.Component {
     );
   }
 }
+
+WaybillForm.contextTypes = {
+  router: React.PropTypes.func
+};
 
 WaybillForm.propTypes = {
   waybill: React.PropTypes.object.isRequired,

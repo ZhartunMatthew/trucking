@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateInvoice, createInvoice } from '../../actions/invoice.action';
 import {loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
-import { updateOperation, cancelOperation } from '../../actions/operation.action';
+import { startOperation, updateOperation, cancelOperation } from '../../actions/operation.action';
 
 
 class InvoiceForm extends React.Component {
@@ -44,7 +44,29 @@ class InvoiceForm extends React.Component {
 
   save() {
     this.props.updateInvoice(this.props.invoice);
-    this.props.onSubmit();
+    this.props.cancelOperation();
+    this.props.startOperation({
+      waybillNumber: '',
+      departureDate: '',
+      departureCountry: '',
+      departureCity: '',
+      departureStreet: '',
+      departureHouse: '',
+      destinationCountry: '',
+      destinationCity: '',
+      destinationStreet: '',
+      destinationHouse: '',
+      price: '',
+      totalDistance: '',
+      invoiceId: this.props.invoice.id,
+      invoiceNumber: this.props.invoice.number,
+      invoiceDate: this.props.invoice.registerDate,
+      customerCompany: this.props.invoice.customerCompany,
+      driverFullName: this.props.invoice.driverFullName,
+      checkPoints: [],
+      idTruckingCompany: this.props.invoice.truckingCompanyId
+    });
+    this.context.router.push('/waybill');
   }
 
   cancel() {
@@ -83,7 +105,7 @@ class InvoiceForm extends React.Component {
         <Select id="carId" label="car" onChange={this.handleCarChange.bind(this)}
                 options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number},{car.type.description} </option> )})}
                 value={defaultCar} />
-      </div>
+      </div>;
 
     let userActions = null;
     userActions = role === "MANAGER" ? managerActions : userActions;
@@ -127,8 +149,7 @@ InvoiceForm.propTypes = {
   createInvoice: React.PropTypes.func.isRequired,
   updateOperation: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired,
-  userRole: React.PropTypes.String,
-  onSubmit: React.PropTypes.func.isRequired
+  userRole: React.PropTypes.String
 };
 
 InvoiceForm.contextTypes = {
@@ -147,6 +168,7 @@ function mapDispatchToProps(dispatch) {
   return {
     updateInvoice: bindActionCreators(updateInvoice, dispatch),
     createInvoice: bindActionCreators(createInvoice, dispatch),
+    startOperation: bindActionCreators(startOperation, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
     cancelOperation: bindActionCreators(cancelOperation, dispatch),
     loadFreeDrivers: bindActionCreators(loadFreeDrivers, dispatch),

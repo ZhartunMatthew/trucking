@@ -11,6 +11,12 @@ class CheckPointForm extends React.Component {
     this.props.updateOperation('currentCheckPointDescription', event.target.value);
   }
 
+  onKeyPress(event) {
+    if (event.which === 13) {
+      event.preventDefault();
+    }
+  }
+
   create() {
     let checkPoint = {
       description: '',
@@ -22,21 +28,21 @@ class CheckPointForm extends React.Component {
   }
 
   render() {
-      return (
-        <div>
-          <form className='form-horizontal'>
-            <fieldset>
-              <Input id='currentCheckPointDescription' type='text' label='Check point name' placeholder=''
-                     value={this.props.currentCheckPointDescription} onChange={this.handleCheckPointDescriptionChange.bind(this)}/>
-              <div className='btn-toolbar text-center'>
-                <div className='btn-group' role='group'>
-                  <button type='button' className='btn btn-success' onClick={this.create.bind(this)}> Add </button>
-                </div>
+    return (
+      <div>
+        <form className='form-horizontal' onKeyPress={this.onKeyPress.bind(this)}>
+          <fieldset>
+            <Input id='currentCheckPointDescription' type='text' label='Check point name' placeholder=''
+                   value={this.props.currentCheckPointDescription} onChange={this.handleCheckPointDescriptionChange.bind(this)}/>
+            <div className='btn-toolbar text-center'>
+              <div className='btn-group' role='group'>
+                <button type='button' className='btn btn-success' onClick={this.create.bind(this)}> Add </button>
               </div>
-            </fieldset>
-          </form>
-        </div>
-      );
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    );
   }
 }
 
@@ -44,7 +50,7 @@ CheckPointForm.propTypes = {
   updateOperation: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired,
   updateCheckPoints: React.PropTypes.func.isRequired,
-  currentCheckPointDescription: React.PropTypes.String,
+  currentCheckPointDescription: React.PropTypes.String
 };
 
 let mapStateToProps = function (state) {

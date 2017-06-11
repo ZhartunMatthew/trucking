@@ -9,10 +9,6 @@ import { startOperation, cancelOperation } from '../../actions/operation.action'
 
 
 class InvoiceComponent extends React.Component {
-  constructor() {
-    super();
-    this.onSubmitInvoiceForm = this.onSubmitInvoiceForm.bind(this);
-  }
 
   componentDidMount() {
     if(this.props.userRole === 'DISPATCHER') {
@@ -48,8 +44,7 @@ class InvoiceComponent extends React.Component {
         <div className='row'>
           <div className='col-sm-6'>
             <InvoiceForm changes={this.props.changes}
-                         invoice={this.props.currentInvoice}
-                         onSubmit={this.onSubmitInvoiceForm}/>
+                         invoice={this.props.currentInvoice}/>
           </div>
           <div className='col-sm-6'>
             <ProductTable products={this.props.currentInvoice.products}/>
@@ -99,10 +94,6 @@ class InvoiceComponent extends React.Component {
         {content}
       </div>
     );
-  }
-
-  onSubmitInvoiceForm() {
-    this.context.router.push('/waybill');
   }
 }
 
