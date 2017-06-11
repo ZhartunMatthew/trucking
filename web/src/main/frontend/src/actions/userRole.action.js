@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import {
   INIT_USERROLE,
-  INIT_ROLES
+  INIT_ROLES,
+  INIT_CURRENTUSER
 } from '../constants/actionTypes';
 
 export function loadUserRole() {
@@ -40,6 +41,26 @@ export function loadRoles() {
       });
     }).fail(() => {
       console.log('Could not get list of roles');
+    });
+  }
+}
+
+export function loadCurrentUser() {
+  return (dispatch) => {
+    $.ajax({
+      url: '/api/userRole/current',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      dataType: 'json'
+    }).done(json => {
+      //CREATE ACTION
+      dispatch({
+        type: INIT_CURRENTUSER, //action type, name according to convention
+        payload: json //action data, name according to convention
+      });
+    }).fail(() => {
+      console.log('Could not get current users');
     });
   }
 }

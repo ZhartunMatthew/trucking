@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Router, Route, browserHistory, hashHistory } from 'react-router';
-import { loadUserRole } from '../actions/userRole.action';
+import { loadUserRole, loadCurrentUser } from '../actions/userRole.action';
 import Error from '../components/error';
 import { adminRoutes} from './admin.routes';
 import { systemAdminRoutes} from './systemAdmin.routes';
@@ -16,6 +16,7 @@ class UserRole extends React.Component {
 
   componentDidMount() {
     this.props.loadUserRole();
+    this.props.loadCurrentUser();
   }
 
   render() {
@@ -62,6 +63,7 @@ let mapStateToProps = function (state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadUserRole: bindActionCreators(loadUserRole, dispatch),
+    loadCurrentUser: bindActionCreators(loadCurrentUser, dispatch)
   }
 }
 

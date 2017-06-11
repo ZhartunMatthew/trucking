@@ -1,13 +1,22 @@
 import React from 'react';
-import Input from '../common/text-input';
 import Select from '../common/select';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateCar, makeNewCar } from '../../actions/car.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
+import Input from '../common/text-input';
+
 
 
 class CarForm extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      errors: {}
+    };
+  }
 
   handleNumberChange(event) {
     this.props.updateOperation('number', event.target.value);
@@ -50,35 +59,52 @@ class CarForm extends React.Component {
     let creatingLabel = <span>Create new car</span>;
     const disabledClass = this.props.changes ? '' : 'disabled';
     const defaultType = this.props.car.type ? this.props.car.type : [];
+
+    let adminActions =
+      <div className='btn-toolbar text-center'>
+        <div className='btn-group' role='group'>
+          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+        </div>
+        <div className='btn-group float-right' role='group'>
+          <button type='button' className={`${disabledClass} btn btn-default`}
+                  onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
+          </button>
+          <button type='button' className={`${disabledClass} btn btn-primary`}
+                  onClick={this.props.changes ? this.save.bind(this) : null}>Save
+          </button>
+        </div>
+      </div>;
+
+    let ownerActions =
+      <div className='btn-toolbar text-center'>
+        <div className='btn-group' role='group'>
+          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+        </div>
+      </div>;
+
+    let userActions = null;
+    let role = this.props.userRole;
+    userActions = role === "ADMIN" ? adminActions : userActions;
+    userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
+    let disableEditing = role !== "ADMIN";
+
     return (
       <div>
         <form className='form-horizontal'>
           <fieldset>
             <legend>{this.props.car.id ? editingLabel : creatingLabel} </legend>
             <Input id='number' type='text' label='Car number' placeholder='Enter number here'
-                   value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)}/>
-            <Input id='brand' type='text' label='Car brand' placeholder='Enter brand here'
-                   value={this.props.car.brand  || ''} onChange={this.handleBrandChange.bind(this)}/>
+                   value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)} readOnly={disableEditing}/>
+            <Input id='brand' type='text' label='Car brand' placeholder='Enter brand here' required name="brand" title="Brand"
+                   value={this.props.car.brand  || ''} onChange={this.handleBrandChange.bind(this)} readOnly={disableEditing}/>
             <Input id='model' type='text' label='Car model' placeholder='Enter model here'
-                   value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)}/>
-            <Input id='fuelConsumption' type='text' label='Fuel consumption' placeholder='Enter fuel consumption here'
-                   value={this.props.car.fuelConsumption  || ''} onChange={this.handleFuelConsumptionChange.bind(this)}/>
-            <Select id="type" label="type" onChange={this.handleTypeChange.bind(this)}
+                   value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)} readOnly={disableEditing}/>
+            <Input id='fuelConsumption' type='text' label="Fuel consumption" onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here'
+                   value={this.props.car.fuelConsumption  || ''}  readOnly={disableEditing}/>
+            <Select id="type" label="Type" onChange={this.handleTypeChange.bind(this)}
                     options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultType}/>
-            <div className='btn-toolbar text-center'>
-              <div className='btn-group' role='group'>
-                <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
-              </div>
-              <div className='btn-group float-right' role='group'>
-                <button type='button' className={`${disabledClass} btn btn-default`}
-                        onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
-                </button>
-                <button type='button' className={`${disabledClass} btn btn-primary`}
-                        onClick={this.props.changes ? this.save.bind(this) : null}>Save
-                </button>
-              </div>
-            </div>
+                    value={defaultType} disabled={disableEditing}/>
+            {userActions}
           </fieldset>
         </form>
       </div>
@@ -99,7 +125,8 @@ CarForm.propTypes = {
 
 let mapStateToProps = function (state) {
   return {
-    carTypes: state.carTypes.carTypes
+    carTypes: state.carTypes.carTypes,
+    userRole: state.userRole.userRole
   };
 };
 

@@ -15,6 +15,7 @@ class UserForm extends React.Component {
 
   handleNameChange(event) {
     this.props.updateOperation('name', event.target.value);
+
   }
 
   handleSurnameChange(event) {
@@ -142,7 +143,7 @@ class UserForm extends React.Component {
                    value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)} readOnly={disableEditing}/>
             <Select id="userRole" label="userRole" onChange={this.handleUserRoleChange.bind(this)}
                     options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultUserRole} readOnly={disableEditing}/>
+                    value={defaultUserRole} disabled={disableEditing}/>
             {userActions}
           </fieldset>
         </form>

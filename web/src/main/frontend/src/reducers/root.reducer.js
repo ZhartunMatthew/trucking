@@ -11,6 +11,7 @@ import CarTypesReducer from './carTypes.reducer';
 import InvoiceReducer from './invoice.reducer';
 import ProductsReducer from './product.reducer';
 import DriverWaybillsReducer from './driverWaybill.reducer';
+import CurrentUserReducer from './currentUser.reducer';
 import CheckPointReducer from './checkPoint.reducer';
 
 //This attached each reducer to particular field in application state
@@ -26,6 +27,7 @@ export default combineReducers({
   carTypes: CarTypesReducer,
   invoices: InvoiceReducer,
   products: ProductsReducer,
+  checkPoints: CheckPointReducer,
   driverWaybills: DriverWaybillsReducer,
-  checkPoints: CheckPointReducer
+  currentUser: CurrentUserReducer
 });

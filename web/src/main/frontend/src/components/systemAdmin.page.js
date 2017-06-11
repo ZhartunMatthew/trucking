@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectTab } from '../actions/navigation.action';
 import { loadTruckingCompanies, fetchTruckingCompany} from '../actions/truckingCompany.action';
 import { cancelOperation } from '../actions/operation.action';
 import { Link } from 'react-router';

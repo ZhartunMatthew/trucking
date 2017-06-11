@@ -38,6 +38,7 @@ public class WaybillController {
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<WaybillDTO>> findAll() {
+        LOGGER.info("REST request. Path:/api/waybill  method: GET");
         Long idTruckingCompany = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
         List<Waybill> waybills = waybillService.findByInvoice_TruckingCompany(idTruckingCompany);
         List<WaybillDTO> waybillDTOs = new ArrayList<>();

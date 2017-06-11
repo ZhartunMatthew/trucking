@@ -73,7 +73,7 @@ public class WaybillProvider implements AbstractDataProvider {
 
     public boolean provideGETbyTruckingId(CustomUserDetails details, Long truckingId) {
         UserRoleEnum role = details.getRole();
-        if(role == UserRoleEnum.MANAGER || role == UserRoleEnum.DRIVER) {
+        if(role == UserRoleEnum.MANAGER || role == UserRoleEnum.DRIVER || role == UserRoleEnum.COMPANY_OWNER) {
             if(truckingId == null) {
                 return false;
             }

@@ -20,23 +20,53 @@ class CarTable extends React.Component {
 
   render() {
     let rows = this.props.cars.map((car, index) => {
-      return (
-        <tr key={car.id}>
-          <th scope='row'> {index + 1} </th>
-          <td> {car.number}</td>
-          <td> {car.brand}</td>
-          <td> {car.model}</td>
-          <td> {car.fuelConsumption}</td>
-          <td> {car.type}</td>
-          <td>
-            <div className='btn-toolbar text-center'>
-              <button className='btn btn-primary' onClick={this.onShowUpdateCarForm.bind(this, car)}>Update</button>
-              <button className='btn btn-danger' onClick={this.deleteCar.bind(this, car)}>Delete</button>
-            </div>
-          </td>
-        </tr>
-      )
+      if(this.props.userRole === "ADMIN") {
+        return (
+          <tr key={car.id}>
+            <th scope='row'> {index + 1} </th>
+            <td> {car.number}</td>
+            <td> {car.brand}</td>
+            <td> {car.model}</td>
+            <td> {car.fuelConsumption}</td>
+            <td> {car.type}</td>
+            <td>
+              <div className='btn-toolbar text-center'>
+                <button className='btn btn-primary' onClick={this.onShowUpdateCarForm.bind(this, car)}>Update</button>
+                <button className='btn btn-danger' onClick={this.deleteCar.bind(this, car)}>Delete</button>
+              </div>
+            </td>
+          </tr>
+        )
+      }
+
+      if(this.props.userRole === "COMPANY_OWNER") {
+        return (
+          <tr key={car.id}>
+            <th scope='row'> {index + 1} </th>
+            <td> {car.number}</td>
+            <td> {car.brand}</td>
+            <td> {car.model}</td>
+            <td> {car.fuelConsumption}</td>
+            <td> {car.type}</td>
+            <td>
+              <div className='btn-toolbar text-center'>
+                <button className='btn btn-primary' onClick={this.onShowUpdateCarForm.bind(this, car)}>Open</button>
+              </div>
+            </td>
+          </tr>
+        )
+      }
     });
+    let adminActions =
+      <td colSpan={3}>
+      <button className='btn btn-default' onClick={this.onShowCreateCarForm.bind(this)}>Create new car
+      </button>
+    </td>;
+    let ownerActions = null;
+    let userActions = null;
+    let role = this.props.userRole;
+    userActions = role === "ADMIN" ? adminActions : userActions;
+    userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
     return (
       <div>
         <h1>List of cars</h1>
@@ -53,12 +83,9 @@ class CarTable extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {rows}
+            {rows}
           <tr>
-            <td colSpan={3}>
-              <button className='btn btn-default' onClick={this.onShowCreateCarForm.bind(this)}>Create new car
-              </button>
-            </td>
+            {userActions}
           </tr>
           </tbody>
         </table>
@@ -70,12 +97,15 @@ class CarTable extends React.Component {
 CarTable.propTypes = {
   cars: React.PropTypes.array.isRequired,
   startOperation: React.PropTypes.func.isRequired,
-  deleteCar: React.PropTypes.func.isRequired
+  deleteCar: React.PropTypes.func.isRequired,
+  userRole: React.PropTypes.String
 };
 
 
-let mapStateToProps = function () {
-  return {};
+let mapStateToProps = function (state) {
+  return {
+    userRole: state.userRole.userRole
+  };
 };
 
 function mapDispatchToProps(dispatch) {
