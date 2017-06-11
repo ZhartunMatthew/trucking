@@ -9,7 +9,7 @@ class TruckingCompanyComponent extends React.Component {
   render() {
     let content = this.props.currentTruckingCompany ? (
       <div className='row'>
-        <div className='col-sm-6'>
+        <div className='col-sm-4'>
           <TruckingCompanyForm changes={this.props.changes} truckingCompany={this.props.currentTruckingCompany}/>
         </div>
         <div className='col-sm-6'>

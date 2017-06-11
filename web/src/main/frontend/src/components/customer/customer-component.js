@@ -15,7 +15,7 @@ class CustomerComponent extends React.Component {
 
     let content = this.props.currentCustomer ? (
         <div className='row'>
-          <div className='col-sm-6'>
+          <div className='col-sm-4'>
             <CustomerForm changes={this.props.changes} customer={this.props.currentCustomer}/>
           </div>
           <div className='col-sm-6'>
