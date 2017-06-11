@@ -20,7 +20,9 @@ public class CheckPointConverter extends AbstractTwoWayConverter<CheckPointDTO, 
         entity.setLatitude(dto.getLatitude());
         entity.setLongitude(dto.getLongitude());
         entity.setPathDate(dto.getPathDate());
-        entity.setWaybill(waybillService.findOne(dto.getWaybillId()));
+        if (dto.getWaybillId() != null) {
+            entity.setWaybill(waybillService.findOne(dto.getWaybillId()));
+        }
         return entity;
     }
 

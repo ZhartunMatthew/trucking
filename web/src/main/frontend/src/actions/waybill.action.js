@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import { startOperation} from './operation.action';
 
 export function createWaybill(waybill) {
   return (dispatch) => {
@@ -12,8 +11,6 @@ export function createWaybill(waybill) {
         'X-Requested-With': 'XMLHttpRequest'
       },
       dataType: 'json'
-    }).done((json) => {
-      dispatch(startOperation(json));
     }).fail(() => {
       console.log('Could not create waybill');
     });
