@@ -1,13 +1,23 @@
 import React from 'react';
-import Input from '../common/text-input';
 import Select from '../common/select';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateCar, makeNewCar } from '../../actions/car.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
+import Formsy from 'formsy-react';
+import MyInput from '../common/input';
+
 
 
 class CarForm extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      errors: {}
+    };
+  }
 
   handleNumberChange(event) {
     this.props.updateOperation('number', event.target.value);
@@ -73,40 +83,32 @@ class CarForm extends React.Component {
         </div>
       </div>;
 
-    let carTypeAdmin =
-      <Select id="type" label="Type" onChange={this.handleTypeChange.bind(this)}
-              options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
-              value={defaultType} readOnly={true}/>;
-
-    let carTypeOwner =
-      <Input id='type' type='text' label='Type' placeholder=''
-             value={this.props.car.type  || ''} onChange='' readOnly={true}/>;
-
     let userActions = null;
     let role = this.props.userRole;
     userActions = role === "ADMIN" ? adminActions : userActions;
     userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
     let disableEditing = role !== "ADMIN";
 
-    let carTypeField = role === "ADMIN" ? carTypeAdmin : carTypeOwner;
-
     return (
       <div>
-        <form className='form-horizontal'>
+        <Formsy.Form className='form-horizontal'>
           <fieldset>
             <legend>{this.props.car.id ? editingLabel : creatingLabel} </legend>
-            <Input id='number' type='text' label='Car number' placeholder='Enter number here'
-                   value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='brand' type='text' label='Car brand' placeholder='Enter brand here'
+            <MyInput id='number' type='text' label='Car number' placeholder='Enter number here' name="number" title="Number"
+                   value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)} readOnly={disableEditing} required/>
+            <MyInput id='brand' type='text' label='Car brand' placeholder='Enter brand here' required name="brand" title="Brand"
                    value={this.props.car.brand  || ''} onChange={this.handleBrandChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='model' type='text' label='Car model' placeholder='Enter model here'
+            <MyInput id='model' type='text' label='Car model' placeholder='Enter model here' required name="model" title="Model"
                    value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='fuelConsumption' type='text' label='Fuel consumption' placeholder='Enter fuel consumption here'
-                   value={this.props.car.fuelConsumption  || ''} onChange={this.handleFuelConsumptionChange.bind(this)} readOnly={disableEditing}/>
-            {carTypeField}
+            <MyInput id='fuelConsumption' type='text' onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here' required title="Fuel consumption"
+                   value={this.props.car.fuelConsumption  || ''}  readOnly={disableEditing}
+                   validations={{isNumeric: true, maxLength: 10}} name="fuelConsumption" validationError="This field must be a number"/>
+            <Select id="type" label="Type" onChange={this.handleTypeChange.bind(this)}
+                    options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
+                    value={defaultType} disabled={disableEditing}/>
             {userActions}
           </fieldset>
-        </form>
+        </Formsy.Form>
       </div>
     );
   }

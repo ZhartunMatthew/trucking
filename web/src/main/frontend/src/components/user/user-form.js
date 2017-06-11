@@ -31,7 +31,9 @@ class UserForm extends React.Component {
   validateName(name){
     const error = document.getElementById(`usernameError`);
     if(name.length>2){
-      error.textContent = ``;
+      if(error !== null) {
+        error.textContent = ``;
+      }
       return true;
     }else {
       if(error !== null){
@@ -134,22 +136,11 @@ class UserForm extends React.Component {
         </div>
       </div>;
 
-    let userRoleAdmin =
-      <Select id="userRole" label="user role" onChange={this.handleUserRoleChange.bind(this)}
-              options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
-              value={defaultUserRole} readOnly={disableEditing}/>;
-
-    let userRoleOwner =
-      <Input id='userRole' type='text' label='user role' placeholder=''
-             value={this.props.user.userRole  || ''} onChange='' readOnly={true}/>;
-
     let userActions = null;
     let role = this.props.userRole;
     userActions = role === "ADMIN" ? adminActions : userActions;
     userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
     let disableEditing = role !== "ADMIN";
-
-    let userRoleField = role === "ADMIN" ? userRoleAdmin : userRoleOwner;
 
     return (
       <div>
@@ -178,7 +169,9 @@ class UserForm extends React.Component {
                    value={this.props.user.house  || ''} onChange={this.handleHouseChange.bind(this)} readOnly={disableEditing}/>
             <Input id='flat' type='text' label='flat' placeholder='Enter flat here'
                    value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)} readOnly={disableEditing}/>
-            {userRoleField}
+            <Select id="userRole" label="user role" onChange={this.handleUserRoleChange.bind(this)}
+                    options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
+                    value={defaultUserRole} disabled={disableEditing}/>
             {userActions}
           </fieldset>
         </form>
