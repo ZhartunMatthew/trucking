@@ -4,8 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateCar, makeNewCar } from '../../actions/car.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
-import Formsy from 'formsy-react';
-import MyInput from '../common/input';
+import InputComponent from '../common/text-input';
 
 
 
@@ -91,24 +90,23 @@ class CarForm extends React.Component {
 
     return (
       <div>
-        <Formsy.Form className='form-horizontal'>
+        <Form className='form-horizontal'>
           <fieldset>
             <legend>{this.props.car.id ? editingLabel : creatingLabel} </legend>
-            <MyInput id='number' type='text' label='Car number' placeholder='Enter number here' name="number" title="Number"
-                   value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)} readOnly={disableEditing} required/>
-            <MyInput id='brand' type='text' label='Car brand' placeholder='Enter brand here' required name="brand" title="Brand"
+            <Input id='number' type='text' label='Car number' placeholder='Enter number here'
+                   value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)} readOnly={disableEditing}/>
+            <Input id='brand' type='text' label='Car brand' placeholder='Enter brand here' required name="brand" title="Brand"
                    value={this.props.car.brand  || ''} onChange={this.handleBrandChange.bind(this)} readOnly={disableEditing}/>
-            <MyInput id='model' type='text' label='Car model' placeholder='Enter model here' required name="model" title="Model"
+            <Input id='model' type='text' label='Car model' placeholder='Enter model here'
                    value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)} readOnly={disableEditing}/>
-            <MyInput id='fuelConsumption' type='text' onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here' required title="Fuel consumption"
-                   value={this.props.car.fuelConsumption  || ''}  readOnly={disableEditing}
-                   validations={{isNumeric: true, maxLength: 10}} name="fuelConsumption" validationError="This field must be a number"/>
+            <Input id='fuelConsumption' type='text' onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here'
+                   value={this.props.car.fuelConsumption  || ''}  readOnly={disableEditing}/>
             <Select id="type" label="Type" onChange={this.handleTypeChange.bind(this)}
                     options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
                     value={defaultType} disabled={disableEditing}/>
             {userActions}
           </fieldset>
-        </Formsy.Form>
+        </Form>
       </div>
     );
   }
