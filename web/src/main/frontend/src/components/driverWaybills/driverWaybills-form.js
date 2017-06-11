@@ -18,7 +18,7 @@ class DriverWaybillsForm extends React.Component {
   }
 
   passDestination() {
-    this.props.passDestination(this.props.products);
+    this.props.passDestination(this.props.products, this.props.driverWaybill.id);
   }
 
 

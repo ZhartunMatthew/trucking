@@ -63,11 +63,11 @@ export function passCheckPoint(checkPoint) {
   }
 }
 
-export function passDestination(products) {
+export function passDestination(products, idWaybill) {
   return (dispatch) => {
     $.ajax({
       type: 'PUT',
-      url: '/api/waybill/check',
+      url: '/api/waybill/check/' + idWaybill,
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(products),
       headers: {
