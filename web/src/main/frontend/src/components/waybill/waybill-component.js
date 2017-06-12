@@ -10,7 +10,9 @@ import { cancelOperation } from '../../actions/operation.action';
 class WaybillComponent extends React.Component {
 
   componentDidMount() {
-    this.props.cancelCurrentOperation();
+    if(this.props.userRole === "COMPANY_OWNER") {
+      this.props.cancelCurrentOperation();
+    }
   }
 
   render() {

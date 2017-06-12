@@ -76,15 +76,14 @@ class InvoiceForm extends React.Component {
   }
 
   cancel() {
-    this.context.router.push('/');
+    this.context.router.push('/customer');
     this.props.cancelOperation();
   }
 
   create() {
     this.props.clearProducts();
     this.props.createInvoice(this.props.invoice);
-    this.context.router.push('/customer');
-    this.props.cancelOperation();
+    this.cancel();
   }
 
   render() {
@@ -127,8 +126,7 @@ class InvoiceForm extends React.Component {
     userActions = role === "DISPATCHER" ? dispatcherActions : userActions;
     dispatcherSelects = role === "DISPATCHER" ? dispatcherSelects : null;
 
-    let customerInfo = null;
-    customerInfo = role === "DISPATCHER"
+    let customerInfo = role === "DISPATCHER"
       ? this.props.invoice.customerCompany + ', ' + this.props.invoice.customerCompanyCity : this.props.invoice.customerCompany;
 
     return (

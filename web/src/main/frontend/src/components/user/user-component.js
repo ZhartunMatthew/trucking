@@ -8,7 +8,9 @@ import { cancelOperation } from '../../actions/operation.action';
 class UserComponent extends React.Component {
 
   componentDidMount() {
-    this.props.cancelCurrentOperation();
+    if(this.props.userRole === "COMPANY_OWNER" || this.props.userRole === "ADMIN") {
+      this.props.cancelCurrentOperation();
+    }
   }
 
   render() {
@@ -40,7 +42,8 @@ let mapStateToProps = function (state) {
   return {
     users: state.users.users,
     currentUser: state.operation.modifiedValue,
-    changes: state.operation.changes
+    changes: state.operation.changes,
+    userRole: state.userRole.userRole
   };
 };
 

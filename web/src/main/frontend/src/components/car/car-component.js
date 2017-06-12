@@ -10,7 +10,9 @@ class CarComponent extends React.Component {
 
   componentDidMount() {
     this.props.loadCarTypes();
-    this.props.cancelCurrentOperation();
+    if(this.props.userRole === "COMPANY_OWNER" || this.props.userRole === "ADMIN") {
+      this.props.cancelCurrentOperation();
+    }
   }
 
   render() {
@@ -42,7 +44,8 @@ let mapStateToProps = function (state) {
   return {
     cars: state.cars.cars,
     currentCar: state.operation.modifiedValue,
-    changes: state.operation.changes
+    changes: state.operation.changes,
+    userRole: state.userRole.userRole
   };
 };
 
