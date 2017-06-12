@@ -27,7 +27,6 @@ class UserTable extends React.Component {
             <td> {user.name}</td>
             <td> {user.surname}</td>
             <td> {user.patronymic}</td>
-            <td> {user.login}</td>
             <td> {user.userRole}</td>
             <td>
               <div className='btn-toolbar text-center'>
@@ -46,7 +45,6 @@ class UserTable extends React.Component {
             <td> {user.name}</td>
             <td> {user.surname}</td>
             <td> {user.patronymic}</td>
-            <td> {user.login}</td>
             <td> {user.userRole}</td>
             <td>
               <div className='btn-toolbar text-center'>
@@ -79,7 +77,6 @@ class UserTable extends React.Component {
             <th>name</th>
             <th>surname</th>
             <th>patronymic</th>
-            <th>login</th>
             <th>userRole</th>
             <th>actions</th>
           </tr>
