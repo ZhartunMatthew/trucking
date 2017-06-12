@@ -49,8 +49,10 @@ class CompanyOwnerPage extends React.Component {
       }];
     return (
       <div>
-        <HeaderComponent navItems={navItems}/>
-        {this.props.children}
+        <div className="wrapper">
+          <HeaderComponent navItems={navItems}/>
+          {this.props.children}
+        </div>
         <FooterComponent/>
       </div>
     );
