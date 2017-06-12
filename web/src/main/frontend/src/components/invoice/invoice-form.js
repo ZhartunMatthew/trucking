@@ -83,7 +83,7 @@ class InvoiceForm extends React.Component {
   create() {
     this.props.clearProducts();
     this.props.createInvoice(this.props.invoice);
-    this.context.router.push('/');
+    this.context.router.push('/customer');
     this.props.cancelOperation();
   }
 

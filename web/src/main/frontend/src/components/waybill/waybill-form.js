@@ -75,7 +75,7 @@ class WaybillForm extends React.Component {
 
   cancel() {
     this.props.cancelOperation();
-    this.context.router.push('/waybill');
+    this.context.router.push('/invoice');
   }
 
   render() {
