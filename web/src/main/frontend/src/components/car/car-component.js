@@ -4,11 +4,13 @@ import { bindActionCreators } from 'redux';
 import CarTable from './car-table';
 import CarForm from './car-form';
 import {loadCarTypes } from '../../actions/carType.action';
+import { cancelOperation } from '../../actions/operation.action';
 
 class CarComponent extends React.Component {
 
   componentDidMount() {
     this.props.loadCarTypes();
+    this.props.cancelCurrentOperation();
   }
 
   render() {
@@ -17,7 +19,7 @@ class CarComponent extends React.Component {
           <div className='col-sm-6'>
             <CarForm changes={this.props.changes} car={this.props.currentCar}/>
           </div>
-          <div className='col-sm-6'>
+          <div className='col-sm-5'>
             <CarTable cars={this.props.cars}/>
           </div>
         </div>
@@ -47,6 +49,7 @@ let mapStateToProps = function (state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadCarTypes: bindActionCreators(loadCarTypes, dispatch),
+    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }
 

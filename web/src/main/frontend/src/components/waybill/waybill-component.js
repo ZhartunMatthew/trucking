@@ -1,11 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import WaybillForm from './waybill-form';
+import { bindActionCreators } from 'redux';
 import CheckPointComponent from '../checkPoint/checkPoint-component';
 import OwnerWaybillsTable from './ownerWaybill-table';
 import CheckPointTable from '../checkPoint/checkPoint-table';
+import { cancelOperation } from '../../actions/operation.action';
 
 class WaybillComponent extends React.Component {
+
+  componentDidMount() {
+    this.props.cancelCurrentOperation();
+  }
 
   render() {
     let role = this.props.userRole;
@@ -58,6 +64,12 @@ let mapStateToProps = function (state) {
   };
 };
 
-export default connect(mapStateToProps, () => {})(WaybillComponent);
+function mapDispatchToProps(dispatch) {
+  return {
+    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WaybillComponent);
 
 
