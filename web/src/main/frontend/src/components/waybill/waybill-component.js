@@ -19,7 +19,7 @@ class WaybillComponent extends React.Component {
     if(role === 'MANAGER') {
       content = (
         <div className='row'>
-          <div className='col-sm-6'>
+          <div className='col-sm-4'>
             <WaybillForm/>
           </div>
           <div className='col-sm-6'>

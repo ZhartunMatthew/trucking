@@ -16,7 +16,7 @@ class CarComponent extends React.Component {
   render() {
     let content = this.props.currentCar ? (
         <div className='row'>
-          <div className='col-sm-6'>
+          <div className='col-sm-4'>
             <CarForm changes={this.props.changes} car={this.props.currentCar}/>
           </div>
           <div className='col-sm-5'>

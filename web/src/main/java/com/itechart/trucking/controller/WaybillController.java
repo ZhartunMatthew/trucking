@@ -1,9 +1,17 @@
 package com.itechart.trucking.controller;
 
+import com.itechart.trucking.dto.InvoiceDTO;
+import com.itechart.trucking.dto.ProductDTO;
 import com.itechart.trucking.dto.WaybillDTO;
+import com.itechart.trucking.entity.Invoice;
+import com.itechart.trucking.entity.Product;
 import com.itechart.trucking.entity.Waybill;
+import com.itechart.trucking.entity.enums.InvoiceStateEnum;
+import com.itechart.trucking.entity.enums.ProductStateEnum;
 import com.itechart.trucking.entity.enums.WaybillStateEnum;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
+import com.itechart.trucking.services.InvoiceService;
+import com.itechart.trucking.services.ProductService;
 import com.itechart.trucking.services.WaybillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +34,12 @@ public class WaybillController {
 
     @Autowired
     private WaybillService waybillService;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private InvoiceService invoiceService;
 
     @Autowired
     private ConversionService conversionService;
@@ -77,9 +91,23 @@ public class WaybillController {
         return updateWaybill(waybillDTO);
     }
 
-    @RequestMapping(value = "/check", method = RequestMethod.PUT)
-    public ResponseEntity<WaybillDTO> checkPassed(@RequestBody WaybillDTO waybillDTO) {
-        LOGGER.info("REST request. Path:/api/waybill/check  method: PUT.  checkPointInfo: {}", waybillDTO);
+    @RequestMapping(value = "/check/{waybillId}", method = RequestMethod.PUT)
+    public ResponseEntity<WaybillDTO> checkPassed(@PathVariable Long waybillId, @RequestBody List<ProductDTO> products) {
+        LOGGER.info("REST request. Path:/api/waybill/check  method: PUT.");
+        for (ProductDTO product : products) {
+            product.setProductState(ProductStateEnum.DELIVERED);
+            if (product.getLost()!= null) {
+                if (product.getLost()> 0) {
+                    product.setProductState(ProductStateEnum.LOST);
+                }
+            }
+            productService.save(conversionService.convert(product, Product.class));
+        }
+        WaybillDTO waybillDTO = conversionService.convert(waybillService.findOne(waybillId), WaybillDTO.class);
+        Long invoiceId = waybillDTO.getInvoiceId();
+        InvoiceDTO invoiceDTO = conversionService.convert(invoiceService.findOne(invoiceId), InvoiceDTO.class);
+        invoiceDTO.setInvoiceState(InvoiceStateEnum.DELIVERED);
+        invoiceService.save(conversionService.convert(invoiceDTO, Invoice.class));
         waybillDTO.setWaybillState(WaybillStateEnum.TRANSPORTATION_COMPLETED);
         waybillDTO.setDestinationDate(new Date());
         return updateWaybill(waybillDTO);

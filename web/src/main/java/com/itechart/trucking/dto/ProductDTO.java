@@ -12,5 +12,6 @@ public class ProductDTO extends AbstractDTO {
     private String name;
     private ProductStateEnum productState;
     private Integer amount;
+    private Integer lost;
     private Long invoiceId;
 }

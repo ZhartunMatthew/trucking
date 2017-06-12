@@ -47,7 +47,7 @@ class InvoiceComponent extends React.Component {
     if(role === 'MANAGER' || role === 'COMPANY_OWNER') {
       content = this.props.currentInvoice ? (
         <div className='row'>
-          <div className='col-sm-6'>
+          <div className='col-sm-4'>
             <InvoiceForm changes={this.props.changes}
                          invoice={this.props.currentInvoice}/>
           </div>
@@ -68,7 +68,7 @@ class InvoiceComponent extends React.Component {
       this.props.currentInvoice.products = this.props.products;
       content = this.props.currentInvoice ? (
         <div className='row'>
-          <div className='col-sm-6'>
+          <div className='col-sm-4'>
             <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice}/>
           </div>
           <div className='col-sm-6'>

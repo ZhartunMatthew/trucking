@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { startOperation, cancelOperation } from './operation.action';
 import {
-  INIT_DRIVERWAYBILLS
+  INIT_DRIVERWAYBILLS, INIT_PRODUCTS
 } from '../constants/actionTypes';
 
 export function loadDriverWaybills() {
@@ -16,6 +16,25 @@ export function loadDriverWaybills() {
       //CREATE ACTION
       dispatch({
         type: INIT_DRIVERWAYBILLS,
+        payload: json
+      });
+    }).fail(() => {
+      console.log('Could not get list of waybills');
+    });
+  }
+}
+
+export function loadProducts(idInvoice) {
+  return (dispatch) => {
+    $.ajax({
+      url: '/api/product/' + idInvoice,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      dataType: 'json'
+    }).done(json => {
+      dispatch({
+        type: INIT_PRODUCTS,
         payload: json
       });
     }).fail(() => {
@@ -44,13 +63,13 @@ export function passCheckPoint(checkPoint) {
   }
 }
 
-export function passDestination(waybill) {
+export function passDestination(products, idWaybill) {
   return (dispatch) => {
     $.ajax({
       type: 'PUT',
-      url: '/api/waybill/check',
+      url: '/api/waybill/check/' + idWaybill,
       contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify(waybill),
+      data: JSON.stringify(products),
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
