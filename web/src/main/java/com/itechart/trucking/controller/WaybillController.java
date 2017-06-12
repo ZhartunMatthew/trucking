@@ -7,6 +7,7 @@ import com.itechart.trucking.entity.Invoice;
 import com.itechart.trucking.entity.Product;
 import com.itechart.trucking.entity.Waybill;
 import com.itechart.trucking.entity.enums.InvoiceStateEnum;
+import com.itechart.trucking.entity.enums.ProductLostEnum;
 import com.itechart.trucking.entity.enums.ProductStateEnum;
 import com.itechart.trucking.entity.enums.WaybillStateEnum;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
@@ -96,9 +97,11 @@ public class WaybillController {
         LOGGER.info("REST request. Path:/api/waybill/check  method: PUT.");
         for (ProductDTO product : products) {
             product.setProductState(ProductStateEnum.DELIVERED);
-            if (product.getLost()!= null) {
-                if (product.getLost()> 0) {
+            if (product.getLostAmount()!= null) {
+                if (product.getLostAmount()> 0) {
                     product.setProductState(ProductStateEnum.LOST);
+                    product.setLostDescription("some description"); //TODO
+                    product.setLostReason(ProductLostEnum.SPOILED); //TODO
                 }
             }
             productService.save(conversionService.convert(product, Product.class));
