@@ -27,8 +27,8 @@ public class ProductController {
     @Autowired
     private ConversionService conversionService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<ProductDTO>> findAll(@RequestParam(value = "invoice_id") Long invoiceId) {
+    @RequestMapping(value = "/{invoiceId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<ProductDTO>> findAll(@PathVariable Long invoiceId) {
         List<ProductDTO> dtos = new LinkedList<>();
         productService.findAllByInvoiceId(invoiceId).forEach(entity ->
             dtos.add(conversionService.convert(entity, ProductDTO.class)));

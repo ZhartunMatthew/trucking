@@ -18,6 +18,7 @@ public class ProductConverter extends AbstractTwoWayConverter<ProductDTO, Produc
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setAmount(dto.getAmount());
+        entity.setLost(dto.getLost());
         entity.setProductState(dto.getProductState());
         if(dto.getInvoiceId() != null) {
             entity.setInvoice(invoiceService.findOne(dto.getInvoiceId()));
@@ -31,6 +32,7 @@ public class ProductConverter extends AbstractTwoWayConverter<ProductDTO, Produc
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setAmount(entity.getAmount());
+        dto.setLost(entity.getLost());
         dto.setProductState(entity.getProductState());
         dto.setInvoiceId(entity.getInvoice().getId());
         return dto;
