@@ -5,12 +5,11 @@ class FooterComponent extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <hr></hr>
-        <footer>
-          <p>&copy; 2017 iTechArt JavaLab</p>
-        </footer>
-      </div>
+      <footer className="footer">
+        <div className="container">
+          <p className="text-muted">&copy; 2017 iTechArt Trucking</p>
+        </div>
+      </footer>
     )
   }
 }
