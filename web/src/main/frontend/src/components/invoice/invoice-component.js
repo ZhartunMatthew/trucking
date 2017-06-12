@@ -13,9 +13,8 @@ import { loadCustomers } from '../../actions/customer.action'
 class InvoiceComponent extends React.Component {
 
   componentDidMount() {
+    this.props.cancelOperation();
     if(this.props.userRole === 'DISPATCHER') {
-      this.props.cancelOperation();
-
       this.props.loadFreeDrivers();
       this.props.loadFreeCars(true);
       this.props.loadAllCustomers();

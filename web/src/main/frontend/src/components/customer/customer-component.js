@@ -3,8 +3,13 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CustomerTable from './customer-table';
 import CustomerForm from './customer-form';
+import { cancelOperation } from '../../actions/operation.action';
 
 class CustomerComponent extends React.Component {
+
+  componentDidMount() {
+    this.props.cancelCurrentOperation();
+  }
 
   render() {
     if(this.props.currentCustomer !== null && this.props.currentCustomer !== undefined) {
@@ -18,7 +23,7 @@ class CustomerComponent extends React.Component {
           <div className='col-sm-4'>
             <CustomerForm changes={this.props.changes} customer={this.props.currentCustomer}/>
           </div>
-          <div className='col-sm-6'>
+          <div className='col-sm-5'>
             <CustomerTable customers={this.props.customers}/>
           </div>
         </div>
@@ -45,4 +50,10 @@ let mapStateToProps = function (state) {
   };
 };
 
-export default connect(mapStateToProps, () => {})(CustomerComponent);
+function mapDispatchToProps(dispatch) {
+  return {
+    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerComponent);
