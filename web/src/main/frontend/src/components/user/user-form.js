@@ -133,7 +133,7 @@ class UserForm extends React.Component {
             <Input id='login' type='text' label='login' placeholder='Enter login here'
                    value={this.props.user.login  || ''} onChange={this.handleLoginChange.bind(this)} readOnly={disableEditing}/>
             <Input id='password' type='text' label='password' placeholder='Enter password here'
-                   value={this.props.user.password  || ''} onChange={this.handlePasswordChange.bind(this)} readOnly={disableEditing}/>
+                   value={this.props.user.password  || ''} onChange={this.handlePasswordChange.bind(this)} readOnly={disableEditing || this.props.user.id}/>
             <Input id='city' type='text' label='city' placeholder='Enter city here'
                    value={this.props.user.city  || ''} onChange={this.handleCityChange.bind(this)} readOnly={disableEditing}/>
             <Input id='street' type='text' label='street' placeholder='Enter street here'
