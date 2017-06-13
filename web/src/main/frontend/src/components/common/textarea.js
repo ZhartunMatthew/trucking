@@ -15,7 +15,7 @@ class TextareaElement extends React.Component {
         <label className='control-label'>
           {this.props.label}
         </label>
-        <textarea id={this.props.id} className='form-control' maxLength={this.props.maxLength} value={value}
+        <textarea id={this.props.id} className='form-control' maxLength={this.props.maxLength} value={value} readOnly={this.props.readOnly}
                   rows={this.props.rows} placeholder={this.props.placeholder} onChange={this.props.onChange}></textarea>
       </div>
     );
@@ -29,7 +29,8 @@ TextareaElement.propTypes = {
   value: React.PropTypes.string.isRequired,
   placeholder: React.PropTypes.string,
   maxLength: React.PropTypes.number,
-  rows: React.PropTypes.number
+  rows: React.PropTypes.number,
+  readOnly: React.PropTypes.bool
 };
 
 TextareaElement.defaultProps = {

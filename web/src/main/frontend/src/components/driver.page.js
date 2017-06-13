@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import {loadDriverWaybills} from "../actions/driverWaybills.action";
 import HeaderComponent from './header';
 import FooterComponent from './footer';
+import DriverWaybillComponent from '../components/driverWaybills/driverWaybills-component';
 
 class DriverPage extends React.Component {
 
@@ -23,6 +24,7 @@ class DriverPage extends React.Component {
       <div>
       <div className="wrapper">
         <HeaderComponent navItems={navItems}/>
+        { !this.props.children && <h1>Добро пожаловать, {this.props.currentUser.name}!</h1>}
           {this.props.children}
       </div>
       <FooterComponent/>
@@ -31,8 +33,10 @@ class DriverPage extends React.Component {
   }
 }
 
-function mapStateToProps() {
-  return {}
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser.currentUser,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

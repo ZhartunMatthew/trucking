@@ -56,8 +56,9 @@ class DriverWaybillsForm extends React.Component {
         </tr>
       )
     });
+    let disableEditing = this.props.driverWaybill.waybillState === 'TRANSPORTATION_COMPLETED'
     let products = this.props.products.map((product, index) => {
-      const defaultType = product.lostReason ? product.lostReason : [];
+      let defaultType = product.lostReason ? product.lostReason : [];
       return (
         <tr key={product.id}>
           <th scope='row'> {index + 1} </th>
@@ -65,17 +66,17 @@ class DriverWaybillsForm extends React.Component {
           <td>{product.amount}</td>
           <td width="15%">
             <Input id={"amountLost" + product.id} label="Amount lost" type="text" value={product.lostAmount}
-              onChange={this.handleProductLostChange.bind(this, product.id, product)}/>
+                   readOnly={disableEditing} onChange={this.handleProductLostChange.bind(this, product.id, product)}/>
           </td>
           <td>
             <Select id={"typeLost" + product.id} label="Reason lost" value={defaultType}
-                    options={this.props.lostTypes.map((type)=>{return ( <option> {type} </option> )})}
+                    disabled={disableEditing} options={this.props.lostTypes.map((type)=>{return ( <option> {type} </option> )})}
                     onChange={this.handleProductTypeChange.bind(this, product.id, product)}/>
           </td>
           <td>
             <TextareaElement id={"descLost" + product.id} label="Description lost"
-                             value={product.lostDescription} rows={4}
-              onChange={this.handleProductDescChange.bind(this, product.id, product)}/>
+                    readOnly={disableEditing} value={product.lostDescription} rows={4}
+                    onChange={this.handleProductDescChange.bind(this, product.id, product)}/>
           </td>
         </tr>
       )
@@ -114,7 +115,7 @@ class DriverWaybillsForm extends React.Component {
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
                 { this.props.driverWaybill.passedCheckPoints === this.props.driverWaybill.allCheckPoints &&
-                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">Pass</button>
+                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">Product list</button>
                 }
                 <button type='button' className='btn btn-default' onClick={this.cancel.bind(this)}>Close</button>
               </div>
@@ -148,7 +149,11 @@ class DriverWaybillsForm extends React.Component {
                 </table>
               </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-success" data-dismiss="modal" onClick={this.passDestination.bind(this)}>Save</button>
+                  {
+                    this.props.driverWaybill.waybillState === 'TRANSPORTATION_STARTED' &&
+                    <button type="button" className="btn btn-success" data-dismiss="modal"
+                            onClick={this.passDestination.bind(this)}>Save</button>
+                  }
                   <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
