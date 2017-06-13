@@ -64,12 +64,15 @@ class CarForm extends React.Component {
   }
 
   render() {
-    Formsy.addValidationRule('isRequired', function(values, value) {
+    Formsy.addValidationRule('isRequiredSelect', function(values, value) {
       if(value.length === 0){
         return false;
       } else {
         return true;
       }
+    });
+    Formsy.addValidationRule('isRequired', function(values, value) {
+      return !(/\s/g.test(value));
     });
     let editingLabel = <span> Editing of <b> {this.props.car.number} </b> car </span>;
     let creatingLabel = <span>Create new car</span>;
@@ -110,18 +113,20 @@ class CarForm extends React.Component {
           <fieldset>
             <legend>{this.props.car.id ? editingLabel : creatingLabel} </legend>
             <MyInput id='number' type='text' title='Car number' placeholder='Enter number here' name="number" required
-                   value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)} readOnly={disableEditing}/>
+                   value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)} readOnly={disableEditing}
+                     validations="isRequired" validationError='No spaces'/>
             <MyInput id='brand' type='text' title='Car brand' placeholder='Enter brand here' required name="brand"
                    value={this.props.car.brand  || ''} onChange={this.handleBrandChange.bind(this)} readOnly={disableEditing}
                      validations='isAlpha' validationError='This field must contain only letters'/>
             <MyInput id='model' type='text' title='Car model' placeholder='Enter model here' required name="model"
-                   value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)} readOnly={disableEditing}/>
+                   value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)} readOnly={disableEditing}
+                     validations="isRequired" validationError='No spaces'/>
             <MyInput id='fuelConsumption' type='text' title="Fuel consumption" onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here'
                    value={this.props.car.fuelConsumption  || ''}  readOnly={disableEditing} validations="isNumeric" required
                      name="fuelConsumption" validationError="This field must be a number"/>
             <MySelect id="Type" label="Type" onChange={this.handleTypeChange.bind(this)}
                     options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultType} disabled={disableEditing} name="type" title="Type" validations="isRequired"/>
+                    value={defaultType} disabled={disableEditing} name="type" title="Type" validations="isRequiredSelect"/>
             {userActions}
           </fieldset>
         </Formsy.Form>

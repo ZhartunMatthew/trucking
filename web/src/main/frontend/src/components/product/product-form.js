@@ -4,9 +4,29 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateOperation, cancelOperation } from '../../actions/operation.action';
 import { updateProducts } from  '../../actions/product.action';
-import { Role } from '../../constants/roles'
+import { Role } from '../../constants/roles';
+import MyInput from '../common/input';
+import MySelect from '../common/select-component';
+import Formsy from 'formsy-react';
 
 class ProductForm extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      errors: {},
+      canSubmit: false
+    };
+  }
+
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
 
   handleProductNameChange(event) {
     this.props.updateOperation('currentProductName', event.target.value);
@@ -47,18 +67,24 @@ class ProductForm extends React.Component {
     if(role === Role.DISPATCHER) {
       return (
         <div>
-          <form className='form-horizontal'>
+          <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <fieldset>
               <Input id='currentProductName' type='text' label='Product name' placeholder='' value={this.props.currentProductName} onChange={this.handleProductNameChange.bind(this)}/>
               <Input id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount} onChange={this.handleAmountChange.bind(this)}/>
               <Input id='currentProductPrice' type='text' label='Price' placeholder='' value={this.props.currentProductPrice} onChange={this.handlePriceChange.bind(this)}/>
+              <MyInput id='currentProductName' type='text' label='Product name' placeholder='' value={this.props.currentProductName}
+                       onChange={this.handleProductNameChange.bind(this)} validations='isAlpha' validationError='This field must contain only letters'
+                       required name='currentProductName' title='Product name'/>
+              <MyInput id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount}
+                       onChange={this.handleAmountChange.bind(this)} validations="isNumeric" validationError="This field must be a number"
+                       required name='currentProductAmount' title='Amount'/>
               <div className='btn-toolbar text-center'>
                 <div className='btn-group' role='group'>
-                  <button type='button' className='btn btn-success' onClick={this.create.bind(this)}> Add </button>
+                  <button type='button' className='btn btn-success' onClick={this.create.bind(this)} disabled={!this.state.canSubmit}> Add </button>
                 </div>
               </div>
             </fieldset>
-          </form>
+          </Formsy.Form>
         </div>
       );
     } else {

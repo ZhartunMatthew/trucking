@@ -1,11 +1,9 @@
 import React from 'react';
-import Input from '../common/text-input';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateOperation, cancelOperation } from '../../actions/operation.action';
 import { updateCheckPoints } from  '../../actions/checkPoint.action';
 import MyInput from '../common/input';
-import MySelect from '../common/select-component';
 import Formsy from 'formsy-react';
 
 class CheckPointForm extends React.Component {

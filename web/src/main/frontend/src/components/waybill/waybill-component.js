@@ -34,7 +34,7 @@ class WaybillComponent extends React.Component {
     if(role === Role.COMPANY_OWNER){
       content = this.props.currentWaybill ? (
           <div className='row'>
-            <div className='col-sm-7'>
+            <div className='col-sm-5'>
               <WaybillForm changes={this.props.changes} waybill={this.props.currentWaybill}/>
             </div>
             <div className='col-sm-5'>
