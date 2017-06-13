@@ -1,7 +1,8 @@
 import React from 'react';
 import Input from '../common/text-input';
 import CheckBox from '../common/checkbox';
-import TextareaElement from '../common/textarea'
+import TextareaElement from '../common/textarea';
+import Select from '../common/select';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { passCheckPoint, passDestination} from '../../actions/driverWaybills.action';
@@ -17,6 +18,11 @@ class DriverWaybillsForm extends React.Component {
   handleProductDescChange(id, product, event) {
     this.props.updateOperation("descLost" + id, event.target.value);
     product.lostDescription = event.target.value;
+  }
+
+  handleProductTypeChange(id, product, event) {
+    this.props.updateOperation("typeLost" + id, event.target.value);
+    product.lostReason = event.target.value;
   }
 
   passCheckpoint(checkPoint) {
@@ -51,22 +57,25 @@ class DriverWaybillsForm extends React.Component {
       )
     });
     let products = this.props.products.map((product, index) => {
+      const defaultType = product.lostReason ? product.lostReason : [];
       return (
         <tr key={product.id}>
           <th scope='row'> {index + 1} </th>
           <td>{product.name}</td>
           <td>{product.amount}</td>
-          <td>
+          <td width="15%">
             <Input id={"amountLost" + product.id} label="Amount lost" type="text" value={product.lostAmount}
               onChange={this.handleProductLostChange.bind(this, product.id, product)}/>
+          </td>
+          <td>
+            <Select id={"typeLost" + product.id} label="Reason lost" value={defaultType}
+                    options={this.props.lostTypes.map((type)=>{return ( <option> {type} </option> )})}
+                    onChange={this.handleProductTypeChange.bind(this, product.id, product)}/>
           </td>
           <td>
             <TextareaElement id={"descLost" + product.id} label="Description lost"
                              value={product.lostDescription} rows={4}
               onChange={this.handleProductDescChange.bind(this, product.id, product)}/>
-          </td>
-          <td>
-
           </td>
         </tr>
       )
@@ -130,7 +139,7 @@ class DriverWaybillsForm extends React.Component {
                     <th>#</th>
                     <th>Name</th>
                     <th>Amount</th>
-                    <th>Lost</th>
+                    <th colSpan="3">Lost information</th>
                   </tr>
                   </thead>
                   <tbody>

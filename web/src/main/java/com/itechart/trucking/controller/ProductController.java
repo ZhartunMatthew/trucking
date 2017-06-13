@@ -2,6 +2,7 @@ package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.ProductDTO;
 import com.itechart.trucking.entity.Product;
+import com.itechart.trucking.entity.enums.ProductLostEnum;
 import com.itechart.trucking.services.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,5 +44,12 @@ public class ProductController {
         products.forEach(product -> tempList.add(productService.save(conversionService.convert(product, Product.class))));
         tempList.forEach(product -> dtos.add(conversionService.convert(product, ProductDTO.class)));
         return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/lostType", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List> getLostTypes() {
+        LOGGER.info("REST request. Path:/api/product/lostType  method: GET");
+        List lostTypes = Arrays.asList(ProductLostEnum.values());
+        return new ResponseEntity<>(lostTypes, HttpStatus.OK);
     }
 }

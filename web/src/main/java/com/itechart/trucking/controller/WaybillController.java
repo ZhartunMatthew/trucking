@@ -101,7 +101,7 @@ public class WaybillController {
                 if (product.getLostAmount()> 0) {
                     product.setProductState(ProductStateEnum.LOST);
 //                    product.setLostDescription("some description"); //TODO
-                    product.setLostReason(ProductLostEnum.SPOILED); //TODO
+//                    product.setLostReason(ProductLostEnum.SPOILED); //TODO
                 }
             }
             productService.save(conversionService.convert(product, Product.class));

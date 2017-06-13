@@ -13,6 +13,7 @@ import ProductsReducer from './product.reducer';
 import DriverWaybillsReducer from './driverWaybill.reducer';
 import CurrentUserReducer from './currentUser.reducer';
 import CheckPointReducer from './checkPoint.reducer';
+import LostTypesReducer from './productType.reducer';
 
 //This attached each reducer to particular field in application state
 export default combineReducers({
@@ -29,5 +30,6 @@ export default combineReducers({
   products: ProductsReducer,
   checkPoints: CheckPointReducer,
   driverWaybills: DriverWaybillsReducer,
-  currentUser: CurrentUserReducer
+  currentUser: CurrentUserReducer,
+  lostTypes: LostTypesReducer,
 });
