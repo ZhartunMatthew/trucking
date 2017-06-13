@@ -5,7 +5,6 @@ import { loadUsers, fetchUser } from '../actions/user.action';
 import { loadCustomers, fetchCustomer } from '../actions/customer.action';
 import { loadCars, fetchCar } from '../actions/car.action';
 import { cancelOperation } from '../actions/operation.action';
-import { Link } from 'react-router';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 
