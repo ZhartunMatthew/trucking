@@ -30,13 +30,24 @@ export class LoginPage extends React.Component {
                   <div className="panel-body">
                     <div className="form-group">
                       <label className="label"> Login </label>
-                      <input type="text" className="form-control" placeholder="Type your login" ref={(input) => this.username = input} onChange={this.checkInput.bind(this)}/>
+                      <input type="text"
+                             className="form-control"
+                             placeholder="Type your login"
+                             ref={(input) => this.username = input}
+                             onKeyDown={this.checkInput.bind(this)}
+                             autoFocus/>
                     </div>
                     <div className="form-group">
                       <label className="label"> Password </label>
-                      <input type="password" className="form-control" placeholder="Type your pass" ref={(input) => this.password = input} onChange={this.checkInput.bind(this)}/>
+                      <input type="password"
+                             className="form-control"
+                             placeholder="Type your pass"
+                             ref={(input) => this.password = input}
+                             onKeyDown={this.checkInput.bind(this)}/>
                     </div>
-                    <button className="btn btn-success btn-block" id="submit" onClick={this.login.bind(this)}> Submit </button>
+                    <button className="btn btn-success btn-block"
+                            id="submit"
+                            onClick={this.login.bind(this)}> Submit </button>
                   </div>
                 </div>
               </div>
@@ -47,11 +58,14 @@ export class LoginPage extends React.Component {
     )
   }
 
-  checkInput() {
+  checkInput(event) {
     if(!this.checkUsername() || !this.checkPassword()) {
       $('#submit').prop("disabled", true);
     } else {
       $('#submit').prop("disabled", false);
+      if(event.key === "Enter") {
+        this.login();
+      }
     }
   }
 
