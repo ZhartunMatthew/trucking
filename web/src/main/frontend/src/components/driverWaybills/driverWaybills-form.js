@@ -1,6 +1,8 @@
 import React from 'react';
 import Input from '../common/text-input';
 import CheckBox from '../common/checkbox';
+import TextareaElement from '../common/textarea';
+import Select from '../common/select';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { passCheckPoint, passDestination} from '../../actions/driverWaybills.action';
@@ -9,8 +11,18 @@ import { cancelOperation, updateOperation } from '../../actions/operation.action
 class DriverWaybillsForm extends React.Component {
 
   handleProductLostChange(id, product, event) {
-    this.props.updateOperation(id, event.target.value);
-    product.lost = event.target.value;
+    this.props.updateOperation("amountLost" + id, event.target.value);
+    product.lostAmount = event.target.value;
+  }
+
+  handleProductDescChange(id, product, event) {
+    this.props.updateOperation("descLost" + id, event.target.value);
+    product.lostDescription = event.target.value;
+  }
+
+  handleProductTypeChange(id, product, event) {
+    this.props.updateOperation("typeLost" + id, event.target.value);
+    product.lostReason = event.target.value;
   }
 
   passCheckpoint(checkPoint) {
@@ -44,14 +56,27 @@ class DriverWaybillsForm extends React.Component {
         </tr>
       )
     });
+    let disableEditing = this.props.driverWaybill.waybillState === 'TRANSPORTATION_COMPLETED'
     let products = this.props.products.map((product, index) => {
+      let defaultType = product.lostReason ? product.lostReason : [];
       return (
         <tr key={product.id}>
           <th scope='row'> {index + 1} </th>
           <td>{product.name}</td>
           <td>{product.amount}</td>
+          <td width="15%">
+            <Input id={"amountLost" + product.id} label="Amount lost" type="text" value={product.lostAmount}
+                   readOnly={disableEditing} onChange={this.handleProductLostChange.bind(this, product.id, product)}/>
+          </td>
           <td>
-            <Input label='Lost products' id={product.id} type='text' value={product.lost} onChange={this.handleProductLostChange.bind(this, product.id, product)}/>
+            <Select id={"typeLost" + product.id} label="Reason lost" value={defaultType}
+                    disabled={disableEditing} options={this.props.lostTypes.map((type)=>{return ( <option> {type} </option> )})}
+                    onChange={this.handleProductTypeChange.bind(this, product.id, product)}/>
+          </td>
+          <td>
+            <TextareaElement id={"descLost" + product.id} label="Description lost"
+                    readOnly={disableEditing} value={product.lostDescription} rows={4}
+                    onChange={this.handleProductDescChange.bind(this, product.id, product)}/>
           </td>
         </tr>
       )
@@ -71,10 +96,6 @@ class DriverWaybillsForm extends React.Component {
               {this.props.driverWaybill.destinationStreet}, д.{this.props.driverWaybill.destinationHouse}</p>
             <label><b>Destination date:</b></label>
             <p>{this.props.driverWaybill.destinationDate}</p>
-            {/*<label><b>Price:</b></label>*/}
-            {/*<p>{this.props.driverWaybill.price}</p>*/}
-            {/*<label><b>Total distance:</b></label>*/}
-            {/*<p>{this.props.driverWaybill.totalDistance}</p>*/}
             <div>
               <h3>Checkpoints {this.props.driverWaybill.passedCheckPoints}/{this.props.driverWaybill.allCheckPoints}</h3>
               <table className='table table-hover'>
@@ -94,7 +115,7 @@ class DriverWaybillsForm extends React.Component {
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
                 { this.props.driverWaybill.passedCheckPoints === this.props.driverWaybill.allCheckPoints &&
-                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">Pass</button>
+                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">Product list</button>
                 }
                 <button type='button' className='btn btn-default' onClick={this.cancel.bind(this)}>Close</button>
               </div>
@@ -112,14 +133,14 @@ class DriverWaybillsForm extends React.Component {
                 <button type="button" className="close" data-dismiss="modal">&times;</button>
               </div>
               <div className="modal-body">
-                <p>Please, enter amount of lost products</p>
+                <p>Please, enter info about lost products</p>
                 <table className='table table-hover'>
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>Description</th>
+                    <th>Name</th>
                     <th>Amount</th>
-                    <th>Lost</th>
+                    <th colSpan="3">Lost information</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -128,7 +149,11 @@ class DriverWaybillsForm extends React.Component {
                 </table>
               </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-success" data-dismiss="modal" onClick={this.passDestination.bind(this)}>Save</button>
+                  {
+                    this.props.driverWaybill.waybillState === 'TRANSPORTATION_STARTED' &&
+                    <button type="button" className="btn btn-success" data-dismiss="modal"
+                            onClick={this.passDestination.bind(this)}>Save</button>
+                  }
                   <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
@@ -152,6 +177,7 @@ DriverWaybillsForm.propTypes = {
 let mapStateToProps = function (state) {
   return {
     products: state.driverWaybills.productsInWaybill,
+    lostTypes: state.lostTypes.lostTypes,
   };
 };
 

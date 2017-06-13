@@ -13,4 +13,5 @@
     <include file="2017-05-31--V1-add-destination_company-in-invoice.xml" relativeToChangelogFile="true"/>
     <include file="2017-06-08--V1-fix-enums.xml" relativeToChangelogFile="true"/>
     <include file="2017-06-09--V1-add-lost-product-column.xml" relativeToChangelogFile="true"/>
+    <include file="2017-06-12--V1-add-lost-product-info.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

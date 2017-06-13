@@ -1,5 +1,6 @@
 package com.itechart.trucking.entity;
 
+import com.itechart.trucking.entity.enums.ProductLostEnum;
 import com.itechart.trucking.entity.enums.ProductStateEnum;
 
 import javax.persistence.*;
@@ -9,9 +10,11 @@ public class Product extends BaseEntity {
 
     private String name;
     private Integer amount;
-    private Integer lost;
     private ProductStateEnum productState;
     private Invoice invoice;
+    private Integer lostAmount;
+    private ProductLostEnum lostReason;
+    private String lostDescription;
 
     public Product() {
     }
@@ -36,15 +39,6 @@ public class Product extends BaseEntity {
         this.name = name;
     }
 
-    @Column(name = "lost")
-    public Integer getLost() {
-        return lost;
-    }
-
-    public void setLost(Integer lost) {
-        this.lost = lost;
-    }
-
     @Column(name = "amount", nullable = false, insertable = true, updatable = true)
     public Integer getAmount() {
         return amount;
@@ -61,6 +55,34 @@ public class Product extends BaseEntity {
 
     public void setProductState(ProductStateEnum productState) {
         this.productState = productState;
+    }
+
+    @Column (name = "lost_amount")
+    public Integer getLostAmount() {
+        return lostAmount;
+    }
+
+    public void setLostAmount(Integer lostAmount) {
+        this.lostAmount = lostAmount;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "lost_reason")
+    public ProductLostEnum getLostReason() {
+        return lostReason;
+    }
+
+    public void setLostReason(ProductLostEnum lostReason) {
+        this.lostReason = lostReason;
+    }
+
+    @Column (name = "lost_description")
+    public String getLostDescription() {
+        return lostDescription;
+    }
+
+    public void setLostDescription(String lostDescription) {
+        this.lostDescription = lostDescription;
     }
 
     @ManyToOne
