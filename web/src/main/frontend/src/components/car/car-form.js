@@ -1,10 +1,11 @@
 import React from 'react';
-import Select from '../common/select';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateCar, makeNewCar } from '../../actions/car.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
-import Input from '../common/text-input';
+import MyInput from '../common/input';
+import MySelect from '../common/select-component';
+import Formsy from 'formsy-react';
 
 
 
@@ -14,8 +15,17 @@ class CarForm extends React.Component {
     super();
 
     this.state = {
-      errors: {}
+      errors: {},
+      canSubmit: false
     };
+  }
+
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+
+  disableButton() {
+    this.setState({ canSubmit: false });
   }
 
   handleNumberChange(event) {
@@ -55,6 +65,13 @@ class CarForm extends React.Component {
   }
 
   render() {
+    Formsy.addValidationRule('isRequired', function(values, value) {
+      if(value.length === 0){
+        return false;
+      } else {
+        return true;
+      }
+    });
     let editingLabel = <span> Editing of <b> {this.props.car.number} </b> car </span>;
     let creatingLabel = <span>Create new car</span>;
     const disabledClass = this.props.changes ? '' : 'disabled';
@@ -70,7 +87,7 @@ class CarForm extends React.Component {
                   onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
           </button>
           <button type='button' className={`${disabledClass} btn btn-primary`}
-                  onClick={this.props.changes ? this.save.bind(this) : null}>Save
+                  onClick={this.props.changes ? this.save.bind(this) : null} disabled={!this.state.canSubmit}>Save
           </button>
         </div>
       </div>;
@@ -90,23 +107,25 @@ class CarForm extends React.Component {
 
     return (
       <div>
-        <form className='form-horizontal'>
+        <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend>{this.props.car.id ? editingLabel : creatingLabel} </legend>
-            <Input id='number' type='text' label='Car number' placeholder='Enter number here'
+            <MyInput id='number' type='text' title='Car number' placeholder='Enter number here' name="number" required
                    value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='brand' type='text' label='Car brand' placeholder='Enter brand here' required name="brand" title="Brand"
-                   value={this.props.car.brand  || ''} onChange={this.handleBrandChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='model' type='text' label='Car model' placeholder='Enter model here'
+            <MyInput id='brand' type='text' title='Car brand' placeholder='Enter brand here' required name="brand"
+                   value={this.props.car.brand  || ''} onChange={this.handleBrandChange.bind(this)} readOnly={disableEditing}
+                     validations='isAlpha' validationError='This field must contain only letters'/>
+            <MyInput id='model' type='text' title='Car model' placeholder='Enter model here' required name="model"
                    value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='fuelConsumption' type='text' label="Fuel consumption" onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here'
-                   value={this.props.car.fuelConsumption  || ''}  readOnly={disableEditing}/>
-            <Select id="type" label="Type" onChange={this.handleTypeChange.bind(this)}
+            <MyInput id='fuelConsumption' type='text' title="Fuel consumption" onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here'
+                   value={this.props.car.fuelConsumption  || ''}  readOnly={disableEditing} validations="isNumeric" required
+                     name="fuelConsumption" validationError="This field must be a number"/>
+            <MySelect id="Type" label="Type" onChange={this.handleTypeChange.bind(this)}
                     options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultType} disabled={disableEditing}/>
+                    value={defaultType} disabled={disableEditing} name="type" title="Type" validations="isRequired"/>
             {userActions}
           </fieldset>
-        </form>
+        </Formsy.Form>
       </div>
     );
   }

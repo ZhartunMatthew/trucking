@@ -76,8 +76,12 @@ class InvoiceForm extends React.Component {
   }
 
   cancel() {
-    this.context.router.push('/customer');
-    this.props.cancelOperation();
+    if (this.props.userRole === 'COMPANY_OWNER'){
+      this.props.cancelOperation();
+    }else {
+      this.context.router.push('/customer');
+      this.props.cancelOperation();
+    }
   }
 
   create() {
