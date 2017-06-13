@@ -6,6 +6,7 @@ import Select from '../common/select';
 import { loadRoles } from '../../actions/userRole.action';
 import { updateUser, makeNewUser } from '../../actions/user.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class UserForm extends React.Component {
 
@@ -112,9 +113,9 @@ class UserForm extends React.Component {
 
     let userActions = null;
     let role = this.props.userRole;
-    userActions = role === "ADMIN" ? adminActions : userActions;
-    userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
-    let disableEditing = role !== "ADMIN";
+    userActions = role === Role.ADMIN ? adminActions : userActions;
+    userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
+    let disableEditing = role !== Role.ADMIN;
 
     return (
       <div>

@@ -6,11 +6,12 @@ import CheckPointComponent from '../checkPoint/checkPoint-component';
 import OwnerWaybillsTable from './ownerWaybill-table';
 import CheckPointTable from '../checkPoint/checkPoint-table';
 import { cancelOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class WaybillComponent extends React.Component {
 
   componentDidMount() {
-    if(this.props.userRole === "COMPANY_OWNER") {
+    if(this.props.userRole === Role.COMPANY_OWNER) {
       this.props.cancelCurrentOperation();
     }
   }
@@ -30,7 +31,7 @@ class WaybillComponent extends React.Component {
         </div>
       );
     }
-    if(role === 'COMPANY_OWNER'){
+    if(role === Role.COMPANY_OWNER){
       content = this.props.currentWaybill ? (
           <div className='row'>
             <div className='col-sm-7'>

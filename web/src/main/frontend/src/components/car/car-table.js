@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deleteCar } from '../../actions/car.action';
 import { startOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class CarTable extends React.Component {
 
@@ -20,7 +21,7 @@ class CarTable extends React.Component {
 
   render() {
     let rows = this.props.cars.map((car, index) => {
-      if(this.props.userRole === "ADMIN") {
+      if(this.props.userRole === Role.ADMIN) {
         return (
           <tr key={car.id}>
             <th scope='row'> {index + 1} </th>
@@ -39,7 +40,7 @@ class CarTable extends React.Component {
         )
       }
 
-      if(this.props.userRole === "COMPANY_OWNER") {
+      if(this.props.userRole === Role.COMPANY_OWNER) {
         return (
           <tr key={car.id}>
             <th scope='row'> {index + 1} </th>
@@ -65,8 +66,8 @@ class CarTable extends React.Component {
     let ownerActions = null;
     let userActions = null;
     let role = this.props.userRole;
-    userActions = role === "ADMIN" ? adminActions : userActions;
-    userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
+    userActions = role === Role.ADMIN ? adminActions : userActions;
+    userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
     return (
       <div>
         <h1>List of cars</h1>

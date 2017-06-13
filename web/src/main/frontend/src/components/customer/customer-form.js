@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateCustomerCompany, makeNewCustomerCompany } from '../../actions/customer.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class CustomerForm extends React.Component {
 
@@ -93,10 +94,10 @@ class CustomerForm extends React.Component {
 
     let userActions = null;
     let role = this.props.userRole;
-    userActions = role === "ADMIN" ? adminActions : userActions;
-    userActions = role === "DISPATCHER" ? dispatcherActions : userActions;
-    userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
-    let disableEditing = role !== "ADMIN";
+    userActions = role === Role.ADMIN ? adminActions : userActions;
+    userActions = role === Role.DISPATCHER ? dispatcherActions : userActions;
+    userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
+    let disableEditing = role !== Role.ADMIN;
 
     return (
       <div>

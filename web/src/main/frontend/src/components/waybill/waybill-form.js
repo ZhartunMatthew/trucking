@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createWaybill } from '../../actions/waybill.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class WaybillForm extends React.Component {
 
@@ -74,7 +75,7 @@ class WaybillForm extends React.Component {
   }
 
   cancel() {
-    if (this.props.userRole === 'COMPANY_OWNER'){
+    if (this.props.userRole === Role.COMPANY_OWNER){
       this.props.cancelOperation();
     }else {
       this.props.cancelOperation();
@@ -106,8 +107,8 @@ class WaybillForm extends React.Component {
       </div>;
 
     let role = this.props.userRole;
-    userActions = role === "MANAGER" ? managerActions : userActions;
-    let disableEditing = role !== "MANAGER";
+    userActions = role === Role.MANAGER ? managerActions : userActions;
+    let disableEditing = role !== Role.MANAGER;
 
     return (
       <div>

@@ -8,6 +8,7 @@ import { loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
 import { startOperation, updateOperation, cancelOperation } from '../../actions/operation.action';
 import { loadCustomers } from '../../actions/customer.action'
 import { clearProducts } from '../../actions/product.action';
+import { Role } from '../../constants/roles'
 
 class InvoiceForm extends React.Component {
 
@@ -17,7 +18,7 @@ class InvoiceForm extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.userRole === 'DISPATCHER') {
+    if (this.props.userRole === Role.DISPATCHER) {
       this.props.loadFreeDrivers();
       this.props.loadFreeCars(true);
       this.props.loadAllCustomers();
@@ -76,7 +77,7 @@ class InvoiceForm extends React.Component {
   }
 
   cancel() {
-    if (this.props.userRole === 'COMPANY_OWNER'){
+    if (this.props.userRole === Role.COMPANY_OWNER){
       this.props.cancelOperation();
     }else {
       this.context.router.push('/customer');
@@ -106,7 +107,7 @@ class InvoiceForm extends React.Component {
       <div className='btn-group float-right' role='group'>
         <button type='button' className={`btn btn-primary`} onClick={this.create.bind(this)}> Create </button>
       </div>;
-    let disableEditing = role !== "DISPATCHER";
+    let disableEditing = role !== Role.DISPATCHER;
     const defaultDriver = this.props.invoice.driverId ? this.props.invoice.driverId : [];
     const defaultCar = this.props.invoice.carId ? this.props.invoice.carId : [];
     const defaultDestination = this.props.invoice.destinationCustomerCompanyId ? this.props.invoice.destinationCustomerCompanyId : [];
@@ -126,11 +127,11 @@ class InvoiceForm extends React.Component {
       </div>;
 
     let userActions = null;
-    userActions = role === "MANAGER" ? managerActions : userActions;
-    userActions = role === "DISPATCHER" ? dispatcherActions : userActions;
-    dispatcherSelects = role === "DISPATCHER" ? dispatcherSelects : null;
+    userActions = role === Role.MANAGER ? managerActions : userActions;
+    userActions = role === Role.DISPATCHER ? dispatcherActions : userActions;
+    dispatcherSelects = role === Role.DISPATCHER ? dispatcherSelects : null;
 
-    let customerInfo = role === "DISPATCHER"
+    let customerInfo = role === Role.DISPATCHER
       ? this.props.invoice.customerCompany + ', ' + this.props.invoice.customerCompanyCity : this.props.invoice.customerCompany;
 
     return (

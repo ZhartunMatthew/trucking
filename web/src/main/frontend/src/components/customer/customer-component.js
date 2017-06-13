@@ -4,11 +4,12 @@ import { bindActionCreators } from 'redux';
 import CustomerTable from './customer-table';
 import CustomerForm from './customer-form';
 import { cancelOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class CustomerComponent extends React.Component {
 
   componentDidMount() {
-    if(this.props.userRole === "COMPANY_OWNER" || this.props.userRole === "ADMIN") {
+    if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
     }
   }

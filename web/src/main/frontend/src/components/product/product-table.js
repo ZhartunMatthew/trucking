@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class ProductTable extends React.Component {
 
@@ -48,7 +49,7 @@ ProductTable.propTypes = {
 };
 
 let mapStateToProps = function (state) {
-  if(state.userRole.userRole === "DISPATCHER") {
+  if(state.userRole.userRole === Role.DISPATCHER) {
     return {
       products: state.products.products
     };

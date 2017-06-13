@@ -2,13 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ProductForm from '../product/product-form';
 import ProductTable from '../product/product-table';
+import { Role } from '../../constants/roles'
 
 class ProductComponent extends React.Component {
 
   render() {
     let role = this.props.userRole;
     let productForm = null;
-    if(role === 'DISPATCHER') {
+    if(role === Role.DISPATCHER) {
       productForm = <ProductForm/>;
     } else {
       productForm = null;

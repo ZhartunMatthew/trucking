@@ -3,14 +3,15 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CarTable from './car-table';
 import CarForm from './car-form';
-import {loadCarTypes } from '../../actions/carType.action';
+import { loadCarTypes } from '../../actions/carType.action';
 import { cancelOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class CarComponent extends React.Component {
 
   componentDidMount() {
     this.props.loadCarTypes();
-    if(this.props.userRole === "COMPANY_OWNER" || this.props.userRole === "ADMIN") {
+    if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
     }
   }

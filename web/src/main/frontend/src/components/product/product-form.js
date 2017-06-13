@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateOperation, cancelOperation } from '../../actions/operation.action';
 import { updateProducts } from  '../../actions/product.action';
+import { Role } from '../../constants/roles'
 
 class ProductForm extends React.Component {
 
@@ -39,7 +40,7 @@ class ProductForm extends React.Component {
 
   render() {
     let role = this.props.userRole;
-    if(role === "DISPATCHER") {
+    if(role === Role.DISPATCHER) {
       return (
         <div>
           <form className='form-horizontal'>
@@ -49,7 +50,6 @@ class ProductForm extends React.Component {
               <div className='btn-toolbar text-center'>
                 <div className='btn-group' role='group'>
                   <button type='button' className='btn btn-success' onClick={this.create.bind(this)}> Add </button>
-                  {/*<button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}> Close </button>*/}
                 </div>
               </div>
             </fieldset>

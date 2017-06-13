@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class CheckPointTable extends React.Component {
 
@@ -42,7 +43,7 @@ CheckPointTable.propTypes = {
 };
 
 let mapStateToProps = function (state) {
-  if(state.userRole.userRole === "MANAGER") {
+  if(state.userRole.userRole === Role.MANAGER) {
     return {
       checkPoints: state.checkPoints.checkPoints
     };

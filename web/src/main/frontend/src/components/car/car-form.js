@@ -6,8 +6,7 @@ import { updateOperation, resetOperation, cancelOperation } from '../../actions/
 import MyInput from '../common/input';
 import MySelect from '../common/select-component';
 import Formsy from 'formsy-react';
-
-
+import { Role } from '../../constants/roles'
 
 class CarForm extends React.Component {
 
@@ -101,9 +100,9 @@ class CarForm extends React.Component {
 
     let userActions = null;
     let role = this.props.userRole;
-    userActions = role === "ADMIN" ? adminActions : userActions;
-    userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
-    let disableEditing = role !== "ADMIN";
+    userActions = role === Role.ADMIN ? adminActions : userActions;
+    userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
+    let disableEditing = role !== Role.ADMIN;
 
     return (
       <div>
