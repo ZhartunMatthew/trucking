@@ -5,7 +5,6 @@ import { startOperation, updateOperation } from '../../actions/operation.action'
 import { Role } from '../../constants/roles'
 import { deleteProduct } from '../../actions/product.action'
 
-
 class ProductTable extends React.Component {
 
   onDeleteProduct(id) {
@@ -16,20 +15,33 @@ class ProductTable extends React.Component {
   render() {
     let rows = null;
     if(this.props.products !== undefined && this.props.products !== null) {
-      rows = this.props.products.map((product, index) => {
-        return (
-          <tr key={product.id}>
-            <th scope='row'> {index + 1} </th>
-            <td> {product.name}</td>
-            <td> {product.amount}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-danger' onClick={this.onDeleteProduct.bind(this, product.id)}> Delete </button>
-              </div>
-            </td>
-          </tr>
-        )
-      });
+      if(this.props.userRole === Role.DISPATCHER) {
+        rows = this.props.products.map((product, index) => {
+          return (
+            <tr key={product.id}>
+              <th scope='row'> {index + 1} </th>
+              <td> {product.name}</td>
+              <td> {product.amount}</td>
+              <td>
+                <div className='btn-toolbar text-center'>
+                  <button className='btn btn-danger'
+                          onClick={this.onDeleteProduct.bind(this, product.id)}>
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          )});
+      } else {
+        rows = this.props.products.map((product, index) => {
+          return (
+            <tr key={product.id}>
+              <th scope='row'> {index + 1} </th>
+              <td> {product.name}</td>
+              <td> {product.amount}</td>
+            </tr>
+          )});
+      }
     }
     return (
       <div>
@@ -63,7 +75,8 @@ ProductTable.propTypes = {
 let mapStateToProps = function (state) {
   if(state.userRole.userRole === Role.DISPATCHER) {
     return {
-      products: state.products.products
+      products: state.products.products,
+      userRole: state.userRole.userRole
     };
   }
 };
