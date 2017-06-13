@@ -74,12 +74,12 @@ class CarTable extends React.Component {
           <thead>
           <tr>
             <th>#</th>
-            <th>number</th>
-            <th>brand</th>
-            <th>model</th>
-            <th>fuel consumption</th>
-            <th>type</th>
-            <th>actions</th>
+            <th>Number</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Fuel consumption</th>
+            <th>Type</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>

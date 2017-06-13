@@ -8,8 +8,8 @@ const MyInput = React.createClass({
 
   // setValue() will set the value of the component, which in
   // turn will validate it and the rest of the form
-  changeValue(event) {
-    this.setValue(event.currentTarget[this.props.type === 'checkbox' ? 'checked' : 'value']);
+  changeValue: function (event) {
+    this.setValue(event.currentTarget.value);
   },
   render() {
 
@@ -44,20 +44,5 @@ const MyInput = React.createClass({
     );
   }
 });
-
-/*MyInput.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string.isRequired,
-  label: React.PropTypes.any.isRequired,
-  value: React.PropTypes.any.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  placeholder: React.PropTypes.string,
-  readOnly: React.PropTypes.bool
-};
-
-MyInput.defaultProps = {
-  placeholder: '',
-  readOnly: false
-};*/
 
 export default MyInput;

@@ -74,8 +74,12 @@ class WaybillForm extends React.Component {
   }
 
   cancel() {
-    this.props.cancelOperation();
-    this.context.router.push('/invoice');
+    if (this.props.userRole === 'COMPANY_OWNER'){
+      this.props.cancelOperation();
+    }else {
+      this.props.cancelOperation();
+      this.context.router.push('/invoice');
+    }
   }
 
   render() {
