@@ -19,7 +19,6 @@ const MySelect = React.createClass({
         {option.title}
       </option>
     ));
-    console.log(this.showError());
     const labelClass ='label '+(this.showError() ? 'required' : '');
     return (
       <div className={className}>
