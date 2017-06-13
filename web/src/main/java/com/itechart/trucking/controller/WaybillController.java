@@ -100,7 +100,7 @@ public class WaybillController {
             if (product.getLostAmount()!= null) {
                 if (product.getLostAmount()> 0) {
                     product.setProductState(ProductStateEnum.LOST);
-                    product.setLostDescription("some description"); //TODO
+//                    product.setLostDescription("some description"); //TODO
                     product.setLostReason(ProductLostEnum.SPOILED); //TODO
                 }
             }
