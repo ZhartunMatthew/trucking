@@ -12,3 +12,19 @@ export function logOut() {
     });
   }
 }
+
+export function logIn(credentials) {
+  $.ajax({
+    type: 'POST',
+    url: '/login',
+    contentType: 'application/json; charset=utf-8',
+    data: JSON.stringify(credentials),
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    dataType: 'json'
+  }).always(() => {
+    window.location.reload();
+  });
+}
+

@@ -9,8 +9,9 @@ import { systemAdminRoutes} from './systemAdmin.routes';
 import { dispatcherRoutes} from './dispatcher.routes';
 import { managerRoutes} from './manager.routes';
 import { ownerRoutes} from './companyOwner.routes';
-import {driverRoutes} from './driver.routes'
-
+import { driverRoutes} from './driver.routes'
+import { LoginPage} from "./login.page";
+import { startOperation } from '../actions/operation.action'
 
 class UserRole extends React.Component {
 
@@ -45,6 +46,11 @@ class UserRole extends React.Component {
         return (
           <Router history={hashHistory} routes={ownerRoutes} />
         );
+      case "":
+        return (
+          <LoginPage/>
+        );
+
       default:
         return (
           <Error/>
@@ -56,14 +62,14 @@ class UserRole extends React.Component {
 let mapStateToProps = function (state) {
   return {
     userRole: state.userRole.userRole
-
-  };
+  }
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     loadUserRole: bindActionCreators(loadUserRole, dispatch),
-    loadCurrentUser: bindActionCreators(loadCurrentUser, dispatch)
+    loadCurrentUser: bindActionCreators(loadCurrentUser, dispatch),
+    startOperation: bindActionCreators(startOperation, dispatch)
   }
 }
 
