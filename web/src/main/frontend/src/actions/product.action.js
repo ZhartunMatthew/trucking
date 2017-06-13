@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { startOperation, cancelOperation } from './operation.action';
 import {
-  INIT_PRODUCTS, UPDATE_PRODUCTS, CLEAR_PRODUCTS, INIT_LOSTTYPES,
+  INIT_PRODUCTS, UPDATE_PRODUCTS, CLEAR_PRODUCTS, INIT_LOSTTYPES, DELETE_PRODUCT
 } from '../constants/actionTypes';
 
 export function loadProducts(invoiceId) {
@@ -39,6 +39,15 @@ export function clearProducts() {
     dispatch({
       type: CLEAR_PRODUCTS,
       payload: null
+    })
+  }
+}
+
+export function deleteProduct(id) {
+  return (dispatch) => {
+    dispatch({
+      type: DELETE_PRODUCT,
+      payload: id
     })
   }
 }

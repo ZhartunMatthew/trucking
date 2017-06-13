@@ -16,16 +16,13 @@ class ProductForm extends React.Component {
     this.props.updateOperation('currentProductAmount', event.target.value);
   }
 
-  save() {
-
-  }
-
   cancel() {
     this.props.cancelOperation();
   }
 
   create() {
     let productItem = {
+      id: this.getLastProductId() + 1,
       name: '',
       amount: 0,
       productState: 'REGISTERED'
@@ -60,6 +57,16 @@ class ProductForm extends React.Component {
       return null;
     }
   }
+
+  getLastProductId() {
+    let list = this.props.productList;
+    console.log(list);
+    if(list.length < 1) {
+      return 0;
+    } else {
+      return list[list.length-1].id;
+    }
+  }
 }
 
 ProductForm.propTypes = {
@@ -78,7 +85,8 @@ let mapStateToProps = function (state) {
           '' : state.operation.modifiedValue.currentProductName,
 
     currentProductAmount: state.operation.modifiedValue === null ?
-          '' : state.operation.modifiedValue.currentProductAmount
+          '' : state.operation.modifiedValue.currentProductAmount,
+    productList: state.products.products
   };
 };
 

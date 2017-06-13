@@ -70,7 +70,7 @@ class InvoiceComponent extends React.Component {
     }
 
     if(role === 'DISPATCHER') {
-      this.props.currentInvoice.products = this.props.products;
+      this.copyProductsFromStateToInvoice();
       content = this.props.currentInvoice ? (
         <div className='row'>
           <div className='col-sm-4'>
@@ -94,6 +94,18 @@ class InvoiceComponent extends React.Component {
       </div>
     );
   }
+
+  copyProductsFromStateToInvoice() {
+    this.props.currentInvoice.products = [];
+    this.props.products.map((product) => {
+      this.props.currentInvoice.products.push({
+        amount: product.amount,
+        name: product.name,
+        productState: 'REGISTERED'
+      });
+    })
+  }
+
 }
 
 InvoiceComponent.contextTypes = {

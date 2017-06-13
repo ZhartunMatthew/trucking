@@ -1,5 +1,5 @@
 import {
-  INIT_PRODUCTS, UPDATE_PRODUCTS, CLEAR_PRODUCTS
+  INIT_PRODUCTS, UPDATE_PRODUCTS, CLEAR_PRODUCTS, DELETE_PRODUCT
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -21,6 +21,16 @@ const ProductsReducer = (state = initialState, action) => {
       Object.assign(newProducts, state.products);
       newProducts.push(action.payload);
       return Object.assign({}, state, {products: newProducts});
+
+    case DELETE_PRODUCT:
+      let tempProducts = [], listProducts = [];
+      Object.assign(tempProducts, state.products);
+      tempProducts.map((product) => {
+        if(product.id !== action.payload) {
+          listProducts.push(product);
+        }
+      });
+      return Object.assign({}, state, {products: listProducts});
 
     case CLEAR_PRODUCTS:
       return Object.assign({}, state, {products: []});

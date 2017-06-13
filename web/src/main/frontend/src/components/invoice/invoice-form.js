@@ -107,6 +107,7 @@ class InvoiceForm extends React.Component {
       <div className='btn-group float-right' role='group'>
         <button type='button' className={`btn btn-primary`} onClick={this.create.bind(this)}> Create </button>
       </div>;
+
     let disableEditing = role !== Role.DISPATCHER;
     const defaultDriver = this.props.invoice.driverId ? this.props.invoice.driverId : [];
     const defaultCar = this.props.invoice.carId ? this.props.invoice.carId : [];
