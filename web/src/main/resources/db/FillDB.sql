@@ -1,4 +1,5 @@
-      /*---- ENTITY ----*/
+use trucking;
+/*---- ENTITY ----*/
 
 /*trucking_company*/
 INSERT INTO trucking_company (name, taxpayer_number, country, city, street, house)
