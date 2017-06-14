@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface WaybillRepository extends JpaRepository<Waybill, Long> {
-    List<Waybill> findByInvoice_TruckingCompany(TruckingCompany tc);
+    List<Waybill> findByInvoice_TruckingCompany_Id(Long Id);
 
     List<Waybill> findByInvoice_DriverUser(User user);
 }
