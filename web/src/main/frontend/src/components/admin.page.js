@@ -7,6 +7,7 @@ import { loadCars, fetchCar } from '../actions/car.action';
 import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
+import UserTable from '../components/user/user-table'
 
 class AdminPage extends React.Component {
 
@@ -18,7 +19,7 @@ class AdminPage extends React.Component {
   }
 
   render() {
-    var navItems = [{
+    let navItems = [{
       url: '/user',
       caption: 'Users'
     },
@@ -30,10 +31,23 @@ class AdminPage extends React.Component {
       url: '/car',
       caption: 'Cars'
     }];
+
+    let defaultPageInfo =
+      <div className='container'>
+        <div className='row'>
+          <div className='col align-self-center'>
+            <UserTable users={this.props.users}/>
+          </div>
+        </div>
+      </div>;
+
     return (
       <div>
         <div className="wrapper">
           <HeaderComponent navItems={navItems}/>
+          {
+            !this.props.children && defaultPageInfo
+          }
           {this.props.children}
         </div>
         <FooterComponent/>
@@ -42,8 +56,10 @@ class AdminPage extends React.Component {
   }
 }
 
-function mapStateToProps() {
-  return {}
+function mapStateToProps(state) {
+  return {
+    users: state.users.users
+  }
 }
 
 function mapDispatchToProps(dispatch) {
