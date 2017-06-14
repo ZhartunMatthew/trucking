@@ -19,7 +19,7 @@ class WaybillComponent extends React.Component {
   render() {
     let role = this.props.userRole;
     let content = null;
-    if(role === 'MANAGER') {
+    if(role === Role.MANAGER) {
       content = (
         <div className='row'>
           <div className='col-sm-4'>

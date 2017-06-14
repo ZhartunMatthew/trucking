@@ -12,6 +12,7 @@ import { ownerRoutes} from './companyOwner.routes';
 import { driverRoutes} from './driver.routes'
 import { LoginPage} from "./login.page";
 import { startOperation } from '../actions/operation.action'
+import { Role } from '../constants/roles'
 
 class UserRole extends React.Component {
 
@@ -23,31 +24,31 @@ class UserRole extends React.Component {
 
   render() {
     switch (this.props.userRole) {
-      case "SYSTEM_ADMIN":
+      case Role.SYSTEM_ADMIN:
         return (
           <Router history={hashHistory} routes={systemAdminRoutes} />
         );
-      case "ADMIN":
+      case Role.ADMIN:
         return (
           <Router history={hashHistory} routes={adminRoutes} />
         );
-      case "MANAGER":
+      case Role.MANAGER:
         return (
           <Router history={hashHistory} routes={managerRoutes} />
         );
-      case "DISPATCHER":
+      case Role.DISPATCHER:
         return (
           <Router history={hashHistory} routes={dispatcherRoutes} />
         );
-      case "DRIVER":
+      case Role.DRIVER:
         return (
           <Router history={hashHistory} routes={driverRoutes} />
         );
-      case "COMPANY_OWNER":
+      case Role.COMPANY_OWNER:
         return (
           <Router history={hashHistory} routes={ownerRoutes} />
         );
-      case "":
+      case Role.UNKNOWN_USER:
         return (
           <LoginPage/>
         );
