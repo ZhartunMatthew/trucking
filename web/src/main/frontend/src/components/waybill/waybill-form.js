@@ -169,7 +169,7 @@ class WaybillForm extends React.Component {
                    readOnly={true}/>
             <Input id='price' type='text' label='Price' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.price || ''} onChange={this.handlePrice.bind(this)}/>
-            <Input id='totalDistance' type='text' label='Total distance' placeholder='' readOnly={disableEditing}
+            <Input id='totalDistance' type='text' label='Total distance, km' placeholder='' readOnly={true}
                    value={this.props.waybill.totalDistance || ''} onChange={this.handleTotalDistance.bind(this)}/>
             {userFields}
             {userActions}

@@ -11,11 +11,18 @@ import {
 } from 'react-google-maps';
 import SearchBox from 'react-google-maps/lib/places/SearchBox';
 import { updateCheckPoints } from  '../../actions/checkPoint.action';
-import { MAX_COUNT_OF_WAYPOINTS, INPUT_STYLE }  from '../../constants/map.constants';
+import {
+  MAX_COUNT_OF_WAYPOINTS,
+  INPUT_STYLE,
+  DEFAULT_ZOOM,
+  DEFAULT_LATITUDE,
+  DEFAULT_LONGITUDE,
+  METERS_PER_KILOMETER
+}  from '../../constants/map.constants';
 
 const DirectionsGoogleMap = withGoogleMap(props => (
   <GoogleMap
-    defaultZoom={7}
+    defaultZoom={DEFAULT_ZOOM}
     defaultCenter={props.center}
     onClick={props.onClick}
   >
@@ -48,6 +55,7 @@ class MapComponent extends React.Component {
     this.handleRouteChange = this.handleRouteChange.bind(this);
     this.handleOnMapClick = this.handleOnMapClick.bind(this);
     this.convertLocationIntoAddress = this.convertLocationIntoAddress.bind(this);
+    this.calculateTotalDistance = this.calculateTotalDistance.bind(this);
     this.handleStartSearchBox = this.handleStartSearchBox.bind(this);
     this.handleStartSearchBoxMounted = this.handleStartSearchBoxMounted.bind(this);
     this.handleEndSearchBox = this.handleEndSearchBox.bind(this);
@@ -58,8 +66,8 @@ class MapComponent extends React.Component {
       end: null,
       directions: null
     };
-    this.bounds = new google.maps.LatLngBounds(new google.maps.LatLng(41.8507300, -87.6512600),
-      new google.maps.LatLng(41.8507300, -87.6512600));
+    this.defaultCenter = new google.maps.LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
+    this.defaultBounds = new google.maps.LatLngBounds(this.defaultCenter, this.defaultCenter);
   }
 
   handleStartSearchBoxMounted(searchBox) {
@@ -117,10 +125,20 @@ class MapComponent extends React.Component {
         this.setState({
           directions: response
         });
+        this.calculateTotalDistance(response.routes[0].legs);
       } else {
         console.error('error fetching directions ${result}');
       }
     });
+  }
+
+  calculateTotalDistance(legs) {
+    let totalDistance = 0;
+    for(let leg of legs) {
+      totalDistance += leg.distance.value;
+    }
+    totalDistance /= METERS_PER_KILOMETER;
+    this.props.updateOperation('totalDistance', totalDistance);
   }
 
   convertLocationIntoAddress(location, fieldPrefix) {
@@ -144,7 +162,7 @@ class MapComponent extends React.Component {
   }
 
   render() {
-    let dir = this.state.directions === null ? {routes: []} : this.state.directions;
+    let directions = this.state.directions === null ? {routes: []} : this.state.directions;
     return (
       <DirectionsGoogleMap
         containerElement={
@@ -153,10 +171,10 @@ class MapComponent extends React.Component {
         mapElement={
           <div style={{ height: '100%', width: '100%' }} />
         }
-        center={new google.maps.LatLng(41.8507300, -87.6512600)}
+        center={this.defaultCenter}
+        bounds={this.defaultBounds}
         onClick={this.handleOnMapClick}
-        directions={dir}
-        bounds={this.bounds}
+        directions={directions}
         handleStartSearchBox={this.handleStartSearchBox}
         handleEndSearchBox={this.handleEndSearchBox}
         onStartSearchBoxMounted={this.handleStartSearchBoxMounted}

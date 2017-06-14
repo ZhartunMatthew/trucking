@@ -15,3 +15,7 @@ export const INPUT_STYLE = {
 };
 
 export const MAX_COUNT_OF_WAYPOINTS = 21;
+export const DEFAULT_LATITUDE = 53.9216192;
+export const DEFAULT_LONGITUDE = 27.5694262;
+export const DEFAULT_ZOOM = 7;
+export const METERS_PER_KILOMETER = 1000;
