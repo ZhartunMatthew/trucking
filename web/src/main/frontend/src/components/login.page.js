@@ -35,39 +35,33 @@ export class LoginPage extends React.Component {
         <div id="login-content" className="background-login"/>
         <div id="login-modal" className="modal fade" role="dialog">
           <div className="modal-dialog modal-dialog-login">
-            <div className="container">
-              <div className="row">
-                <div className="col align-self-center">
-                  <div className="panel panel-info modal-content-login">
-                    <div className="panel-heading">
-                      <h4 className="text-center"> Sign in </h4>
-                    </div>
-                    <div className="panel-body">
-                      <div className="form-group">
-                        <label className="label"> Login </label>
-                        <input type="text"
-                               className="form-control"
-                               placeholder="Type your login"
-                               ref={(input) => this.username = input}
-                               onKeyDown={this.checkInput.bind(this)}
-                               autoFocus/>
-                      </div>
-                      <div className="form-group">
-                        <label className="label"> Password </label>
-                        <input type="password"
-                               className="form-control"
-                               placeholder="Type your pass"
-                               ref={(input) => this.password = input}
-                               onKeyDown={this.checkInput.bind(this)}/>
-                      </div>
-                      <div className='text-center'>
-                        <button className="btn btn-success btn-block"
-                                id="submit"
-                                onClick={this.login.bind(this)}> Submit </button>
-                        <div className="close"/>
-                      </div>
-                    </div>
-                  </div>
+            <div className="panel panel-info modal-content-login">
+              <div className="panel-heading">
+                <h4 className="text-center"> Sign in </h4>
+              </div>
+              <div className="panel-body">
+                <div className="form-group">
+                  <label className="label"> Login </label>
+                  <input type="text"
+                         className="form-control"
+                         placeholder="Type your login"
+                         ref={(input) => this.username = input}
+                         onKeyDown={this.checkInput.bind(this)}
+                         autoFocus/>
+                </div>
+                <div className="form-group">
+                  <label className="label"> Password </label>
+                  <input type="password"
+                         className="form-control"
+                         placeholder="Type your pass"
+                         ref={(input) => this.password = input}
+                         onKeyDown={this.checkInput.bind(this)}/>
+                </div>
+                <div className='text-center'>
+                  <button className="btn btn-success btn-block"
+                          id="submit"
+                          onClick={this.login.bind(this)}> Submit </button>
+                  <div className="close"/>
                 </div>
               </div>
             </div>
