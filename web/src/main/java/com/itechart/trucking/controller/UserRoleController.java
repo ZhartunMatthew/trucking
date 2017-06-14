@@ -1,8 +1,8 @@
 package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.UserDTO;
-import com.itechart.trucking.entity.User;
 import com.itechart.trucking.entity.enums.UserRoleEnum;
+import com.itechart.trucking.security.detail.CustomUserDetails;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import com.itechart.trucking.services.UserService;
 import org.slf4j.Logger;
@@ -35,15 +35,20 @@ public class UserRoleController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserRoleEnum> getUserRole() {
         LOGGER.info("REST request. Path:/api/userRole  method: GET");
-        UserRoleEnum userRoleEnum = CustomUserDetailsProvider.getUserDetails().getRole();
-        LOGGER.info("Return usersRole {}", userRoleEnum);
-        return new ResponseEntity<>(userRoleEnum, HttpStatus.OK);
+        CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
+        UserRoleEnum roleEnum = details != null ? details.getRole() : null;
+        LOGGER.info("Return usersRole {}", roleEnum);
+        return new ResponseEntity<>(roleEnum, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List> findAll() {
         LOGGER.info("REST request. Path:/api/userRole/all  method: GET");
-        List usersRoles = Arrays.asList(UserRoleEnum.values());
+        List usersRoles = new ArrayList<String>();
+        usersRoles.add(UserRoleEnum.ADMIN);
+        usersRoles.add(UserRoleEnum.MANAGER);
+        usersRoles.add(UserRoleEnum.DISPATCHER);
+        usersRoles.add(UserRoleEnum.COMPANY_OWNER);
         LOGGER.info("Return usersRolesList.size={}", usersRoles.size());
         return new ResponseEntity<>(usersRoles, HttpStatus.OK);
     }
@@ -51,8 +56,9 @@ public class UserRoleController {
     @RequestMapping(value = "/current", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserDTO> getCurrentUser() {
         LOGGER.info("REST request. Path:/api/userRole/current  method: GET");
-        Long userId = CustomUserDetailsProvider.getUserDetails().getId();
-        UserDTO user = conversionService.convert(userService.findOne(userId), UserDTO.class);
+        CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
+        Long userId = details != null ? details.getId() : null;
+        UserDTO user = userId != null ? conversionService.convert(userService.findOne(userId), UserDTO.class) : null;
         LOGGER.info("Return user {}", user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

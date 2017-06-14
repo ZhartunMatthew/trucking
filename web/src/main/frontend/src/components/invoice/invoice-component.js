@@ -9,15 +9,16 @@ import { bindActionCreators } from 'redux';
 import { startOperation, cancelOperation } from '../../actions/operation.action';
 import { loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
 import { loadCustomers } from '../../actions/customer.action'
+import { Role } from '../../constants/roles'
 
 class InvoiceComponent extends React.Component {
 
   componentDidMount() {
-    if(this.props.userRole === "COMPANY_OWNER") {
+    if(this.props.userRole === Role.COMPANY_OWNER) {
       this.props.cancelOperation();
     }
 
-    if(this.props.userRole === 'DISPATCHER') {
+    if(this.props.userRole === Role.DISPATCHER) {
       this.props.loadFreeDrivers();
       this.props.loadFreeCars(true);
       this.props.loadAllCustomers();
@@ -48,7 +49,7 @@ class InvoiceComponent extends React.Component {
   render() {
     let role = this.props.userRole;
     let content = null;
-    if(role === 'MANAGER' || role === 'COMPANY_OWNER') {
+    if(role === Role.MANAGER || role === Role.COMPANY_OWNER) {
       content = this.props.currentInvoice ? (
         <div className='row'>
           <div className='col-sm-4'>
@@ -69,7 +70,7 @@ class InvoiceComponent extends React.Component {
     }
 
     if(role === 'DISPATCHER') {
-      this.props.currentInvoice.products = this.props.products;
+      this.copyProductsFromStateToInvoice();
       content = this.props.currentInvoice ? (
         <div className='row'>
           <div className='col-sm-4'>
@@ -93,6 +94,19 @@ class InvoiceComponent extends React.Component {
       </div>
     );
   }
+
+  copyProductsFromStateToInvoice() {
+    this.props.currentInvoice.products = [];
+    this.props.products.map((product) => {
+      this.props.currentInvoice.products.push({
+        amount: product.amount,
+        name: product.name,
+        price: product.price,
+        productState: 'REGISTERED'
+      });
+    })
+  }
+
 }
 
 InvoiceComponent.contextTypes = {

@@ -10,6 +10,7 @@ import { cancelOperation } from '../actions/operation.action';
 import { loadWaybills } from '../actions/waybill.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
+import UserComponent from './user/user-component'
 
 class CompanyOwnerPage extends React.Component {
 
@@ -23,10 +24,10 @@ class CompanyOwnerPage extends React.Component {
   }
 
   render() {
-    var navItems = [{
-      url: '/user',
-      caption: 'Users'
-    },
+    let navItems = [{
+        url: '/user',
+        caption: 'Users'
+      },
       {
         url: '/customer',
         caption: 'Customers'
@@ -47,18 +48,30 @@ class CompanyOwnerPage extends React.Component {
         url: '/report',
         caption: 'Report'
       }];
+
+    let defaultPageInfo = <UserComponent/>;
+
     return (
       <div>
-        <HeaderComponent navItems={navItems}/>
-        {this.props.children}
+        <div className="wrapper">
+          <HeaderComponent navItems={navItems}/>
+          {
+            !this.props.children && defaultPageInfo
+          }
+          {
+            this.props.children
+          }
+        </div>
         <FooterComponent/>
       </div>
     );
   }
 }
 
-function mapStateToProps() {
-  return {}
+function mapStateToProps(state) {
+  return {
+    users: state.users.users
+  }
 }
 
 function mapDispatchToProps(dispatch) {

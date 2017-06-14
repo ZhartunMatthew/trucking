@@ -12,6 +12,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -52,7 +53,8 @@ public class UserController {
     @RequestMapping(value = "/freeDrivers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<UserDTO>> findFreeDrivers() {
         LOGGER.info("REST request. Path:/api/freeDrivers  method: GET");
-        List<User> users = userService.findAvailable();
+        Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        List<User> users = userService.findAvailable(truckingCompanyId);
         List<UserDTO> userDTOs = new ArrayList<>();
         for (User user : users){
             UserDTO userDTO = conversionService.convert(user, UserDTO.class);
@@ -66,11 +68,14 @@ public class UserController {
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) {
         LOGGER.info("REST request. Path:/api/user  method: POST. user: {}", userDTO);
         userDTO.setSalt("qqqqqqqq");
+        userDTO.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
         Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
         userDTO.setTruckingCompanyId(truckingCompanyId);
         if (userDTO.getUserRole().equals(UserRoleEnum.DRIVER)){
             userDTO.setIsAvailable(true);
-        } else userDTO.setIsAvailable(null);
+        } else {
+            userDTO.setIsAvailable(null);
+        }
         User userEntity = userService.save(conversionService.convert(userDTO, User.class));
         UserDTO resultUser = conversionService.convert(userEntity, UserDTO.class);
         return new ResponseEntity<>(resultUser, HttpStatus.OK);

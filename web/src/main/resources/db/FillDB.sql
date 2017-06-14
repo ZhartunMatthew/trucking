@@ -1,4 +1,5 @@
-      /*---- ENTITY ----*/
+use trucking;
+/*---- ENTITY ----*/
 
 /*trucking_company*/
 INSERT INTO trucking_company (name, taxpayer_number, country, city, street, house)
@@ -88,3 +89,55 @@ INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
 INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
 VALUES ('Смоленск', 'широта', 'долгота', '2017-03-23', 2);
 commit;
+
+UPDATE user
+SET password = "$2a$10$P5xd53WzHjjUyliGd0uZA.ylsCYGIG31LKK3cbJ4SrecURxjWVihq"
+WHERE id_user = 1;
+
+UPDATE user
+SET password = "$2a$10$G5A3KcRmqTtmQd0kAigFH.rSus30vTrOVM1jPZYhvgGNQuOO.vb3q"
+WHERE id_user = 2;
+
+UPDATE user
+SET password = "$2a$10$1Lwg6vaLPe8b90wPE71mnex.swiTvAHJH774cllWtX90OJxONz8wy"
+WHERE id_user = 3;
+
+UPDATE user
+SET password = "$2a$10$C0CPPwdquY9wZBnNipFU8e35afE6ahZsXhCnVYMizaEZGC1IHV8xS"
+WHERE id_user = 4;
+
+UPDATE user
+SET password = "$2a$10$HPw0gHvDp03aWcYZ.LDvHu7VAmPT5HBKxax83Arv978.8X1ZgACFy"
+WHERE id_user = 5;
+
+UPDATE user
+SET password = "$2a$10$tveXoVLTOMvjI0HxbQnf5uxoue5nLhl5BuJgLVLEOo.GKxdxwlhbS"
+WHERE id_user = 6;
+
+UPDATE product
+SET price = 300
+WHERE id_product = 1;
+
+UPDATE product
+SET price = 450
+WHERE id_product = 2;
+
+UPDATE product
+SET price = 200
+WHERE id_product = 3;
+
+UPDATE product
+SET price = 150
+WHERE id_product = 4;
+
+UPDATE product
+SET price = 200
+WHERE id_product = 5;
+
+UPDATE product
+SET price = 400
+WHERE id_product = 6;
+
+UPDATE product
+SET price = 300
+WHERE id_product = 7;

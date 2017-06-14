@@ -40,4 +40,9 @@ public class ProductService {
     public Product securedFindOne(Long id) {
         return productRepository.findOne(id);
     }
+
+    @PreAuthorize("hasAnyRole('COMPANY_OWNER')")
+    public List<Product> FindAll(Long id) {
+        return productRepository.findByInvoice_TruckingCompany_Id(id);
+    }
 }

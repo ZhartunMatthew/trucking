@@ -1,7 +1,9 @@
 package com.itechart.trucking.services;
 
 import com.itechart.trucking.entity.Car;
+import com.itechart.trucking.entity.TruckingCompany;
 import com.itechart.trucking.repository.CarRepository;
+import com.itechart.trucking.repository.TruckingCompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,13 @@ public class CarService {
     @Autowired
     private CarRepository carRepository;
 
+    @Autowired
+    private TruckingCompanyRepository truckingCompanyRepository;
+
     @PreAuthorize("hasPermission(null, 'Car', 'GET')")
     @Transactional(readOnly = true)
-    public List<Car> findAll() {
-        return carRepository.findAll();
+    public List<Car> findAll(Long truckingCompanyId) {
+        return carRepository.findAllByTruckingCompany_Id(truckingCompanyId);
     }
 
     @PreAuthorize("hasPermission(#id, 'Car', 'GET')")

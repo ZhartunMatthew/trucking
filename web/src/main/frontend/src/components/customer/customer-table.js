@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deleteCustomerCompany } from '../../actions/customer.action';
 import { startOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class CustomerTable extends React.Component {
 
@@ -20,11 +21,11 @@ class CustomerTable extends React.Component {
 
   render() {
     let rows = this.props.customers.map((customer, index) => {
-      if(this.props.userRole === "ADMIN") {
+      if(this.props.userRole === Role.ADMIN) {
         return (
           <tr key={customer.id}>
             <th scope='row'> {index + 1} </th>
-            <td> {customer.number}</td>
+            <td> {customer.name}</td>
             <td> {customer.taxpayerNumber}</td>
             <td> {customer.country}</td>
             <td> {customer.city}</td>
@@ -40,7 +41,7 @@ class CustomerTable extends React.Component {
         )
       }
 
-      if(this.props.userRole === "DISPATCHER" || this.props.userRole === "COMPANY_OWNER") {
+      if(this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
         return (
           <tr key={customer.id}>
             <th scope='row'> {index + 1} </th>
@@ -73,9 +74,9 @@ class CustomerTable extends React.Component {
     let userActions = null;
 
     let role = this.props.userRole;
-    userActions = role === "ADMIN" ? adminActions : userActions;
-    userActions = role === "DISPATCHER" ? dispatcherActions : userActions;
-    userActions = role === "COMPANY_OWNER" ? dispatcherActions : userActions;
+    userActions = role === Role.ADMIN ? adminActions : userActions;
+    userActions = role === Role.DISPATCHER ? dispatcherActions : userActions;
+    userActions = role === Role.COMPANY_OWNER ? dispatcherActions : userActions;
 
 
     return (

@@ -1,22 +1,49 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { startOperation } from '../../actions/operation.action';
+import { startOperation, updateOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
+import { deleteProduct } from '../../actions/product.action'
 
 class ProductTable extends React.Component {
+
+  onDeleteProduct(id) {
+    this.props.deleteProduct(id);
+    this.props.updateOperation(null, {});
+  }
 
   render() {
     let rows = null;
     if(this.props.products !== undefined && this.props.products !== null) {
-      rows = this.props.products.map((product, index) => {
-        return (
-          <tr key={index + 1}>
-            <th scope='row'> {index + 1} </th>
-            <td> {product.name}</td>
-            <td> {product.amount}</td>
-          </tr>
-        )
-      });
+      if(this.props.userRole === Role.DISPATCHER) {
+        rows = this.props.products.map((product, index) => {
+          return (
+            <tr key={product.id}>
+              <th scope='row'> {index + 1} </th>
+              <td> {product.name}</td>
+              <td> {product.amount}</td>
+              <td> {product.price}</td>
+              <td>
+                <div className='btn-toolbar text-center'>
+                  <button className='btn btn-danger'
+                          onClick={this.onDeleteProduct.bind(this, product.id)}>
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          )});
+      } else {
+        rows = this.props.products.map((product, index) => {
+          return (
+            <tr key={product.id}>
+              <th scope='row'> {index + 1} </th>
+              <td> {product.name}</td>
+              <td> {product.amount}</td>
+              <td> {product.price}</td>
+            </tr>
+          )});
+      }
     }
     return (
       <div>
@@ -27,6 +54,7 @@ class ProductTable extends React.Component {
             <th>#</th>
             <th>name</th>
             <th>amount</th>
+            <th>price</th>
           </tr>
           </thead>
           <tbody>
@@ -48,9 +76,10 @@ ProductTable.propTypes = {
 };
 
 let mapStateToProps = function (state) {
-  if(state.userRole.userRole === "DISPATCHER") {
+  if(state.userRole.userRole === Role.DISPATCHER) {
     return {
-      products: state.products.products
+      products: state.products.products,
+      userRole: state.userRole.userRole
     };
   }
 };
@@ -58,6 +87,8 @@ let mapStateToProps = function (state) {
 function mapDispatchToProps(dispatch) {
   return {
     startOperation: bindActionCreators(startOperation, dispatch),
+    updateOperation: bindActionCreators(updateOperation, dispatch),
+    deleteProduct: bindActionCreators(deleteProduct, dispatch)
   }
 }
 

@@ -41,7 +41,8 @@ public class CarController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CarDTO>> findAll() {
         LOGGER.info("REST request. Path:/api/car  method: GET");
-        List<Car> cars = service.findAll();
+        Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        List<Car> cars = service.findAll(truckingCompanyId);
         List<CarDTO> carDTOs = new ArrayList<>();
         cars.forEach(car ->
                 carDTOs.add(conversionService.convert(car, CarDTO.class))

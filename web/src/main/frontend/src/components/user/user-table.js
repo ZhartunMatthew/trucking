@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deleteUser } from '../../actions/user.action';
 import { startOperation } from '../../actions/operation.action';
+import { Role } from '../../constants/roles'
 
 class UserTable extends React.Component {
 
@@ -11,7 +12,20 @@ class UserTable extends React.Component {
   }
 
   onShowCreateUserForm() {
-    this.props.startOperation({name: '', surname: '',patronymic: '', email: '', city: '', street: '', house: '', flat: '',userRole: '', login: '', password: '', salt: ''});
+    this.props.startOperation({
+      name: '',
+      surname: '',
+      patronymic: '',
+      email: '',
+      city: '',
+      street: '',
+      house: '',
+      flat: '',
+      userRole: '',
+      login: '',
+      password: '',
+      salt: ''
+    });
   }
 
   deleteUser(user) {
@@ -20,7 +34,7 @@ class UserTable extends React.Component {
 
   render() {
     let rows = this.props.users.map((user, index) => {
-      if(this.props.userRole === "ADMIN") {
+      if(this.props.userRole === Role.ADMIN) {
         return (
           <tr key={user.id}>
             <th scope='row'> {index + 1} </th>
@@ -38,7 +52,7 @@ class UserTable extends React.Component {
         )
       }
 
-      if(this.props.userRole === "COMPANY_OWNER") {
+      if(this.props.userRole === Role.COMPANY_OWNER) {
         return (
           <tr key={user.id}>
             <th scope='row'> {index + 1} </th>
@@ -65,8 +79,8 @@ class UserTable extends React.Component {
     let ownerActions = null;
     let userActions = null;
     let role = this.props.userRole;
-    userActions = role === "ADMIN" ? adminActions : userActions;
-    userActions = role === "COMPANY_OWNER" ? ownerActions : userActions;
+    userActions = role === Role.ADMIN ? adminActions : userActions;
+    userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
     return (
       <div>
         <h1>List of users</h1>

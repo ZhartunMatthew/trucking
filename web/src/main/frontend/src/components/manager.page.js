@@ -6,6 +6,7 @@ import { loadInvoices, fetchInvoice } from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
+import InvoiceComponent from './invoice/invoice-component'
 
 class ManagerPage extends React.Component {
 
@@ -15,14 +16,24 @@ class ManagerPage extends React.Component {
   }
 
   render() {
-    var navItems = [{
+    let navItems = [{
       url: '/invoice',
       caption: 'Invoices'
     }];
+
+    let defaultPageInfo = <InvoiceComponent/>
+
     return (
       <div>
-        <HeaderComponent navItems={navItems}/>
-        {this.props.children}
+        <div className="wrapper">
+          <HeaderComponent navItems={navItems}/>
+          {
+            !this.props.children && defaultPageInfo
+          }
+          {
+            this.props.children
+          }
+        </div>
         <FooterComponent/>
       </div>
     );

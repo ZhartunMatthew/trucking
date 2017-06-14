@@ -1,11 +1,31 @@
 import React from 'react';
-import Input from '../common/text-input';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateOperation, cancelOperation } from '../../actions/operation.action';
 import { updateProducts } from  '../../actions/product.action';
+import { Role } from '../../constants/roles';
+import MyInput from '../common/input';
+import MySelect from '../common/select-component';
+import Formsy from 'formsy-react';
 
 class ProductForm extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      errors: {},
+      canSubmit: false
+    };
+  }
+
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
 
   handleProductNameChange(event) {
     this.props.updateOperation('currentProductName', event.target.value);
@@ -15,8 +35,8 @@ class ProductForm extends React.Component {
     this.props.updateOperation('currentProductAmount', event.target.value);
   }
 
-  save() {
-
+  handlePriceChange(event) {
+    this.props.updateOperation('currentProductPrice', event.target.value);
   }
 
   cancel() {
@@ -25,39 +45,63 @@ class ProductForm extends React.Component {
 
   create() {
     let productItem = {
+      id: this.getLastProductId() + 1,
       name: '',
       amount: 0,
+      price: 0,
       productState: 'REGISTERED'
     };
     productItem.amount = this.props.currentProductAmount;
     productItem.name = this.props.currentProductName;
+    productItem.price = this.props.currentProductPrice;
     this.props.updateProducts(productItem);
     this.props.updateOperation(null, {});
     this.props.updateOperation('currentProductName', '');
     this.props.updateOperation('currentProductAmount', '');
+    this.props.updateOperation('currentProductPrice', '');
   }
 
   render() {
+
+    Formsy.addValidationRule('isLetter', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z]+$/.test(value));
+    });
+
     let role = this.props.userRole;
-    if(role === "DISPATCHER") {
+    if(role === Role.DISPATCHER) {
       return (
         <div>
-          <form className='form-horizontal'>
+          <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <fieldset>
-              <Input id='currentProductName' type='text' label='Product name' placeholder='' value={this.props.currentProductName} onChange={this.handleProductNameChange.bind(this)}/>
-              <Input id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount} onChange={this.handleAmountChange.bind(this)}/>
+              <MyInput id='currentProductName' type='text' label='Product name' placeholder='' value={this.props.currentProductName}
+                       onChange={this.handleProductNameChange.bind(this)} validations='isLetter' validationError='This field must contain only letters'
+                       required name='currentProductName' title='Product name'/>
+              <MyInput id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount}
+                       onChange={this.handleAmountChange.bind(this)} validations="isNumeric" validationError="This field must be a number"
+                       required name='currentProductAmount' title='Amount'/>
+              <MyInput id='currentProductPrice' type='text' label='Price' placeholder='' value={this.props.currentProductPrice} onChange={this.handlePriceChange.bind(this)}
+                        required name='currentProductPrice' title='Price' validations="isNumeric" validationError="This field must be a number"/>
               <div className='btn-toolbar text-center'>
                 <div className='btn-group' role='group'>
-                  <button type='button' className='btn btn-success' onClick={this.create.bind(this)}> Add </button>
-                  {/*<button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}> Close </button>*/}
+                  <button type='button' className='btn btn-success' onClick={this.create.bind(this)} disabled={!this.state.canSubmit}> Add </button>
                 </div>
               </div>
             </fieldset>
-          </form>
+          </Formsy.Form>
         </div>
       );
     } else {
       return null;
+    }
+  }
+
+  getLastProductId() {
+    let list = this.props.productList;
+    console.log(list);
+    if(list.length < 1) {
+      return 0;
+    } else {
+      return list[list.length-1].id;
     }
   }
 }
@@ -68,7 +112,8 @@ ProductForm.propTypes = {
   updateProducts: React.PropTypes.func.isRequired,
   userRole: React.PropTypes.String,
   currentProductName: React.PropTypes.String,
-  currentProductAmount: React.PropTypes.String
+  currentProductAmount: React.PropTypes.String,
+  currentProductPrice: React.PropTypes.String
 };
 
 let mapStateToProps = function (state) {
@@ -78,7 +123,11 @@ let mapStateToProps = function (state) {
           '' : state.operation.modifiedValue.currentProductName,
 
     currentProductAmount: state.operation.modifiedValue === null ?
-          '' : state.operation.modifiedValue.currentProductAmount
+          '' : state.operation.modifiedValue.currentProductAmount,
+
+    currentProductPrice: state.operation.modifiedValue === null ?
+      '' : state.operation.modifiedValue.currentProductPrice,
+    productList: state.products.products
   };
 };
 

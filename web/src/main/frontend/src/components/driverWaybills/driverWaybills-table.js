@@ -2,13 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startOperation } from '../../actions/operation.action';
-import { loadProducts} from '../../actions/driverWaybills.action';
+import { loadProducts } from '../../actions/driverWaybills.action';
+import { loadLostTypes } from '../../actions/product.action'
+
 
 class DriverWaybillsTable extends React.Component {
 
   onShowUpdateWaybillForm(driverWaybill) {
     this.props.startOperation(driverWaybill);
     this.props.loadProducts(driverWaybill.invoiceId);
+    this.props.loadLostTypes();
   }
 
   render() {
@@ -71,6 +74,7 @@ function mapDispatchToProps(dispatch) {
   return {
     startOperation: bindActionCreators(startOperation, dispatch),
     loadProducts: bindActionCreators(loadProducts, dispatch),
+    loadLostTypes: bindActionCreators(loadLostTypes, dispatch)
   }
 }
 

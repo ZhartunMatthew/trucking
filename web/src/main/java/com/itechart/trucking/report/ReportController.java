@@ -1,24 +1,24 @@
-package com.itechart.trucking.controller;
+package com.itechart.trucking.report;
 
-import com.itechart.trucking.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import report.ReportBuilder;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 @Controller
-@RequestMapping(value = "/report")
+@RequestMapping(value = "/api/report")
 public class ReportController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportController.class);
 
-    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public void download(HttpServletResponse response) throws IOException {
         LOGGER.info("Path:/report/download  method: GET");
 

@@ -6,6 +6,7 @@ import { cancelOperation } from '../actions/operation.action';
 import { Link } from 'react-router';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
+import TruckingCompanyComponent from './truckingCompany/truckingCompany-component'
 
 class SystemAdminPage extends React.Component {
 
@@ -15,14 +16,24 @@ class SystemAdminPage extends React.Component {
   }
 
   render() {
-    var navItems = [{
+    let navItems = [{
       url: '/companies',
       caption: 'Trucking companies'
     }];
+
+    let defaultPageInfo = <TruckingCompanyComponent/>;
+
     return (
         <div>
-          <HeaderComponent navItems={navItems}/>
-          {this.props.children}
+          <div className="wrapper">
+            <HeaderComponent navItems={navItems}/>
+            {
+              !this.props.children && defaultPageInfo
+            }
+            {
+              this.props.children
+            }
+          </div>
           <FooterComponent/>
         </div>
     );

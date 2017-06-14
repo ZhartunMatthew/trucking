@@ -26,7 +26,9 @@ class HeaderComponent extends React.Component {
               {navItems}
             </ul>
             <ul className="nav navbar-nav navbar-right">
-              <li><a className="nav-link" href="#" onClick={this.onLogOut.bind(this)}>Log out</a></li>
+              <li>
+                <a className="nav-link" href="#" onClick={this.onLogOut.bind(this)}> Log out </a>
+              </li>
             </ul>
           </div>
         </nav>

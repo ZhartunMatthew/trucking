@@ -47,8 +47,8 @@ public class UserService {
 
     @PreAuthorize("hasPermission(null, 'User', 'GET')")
     @Transactional(readOnly = true)
-    public List<User> findAvailable() {
-        return userRepository.findByAvailableTrue();
+    public List<User> findAvailable(Long truckingCompanyId) {
+        return userRepository.findByAvailableTrueAndTruckingCompany_Id(truckingCompanyId);
     }
 
     @PreAuthorize("hasAnyRole('SYSTEM_ADMIN', 'ADMIN', 'DISPATCHER', 'MANAGER', 'DRIVER', 'COMPANY_OWNER')")

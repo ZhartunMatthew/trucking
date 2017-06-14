@@ -39,7 +39,8 @@ public class CustomerCompanyController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CustomerCompanyDTO>> findAll() {
         LOGGER.info("REST request. Path:/api/customer-company  method: GET");
-        List<CustomerCompany> companies = service.findAll();
+        Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        List<CustomerCompany> companies = service.findAll(truckingCompanyId);
         List<CustomerCompanyDTO> companyDTOs = new ArrayList<>();
         companies.forEach(customerCompany ->
                 companyDTOs.add(conversionService.convert(customerCompany, CustomerCompanyDTO.class))
