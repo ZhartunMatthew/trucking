@@ -112,3 +112,31 @@ WHERE id_user = 5;
 UPDATE user
 SET password = "$2a$10$tveXoVLTOMvjI0HxbQnf5uxoue5nLhl5BuJgLVLEOo.GKxdxwlhbS"
 WHERE id_user = 6;
+
+UPDATE product
+SET price = 300
+WHERE id_product = 1;
+
+UPDATE product
+SET price = 450
+WHERE id_product = 2;
+
+UPDATE product
+SET price = 200
+WHERE id_product = 3;
+
+UPDATE product
+SET price = 150
+WHERE id_product = 4;
+
+UPDATE product
+SET price = 200
+WHERE id_product = 5;
+
+UPDATE product
+SET price = 400
+WHERE id_product = 6;
+
+UPDATE product
+SET price = 300
+WHERE id_product = 7;

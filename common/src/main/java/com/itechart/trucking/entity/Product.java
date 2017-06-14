@@ -15,6 +15,7 @@ public class Product extends BaseEntity {
     private Integer lostAmount;
     private ProductLostEnum lostReason;
     private String lostDescription;
+    private Double price;
 
     public Product() {
     }
@@ -93,5 +94,14 @@ public class Product extends BaseEntity {
 
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
+    }
+
+    @Column (name = "price")
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

@@ -22,6 +22,7 @@ class ProductTable extends React.Component {
               <th scope='row'> {index + 1} </th>
               <td> {product.name}</td>
               <td> {product.amount}</td>
+              <td> {product.price}</td>
               <td>
                 <div className='btn-toolbar text-center'>
                   <button className='btn btn-danger'
@@ -39,6 +40,7 @@ class ProductTable extends React.Component {
               <th scope='row'> {index + 1} </th>
               <td> {product.name}</td>
               <td> {product.amount}</td>
+              <td> {product.price}</td>
             </tr>
           )});
       }
@@ -52,6 +54,7 @@ class ProductTable extends React.Component {
             <th>#</th>
             <th>name</th>
             <th>amount</th>
+            <th>price</th>
           </tr>
           </thead>
           <tbody>

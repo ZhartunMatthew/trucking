@@ -68,16 +68,22 @@ class DriverWaybillsForm extends React.Component {
             <Input id={"amountLost" + product.id} label="Amount lost" type="text" value={product.lostAmount}
                    readOnly={disableEditing} onChange={this.handleProductLostChange.bind(this, product.id, product)}/>
           </td>
+          { product.lostAmount &&
           <td>
             <Select id={"typeLost" + product.id} label="Reason lost" value={defaultType}
-                    disabled={disableEditing} options={this.props.lostTypes.map((type)=>{return ( <option> {type} </option> )})}
+                    disabled={disableEditing} options={this.props.lostTypes.map((type) => {
+              return ( <option> {type} </option> )
+            })}
                     onChange={this.handleProductTypeChange.bind(this, product.id, product)}/>
           </td>
+          }
+          { product.lostAmount &&
           <td>
-            <TextareaElement id={"descLost" + product.id} label="Description lost"
-                    readOnly={disableEditing} value={product.lostDescription} rows={4}
-                    onChange={this.handleProductDescChange.bind(this, product.id, product)}/>
+          < TextareaElement id={"descLost" + product.id} label="Description lost"
+            readOnly={disableEditing} value={product.lostDescription} rows={4}
+            onChange={this.handleProductDescChange.bind(this, product.id, product)}/>
           </td>
+          }
         </tr>
       )
     });

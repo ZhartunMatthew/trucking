@@ -101,6 +101,7 @@ class InvoiceComponent extends React.Component {
       this.props.currentInvoice.products.push({
         amount: product.amount,
         name: product.name,
+        price: product.price,
         productState: 'REGISTERED'
       });
     })

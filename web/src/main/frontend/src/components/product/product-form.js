@@ -16,6 +16,10 @@ class ProductForm extends React.Component {
     this.props.updateOperation('currentProductAmount', event.target.value);
   }
 
+  handlePriceChange(event) {
+    this.props.updateOperation('currentProductPrice', event.target.value);
+  }
+
   cancel() {
     this.props.cancelOperation();
   }
@@ -25,14 +29,17 @@ class ProductForm extends React.Component {
       id: this.getLastProductId() + 1,
       name: '',
       amount: 0,
+      price: 0,
       productState: 'REGISTERED'
     };
     productItem.amount = this.props.currentProductAmount;
     productItem.name = this.props.currentProductName;
+    productItem.price = this.props.currentProductPrice;
     this.props.updateProducts(productItem);
     this.props.updateOperation(null, {});
     this.props.updateOperation('currentProductName', '');
     this.props.updateOperation('currentProductAmount', '');
+    this.props.updateOperation('currentProductPrice', '');
   }
 
   render() {
@@ -44,6 +51,7 @@ class ProductForm extends React.Component {
             <fieldset>
               <Input id='currentProductName' type='text' label='Product name' placeholder='' value={this.props.currentProductName} onChange={this.handleProductNameChange.bind(this)}/>
               <Input id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount} onChange={this.handleAmountChange.bind(this)}/>
+              <Input id='currentProductPrice' type='text' label='Price' placeholder='' value={this.props.currentProductPrice} onChange={this.handlePriceChange.bind(this)}/>
               <div className='btn-toolbar text-center'>
                 <div className='btn-group' role='group'>
                   <button type='button' className='btn btn-success' onClick={this.create.bind(this)}> Add </button>
@@ -75,7 +83,8 @@ ProductForm.propTypes = {
   updateProducts: React.PropTypes.func.isRequired,
   userRole: React.PropTypes.String,
   currentProductName: React.PropTypes.String,
-  currentProductAmount: React.PropTypes.String
+  currentProductAmount: React.PropTypes.String,
+  currentProductPrice: React.PropTypes.String
 };
 
 let mapStateToProps = function (state) {
@@ -86,6 +95,9 @@ let mapStateToProps = function (state) {
 
     currentProductAmount: state.operation.modifiedValue === null ?
           '' : state.operation.modifiedValue.currentProductAmount,
+
+    currentProductPrice: state.operation.modifiedValue === null ?
+      '' : state.operation.modifiedValue.currentProductPrice,
     productList: state.products.products
   };
 };

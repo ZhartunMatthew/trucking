@@ -17,4 +17,5 @@ public class ProductDTO extends AbstractDTO {
     private Integer lostAmount;
     private ProductLostEnum lostReason;
     private String lostDescription;
+    private Double price;
 }
