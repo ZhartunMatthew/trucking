@@ -71,9 +71,11 @@ class CarForm extends React.Component {
         return true;
       }
     });
+
     Formsy.addValidationRule('isRequired', function(values, value) {
       return !(/\s/g.test(value));
     });
+
     let editingLabel = <span> Editing of <b> {this.props.car.number} </b> car </span>;
     let creatingLabel = <span>Create new car</span>;
     const disabledClass = this.props.changes ? '' : 'disabled';

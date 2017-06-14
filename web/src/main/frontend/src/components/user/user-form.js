@@ -6,9 +6,30 @@ import Select from '../common/select';
 import { loadRoles } from '../../actions/userRole.action';
 import { updateUser, makeNewUser } from '../../actions/user.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
-import { Role } from '../../constants/roles'
+import { Role } from '../../constants/roles';
+import MyInput from '../common/input';
+import MySelect from '../common/select-component';
+import Formsy from 'formsy-react';
 
 class UserForm extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      errors: {},
+      canSubmit: false
+    };
+  }
+
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
+
 
   componentDidMount() {
     this.props.loadUsersRoles();
@@ -84,6 +105,23 @@ class UserForm extends React.Component {
   }
 
   render() {
+
+    Formsy.addValidationRule('isRequiredSelect', function(values, value) {
+      if(value.length === 0){
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    Formsy.addValidationRule('isRequired', function(values, value) {
+      return !(/\s/g.test(value));
+    });
+
+    Formsy.addValidationRule('isAddress', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
     let editingLabel = <span> Editing of <b> {this.props.user.name} </b> user </span>;
     let creatingLabel = <span>Create new user</span>;
     const defaultUserRole = this.props.user.userRole ? this.props.user.userRole : [];
@@ -99,7 +137,7 @@ class UserForm extends React.Component {
                 onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
           </button>
           <button type='button' className={`${disabledClass} btn btn-primary`}
-                onClick={this.props.changes ? this.save.bind(this) : null}>Save
+                onClick={this.props.changes ? this.save.bind(this) : null} disabled={!this.state.canSubmit}>Save
           </button>
         </div>
       </div>;
@@ -119,35 +157,38 @@ class UserForm extends React.Component {
 
     return (
       <div>
-        <form className='form-horizontal'>
+        <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend>{this.props.user.id ? editingLabel : creatingLabel} </legend>
-            <Input id='name' type='text' label='name' placeholder='Enter name here'
+            <MyInput id='name' type='text' label='name' placeholder='Enter name here'
                    value={this.props.user.name || ''} onChange={this.handleNameChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='surname' type='text' label='surname' placeholder='Enter surname here'
+            <MyInput id='surname' type='text' label='surname' placeholder='Enter surname here'
                    value={this.props.user.surname  || ''} onChange={this.handleSurnameChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='patronymic' type='text' label='patronymic' placeholder='Enter patronymic here'
+            <MyInput id='patronymic' type='text' label='patronymic' placeholder='Enter patronymic here'
                    value={this.props.user.patronymic  || ''} onChange={this.handlePatronymicChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='email' type='text' label='email' placeholder='Enter email here'
+            <MyInput id='email' type='text' label='email' placeholder='Enter email here'
                    value={this.props.user.email  || ''} onChange={this.handleEmailChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='login' type='text' label='login' placeholder='Enter login here'
+            <MyInput id='login' type='text' label='login' placeholder='Enter login here'
                    value={this.props.user.login  || ''} onChange={this.handleLoginChange.bind(this)} readOnly={disableEditing}/>
             <Input id='password' type='text' label='password' placeholder='Enter password here'
                    value={this.props.user.password  || ''} onChange={this.handlePasswordChange.bind(this)} readOnly={disableEditing || this.props.user.id}/>
             <Input id='city' type='text' label='city' placeholder='Enter city here'
+            <MyInput id='password' type='text' label='password' placeholder='Enter password here'
+                   value={this.props.user.password  || ''} onChange={this.handlePasswordChange.bind(this)} readOnly={disableEditing}/>
+            <MyInput id='city' type='text' label='city' placeholder='Enter city here'
                    value={this.props.user.city  || ''} onChange={this.handleCityChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='street' type='text' label='street' placeholder='Enter street here'
+            <MyInput id='street' type='text' label='street' placeholder='Enter street here'
                    value={this.props.user.street  || ''} onChange={this.handleStreetChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='house' type='text' label='house' placeholder='Enter house here'
+            <MyInput id='house' type='text' label='house' placeholder='Enter house here'
                    value={this.props.user.house  || ''} onChange={this.handleHouseChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='flat' type='text' label='flat' placeholder='Enter flat here'
+            <MyInput id='flat' type='text' label='flat' placeholder='Enter flat here'
                    value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)} readOnly={disableEditing}/>
-            <Select id="userRole" label="userRole" onChange={this.handleUserRoleChange.bind(this)}
+            <MySelect id="userRole" label="User role" onChange={this.handleUserRoleChange.bind(this)}
                     options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultUserRole} disabled={disableEditing}/>
+                    value={defaultUserRole} disabled={disableEditing} name="User Role" title="Type" validations="isRequiredSelect"/>
             {userActions}
           </fieldset>
-        </form>
+        </Formsy.Form>
       </div>
     );
   }

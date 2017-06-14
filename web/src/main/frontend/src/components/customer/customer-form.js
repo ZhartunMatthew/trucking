@@ -4,13 +4,28 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateCustomerCompany, makeNewCustomerCompany } from '../../actions/customer.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
-import { Role } from '../../constants/roles'
+import { Role } from '../../constants/roles';
+import MyInput from '../common/input';
+import MySelect from '../common/select-component';
+import Formsy from 'formsy-react';
 
 class CustomerForm extends React.Component {
 
   constructor() {
     super();
     this.showCreateInvoiceFrom = this.showCreateInvoiceFrom.bind(this);
+    this.state = {
+      errors: {},
+      canSubmit: false
+    };
+  }
+
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+
+  disableButton() {
+    this.setState({ canSubmit: false });
   }
 
   handleNameChange(event) {
@@ -58,6 +73,15 @@ class CustomerForm extends React.Component {
   }
 
   render() {
+
+    Formsy.addValidationRule('isRequired', function(values, value) {
+      return !(/\s/g.test(value));
+    });
+
+    Formsy.addValidationRule('isAddress', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
     let editingLabel = <span> Editing of <b> {this.props.customer.name} </b> company </span>;
     let creatingLabel = <span>Create new company</span>;
     const disabledClass = this.props.changes ? '' : 'disabled';
@@ -72,7 +96,7 @@ class CustomerForm extends React.Component {
                   onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
           </button>
           <button type='button' className={`${disabledClass} btn btn-primary`}
-                  onClick={this.props.changes ? this.save.bind(this) : null}>Save
+                  onClick={this.props.changes ? this.save.bind(this) : null} disabled={!this.state.canSubmit}>Save
           </button>
         </div>
       </div>;
@@ -101,24 +125,30 @@ class CustomerForm extends React.Component {
 
     return (
       <div>
-        <form className='form-horizontal'>
+        <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend> {this.props.customer.id ? editingLabel : creatingLabel} </legend>
-            <Input id='name' type='text' label='Company name' placeholder='Enter company name here'
-                   value={this.props.customer.name || ''} onChange={this.handleNameChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='taxpayerNumber' type='text' label='Taxpayer number' placeholder='Enter taxpayer number here'
-                   value={this.props.customer.taxpayerNumber  || ''} onChange={this.handleTaxpayerNumberChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='country' type='text' label='country' placeholder='Enter country here'
-                   value={this.props.customer.country  || ''} onChange={this.handleCountryChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='city' type='text' label='city' placeholder='Enter city here'
-                   value={this.props.customer.city  || ''} onChange={this.handleCityChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='street' type='text' label='street' placeholder='Enter street here'
-                   value={this.props.customer.street  || ''} onChange={this.handleStreetChange.bind(this)} readOnly={disableEditing}/>
-            <Input id='house' type='text' label='house' placeholder='Enter house here'
-                   value={this.props.customer.house  || ''} onChange={this.handleHouseChange.bind(this)} readOnly={disableEditing}/>
+            <MyInput id='name' type='text' label='Company name' placeholder='Enter company name here'
+                   value={this.props.customer.name || ''} onChange={this.handleNameChange.bind(this)} readOnly={disableEditing}
+                    name='name' title='Company name' required validations="isRequired" validationError='No spaces'/>
+            <MyInput id='taxpayerNumber' type='text' label='Taxpayer number' placeholder='Enter taxpayer number here'
+                   value={this.props.customer.taxpayerNumber  || ''} onChange={this.handleTaxpayerNumberChange.bind(this)} readOnly={disableEditing}
+                     name='taxpayerNumber' title='Taxpayer number' required validations="isAlphanumeric" validationError='Allowable characters letters and numbers'/>
+            <MyInput id='country' type='text' label='Country' placeholder='Enter country here'
+                   value={this.props.customer.country  || ''} onChange={this.handleCountryChange.bind(this)} readOnly={disableEditing}
+                     name='country' title='Country' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+            <MyInput id='city' type='text' label='City' placeholder='Enter city here'
+                   value={this.props.customer.city  || ''} onChange={this.handleCityChange.bind(this)} readOnly={disableEditing}
+                     name='city' title='City' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+            <MyInput id='street' type='text' label='street' placeholder='Enter street here'
+                   value={this.props.customer.street  || ''} onChange={this.handleStreetChange.bind(this)} readOnly={disableEditing}
+                     name='street' title='street' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+            <MyInput id='house' type='text' label='house' placeholder='Enter house here'
+                   value={this.props.customer.house  || ''} onChange={this.handleHouseChange.bind(this)} readOnly={disableEditing}
+                     name='house' title='House' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
             {userActions}
           </fieldset>
-        </form>
+        </Formsy.Form>
       </div>
     );
   }

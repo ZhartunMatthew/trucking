@@ -103,12 +103,14 @@ class WaybillForm extends React.Component {
   }
 
   render() {
+
     Formsy.addValidationRule('isRequired', function(values, value) {
       return !(/\s/g.test(value));
     });
-    /*Formsy.addValidationRule('isText', function(values, value) {
-      return /\w|\s/.test(value);
-    });*/
+
+    Formsy.addValidationRule('isAddress', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
 
     let creatingLabel = <span> Create waybill </span>;
     const disabledClass = this.props.changes ? '' : 'disabled';
@@ -143,8 +145,8 @@ class WaybillForm extends React.Component {
             <legend> {creatingLabel} </legend>
             <MyInput id='waybillNumber' type='text' label='Waybill number' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.waybillNumber || ''} onChange={this.handleWaybillNumberChange.bind(this)}
-                   validations='isAlphanumeric' validationError='Allowable characters only letters and numbers'
-                     title='Waybill number' name='waybillNumber' />
+                     validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'
+                     title='Waybill number' name='waybillNumber' required/>
             <MyInput id='number' type='text' label='Invoice number' placeholder='' title='Invoice number' name='number'
                    value={this.props.waybill.invoiceNumber || ''} onChange={this.handleInvoiceNumberChange.bind(this)} readOnly={true}/>
             <MyInput id='registerDate' type='text' label='Register date' placeholder=''
@@ -164,28 +166,28 @@ class WaybillForm extends React.Component {
                      name='totalDistance' required validations="isNumeric" validationError="This field must be a number"/>
             <MyInput id='departureCountry' type='text' label='Departure country' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.departureCountry || ''} onChange={this.handleDepartureCountry.bind(this)} title='Departure country'
-                     name='departureCountry' required validations='isAlphanumeric' validationError='Allowable characters only letters and numbers'/>
+                     name='departureCountry' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='departureCity' type='text' label='Departure city' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.departureCity || ''} onChange={this.handleDepartureCity.bind(this)} title='Departure city'
-                     name='departureCity' required validations='isAlphanumeric' validationError='Allowable characters only letters and numbers'/>
+                     name='departureCity' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='departureStreet' type='text' label='Departure street' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.departureStreet || ''} onChange={this.handleDepartureStreet.bind(this)} title='Departure street'
-                     name='departureStreet' required validations='isAlphanumeric' validationError='Allowable characters only letters and numbers'/>
+                     name='departureStreet' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='departureHouse' type='text' label='Departure house' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.departureHouse || ''} onChange={this.handleDepartureHouse.bind(this)} title='Departure house'
-                     name='departureHouse' required validations='isAlphanumeric' validationError='Allowable characters only letters and numbers'/>
+                     name='departureHouse' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='destinationCountry' type='text' label='Destination country' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.destinationCountry || ''} onChange={this.handleDestinationCountry.bind(this)} title='Destination country'
-                     name='destinationCountry' required validations='isAlphanumeric' validationError='Allowable characters only letters and numbers'/>
+                     name='destinationCountry' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='destinationCity' type='text' label='Destination city' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.destinationCity || ''} onChange={this.handleDestinationCity.bind(this)} title='Destination city'
-                     name='destinationCity' required validations='isAlphanumeric' validationError='Allowable characters only letters and numbers'/>
+                     name='destinationCity' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='destinationStreet' type='text' label='Destination street' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.destinationStreet || ''} onChange={this.handleDestinationStreet.bind(this)} title='Destination street'
-                     name='destinationStreet' required validations='isAlphanumeric' validationError='Allowable characters only letters and numbers'/>
+                     name='destinationStreet' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='destinationHouse' type='text' label='Destination house' placeholder='' readOnly={disableEditing}
                    value={this.props.waybill.destinationHouse || ''} onChange={this.handleDestinationHouse.bind(this)} title='Destination house'
-                     name='destinationHouse' required validations='isAlphanumeric' validationError='Allowable characters only letters and numbers'/>
+                     name='destinationHouse' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
             {userActions}
           </fieldset>
         </Formsy.Form>
