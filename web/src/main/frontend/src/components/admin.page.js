@@ -4,10 +4,10 @@ import { bindActionCreators } from 'redux';
 import { loadUsers, fetchUser } from '../actions/user.action';
 import { loadCustomers, fetchCustomer } from '../actions/customer.action';
 import { loadCars, fetchCar } from '../actions/car.action';
-import { cancelOperation } from '../actions/operation.action';
+import { startOperation, cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
-import UserTable from '../components/user/user-table'
+import UserComponent from '../components/user/user-component'
 
 class AdminPage extends React.Component {
 
@@ -32,14 +32,7 @@ class AdminPage extends React.Component {
       caption: 'Cars'
     }];
 
-    let defaultPageInfo =
-      <div className='container'>
-        <div className='row'>
-          <div className='col align-self-center'>
-            <UserTable users={this.props.users}/>
-          </div>
-        </div>
-      </div>;
+    let defaultPageInfo = <UserComponent/>;
 
     return (
       <div>
@@ -48,7 +41,9 @@ class AdminPage extends React.Component {
           {
             !this.props.children && defaultPageInfo
           }
-          {this.props.children}
+          {
+            this.props.children
+          }
         </div>
         <FooterComponent/>
       </div>
@@ -70,7 +65,8 @@ function mapDispatchToProps(dispatch) {
     fetchCustomer: bindActionCreators(fetchCustomer, dispatch),
     loadCars: bindActionCreators(loadCars, dispatch),
     fetchCar: bindActionCreators(fetchCar, dispatch),
-    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
+    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch),
+    startOperation: bindActionCreators(startOperation, dispatch)
   }
 }
 
