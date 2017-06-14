@@ -7,10 +7,11 @@ import {
   withGoogleMap,
   GoogleMap,
   DirectionsRenderer,
-  Geocoder
+  Geocoder,
+  Marker
 } from 'react-google-maps';
 import SearchBox from 'react-google-maps/lib/places/SearchBox';
-import { updateCheckPoints } from  '../../actions/checkPoint.action';
+import { updateCheckPoints, deleteCheckPoint } from  '../../actions/checkPoint.action';
 import {
   MAX_COUNT_OF_WAYPOINTS,
   INPUT_STYLE,
@@ -44,6 +45,12 @@ const DirectionsGoogleMap = withGoogleMap(props => (
       inputPlaceholder='Destination place'
       inputStyle={INPUT_STYLE}
     />
+    {props.markers.map(marker => (
+      <Marker
+        {...marker}
+        onRightClick={() => props.onMarkerRightClick(marker)}
+      />
+    ))}
     {props.directions && <DirectionsRenderer directions={props.directions} />}
   </GoogleMap>
 ));
@@ -60,12 +67,15 @@ class MapComponent extends React.Component {
     this.handleStartSearchBoxMounted = this.handleStartSearchBoxMounted.bind(this);
     this.handleEndSearchBox = this.handleEndSearchBox.bind(this);
     this.handleEndSearchBoxMounted = this.handleEndSearchBoxMounted.bind(this);
+    this.handleOnMarkerRightClick = this.handleOnMarkerRightClick.bind(this);
     this.state = {
       start: null,
       waypoints: [],
       end: null,
-      directions: null
+      directions: null,
+      markers: []
     };
+    this.state.markersToWaypointsMap = new Map();
     this.defaultCenter = new google.maps.LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
     this.defaultBounds = new google.maps.LatLngBounds(this.defaultCenter, this.defaultCenter);
   }
@@ -90,17 +100,25 @@ class MapComponent extends React.Component {
 
   handleOnMapClick(event) {
     if (this.state.start && this.state.end && this.state.waypoints.length < MAX_COUNT_OF_WAYPOINTS) {
-      this.state.waypoints.push({
-        location: event.latLng,
-        stopover: false
-      });
       let geocoder = new google.maps.Geocoder();
       geocoder.geocode({'location': event.latLng}, (results, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
+          let marker = {
+            position: event.latLng,
+            key: Date.now()
+          };
+          this.state.markers.push(marker);
+          let waypoint = {
+            location: event.latLng,
+            stopover: false
+          };
+          this.state.waypoints.push(waypoint);
+          this.state.markersToWaypointsMap.set(marker.key, waypoint);
           let checkPoint = {
             description: results[0].formatted_address,
             latitude: event.latLng.lat(),
-            longitude: event.latLng.lng()
+            longitude: event.latLng.lng(),
+            key: marker.key
           };
           this.props.updateCheckPoints(checkPoint);
           this.props.updateOperation(null, {});
@@ -111,6 +129,18 @@ class MapComponent extends React.Component {
         }
       });
     }
+  }
+
+  handleOnMarkerRightClick(targetMarker) {
+    const nextMarkers = this.state.markers.filter(marker => marker !== targetMarker);
+    let targetWaypoint = this.state.markersToWaypointsMap.get(targetMarker.key);
+    const nextWaypoints = this.state.waypoints.filter(waypoint => waypoint !== targetWaypoint);
+    this.setState({
+      markers: nextMarkers,
+      waypoints: nextWaypoints
+    });
+    this.props.deleteCheckPoint(targetMarker.key);
+    this.handleRouteChange();
   }
 
   handleRouteChange() {
@@ -179,27 +209,28 @@ class MapComponent extends React.Component {
         handleEndSearchBox={this.handleEndSearchBox}
         onStartSearchBoxMounted={this.handleStartSearchBoxMounted}
         onEndSearchBoxMounted={this.handleEndSearchBoxMounted}
+        onMarkerRightClick={this.handleOnMarkerRightClick}
+        markers={this.state.markers}
       />
     );
   }
 }
 
 MapComponent.propTypes = {
-  waybill: React.PropTypes.object.isRequired,
   updateOperation: React.PropTypes.func.isRequired,
-  updateCheckPoints: React.PropTypes.func.isRequired
+  updateCheckPoints: React.PropTypes.func.isRequired,
+  deleteCheckPoint: React.PropTypes.func.isRequired
 };
 
-let mapStateToProps = function (state) {
-  return {
-    waybill: state.operation.modifiedValue,
-  };
+let mapStateToProps = function () {
+  return {};
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     updateOperation: bindActionCreators(updateOperation, dispatch),
-    updateCheckPoints: bindActionCreators(updateCheckPoints, dispatch)
+    updateCheckPoints: bindActionCreators(updateCheckPoints, dispatch),
+    deleteCheckPoint: bindActionCreators(deleteCheckPoint, dispatch)
   }
 }
 
