@@ -1,11 +1,10 @@
-package com.itechart.trucking.controller;
+package com.itechart.trucking.report;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import report.ReportBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -19,7 +18,7 @@ public class ReportController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportController.class);
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public void download(HttpServletResponse response) throws IOException {
         LOGGER.info("Path:/report/download  method: GET");
 

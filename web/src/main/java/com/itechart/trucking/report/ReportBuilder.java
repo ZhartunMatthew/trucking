@@ -1,4 +1,4 @@
-package report;
+package com.itechart.trucking.report;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;

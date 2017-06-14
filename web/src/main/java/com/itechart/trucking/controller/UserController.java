@@ -53,7 +53,8 @@ public class UserController {
     @RequestMapping(value = "/freeDrivers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<UserDTO>> findFreeDrivers() {
         LOGGER.info("REST request. Path:/api/freeDrivers  method: GET");
-        List<User> users = userService.findAvailable();
+        Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        List<User> users = userService.findAvailable(truckingCompanyId);
         List<UserDTO> userDTOs = new ArrayList<>();
         for (User user : users){
             UserDTO userDTO = conversionService.convert(user, UserDTO.class);
