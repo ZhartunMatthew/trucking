@@ -16,16 +16,23 @@ class DriverPage extends React.Component {
   }
 
   render() {
-    var navItems = [{
+    let navItems = [{
       url: '/waybills',
       caption: 'Waybills'
     }];
+
+    let defaultPageInfo = <DriverWaybillComponent/>;
+
     return (
       <div>
       <div className="wrapper">
         <HeaderComponent navItems={navItems}/>
-        { !this.props.children && <h1>Добро пожаловать, {this.props.currentUser.name}!</h1>}
-          {this.props.children}
+        {
+          !this.props.children && defaultPageInfo
+        }
+        {
+          this.props.children
+        }
       </div>
       <FooterComponent/>
       </div>

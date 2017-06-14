@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { loadCustomers, fetchCustomer } from '../actions/customer.action';
 import { loadInvoices, fetchInvoice} from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
-import { Link } from 'react-router';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
+import CustomerComponent from './customer/customer-component'
 
 class DispatcherPage extends React.Component {
 
@@ -17,15 +17,23 @@ class DispatcherPage extends React.Component {
   }
 
   render() {
-    var navItems = [{
+    let navItems = [{
       url: '/customer',
       caption: 'Customers'
     }];
+
+    let defaultPageInfo = <CustomerComponent/>;
+
     return (
       <div>
         <div className="wrapper">
           <HeaderComponent navItems={navItems}/>
-          {this.props.children}
+          {
+            !this.props.children && defaultPageInfo
+          }
+          {
+            this.props.children
+          }
         </div>
         <FooterComponent/>
       </div>
