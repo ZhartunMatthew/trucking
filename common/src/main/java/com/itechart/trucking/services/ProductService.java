@@ -1,6 +1,7 @@
 package com.itechart.trucking.services;
 
 import com.itechart.trucking.entity.Product;
+import com.itechart.trucking.entity.enums.ProductStateEnum;
 import com.itechart.trucking.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,6 +40,11 @@ public class ProductService {
     @PreAuthorize("hasAnyRole('DISPATCHER', 'MANAGER', 'DRIVER', 'COMPANY_OWNER')")
     public Product securedFindOne(Long id) {
         return productRepository.findOne(id);
+    }
+
+    @PreAuthorize("hasAnyRole('COMPANY_OWNER')")
+    public Long count(ProductStateEnum state, Long id) {
+        return productRepository.countByProductStateAndInvoice_TruckingCompany_Id(state, id);
     }
 
     @PreAuthorize("hasAnyRole('COMPANY_OWNER')")
