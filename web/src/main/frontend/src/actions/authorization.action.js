@@ -27,4 +27,3 @@ export function logIn(credentials) {
     window.location.reload();
   });
 }
-

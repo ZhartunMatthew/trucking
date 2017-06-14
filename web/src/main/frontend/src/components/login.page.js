@@ -10,7 +10,6 @@ export class LoginPage extends React.Component {
   }
 
   login() {
-    console.log("login");
     let auth = {};
     auth.username = this.username.value;
     auth.password = this.password.value;
@@ -116,8 +115,6 @@ export class LoginPage extends React.Component {
       'http://ww4.hdnux.com/photos/55/65/73/12017395/3/rawImage.jpg',
     ];
     let num = Math.floor(Math.random() * (urls.length));
-
-    console.log("image:", num);
     $('#login-content').fadeTo('slow', 0.3, function () {
       $(this).css('background-image', 'url(' + urls[num] + ')');
     }).fadeTo('slow', 1);

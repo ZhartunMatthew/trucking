@@ -48,7 +48,6 @@ class UserRole extends React.Component {
           <Router history={hashHistory} routes={ownerRoutes} />
         );
       case "":
-        console.log("ROLE: ", this.props.userRole);
         return (
           <LoginPage/>
         );
