@@ -31,6 +31,7 @@
     "exports-loader": "^0.6.3",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.1",
+    "formsy-react": "^0.19.2",
     "glob": "^6.0.0",
     "imports-loader": "^0.7.1",
     "jquery": "^3.1.1",
