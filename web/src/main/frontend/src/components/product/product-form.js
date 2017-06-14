@@ -1,5 +1,4 @@
 import React from 'react';
-import Input from '../common/text-input';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateOperation, cancelOperation } from '../../actions/operation.action';
@@ -74,15 +73,14 @@ class ProductForm extends React.Component {
         <div>
           <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <fieldset>
-              <Input id='currentProductName' type='text' label='Product name' placeholder='' value={this.props.currentProductName} onChange={this.handleProductNameChange.bind(this)}/>
-              <Input id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount} onChange={this.handleAmountChange.bind(this)}/>
-              <Input id='currentProductPrice' type='text' label='Price' placeholder='' value={this.props.currentProductPrice} onChange={this.handlePriceChange.bind(this)}/>
               <MyInput id='currentProductName' type='text' label='Product name' placeholder='' value={this.props.currentProductName}
                        onChange={this.handleProductNameChange.bind(this)} validations='isLetter' validationError='This field must contain only letters'
                        required name='currentProductName' title='Product name'/>
               <MyInput id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount}
                        onChange={this.handleAmountChange.bind(this)} validations="isNumeric" validationError="This field must be a number"
                        required name='currentProductAmount' title='Amount'/>
+              <MyInput id='currentProductPrice' type='text' label='Price' placeholder='' value={this.props.currentProductPrice} onChange={this.handlePriceChange.bind(this)}
+                        required name='currentProductPrice' title='Price' validations="isNumeric" validationError="This field must be a number"/>
               <div className='btn-toolbar text-center'>
                 <div className='btn-group' role='group'>
                   <button type='button' className='btn btn-success' onClick={this.create.bind(this)} disabled={!this.state.canSubmit}> Add </button>
