@@ -10,6 +10,7 @@ const MySelect = React.createClass({
   },
 
   render() {
+    console.log(this.showError());
     const className = 'form-group' + (this.props.className || ' ') +
       (this.showError() ? 'required' : '');
     const errorMessage = this.getErrorMessage();
@@ -23,7 +24,7 @@ const MySelect = React.createClass({
       <div className={className}>
         <label htmlFor={this.props.name} className={labelClass}>{this.props.title}</label>
         <select name={this.props.name} className='form-control small-select' onChange={this.props.onChange}
-                value={this.getValue()} disabled={this.props.disabled} required={true}>
+                value={this.getValue()} disabled={this.props.disabled} selected="selected">
           {this.props.options}
         </select>
         <span className='validation-error'>{errorMessage}</span>

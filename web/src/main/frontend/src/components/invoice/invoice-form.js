@@ -32,12 +32,6 @@ class InvoiceForm extends React.Component {
     this.setState({ canSubmit: false });
   }
 
-  disableSelect(){
-    if(this.state.driverSel === true && this.state.carSel === true && this.state.destSel === true){
-      this.setState({selected: true});
-    }
-  }
-
   componentDidMount() {
     if (this.props.userRole === Role.DISPATCHER) {
       this.props.loadFreeDrivers();
@@ -113,6 +107,20 @@ class InvoiceForm extends React.Component {
   }
 
   render() {
+
+    Formsy.addValidationRule('isRequiredSelect', function(values, value) {
+      console.log(typeof value);
+      if(typeof value === "number"){
+        return false;
+      } else if(typeof value === "string"){
+        return true;
+      }
+    });
+
+    Formsy.addValidationRule('isWaybillNumber', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+-?[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
     let editingLabel = <span> Editing invoice № <b> {this.props.invoice.number} </b></span>;
     let creatingLabel = <span>Create new invoice</span>;
 
@@ -137,15 +145,15 @@ class InvoiceForm extends React.Component {
       <div>
         <MySelect id="destinationCustomerCompanyId" label="Destination customer" onChange={this.handleDestinationCustomerChange.bind(this)}
                 options={this.props.destinationCustomers.map((customer)=>{return ( <option value={customer.id}> {customer.name}, {customer.city} </option> )})}
-                value={defaultDestination} disabled={disableEditing} name="destinationCustomerCompanyId" title="Destination customer" />
+                value={defaultDestination} disabled={disableEditing} name="destinationCustomerCompanyId" title="Destination customer"  validations="isRequiredSelect"/>
 
        <MySelect id="driverId" label="Driver" onChange={this.handleDriverChange.bind(this)}
                 options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
-                value={defaultDriver} disabled={disableEditing} name="driverId" title="Driver" />
+                value={defaultDriver} disabled={disableEditing} name="driverId" title="Driver" validations="isRequiredSelect"/>
 
         <MySelect id="carId" label="Car" onChange={this.handleCarChange.bind(this)}
                 options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number}, {car.type} </option> )})}
-                value={defaultCar} disabled={disableEditing} name="carId" title="Car" />
+                value={defaultCar} disabled={disableEditing} name="carId" title="Car" validations="isRequiredSelect" />
       </div>;
 
     let userActions = null;
@@ -167,7 +175,7 @@ class InvoiceForm extends React.Component {
             <MyInput id='number' type='text' label='Invoice number' placeholder=''
                    value={this.props.invoice !== null ? this.props.invoice.number || '' : ''} onChange={this.handleNumberChange.bind(this)}
                    readOnly={disableEditing} title='Invoice number' name='number' required
-                     validations='isAlphanumeric' validationError='Allowable characters only letters and numbers'/>
+                     validations='isWaybillNumber' validationError='Allowable characters:letters, numbers,-'/>
             <MyInput id='registerDate' type='text' label='Register date' placeholder=''
                    value={this.props.invoice !== null ? this.props.invoice.registerDate || '' : ''} onChange={this.handleRegisterDate.bind(this)}
                    readOnly={true} name='registerDate' title='Register date'/>

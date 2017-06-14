@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,7 +44,11 @@ public class UserRoleController {
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List> findAll() {
         LOGGER.info("REST request. Path:/api/userRole/all  method: GET");
-        List usersRoles = Arrays.asList(UserRoleEnum.values());
+        List usersRoles = new ArrayList<String>();
+        usersRoles.add(UserRoleEnum.ADMIN);
+        usersRoles.add(UserRoleEnum.MANAGER);
+        usersRoles.add(UserRoleEnum.DISPATCHER);
+        usersRoles.add(UserRoleEnum.COMPANY_OWNER);
         LOGGER.info("Return usersRolesList.size={}", usersRoles.size());
         return new ResponseEntity<>(usersRoles, HttpStatus.OK);
     }

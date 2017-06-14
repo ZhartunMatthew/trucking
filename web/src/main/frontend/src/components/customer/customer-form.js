@@ -74,12 +74,24 @@ class CustomerForm extends React.Component {
 
   render() {
 
-    Formsy.addValidationRule('isRequired', function(values, value) {
-      return !(/\s/g.test(value));
+    Formsy.addValidationRule('isStreet', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
     });
 
-    Formsy.addValidationRule('isAddress', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    Formsy.addValidationRule('isCompany', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*_*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isCountryCity', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\s*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isHouseFlat', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isLetterOrNumber', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+$/.test(value));
     });
 
     let editingLabel = <span> Editing of <b> {this.props.customer.name} </b> company </span>;
@@ -130,22 +142,22 @@ class CustomerForm extends React.Component {
             <legend> {this.props.customer.id ? editingLabel : creatingLabel} </legend>
             <MyInput id='name' type='text' label='Company name' placeholder='Enter company name here'
                    value={this.props.customer.name || ''} onChange={this.handleNameChange.bind(this)} readOnly={disableEditing}
-                    name='name' title='Company name' required validations="isRequired" validationError='No spaces'/>
+                    name='name' title='Company name' required validations="isCompany" validationError='Allowable characters:letters, numbers,-,_,space,.,/'/>
             <MyInput id='taxpayerNumber' type='text' label='Taxpayer number' placeholder='Enter taxpayer number here'
                    value={this.props.customer.taxpayerNumber  || ''} onChange={this.handleTaxpayerNumberChange.bind(this)} readOnly={disableEditing}
-                     name='taxpayerNumber' title='Taxpayer number' required validations="isAlphanumeric" validationError='Allowable characters letters and numbers'/>
+                     name='taxpayerNumber' title='Taxpayer number' required validations="isLetterOrNumber" validationError='Allowable characters letters and numbers'/>
             <MyInput id='country' type='text' label='Country' placeholder='Enter country here'
                    value={this.props.customer.country  || ''} onChange={this.handleCountryChange.bind(this)} readOnly={disableEditing}
-                     name='country' title='Country' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+                     name='country' title='Country' required validations='isCountryCity' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='city' type='text' label='City' placeholder='Enter city here'
                    value={this.props.customer.city  || ''} onChange={this.handleCityChange.bind(this)} readOnly={disableEditing}
-                     name='city' title='City' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+                     name='city' title='City' required validations='isCountryCity' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='street' type='text' label='street' placeholder='Enter street here'
                    value={this.props.customer.street  || ''} onChange={this.handleStreetChange.bind(this)} readOnly={disableEditing}
-                     name='street' title='street' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+                     name='street' title='street' required validations='isStreet' validationError='Allowable characters:letters, numbers,-,space,.,/'/>
             <MyInput id='house' type='text' label='house' placeholder='Enter house here'
                    value={this.props.customer.house  || ''} onChange={this.handleHouseChange.bind(this)} readOnly={disableEditing}
-                     name='house' title='House' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+                     name='house' title='House' required validations='isHouseFlat' validationError='Allowable characters:letters, numbers,/'/>
             {userActions}
           </fieldset>
         </Formsy.Form>

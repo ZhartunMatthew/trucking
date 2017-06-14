@@ -69,12 +69,24 @@ class TruckingCompanyForm extends React.Component {
 
   render() {
 
-    Formsy.addValidationRule('isRequired', function(values, value) {
-      return !(/\s/g.test(value));
+    Formsy.addValidationRule('isCompany', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*_*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
     });
 
-    Formsy.addValidationRule('isAddress', function(values, value) {
+    Formsy.addValidationRule('isStreet', function(values, value) {
       return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isCountryCity', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\s*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isHouseFlat', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isLetterOrNumber', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+$/.test(value));
     });
 
     let editingLabel = <span> Editing of <b> {this.props.truckingCompany.name} </b> Company </span>;
@@ -87,22 +99,22 @@ class TruckingCompanyForm extends React.Component {
             <legend>{this.props.truckingCompany.id ? editingLabel : creatingLabel} </legend>
             <MyInput id='name' type='text' label='Company name' placeholder='Enter company name here'
                    value={this.props.truckingCompany.name || ''} onChange={this.handleNameChange.bind(this)}
-                    name='name' title='Company name' required validations="isRequired" validationError='No spaces'/>
+                    name='name' title='Company name' required validations="isCompany" validationError='Allowable characters:letters, numbers,-,space,.,/'/>
             <MyInput id='taxpayerNumber' type='text' label='Taxpayer number' placeholder='Enter taxpayer number here'
                     value={this.props.truckingCompany.taxpayerNumber  || ''} onChange={this.handleTaxpayerNumberChange.bind(this)}
-                      name='taxpayerNumber' title='Taxpayer number' required validations="isAlphanumeric" validationError='Allowable characters letters and numbers'/>
+                      name='taxpayerNumber' title='Taxpayer number' required validations="isLetterOrNumber" validationError='Allowable characters letters and numbers'/>
             <MyInput id='country' type='text' label='Country' placeholder='Enter country here'
                    value={this.props.truckingCompany.country  || ''} onChange={this.handleCountryChange.bind(this)}
-                      name='country' title='Country' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+                      name='country' title='Country' required validations='isCountryCity' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='city' type='text' label='City' placeholder='Enter city here'
                    value={this.props.truckingCompany.city  || ''} onChange={this.handleCityChange.bind(this)}
-                      name='city' title='City' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+                      name='city' title='City' required validations='isCountryCity' validationError='Allowable characters:letters, numbers,-,space'/>
             <MyInput id='street' type='text' label='Street' placeholder='Enter street here'
                    value={this.props.truckingCompany.street  || ''} onChange={this.handleStreetChange.bind(this)}
-                      name='street' title='Street' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+                      name='street' title='Street' required validations='isStreet' validationError='Allowable characters:letters, numbers,-,space,.,/'/>
             <MyInput id='house' type='text' label='House' placeholder='Enter house here'
                    value={this.props.truckingCompany.house  || ''} onChange={this.handleHouseChange.bind(this)}
-                    name='house' title='House' required validations='isAddress' validationError='Allowable characters:letters, numbers,-,space'/>
+                    name='house' title='House' required validations='isHouseFlat' validationError='Allowable characters:letters, numbers, /'/>
 
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>

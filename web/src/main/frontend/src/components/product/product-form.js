@@ -63,6 +63,11 @@ class ProductForm extends React.Component {
   }
 
   render() {
+
+    Formsy.addValidationRule('isLetter', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z]+$/.test(value));
+    });
+
     let role = this.props.userRole;
     if(role === Role.DISPATCHER) {
       return (
@@ -73,7 +78,7 @@ class ProductForm extends React.Component {
               <Input id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount} onChange={this.handleAmountChange.bind(this)}/>
               <Input id='currentProductPrice' type='text' label='Price' placeholder='' value={this.props.currentProductPrice} onChange={this.handlePriceChange.bind(this)}/>
               <MyInput id='currentProductName' type='text' label='Product name' placeholder='' value={this.props.currentProductName}
-                       onChange={this.handleProductNameChange.bind(this)} validations='isAlpha' validationError='This field must contain only letters'
+                       onChange={this.handleProductNameChange.bind(this)} validations='isLetter' validationError='This field must contain only letters'
                        required name='currentProductName' title='Product name'/>
               <MyInput id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount}
                        onChange={this.handleAmountChange.bind(this)} validations="isNumeric" validationError="This field must be a number"

@@ -72,6 +72,10 @@ class CarForm extends React.Component {
       }
     });
 
+    Formsy.addValidationRule('isLetter', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z]+$/.test(value));
+    });
+
     Formsy.addValidationRule('isRequired', function(values, value) {
       return !(/\s/g.test(value));
     });
@@ -116,13 +120,13 @@ class CarForm extends React.Component {
             <legend>{this.props.car.id ? editingLabel : creatingLabel} </legend>
             <MyInput id='number' type='text' title='Car number' placeholder='Enter number here' name="number" required
                    value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)} readOnly={disableEditing}
-                     validations="isRequired" validationError='No spaces'/>
+                     validations="isRequired" validationError='This field must contain something'/>
             <MyInput id='brand' type='text' title='Car brand' placeholder='Enter brand here' required name="brand"
                    value={this.props.car.brand  || ''} onChange={this.handleBrandChange.bind(this)} readOnly={disableEditing}
-                     validations='isAlpha' validationError='This field must contain only letters'/>
+                     validations='isLetter' validationError='This field must contain only letters'/>
             <MyInput id='model' type='text' title='Car model' placeholder='Enter model here' required name="model"
                    value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)} readOnly={disableEditing}
-                     validations="isRequired" validationError='No spaces'/>
+                     validations="isRequired" validationError='This field must contain something'/>
             <MyInput id='fuelConsumption' type='text' title="Fuel consumption" onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here'
                    value={this.props.car.fuelConsumption  || ''}  readOnly={disableEditing} validations="isNumeric" required
                      name="fuelConsumption" validationError="This field must be a number"/>
