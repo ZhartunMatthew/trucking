@@ -12,8 +12,8 @@ import UserComponent from '../components/user/user-component'
 class AdminPage extends React.Component {
 
   componentDidMount() {
-    this.props.loadUsers();
     this.props.cancelCurrentOperation();
+    this.props.loadUsers();
     this.props.loadCustomers();
     this.props.loadCars();
   }

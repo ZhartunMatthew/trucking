@@ -4,8 +4,28 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateTruckingCompany, makeNewTruckingCompany } from '../../actions/truckingCompany.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
+import MyInput from '../common/input';
+import MySelect from '../common/select-component';
+import Formsy from 'formsy-react';
 
 class TruckingCompanyForm extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      errors: {},
+      canSubmit: false
+    };
+  }
+
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
 
   handleNameChange(event) {
     this.props.updateOperation('name', event.target.value);
@@ -48,26 +68,53 @@ class TruckingCompanyForm extends React.Component {
   }
 
   render() {
+
+    Formsy.addValidationRule('isCompany', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*_*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isStreet', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isCountryCity', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\s*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isHouseFlat', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isLetterOrNumber', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+$/.test(value));
+    });
+
     let editingLabel = <span> Editing of <b> {this.props.truckingCompany.name} </b> Company </span>;
     let creatingLabel = <span>Create new company</span>;
     const disabledClass = this.props.changes ? '' : 'disabled';
     return (
       <div>
-        <form className='form-horizontal'>
+        <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend>{this.props.truckingCompany.id ? editingLabel : creatingLabel} </legend>
-            <Input id='name' type='text' label='Company name' placeholder='Enter company name here'
-                   value={this.props.truckingCompany.name || ''} onChange={this.handleNameChange.bind(this)}/>
-            <Input id='taxpayerNumber' type='text' label='Taxpayer number' placeholder='Enter taxpayer number here'
-                    value={this.props.truckingCompany.taxpayerNumber  || ''} onChange={this.handleTaxpayerNumberChange.bind(this)}/>
-            <Input id='country' type='text' label='country' placeholder='Enter country here'
-                   value={this.props.truckingCompany.country  || ''} onChange={this.handleCountryChange.bind(this)}/>
-            <Input id='city' type='text' label='city' placeholder='Enter city here'
-                   value={this.props.truckingCompany.city  || ''} onChange={this.handleCityChange.bind(this)}/>
-            <Input id='street' type='text' label='street' placeholder='Enter street here'
-                   value={this.props.truckingCompany.street  || ''} onChange={this.handleStreetChange.bind(this)}/>
-            <Input id='house' type='text' label='house' placeholder='Enter house here'
-                   value={this.props.truckingCompany.house  || ''} onChange={this.handleHouseChange.bind(this)}/>
+            <MyInput id='name' type='text' label='Company name' placeholder='Enter company name here'
+                   value={this.props.truckingCompany.name || ''} onChange={this.handleNameChange.bind(this)}
+                    name='name' title='Company name' required validations="isCompany" validationError='Allowable characters:letters, numbers,-,space,.,/'/>
+            <MyInput id='taxpayerNumber' type='text' label='Taxpayer number' placeholder='Enter taxpayer number here'
+                    value={this.props.truckingCompany.taxpayerNumber  || ''} onChange={this.handleTaxpayerNumberChange.bind(this)}
+                      name='taxpayerNumber' title='Taxpayer number' required validations="isLetterOrNumber" validationError='Allowable characters letters and numbers'/>
+            <MyInput id='country' type='text' label='Country' placeholder='Enter country here'
+                   value={this.props.truckingCompany.country  || ''} onChange={this.handleCountryChange.bind(this)}
+                      name='country' title='Country' required validations='isCountryCity' validationError='Allowable characters:letters, numbers,-,space'/>
+            <MyInput id='city' type='text' label='City' placeholder='Enter city here'
+                   value={this.props.truckingCompany.city  || ''} onChange={this.handleCityChange.bind(this)}
+                      name='city' title='City' required validations='isCountryCity' validationError='Allowable characters:letters, numbers,-,space'/>
+            <MyInput id='street' type='text' label='Street' placeholder='Enter street here'
+                   value={this.props.truckingCompany.street  || ''} onChange={this.handleStreetChange.bind(this)}
+                      name='street' title='Street' required validations='isStreet' validationError='Allowable characters:letters, numbers,-,space,.,/'/>
+            <MyInput id='house' type='text' label='House' placeholder='Enter house here'
+                   value={this.props.truckingCompany.house  || ''} onChange={this.handleHouseChange.bind(this)}
+                    name='house' title='House' required validations='isHouseFlat' validationError='Allowable characters:letters, numbers, /'/>
 
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
@@ -78,12 +125,12 @@ class TruckingCompanyForm extends React.Component {
                         onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
                 </button>
                 <button type='button' className={`${disabledClass} btn btn-primary`}
-                        onClick={this.props.changes ? this.save.bind(this) : null}>Save
+                        onClick={this.props.changes ? this.save.bind(this) : null} disabled={!this.state.canSubmit}>Save
                 </button>
               </div>
             </div>
           </fieldset>
-        </form>
+        </Formsy.Form>
       </div>
     );
   }
