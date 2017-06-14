@@ -98,8 +98,7 @@ a {
 }
 
 .background-login {
-  background-image: url('http://nebula.wsimg.com/5c732a74e49acce6a54321dc6f9780f0?AccessKeyId=454B8803DB3DB7C1705C&disposition=0&alloworigin=1');
-  background-color: #3565b2;
+  margin-top: -60px;
   background-size: 100%;
   background-repeat: repeat;
   position: absolute;
@@ -107,10 +106,20 @@ a {
   height: 100%;
 }
 
-.login-form-offset {
-  margin-top: 100px;
+.login-style {
+  color: dimgray;
 }
 
-.login-style {
-  color: snow;
+.modal-content-login {
+  margin: auto;
+  margin-top: 100px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 50%;
+}
+
+.header-login {
+  z-index: 1;
+  margin-bottom: 0;
 }

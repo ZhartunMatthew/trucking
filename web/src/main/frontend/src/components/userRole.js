@@ -15,7 +15,8 @@ import { startOperation } from '../actions/operation.action'
 
 class UserRole extends React.Component {
 
-  componentDidMount() {
+  constructor(props) {
+    super(props);
     this.props.loadUserRole();
     this.props.loadCurrentUser();
   }
@@ -47,6 +48,7 @@ class UserRole extends React.Component {
           <Router history={hashHistory} routes={ownerRoutes} />
         );
       case "":
+        console.log("ROLE: ", this.props.userRole);
         return (
           <LoginPage/>
         );
