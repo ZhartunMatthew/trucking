@@ -13,4 +13,6 @@ public interface CustomerCompanyRepository extends JpaRepository<CustomerCompany
     List<CustomerCompany> findByNameIgnoreCaseContaining(String name);
 
     List<CustomerCompany> findAllByTruckingCompany_Id(Long id);
+
+    Long countByTruckingCompany_Id(Long truckingCompanyId);
 }

@@ -1,7 +1,9 @@
 package com.itechart.trucking.report;
 
+import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,11 +18,16 @@ import java.io.OutputStream;
 @RequestMapping(value = "/api/report")
 public class ReportController {
 
+    @Autowired
+    CalculatingService calculatingService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportController.class);
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public void download(HttpServletResponse response) throws IOException {
         LOGGER.info("Path:/report/download  method: GET");
+        Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        ReportInfo reportInfo = calculatingService.calculate(truckingCompanyId);
 
         ReportBuilder.buildFinancialReport();
         response.setHeader("Content-Disposition", "attachment; filename=\"report.xls\"");

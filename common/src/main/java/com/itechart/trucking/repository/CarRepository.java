@@ -12,4 +12,6 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     List<Car> findByAvailableTrue();
 
     List<Car> findAllByTruckingCompany_Id(Long id);
+
+    Long countByTruckingCompany_Id(Long id);
 }

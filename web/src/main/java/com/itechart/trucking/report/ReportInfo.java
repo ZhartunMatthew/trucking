@@ -3,13 +3,13 @@ package com.itechart.trucking.report;
 public class ReportInfo {
 
     private Long carsAmount;
-    private Integer employeesAmount;
-    private Integer invoiceAmount;
-    private Integer customersAmount;
+    private Long employeesAmount;
+    private Long invoiceAmount;
+    private Long customersAmount;
 
-    private Integer productsSum;
-    private Integer productDelivered;
-    private Integer productLost;
+    private Long productsSum;
+    private Long productDelivered;
+    private Long productLost;
     private Double productLostPercent;
     private Double productLostPrice;
 
@@ -32,51 +32,51 @@ public class ReportInfo {
         this.carsAmount = carsAmount;
     }
 
-    public Integer getEmployeesAmount() {
+    public Long getEmployeesAmount() {
         return employeesAmount;
     }
 
-    public void setEmployeesAmount(Integer employeesAmount) {
+    public void setEmployeesAmount(Long employeesAmount) {
         this.employeesAmount = employeesAmount;
     }
 
-    public Integer getInvoiceAmount() {
+    public Long getInvoiceAmount() {
         return invoiceAmount;
     }
 
-    public void setInvoiceAmount(Integer invioceAmount) {
+    public void setInvoiceAmount(Long invioceAmount) {
         this.invoiceAmount = invioceAmount;
     }
 
-    public Integer getCustomersAmount() {
+    public Long getCustomersAmount() {
         return customersAmount;
     }
 
-    public void setCustomersAmount(Integer customersAmount) {
+    public void setCustomersAmount(Long customersAmount) {
         this.customersAmount = customersAmount;
     }
 
-    public Integer getProductsSum() {
+    public Long getProductsSum() {
         return productsSum;
     }
 
-    public void setProductsSum(Integer productsSum) {
+    public void setProductsSum(Long productsSum) {
         this.productsSum = productsSum;
     }
 
-    public Integer getProductDelivered() {
+    public Long getProductDelivered() {
         return productDelivered;
     }
 
-    public void setProductDelivered(Integer productDelivered) {
+    public void setProductDelivered(Long productDelivered) {
         this.productDelivered = productDelivered;
     }
 
-    public Integer getProductLost() {
+    public Long getProductLost() {
         return productLost;
     }
 
-    public void setProductLost(Integer productLost) {
+    public void setProductLost(Long productLost) {
         this.productLost = productLost;
     }
 
