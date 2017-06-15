@@ -28,8 +28,8 @@ public class ReportController {
         LOGGER.info("Path:/report/download  method: GET");
         Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
         ReportInfo reportInfo = calculatingService.calculate(truckingCompanyId);
-
-        ReportBuilder.buildFinancialReport(reportInfo);
+        ReportBuilder reportBuilder = new ReportBuilder(reportInfo);
+        reportBuilder.buildFinancialReport();
         response.setHeader("Content-Disposition", "attachment; filename=\"report.xls\"");
         File xls = new File("report.xls");
         FileInputStream in = new FileInputStream(xls);
