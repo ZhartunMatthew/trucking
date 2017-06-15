@@ -10,6 +10,7 @@ import { Role } from '../../constants/roles';
 import MyInput from '../common/input';
 import MySelect from '../common/select-component';
 import Formsy from 'formsy-react';
+import { setActionDescription } from '../../actions/modal.action'
 
 class UserForm extends React.Component {
 
@@ -93,11 +94,18 @@ class UserForm extends React.Component {
   }
 
   save() {
+    let action = "";
+    let description = "";
     if (this.props.user.id) {
       this.props.updateUser(this.props.user);
+      action = "Изменение пользователя!";
+      description = "Информация пользователя <b>" + this.props.user.name + ' ' + this.props.user.surname + "</b> была изменена";
     } else {
       this.props.createUser(this.props.user);
+      action = "Новый пользователь!";
+      description = "Пользователь <b>" + this.props.user.name + ' ' + this.props.user.surname + "</b> был создан";
     }
+    setActionDescription(action, description);
   }
 
   reset() {
@@ -109,7 +117,6 @@ class UserForm extends React.Component {
   }
 
   render() {
-
     Formsy.addValidationRule('isRequiredSelect', function(values, value) {
       if(value.length === 0){
         return false;
@@ -146,15 +153,21 @@ class UserForm extends React.Component {
     let adminActions =
       <div className='btn-toolbar text-center'>
         <div className='btn-group' role='group'>
-          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+          <button type='button'
+                  className='btn btn-success'
+                  onClick={this.cancel.bind(this)}> Close </button>
         </div>
         <div className='btn-group float-right' role='group'>
-          <button type='button' className={`${disabledClass} btn btn-default`}
-                onClick={this.props.changes ? this.reset.bind(this) : null}>Reset
-          </button>
-          <button type='button' className={`${disabledClass} btn btn-primary`}
-                onClick={this.props.changes ? this.save.bind(this) : null} disabled={!this.state.canSubmit}>Save
-          </button>
+          <button type='button'
+                  className={`${disabledClass} btn btn-default`}
+                  onClick={this.props.changes ? this.reset.bind(this) : null}> Reset </button>
+
+          <button type='button'
+                  className={`${disabledClass} btn btn-primary`}
+                  onClick={this.props.changes ? this.save.bind(this) : null}
+                  disabled={!this.state.canSubmit}
+                  data-toggle="modal"
+                  data-target="#modal-action"> Save </button>
         </div>
       </div>;
 
