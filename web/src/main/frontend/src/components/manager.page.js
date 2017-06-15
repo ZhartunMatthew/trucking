@@ -7,6 +7,7 @@ import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 import InvoiceComponent from './invoice/invoice-component'
+import Modal from './modal/modal'
 
 class ManagerPage extends React.Component {
 
@@ -33,6 +34,7 @@ class ManagerPage extends React.Component {
           {
             this.props.children
           }
+          <Modal/>
         </div>
         <FooterComponent/>
       </div>
