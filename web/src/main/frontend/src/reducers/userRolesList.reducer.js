@@ -12,6 +12,7 @@ const UserRolesListReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case INIT_ROLES:
       return Object.assign({}, state, {userRolesList: action.payload});
+
     default:
       return state;
   }

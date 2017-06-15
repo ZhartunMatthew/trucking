@@ -59,7 +59,7 @@ let mapStateToProps = function () {
 
 function mapDispatchToProps(dispatch) {
   return {
-    startOperation: bindActionCreators(startOperation, dispatch),
+    startOperation: bindActionCreators(startOperation, dispatch)
   }
 }
 

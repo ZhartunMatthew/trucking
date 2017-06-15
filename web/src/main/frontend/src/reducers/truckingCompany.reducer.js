@@ -12,6 +12,7 @@ const TruckingCompaniesReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case INIT_TRUCKINGCOMPANIES:
       return Object.assign({}, state, {truckingCompanies: action.payload});
+
     default:
       return state;
   }

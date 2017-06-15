@@ -21,7 +21,7 @@ class ManagerPage extends React.Component {
       caption: 'Invoices'
     }];
 
-    let defaultPageInfo = <InvoiceComponent/>
+    let defaultPageInfo = <InvoiceComponent/>;
 
     return (
       <div>

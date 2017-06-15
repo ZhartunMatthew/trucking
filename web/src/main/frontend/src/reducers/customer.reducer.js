@@ -12,6 +12,7 @@ const CustomersReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case INIT_CUSTOMERS:
       return Object.assign({}, state, {customers: action.payload});
+
     default:
       return state;
   }
