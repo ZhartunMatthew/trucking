@@ -2,161 +2,161 @@ package com.itechart.trucking.report;
 
 public class ReportInfo {
 
-    private Long carsAmount;
-    private Long employeesAmount;
-    private Long invoiceAmount;
-    private Long customersAmount;
+    private long carsAmount;
+    private long employeesAmount;
+    private long invoiceAmount;
+    private long customersAmount;
 
-    private Long productsSum;
-    private Long productDelivered;
-    private Long productLost;
-    private Double productLostPercent;
-    private Double productLostPrice;
+    private long productsSum;
+    private long productDelivered;
+    private long productLost;
+    private double productLostPercent;
+    private double productLostPrice;
 
-    private Double avgDistance;
-    private Double totalDistance;
-    private Double fuelPrice;
+    private double avgDistance;
+    private double totalDistance;
+    private double fuelPrice;
 
-    private Double avgInvoiceRevenue;
-    private Double totalInvoiceRevenue;
+    private double avgInvoiceRevenue;
+    private double totalInvoiceRevenue;
 
-    private Double income;
-    private Double outcome;
-    private Double revenue;
+    private double income;
+    private double outcome;
+    private double revenue;
 
-    public Long getCarsAmount() {
+    public long getCarsAmount() {
         return carsAmount;
     }
 
-    public void setCarsAmount(Long carsAmount) {
+    public void setCarsAmount(long carsAmount) {
         this.carsAmount = carsAmount;
     }
 
-    public Long getEmployeesAmount() {
+    public long getEmployeesAmount() {
         return employeesAmount;
     }
 
-    public void setEmployeesAmount(Long employeesAmount) {
+    public void setEmployeesAmount(long employeesAmount) {
         this.employeesAmount = employeesAmount;
     }
 
-    public Long getInvoiceAmount() {
+    public long getInvoiceAmount() {
         return invoiceAmount;
     }
 
-    public void setInvoiceAmount(Long invioceAmount) {
+    public void setInvoiceAmount(long invioceAmount) {
         this.invoiceAmount = invioceAmount;
     }
 
-    public Long getCustomersAmount() {
+    public long getCustomersAmount() {
         return customersAmount;
     }
 
-    public void setCustomersAmount(Long customersAmount) {
+    public void setCustomersAmount(long customersAmount) {
         this.customersAmount = customersAmount;
     }
 
-    public Long getProductsSum() {
+    public long getProductsSum() {
         return productsSum;
     }
 
-    public void setProductsSum(Long productsSum) {
+    public void setProductsSum(long productsSum) {
         this.productsSum = productsSum;
     }
 
-    public Long getProductDelivered() {
+    public long getProductDelivered() {
         return productDelivered;
     }
 
-    public void setProductDelivered(Long productDelivered) {
+    public void setProductDelivered(long productDelivered) {
         this.productDelivered = productDelivered;
     }
 
-    public Long getProductLost() {
+    public long getProductLost() {
         return productLost;
     }
 
-    public void setProductLost(Long productLost) {
+    public void setProductLost(long productLost) {
         this.productLost = productLost;
     }
 
-    public Double getProductLostPercent() {
+    public double getProductLostPercent() {
         return productLostPercent;
     }
 
-    public void setProductLostPercent(Double productLostPercent) {
+    public void setProductLostPercent(double productLostPercent) {
         this.productLostPercent = productLostPercent;
     }
 
-    public Double getProductLostPrice() {
+    public double getProductLostPrice() {
         return productLostPrice;
     }
 
-    public void setProductLostPrice(Double productLostPrice) {
+    public void setProductLostPrice(double productLostPrice) {
         this.productLostPrice = productLostPrice;
     }
 
-    public Double getAvgDistance() {
+    public double getAvgDistance() {
         return avgDistance;
     }
 
-    public void setAvgDistance(Double avgDistance) {
+    public void setAvgDistance(double avgDistance) {
         this.avgDistance = avgDistance;
     }
 
-    public Double getTotalDistance() {
+    public double getTotalDistance() {
         return totalDistance;
     }
 
-    public void setTotalDistance(Double totalDistance) {
+    public void setTotalDistance(double totalDistance) {
         this.totalDistance = totalDistance;
     }
 
-    public Double getFuelPrice() {
+    public double getFuelPrice() {
         return fuelPrice;
     }
 
-    public void setFuelPrice(Double fuelPrice) {
+    public void setFuelPrice(double fuelPrice) {
         this.fuelPrice = fuelPrice;
     }
 
-    public Double getAvgInvoiceRevenue() {
+    public double getAvgInvoiceRevenue() {
         return avgInvoiceRevenue;
     }
 
-    public void setAvgInvoiceRevenue(Double avgInvoiceRevenue) {
+    public void setAvgInvoiceRevenue(double avgInvoiceRevenue) {
         this.avgInvoiceRevenue = avgInvoiceRevenue;
     }
 
-    public Double getTotalInvoiceRevenue() {
+    public double getTotalInvoiceRevenue() {
         return totalInvoiceRevenue;
     }
 
-    public void setTotalInvoiceRevenue(Double totalInvoiceRevenue) {
+    public void setTotalInvoiceRevenue(double totalInvoiceRevenue) {
         this.totalInvoiceRevenue = totalInvoiceRevenue;
     }
 
-    public Double getIncome() {
+    public double getIncome() {
         return income;
     }
 
-    public void setIncome(Double income) {
+    public void setIncome(double income) {
         this.income = income;
     }
 
-    public Double getOutcome() {
+    public double getOutcome() {
         return outcome;
     }
 
-    public void setOutcome(Double outcome) {
+    public void setOutcome(double outcome) {
         this.outcome = outcome;
     }
 
-    public Double getRevenue() {
+    public double getRevenue() {
         return revenue;
     }
 
-    public void setRevenue(Double revenue) {
+    public void setRevenue(double revenue) {
         this.revenue = revenue;
     }
 }

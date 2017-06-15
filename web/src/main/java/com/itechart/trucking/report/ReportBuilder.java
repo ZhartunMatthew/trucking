@@ -59,9 +59,9 @@ public class ReportBuilder {
         sheet.createRow(11).createCell(0).setCellValue("из них утеряно:");
         sheet.getRow(11).createCell(1).setCellValue(reportInfo.getProductLost());
         sheet.createRow(12).createCell(0).setCellValue("процент утерянных:");
-        sheet.getRow(12).createCell(1).setCellValue(reportInfo.getProductLostPercent());
+        sheet.getRow(12).createCell(1).setCellValue(reportInfo.getProductLostPercent() + "%");
         sheet.createRow(13).createCell(0).setCellValue("Стоимость утерянных продуктов:");
-        sheet.getRow(13).createCell(1).setCellValue(reportInfo.getProductLostPrice());
+        sheet.getRow(13).createCell(1).setCellValue(reportInfo.getProductLostPrice() + "$");
 
     }
 
@@ -70,11 +70,11 @@ public class ReportBuilder {
         waybill.setCellValue("Маршруты");
         titles.add(waybill);
         sheet.getRow(9).createCell(3).setCellValue("Средняя длина одного маршрута:");
-        sheet.getRow(9).createCell(4).setCellValue(reportInfo.getAvgDistance());
+        sheet.getRow(9).createCell(4).setCellValue(reportInfo.getAvgDistance() + "км.");
         sheet.getRow(10).createCell(3).setCellValue("Общая длина всех маршрутов:");
-        sheet.getRow(10).createCell(4).setCellValue(reportInfo.getTotalDistance());
+        sheet.getRow(10).createCell(4).setCellValue(reportInfo.getTotalDistance() + "км.");
         sheet.getRow(11).createCell(3).setCellValue("Суммарный расход на топливо:");
-        sheet.getRow(11).createCell(4).setCellValue(reportInfo.getFuelPrice());
+        sheet.getRow(11).createCell(4).setCellValue(reportInfo.getFuelPrice() + "$");
     }
 
     private void addInvoices() {
@@ -84,16 +84,16 @@ public class ReportBuilder {
         sheet.getRow(9).createCell(6).setCellValue("Количество перевозок:");
         sheet.getRow(9).createCell(7).setCellValue(reportInfo.getInvoiceAmount());
         sheet.getRow(10).createCell(6).setCellValue("Средняя стоимость перевозки:");
-        sheet.getRow(10).createCell(7).setCellValue(reportInfo.getAvgInvoiceRevenue());
+        sheet.getRow(10).createCell(7).setCellValue(reportInfo.getAvgInvoiceRevenue() + "$");
         sheet.getRow(11).createCell(6).setCellValue("Суммарная стоимость перевозок:");
-        sheet.getRow(11).createCell(7).setCellValue(reportInfo.getTotalInvoiceRevenue());
+        sheet.getRow(11).createCell(7).setCellValue(reportInfo.getTotalInvoiceRevenue()+ "$");
 
     }
 
     private void addRevenue() {
-        sheet.createRow(18).createCell(0).setCellValue("Доходы = " + reportInfo.getIncome());
-        sheet.createRow(19).createCell(0).setCellValue("Расходы = " + reportInfo.getOutcome());
-        sheet.createRow(20).createCell(0).setCellValue("Прибыль = " + reportInfo.getRevenue());
+        sheet.createRow(18).createCell(0).setCellValue("Доходы = " + reportInfo.getIncome() + "$");
+        sheet.createRow(19).createCell(0).setCellValue("Расходы = " + reportInfo.getOutcome() + "$");
+        sheet.createRow(20).createCell(0).setCellValue("Прибыль = " + reportInfo.getRevenue() + "$");
     }
 
     private void setStyles() {
