@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateCar, makeNewCar } from '../../actions/car.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
-import MyInput from '../common/input';
-import MySelect from '../common/select-component';
+import ValidatedInput from '../common/input';
+import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { Role } from '../../constants/roles'
 import { setActionDescription } from '../../actions/modal.action';
@@ -134,24 +134,67 @@ class CarForm extends React.Component {
 
     return (
       <div>
-        <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+        <Formsy.Form className='form-horizontal'
+                     onValid={this.enableButton.bind(this)}
+                     onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend>{this.props.car.id ? editingLabel : creatingLabel} </legend>
-            <MyInput id='number' type='text' title='Car number' placeholder='Enter number here' name="number" required
-                   value={this.props.car.number || ''} onChange={this.handleNumberChange.bind(this)} readOnly={disableEditing}
-                     validations="isRequired" validationError='This field must contain something'/>
-            <MyInput id='brand' type='text' title='Car brand' placeholder='Enter brand here' required name="brand"
-                   value={this.props.car.brand  || ''} onChange={this.handleBrandChange.bind(this)} readOnly={disableEditing}
-                     validations='isLetter' validationError='This field must contain only letters'/>
-            <MyInput id='model' type='text' title='Car model' placeholder='Enter model here' required name="model"
-                   value={this.props.car.model  || ''} onChange={this.handleModelChange.bind(this)} readOnly={disableEditing}
-                     validations="isRequired" validationError='This field must contain something'/>
-            <MyInput id='fuelConsumption' type='text' title="Fuel consumption" onChange={this.handleFuelConsumptionChange.bind(this)} placeholder='Enter fuel consumption here'
-                   value={this.props.car.fuelConsumption  || ''}  readOnly={disableEditing} validations="isNumeric" required
-                     name="fuelConsumption" validationError="This field must be a number"/>
-            <MySelect id="Type" label="Type" onChange={this.handleTypeChange.bind(this)}
-                    options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultType} disabled={disableEditing} name="type" title="Type" validations="isRequiredSelect"/>
+            <ValidatedInput id='number'
+                            type='text'
+                            title='Car number'
+                            placeholder='Enter number here'
+                            name="number"
+                            required
+                            value={this.props.car.number || ''}
+                            onChange={this.handleNumberChange.bind(this)}
+                            readOnly={disableEditing}
+                            validations="isRequired"
+                            validationError='This field must contain something'/>
+
+            <ValidatedInput id='brand'
+                            type='text'
+                            title='Car brand'
+                            placeholder='Enter brand here'
+                            name="brand"
+                            required
+                            value={this.props.car.brand  || ''}
+                            onChange={this.handleBrandChange.bind(this)}
+                            readOnly={disableEditing}
+                            validations='isLetter'
+                            validationError='This field must contain only letters'/>
+
+            <ValidatedInput id='model'
+                            type='text'
+                            title='Car model'
+                            placeholder='Enter model here'
+                            name="model"
+                            required
+                            value={this.props.car.model  || ''}
+                            onChange={this.handleModelChange.bind(this)}
+                            readOnly={disableEditing}
+                            validations="isRequired"
+                            validationError='This field must contain something'/>
+
+            <ValidatedInput id='fuelConsumption'
+                            type='text'
+                            title="Fuel consumption"
+                            placeholder='Enter fuel consumption here'
+                            name="fuelConsumption"
+                            value={this.props.car.fuelConsumption  || ''}
+                            onChange={this.handleFuelConsumptionChange.bind(this)}
+                            readOnly={disableEditing}
+                            validations="isNumeric" required
+                            validationError="This field must be a number"/>
+
+            <ValidatedSelect id="Type"
+                             title="Type"
+                             name="type"
+                             onChange={this.handleTypeChange.bind(this)}
+                             value={defaultType}
+                             options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
+                             disabled={disableEditing}
+                             validations="isRequiredSelect"/>
+
             {userActions}
           </fieldset>
         </Formsy.Form>

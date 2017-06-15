@@ -1,8 +1,6 @@
 import $ from 'jquery';
 import { startOperation, cancelOperation } from './operation.action';
-import {
-  INIT_CARS
-} from '../constants/actionTypes';
+import { INIT_CARS } from '../constants/actionTypes';
 
 export function loadCars() {
   return (dispatch) => {
@@ -14,8 +12,8 @@ export function loadCars() {
       dataType: 'json'
     }).done(json => {
       dispatch({
-        type: INIT_CARS, //action type, name according to convention
-        payload: json //action data, name according to convention
+        type: INIT_CARS,
+        payload: json
       });
     }).fail(() => {
       console.log('Could not get list of cars');

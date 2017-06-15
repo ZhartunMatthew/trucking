@@ -6,7 +6,6 @@ import {
 } from '../constants/actionTypes';
 
 export function startOperation(valueObject) {
-  //Pure action create : simply creates and returns action
   return {
     type: INIT_OPERATION,
     payload: valueObject

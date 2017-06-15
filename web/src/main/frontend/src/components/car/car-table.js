@@ -32,8 +32,11 @@ class CarTable extends React.Component {
             <td> {car.type}</td>
             <td>
               <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowUpdateCarForm.bind(this, car)}>Update</button>
-                <button className='btn btn-danger' onClick={this.deleteCar.bind(this, car)}>Delete</button>
+                <button className='btn btn-primary'
+                        onClick={this.onShowUpdateCarForm.bind(this, car)}> Update </button>
+
+                <button className='btn btn-danger'
+                        onClick={this.deleteCar.bind(this, car)}> Delete </button>
               </div>
             </td>
           </tr>
@@ -51,7 +54,8 @@ class CarTable extends React.Component {
             <td> {car.type}</td>
             <td>
               <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowUpdateCarForm.bind(this, car)}>Open</button>
+                <button className='btn btn-primary'
+                        onClick={this.onShowUpdateCarForm.bind(this, car)}>Open</button>
               </div>
             </td>
           </tr>
@@ -60,7 +64,8 @@ class CarTable extends React.Component {
     });
     let adminActions =
       <td colSpan={3}>
-      <button className='btn btn-default' onClick={this.onShowCreateCarForm.bind(this)}>Create new car
+      <button className='btn btn-default'
+              onClick={this.onShowCreateCarForm.bind(this)}>Create new car
       </button>
     </td>;
     let ownerActions = null;

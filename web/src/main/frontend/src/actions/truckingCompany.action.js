@@ -13,10 +13,9 @@ export function loadTruckingCompanies() {
       },
       dataType: 'json'
     }).done(json => {
-      //CREATE ACTION
       dispatch({
-        type: INIT_TRUCKINGCOMPANIES, //action type, name according to convention
-        payload: json //action data, name according to convention
+        type: INIT_TRUCKINGCOMPANIES,
+        payload: json
       });
     }).fail(() => {
       console.log('Could not get list of trucking companies');

@@ -14,10 +14,9 @@ export function loadUserRole() {
       },
       dataType: 'json'
     }).done(json => {
-      //CREATE ACTION
       dispatch({
-        type: INIT_USERROLE, //action type, name according to convention
-        payload: json //action data, name according to convention
+        type: INIT_USERROLE,
+        payload: json
       });
     }).fail(() => {
       console.log('Could not get user role');
@@ -34,10 +33,9 @@ export function loadRoles() {
       },
       dataType: 'json'
     }).done(json => {
-      //CREATE ACTION
       dispatch({
-        type: INIT_ROLES, //action type, name according to convention
-        payload: json //action data, name according to convention
+        type: INIT_ROLES,
+        payload: json
       });
     }).fail(() => {
       console.log('Could not get list of roles');
@@ -54,10 +52,9 @@ export function loadCurrentUser() {
       },
       dataType: 'json'
     }).done(json => {
-      //CREATE ACTION
       dispatch({
-        type: INIT_CURRENTUSER, //action type, name according to convention
-        payload: json //action data, name according to convention
+        type: INIT_CURRENTUSER,
+        payload: json
       });
     }).fail(() => {
       console.log('Could not get current users');

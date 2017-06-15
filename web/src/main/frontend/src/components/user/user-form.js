@@ -1,14 +1,12 @@
 import React from 'react';
-import Input from '../common/text-input';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Select from '../common/select';
 import { loadRoles } from '../../actions/userRole.action';
 import { updateUser, makeNewUser } from '../../actions/user.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles';
-import MyInput from '../common/input';
-import MySelect from '../common/select-component';
+import ValidatedInput from '../common/input';
+import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { setActionDescription } from '../../actions/modal.action'
 
@@ -189,42 +187,146 @@ class UserForm extends React.Component {
         <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend>{this.props.user.id ? editingLabel : creatingLabel} </legend>
-            <MyInput id='name' type='text' label='name' placeholder='Enter name here'
-                   value={this.props.user.name || ''} onChange={this.handleNameChange.bind(this)} readOnly={disableEditing}
-                    name='name' title='Name' required validations="isLetter" validationError='This field must contain only letters'/>
-            <MyInput id='surname' type='text' label='surname' placeholder='Enter surname here'
-                   value={this.props.user.surname  || ''} onChange={this.handleSurnameChange.bind(this)} readOnly={disableEditing}
-                     name='surname' title='Surname' required validations="isLetter" validationError='This field must contain only letters'/>
-            <MyInput id='patronymic' type='text' label='patronymic' placeholder='Enter patronymic here'
-                   value={this.props.user.patronymic  || ''} onChange={this.handlePatronymicChange.bind(this)} readOnly={disableEditing}
-                     name='patronymic' title='Patronymic' required validations="isLetter" validationError='This field must contain only letters'/>
-            <MyInput id='email' type='text' label='email' placeholder='Enter email here'
-                   value={this.props.user.email  || ''} onChange={this.handleEmailChange.bind(this)} readOnly={disableEditing}
-                     name='email' title='Email' required validations="isEmail" validationError='Invalid email'/>
-            <MyInput id='login' type='text' label='login' placeholder='Enter login here'
-                   value={this.props.user.login  || ''} onChange={this.handleLoginChange.bind(this)} readOnly={disableEditing}
-                     name='login' title='Login' required validations="isLoginPassword" validationError='Allowable characters: letters, numbers, -, _, at least 4 characters'/>
-            <MyInput id='password' type='text' label='password' placeholder='Enter password here'
-                   value={this.props.user.password  || ''} onChange={this.handlePasswordChange.bind(this)} readOnly={disableEditing || this.props.user.id}
-                     name='password' title='Password' required validations="isLoginPassword" validationError='Allowable characters: letters, numbers, -, _, at least 4 characters'/>
-            <MyInput id='country' type='text' label='Country' placeholder='Enter country here'
-                     value={this.props.user.country  || ''} onChange={this.handleCountryChange.bind(this)} readOnly={disableEditing}
-                     name='country' title='Country' required validations="isCountryCity" validationError='Allowable characters:letters, numbers,-,space'/>
-            <MyInput id='city' type='text' label='city' placeholder='Enter city here'
-                     value={this.props.user.city  || ''} onChange={this.handleCityChange.bind(this)} readOnly={disableEditing}
-                     name='city' title='City' required validations="isCountryCity" validationError='Allowable characters:letters, numbers,-,space'/>
-            <MyInput id='street' type='text' label='street' placeholder='Enter street here'
-                   value={this.props.user.street  || ''} onChange={this.handleStreetChange.bind(this)} readOnly={disableEditing}
-                     name='street' title='Street' required validations="isStreet" validationError='Allowable characters:letters, numbers,-,space,.,/'/>
-            <MyInput id='house' type='text' label='house' placeholder='Enter house here'
-                   value={this.props.user.house  || ''} onChange={this.handleHouseChange.bind(this)} readOnly={disableEditing}
-                     name='house' title='House' required validations="isHouseFlat" validationError='Allowable characters:letters, numbers, /'/>
-            <MyInput id='flat' type='text' label='flat' placeholder='Enter flat here'
-                   value={this.props.user.flat  || ''} onChange={this.handleFlatChange.bind(this)} readOnly={disableEditing}
-                     name='flat' title='Flat' required validations="isHouseFlat" validationError='Allowable characters:letters, numbers, /'/>
-            <MySelect id="userRole" label="User role" onChange={this.handleUserRoleChange.bind(this)}
-                    options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
-                    value={defaultUserRole} disabled={disableEditing} name="User Role" title="Type" validations="isRequiredSelect"/>
+            <ValidatedInput id='name'
+                            type='text'
+                            placeholder='Enter name here'
+                            value={this.props.user.name || ''}
+                            onChange={this.handleNameChange.bind(this)}
+                            readOnly={disableEditing}
+                            name='name'
+                            title='Name'
+                            required
+                            validations="isLetter"
+                            validationError='This field must contain only letters'/>
+
+            <ValidatedInput id='surname'
+                            type='text'
+                            placeholder='Enter surname here'
+                            value={this.props.user.surname  || ''}
+                            onChange={this.handleSurnameChange.bind(this)}
+                            readOnly={disableEditing}
+                            name='surname'
+                            title='Surname'
+                            required
+                            validations="isLetter"
+                            validationError='This field must contain only letters'/>
+
+            <ValidatedInput id='patronymic'
+                            type='text'
+                            placeholder='Enter patronymic here'
+                            value={this.props.user.patronymic  || ''}
+                            onChange={this.handlePatronymicChange.bind(this)}
+                            readOnly={disableEditing}
+                            name='patronymic'
+                            title='Patronymic'
+                            required
+                            validations="isLetter"
+                            validationError='This field must contain only letters'/>
+
+            <ValidatedInput id='email'
+                            type='text'
+                            placeholder='Enter email here'
+                            value={this.props.user.email  || ''}
+                            onChange={this.handleEmailChange.bind(this)}
+                            readOnly={disableEditing}
+                            name='email'
+                            title='Email'
+                            required
+                            validations="isEmail"
+                            validationError='Invalid email'/>
+
+            <ValidatedInput id='login'
+                            type='text'
+                            label='login'
+                            placeholder='Enter login here'
+                            value={this.props.user.login  || ''}
+                            onChange={this.handleLoginChange.bind(this)}
+                            readOnly={disableEditing}
+                            name='login'
+                            title='Login'
+                            required
+                            validations="isLoginPassword"
+                            validationError='Allowable characters: letters, numbers, -, _, at least 4 characters'/>
+
+            <ValidatedInput id='password'
+                            type='text'
+                            placeholder='Enter password here'
+                            value={this.props.user.password  || ''}
+                            onChange={this.handlePasswordChange.bind(this)}
+                            readOnly={disableEditing || this.props.user.id}
+                            name='password'
+                            title='Password'
+                            required
+                            validations="isLoginPassword"
+                            validationError='Allowable characters: letters, numbers, -, _, at least 4 characters'/>
+
+            <ValidatedInput id='country'
+                            type='text'
+                            placeholder='Enter country here'
+                            value={this.props.user.country  || ''}
+                            onChange={this.handleCountryChange.bind(this)}
+                            readOnly={disableEditing}
+                            name='country'
+                            title='Country'
+                            required
+                            validations="isCountryCity"
+                            validationError='Allowable characters:letters, numbers,-,space'/>
+
+            <ValidatedInput id='city'
+                            type='text'
+                            placeholder='Enter city here'
+                            value={this.props.user.city  || ''}
+                            onChange={this.handleCityChange.bind(this)}
+                            readOnly={disableEditing}
+                            name='city'
+                            title='City'
+                            required
+                            validations="isCountryCity"
+                            validationError='Allowable characters:letters, numbers,-,space'/>
+
+            <ValidatedInput id='street'
+                            type='text'
+                            placeholder='Enter street here'
+                            value={this.props.user.street  || ''}
+                            onChange={this.handleStreetChange.bind(this)}
+                            readOnly={disableEditing}
+                            name='street'
+                            title='Street'
+                            required
+                            validations="isStreet"
+                            validationError='Allowable characters:letters, numbers,-,space,.,/'/>
+
+            <ValidatedInput id='house'
+                            type='text'
+                            placeholder='Enter house here'
+                            value={this.props.user.house  || ''}
+                            onChange={this.handleHouseChange.bind(this)}
+                            readOnly={disableEditing}
+                            name='house'
+                            title='House'
+                            required
+                            validations="isHouseFlat"
+                            validationError='Allowable characters:letters, numbers, /'/>
+
+            <ValidatedInput id='flat'
+                            type='text'
+                            placeholder='Enter flat here'
+                            value={this.props.user.flat  || ''}
+                            onChange={this.handleFlatChange.bind(this)}
+                            readOnly={disableEditing}
+                            name='flat'
+                            title='Flat'
+                            required validations="isHouseFlat"
+                            validationError='Allowable characters:letters, numbers, /'/>
+
+            <ValidatedSelect id="userRole"
+                             onChange={this.handleUserRoleChange.bind(this)}
+                             options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
+                             value={defaultUserRole}
+                             disabled={disableEditing}
+                             name="User Role"
+                             title="Type"
+                             validations="isRequiredSelect"/>
             {userActions}
           </fieldset>
         </Formsy.Form>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import InvoiceForm from './invoice-form';
 import InvoiceTable from './invoice-table';
 import ProductTable from '../product/product-table';
-import ProductForm from '../product/product-form';
 import ProductComponent from "../product/product-component";
 import { bindActionCreators } from 'redux';
 import { startOperation, cancelOperation } from '../../actions/operation.action';

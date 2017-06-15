@@ -14,10 +14,9 @@ export function loadUsers() {
       },
       dataType: 'json'
     }).done(json => {
-      //CREATE ACTION
       dispatch({
-        type: INIT_USERS, //action type, name according to convention
-        payload: json //action data, name according to convention
+        type: INIT_USERS,
+        payload: json
       });
     }).fail(() => {
       console.log('Could not get list of users');

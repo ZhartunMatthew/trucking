@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loadTruckingCompanies, fetchTruckingCompany} from '../actions/truckingCompany.action';
 import { cancelOperation } from '../actions/operation.action';
-import { Link } from 'react-router';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 import TruckingCompanyComponent from './truckingCompany/truckingCompany-component'

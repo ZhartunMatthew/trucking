@@ -1,8 +1,6 @@
 import $ from 'jquery';
-import { startOperation, cancelOperation } from './operation.action';
-import {
-  INIT_INVOICES
-} from '../constants/actionTypes';
+import { startOperation } from './operation.action';
+import { INIT_INVOICES } from '../constants/actionTypes';
 
 export function loadInvoices() {
   return (dispatch) => {

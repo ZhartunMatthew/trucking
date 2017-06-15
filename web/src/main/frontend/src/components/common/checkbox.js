@@ -5,8 +5,12 @@ class CheckboxElement extends React.Component {
     return (
       <div className='form-group'>
         <div>
-          <input id={this.props.id} type='checkbox' checked={this.props.checked} disabled={this.props.disabled}
-                 className={this.props.className} onChange={this.props.onChange}/>
+          <input id={this.props.id}
+                 type='checkbox'
+                 checked={this.props.checked}
+                 disabled={this.props.disabled}
+                 className={this.props.className}
+                 onChange={this.props.onChange}/>
         </div>
       </div>
     );

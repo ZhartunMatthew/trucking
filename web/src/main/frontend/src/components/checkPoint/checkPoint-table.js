@@ -29,7 +29,7 @@ class CheckPointTable extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {rows}
+            {rows}
           </tbody>
         </table>
       </div>

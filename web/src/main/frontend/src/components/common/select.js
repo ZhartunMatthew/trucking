@@ -7,7 +7,12 @@ class SelectComponent extends React.Component {
         <label className='control-label' htmlFor={this.props.id}>
           {this.props.label}
         </label>
-        <select id={this.props.id} className='form-control small-select' value={this.props.value} onChange={this.props.onChange} disabled={this.props.disabled}>
+        <select id={this.props.id}
+                className='form-control small-select'
+                value={this.props.value}
+                onChange={this.props.onChange}
+                disabled={this.props.disabled}>
+
           {this.props.options}
         </select>
       </div>

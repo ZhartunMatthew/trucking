@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux';
 import { updateOperation, cancelOperation } from '../../actions/operation.action';
 import { updateProducts } from  '../../actions/product.action';
 import { Role } from '../../constants/roles';
-import MyInput from '../common/input';
-import MySelect from '../common/select-component';
+import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
 
 class ProductForm extends React.Component {
@@ -73,17 +72,45 @@ class ProductForm extends React.Component {
         <div>
           <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
             <fieldset>
-              <MyInput id='currentProductName' type='text' label='Product name' placeholder='' value={this.props.currentProductName}
-                       onChange={this.handleProductNameChange.bind(this)} validations='isLetter' validationError='This field must contain only letters'
-                       required name='currentProductName' title='Product name'/>
-              <MyInput id='currentProductAmount' type='text' label='Amount' placeholder='' value={this.props.currentProductAmount}
-                       onChange={this.handleAmountChange.bind(this)} validations="isNumeric" validationError="This field must be a number"
-                       required name='currentProductAmount' title='Amount'/>
-              <MyInput id='currentProductPrice' type='text' label='Price' placeholder='' value={this.props.currentProductPrice} onChange={this.handlePriceChange.bind(this)}
-                        required name='currentProductPrice' title='Price' validations="isNumeric" validationError="This field must be a number"/>
+              <ValidatedInput id='currentProductName'
+                              type='text'
+                              placeholder=''
+                              value={this.props.currentProductName}
+                              onChange={this.handleProductNameChange.bind(this)}
+                              validations='isLetter'
+                              validationError='This field must contain only letters'
+                              required
+                              name='currentProductName'
+                              title='Product name'/>
+
+              <ValidatedInput id='currentProductAmount'
+                              type='text'
+                              placeholder=''
+                              value={this.props.currentProductAmount}
+                              onChange={this.handleAmountChange.bind(this)}
+                              validations="isNumeric"
+                              validationError="This field must be a number"
+                              required
+                              name='currentProductAmount'
+                              title='Amount'/>
+
+              <ValidatedInput id='currentProductPrice'
+                              type='text'
+                              placeholder=''
+                              value={this.props.currentProductPrice}
+                              onChange={this.handlePriceChange.bind(this)}
+                              required
+                              name='currentProductPrice'
+                              title='Price'
+                              validations="isNumeric"
+                              validationError="This field must be a number"/>
+
               <div className='btn-toolbar text-center'>
                 <div className='btn-group' role='group'>
-                  <button type='button' className='btn btn-success' onClick={this.create.bind(this)} disabled={!this.state.canSubmit}> Add </button>
+                  <button type='button'
+                          className='btn btn-success'
+                          onClick={this.create.bind(this)}
+                          disabled={!this.state.canSubmit}> Add </button>
                 </div>
               </div>
             </fieldset>

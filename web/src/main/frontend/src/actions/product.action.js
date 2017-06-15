@@ -1,7 +1,10 @@
 import $ from 'jquery';
-import { startOperation, cancelOperation } from './operation.action';
 import {
-  INIT_PRODUCTS, UPDATE_PRODUCTS, CLEAR_PRODUCTS, INIT_LOSTTYPES, DELETE_PRODUCT
+  INIT_PRODUCTS,
+  UPDATE_PRODUCTS,
+  CLEAR_PRODUCTS,
+  INIT_LOSTTYPES,
+  DELETE_PRODUCT
 } from '../constants/actionTypes';
 
 export function loadProducts(invoiceId) {
@@ -14,10 +17,9 @@ export function loadProducts(invoiceId) {
       },
       dataType: 'json'
     }).done(json => {
-      //CREATE ACTION
       dispatch({
-        type: INIT_PRODUCTS, //action type, name according to convention
-        payload: json //action data, name according to convention
+        type: INIT_PRODUCTS,
+        payload: json
       });
     }).fail(() => {
       console.log('Could not get list of products');

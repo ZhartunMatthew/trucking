@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateOperation, cancelOperation } from '../../actions/operation.action';
 import { updateCheckPoints } from  '../../actions/checkPoint.action';
-import MyInput from '../common/input';
+import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
 
 class CheckPointForm extends React.Component {
@@ -53,14 +53,28 @@ class CheckPointForm extends React.Component {
 
     return (
       <div>
-        <Formsy.Form className='form-horizontal' onKeyPress={this.onKeyPress.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+        <Formsy.Form className='form-horizontal'
+                     onKeyPress={this.onKeyPress.bind(this)}
+                     onValid={this.enableButton.bind(this)}
+                     onInvalid={this.disableButton.bind(this)}>
           <fieldset>
-            <MyInput id='currentCheckPointDescription' type='text' label='Check point name' placeholder='' title='Check point name'
-                   value={this.props.currentCheckPointDescription} onChange={this.handleCheckPointDescriptionChange.bind(this)}
-                     name="name" required validations='isLetter' validationError='This field must contain only letters'/>
+            <ValidatedInput id='currentCheckPointDescription'
+                            type='text'
+                            placeholder=''
+                            title='Check point name'
+                            value={this.props.currentCheckPointDescription}
+                            onChange={this.handleCheckPointDescriptionChange.bind(this)}
+                            name="name"
+                            required
+                            validations='isLetter'
+                            validationError='This field must contain only letters'/>
+
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
-                <button type='button' className='btn btn-success' onClick={this.create.bind(this)} disabled={!this.state.canSubmit}> Add </button>
+                <button type='button'
+                        className='btn btn-success'
+                        onClick={this.create.bind(this)}
+                        disabled={!this.state.canSubmit}> Add </button>
               </div>
             </div>
           </fieldset>

@@ -7,8 +7,14 @@ class InputComponent extends React.Component {
         <label htmlFor={this.props.id} className='control-label'>
           {this.props.label}
         </label>
-        <input id={this.props.id} type={this.props.type} className='form-control' value={this.props.value}
-               placeholder={this.props.placeholder} onChange={this.props.onChange} readOnly={this.props.readOnly}/>
+        <input id={this.props.id}
+               type={this.props.type}
+               className='form-control'
+               value={this.props.value}
+               placeholder={this.props.placeholder}
+               onChange={this.props.onChange}
+               readOnly={this.props.readOnly}/>
+
         <span className='validation-error'>{this.props.errorMessage}</span>
       </div>
     );

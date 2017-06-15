@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { startOperation, cancelOperation } from './operation.action';
+import { startOperation } from './operation.action';
 import {
   INIT_DRIVERWAYBILLS, INIT_PRODUCTS
 } from '../constants/actionTypes';
@@ -13,7 +13,6 @@ export function loadDriverWaybills() {
       },
       dataType: 'json'
     }).done(json => {
-      //CREATE ACTION
       dispatch({
         type: INIT_DRIVERWAYBILLS,
         payload: json

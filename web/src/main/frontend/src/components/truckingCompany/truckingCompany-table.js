@@ -57,8 +57,7 @@ class TruckingCompanyTable extends React.Component {
           {rows}
           <tr>
             <td colSpan={3}>
-              <button className='btn btn-default' onClick={this.onShowCreateGenreForm.bind(this)}>Create New Trucking company
-              </button>
+              <button className='btn btn-default' onClick={this.onShowCreateGenreForm.bind(this)}>Create New Trucking company</button>
             </td>
           </tr>
           </tbody>

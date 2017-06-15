@@ -1,6 +1,4 @@
 import React from 'react';
-import Input from '../common/text-input';
-import Select from '../common/select';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateInvoice, createInvoice } from '../../actions/invoice.action';
@@ -9,8 +7,8 @@ import { startOperation, updateOperation, cancelOperation } from '../../actions/
 import { loadCustomers } from '../../actions/customer.action'
 import { clearProducts } from '../../actions/product.action';
 import { Role } from '../../constants/roles';
-import MyInput from '../common/input';
-import MySelect from '../common/select-component';
+import ValidatedInput from '../common/input';
+import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { setActionDescription } from '../../actions/modal.action'
 
@@ -160,34 +158,34 @@ class InvoiceForm extends React.Component {
 
     let dispatcherSelects =
       <div>
-        <MySelect id="destinationCustomerCompanyId"
-                  label="Destination customer"
-                  onChange={this.handleDestinationCustomerChange.bind(this)}
-                  options={this.props.destinationCustomers.map((customer)=>{return ( <option value={customer.id}> {customer.name}, {customer.city} </option> )})}
-                  value={defaultDestination} disabled={disableEditing}
-                  name="destinationCustomerCompanyId"
-                  title="Destination customer"
-                  validations="isRequiredSelect"/>
+        <ValidatedSelect id="destinationCustomerCompanyId"
+                         label="Destination customer"
+                         onChange={this.handleDestinationCustomerChange.bind(this)}
+                         options={this.props.destinationCustomers.map((customer)=>{return ( <option value={customer.id}> {customer.name}, {customer.city} </option> )})}
+                         value={defaultDestination} disabled={disableEditing}
+                         name="destinationCustomerCompanyId"
+                         title="Destination customer"
+                         validations="isRequiredSelect"/>
 
-       <MySelect id="driverId"
-                 label="Driver"
-                 onChange={this.handleDriverChange.bind(this)}
-                 options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
-                 value={defaultDriver}
-                 disabled={disableEditing}
-                 name="driverId"
-                 title="Driver"
-                 validations="isRequiredSelect"/>
+       <ValidatedSelect id="driverId"
+                        label="Driver"
+                        onChange={this.handleDriverChange.bind(this)}
+                        options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
+                        value={defaultDriver}
+                        disabled={disableEditing}
+                        name="driverId"
+                        title="Driver"
+                        validations="isRequiredSelect"/>
 
-        <MySelect id="carId"
-                  label="Car"
-                  onChange={this.handleCarChange.bind(this)}
-                  options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number}, {car.type} </option> )})}
-                  value={defaultCar}
-                  disabled={disableEditing}
-                  name="carId"
-                  title="Car"
-                  validations="isRequiredSelect" />
+        <ValidatedSelect id="carId"
+                         label="Car"
+                         onChange={this.handleCarChange.bind(this)}
+                         options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number}, {car.type} </option> )})}
+                         value={defaultCar}
+                         disabled={disableEditing}
+                         name="carId"
+                         title="Car"
+                         validations="isRequiredSelect" />
       </div>;
 
     let userActions = null;
@@ -206,20 +204,42 @@ class InvoiceForm extends React.Component {
             <div> Customer company ID <b> {this.props.invoice !== null ? this.props.invoice.customerCompanyId || '' : ''} </b> </div>
             <div> Customer company <b> {this.props.invoice !== null ? this.props.invoice.customerCompany || '' : ''} </b> </div>
 
-            <MyInput id='number' type='text' label='Invoice number' placeholder=''
-                   value={this.props.invoice !== null ? this.props.invoice.number || '' : ''} onChange={this.handleNumberChange.bind(this)}
-                   readOnly={disableEditing} title='Invoice number' name='number' required
-                     validations='isWaybillNumber' validationError='Allowable characters:letters, numbers,-'/>
-            <MyInput id='registerDate' type='text' label='Register date' placeholder=''
-                   value={this.props.invoice !== null ? this.props.invoice.registerDate || '' : ''} onChange={this.handleRegisterDate.bind(this)}
-                   readOnly={true} name='registerDate' title='Register date'/>
-            <MyInput id='customerCompany' type='text' label='Customer company' placeholder=''
-                   value={this.props.invoice !== null ? customerInfo || '' : ''} onChange={this.handleCustomerCompany.bind(this)}
-                   readOnly={true} name='customerCompany' title='Customer company'/>
+            <ValidatedInput id='number'
+                            type='text'
+                            placeholder=''
+                            value={this.props.invoice !== null ? this.props.invoice.number || '' : ''}
+                            onChange={this.handleNumberChange.bind(this)}
+                            readOnly={disableEditing}
+                            title='Invoice number'
+                            name='number'
+                            required
+                            validations='isWaybillNumber'
+                            validationError='Allowable characters:letters, numbers,-'/>
+
+            <ValidatedInput id='registerDate'
+                            type='text'
+                            placeholder=''
+                            value={this.props.invoice !== null ? this.props.invoice.registerDate || '' : ''}
+                            onChange={this.handleRegisterDate.bind(this)}
+                            readOnly={true}
+                            name='registerDate'
+                            title='Register date'/>
+
+            <ValidatedInput id='customerCompany'
+                            type='text'
+                            placeholder=''
+                            value={this.props.invoice !== null ? customerInfo || '' : ''}
+                            onChange={this.handleCustomerCompany.bind(this)}
+                            readOnly={true}
+                            name='customerCompany'
+                            title='Customer company'/>
+
             {dispatcherSelects}
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
-                <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+                <button type='button'
+                        className='btn btn-success'
+                        onClick={this.cancel.bind(this)}>Close</button>
               </div>
               {userActions}
             </div>

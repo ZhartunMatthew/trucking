@@ -68,24 +68,33 @@ class DriverWaybillsForm extends React.Component {
           <td>{product.name}</td>
           <td>{product.amount}</td>
           <td width="15%">
-            <Input id={"amountLost" + product.id} label="Amount lost" type="text" value={product.lostAmount}
-                   readOnly={disableEditing} onChange={this.handleProductLostChange.bind(this, product.id, product)}/>
+            <Input id={"amountLost" + product.id}
+                   label="Amount lost"
+                   type="text"
+                   value={product.lostAmount}
+                   readOnly={disableEditing}
+                   onChange={this.handleProductLostChange.bind(this, product.id, product)}/>
+
           </td>
           { product.lostAmount &&
-          <td>
-            <Select id={"typeLost" + product.id} label="Reason lost" value={defaultType}
-                    disabled={disableEditing} options={this.props.lostTypes.map((type) => {
-              return ( <option> {type} </option> )
-            })}
-                    onChange={this.handleProductTypeChange.bind(this, product.id, product)}/>
-          </td>
+            <td>
+              <Select id={"typeLost" + product.id}
+                      label="Reason lost"
+                      value={defaultType}
+                      disabled={disableEditing}
+                      options={this.props.lostTypes.map((type) => {return ( <option> {type} </option> )})}
+                      onChange={this.handleProductTypeChange.bind(this, product.id, product)}/>
+            </td>
           }
           { product.lostAmount &&
-          <td>
-          < TextareaElement id={"descLost" + product.id} label="Description lost"
-            readOnly={disableEditing} value={product.lostDescription} rows={4}
-            onChange={this.handleProductDescChange.bind(this, product.id, product)}/>
-          </td>
+            <td>
+            <TextareaElement id={"descLost" + product.id}
+                             label="Description lost"
+                             readOnly={disableEditing}
+                             value={product.lostDescription}
+                             rows={4}
+                             onChange={this.handleProductDescChange.bind(this, product.id, product)}/>
+            </td>
           }
         </tr>
       )
@@ -94,17 +103,29 @@ class DriverWaybillsForm extends React.Component {
       <div>
         <form className='form-horizontal'>
           <fieldset>
-            <legend><span> Waybill №<b>{this.props.driverWaybill.waybillNumber}</b></span></legend>
-            <label><b>Departure place:</b></label>
+            <legend>
+              <span> Waybill № <b>{this.props.driverWaybill.waybillNumber} </b> </span>
+            </legend>
+            <label> <b> Departure place: </b>
+            </label>
             <p>{this.props.driverWaybill.departureCountry}, г.{this.props.driverWaybill.departureCity},
                     {this.props.driverWaybill.departureStreet}, д.{this.props.driverWaybill.departureHouse}</p>
-            <label><b>Departure date:</b></label>
+            <label>
+              <b> Departure date: </b>
+            </label>
             <p>{this.props.driverWaybill.departureDate}</p>
-            <label><b>Destination place:</b></label>
+
+            <label>
+              <b> Destination place: </b>
+            </label>
             <p>{this.props.driverWaybill.destinationCountry}, г.{this.props.driverWaybill.destinationCity},
               {this.props.driverWaybill.destinationStreet}, д.{this.props.driverWaybill.destinationHouse}</p>
-            <label><b>Destination date:</b></label>
+
+            <label>
+              <b> Destination date: </b>
+            </label>
             <p>{this.props.driverWaybill.destinationDate}</p>
+
             <div>
               <h3>Checkpoints {this.props.driverWaybill.passedCheckPoints}/{this.props.driverWaybill.allCheckPoints}</h3>
               <table className='table table-hover'>
@@ -124,9 +145,14 @@ class DriverWaybillsForm extends React.Component {
             <div className='btn-toolbar text-center'>
               <div className='btn-group' role='group'>
                 { this.props.driverWaybill.passedCheckPoints === this.props.driverWaybill.allCheckPoints &&
-                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">Product list</button>
+                  <button type="button"
+                          className="btn btn-primary"
+                          data-toggle="modal"
+                          data-target="#myModal">Product list</button>
                 }
-                <button type='button' className='btn btn-default' onClick={this.cancel.bind(this)}>Close</button>
+                <button type='button'
+                        className='btn btn-default'
+                        onClick={this.cancel.bind(this)}> Close </button>
               </div>
             </div>
           </fieldset>

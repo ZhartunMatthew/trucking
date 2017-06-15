@@ -1,11 +1,10 @@
 import React from 'react';
-import Input from '../common/text-input';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createWaybill } from '../../actions/waybill.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles';
-import MyInput from '../common/input';
+import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
 import { setActionDescription } from '../../actions/modal.action'
 import CheckPointTable from '../checkPoint/checkPoint-table';
@@ -159,36 +158,107 @@ class WaybillForm extends React.Component {
     let userActions =
       <div className='btn-toolbar text-center'>
         <div className='btn-group' role='group'>
-          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+          <button type='button'
+                  className='btn btn-success'
+                  onClick={this.cancel.bind(this)}>Close</button>
         </div>
       </div>;
 
     let userFields =
       <div>
-        <MyInput id='departureCountry' name='departureCountry' type='text' title='Departure country' placeholder='' readOnly={disableEditing}
-               value={this.props.waybill.departureCountry || ''} onChange={this.handleDepartureCountry.bind(this)}/>
-        <MyInput id='departureCity' name='departureCity' type='text' title='Departure city' placeholder='' readOnly={disableEditing}
-               value={this.props.waybill.departureCity || ''} onChange={this.handleDepartureCity.bind(this)}/>
-        <MyInput id='departureStreet' name='departureStreet' type='text' title='Departure street' placeholder='' readOnly={disableEditing}
-               value={this.props.waybill.departureStreet || ''} onChange={this.handleDepartureStreet.bind(this)}/>
-        <MyInput id='departureHouse' name='departureHouse' type='text' title='Departure house' placeholder='' readOnly={disableEditing}
-               value={this.props.waybill.departureHouse || ''} onChange={this.handleDepartureHouse.bind(this)}/>
-        <MyInput id='destinationCountry' name='destinationCountry' type='text' title='Destination country' placeholder='' readOnly={disableEditing}
-               value={this.props.waybill.destinationCountry || ''} onChange={this.handleDestinationCountry.bind(this)}/>
-        <MyInput id='destinationCity' name='destinationCity' type='text' title='Destination city' placeholder='' readOnly={disableEditing}
-               value={this.props.waybill.destinationCity || ''} onChange={this.handleDestinationCity.bind(this)}/>
-        <MyInput id='destinationStreet' name='destinationStreet' type='text' title='Destination street' placeholder='' readOnly={disableEditing}
-               value={this.props.waybill.destinationStreet || ''} onChange={this.handleDestinationStreet.bind(this)}/>
-        <MyInput id='destinationHouse' name='destinationHouse' type='text' title='Destination house' placeholder='' readOnly={disableEditing}
-               value={this.props.waybill.destinationHouse || ''} onChange={this.handleDestinationHouse.bind(this)}/>
+        <ValidatedInput id='departureCountry'
+                        name='departureCountry'
+                        type='text'
+                        title='Departure country'
+                        placeholder=''
+                        readOnly={disableEditing}
+                        value={this.props.waybill.departureCountry || ''}
+                        onChange={this.handleDepartureCountry.bind(this)}/>
+
+        <ValidatedInput id='departureCity'
+                        name='departureCity'
+                        type='text'
+                        title='Departure city'
+                        placeholder=''
+                        readOnly={disableEditing}
+                        value={this.props.waybill.departureCity || ''}
+                        onChange={this.handleDepartureCity.bind(this)}/>
+
+        <ValidatedInput id='departureStreet'
+                        name='departureStreet'
+                        type='text'
+                        title='Departure street'
+                        placeholder=''
+                        readOnly={disableEditing}
+                        value={this.props.waybill.departureStreet || ''}
+                        onChange={this.handleDepartureStreet.bind(this)}/>
+
+        <ValidatedInput id='departureHouse'
+                        name='departureHouse'
+                        type='text'
+                        title='Departure house'
+                        placeholder=''
+                        readOnly={disableEditing}
+                        value={this.props.waybill.departureHouse || ''}
+                        onChange={this.handleDepartureHouse.bind(this)}/>
+
+        <ValidatedInput id='destinationCountry'
+                        name='destinationCountry'
+                        type='text'
+                        title='Destination country'
+                        placeholder=''
+                        readOnly={disableEditing}
+                        value={this.props.waybill.destinationCountry || ''}
+                        onChange={this.handleDestinationCountry.bind(this)}/>
+
+        <ValidatedInput id='destinationCity'
+                        name='destinationCity'
+                        type='text'
+                        title='Destination city'
+                        placeholder=''
+                        readOnly={disableEditing}
+                        value={this.props.waybill.destinationCity || ''}
+                        onChange={this.handleDestinationCity.bind(this)}/>
+
+        <ValidatedInput id='destinationStreet'
+                        name='destinationStreet'
+                        type='text'
+                        title='Destination street'
+                        placeholder=''
+                        readOnly={disableEditing}
+                        value={this.props.waybill.destinationStreet || ''}
+                        onChange={this.handleDestinationStreet.bind(this)}/>
+
+        <ValidatedInput id='destinationHouse'
+                        name='destinationHouse'
+                        type='text'
+                        title='Destination house'
+                        placeholder=''
+                        readOnly={disableEditing}
+                        value={this.props.waybill.destinationHouse || ''}
+                        onChange={this.handleDestinationHouse.bind(this)}/>
       </div>;
 
     let managerFields =
       <div>
-        <MyInput id='departureAddress' name='departureAddress' type='text' title='Departure address' placeholder='' readOnly={true}
-               value={this.props.waybill.departureAddress || ''} onChange={this.handleDepartureAddress.bind(this)}/>
-        <MyInput id='destinationAddress' name='destinationAddress' type='text' title='Destination address' placeholder='' readOnly={true}
-               value={this.props.waybill.destinationAddress || ''} onChange={this.handleDestinationAddress.bind(this)}/>
+        <ValidatedInput id='departureAddress'
+                        name='departureAddress'
+                        type='text'
+                        title='Departure address'
+                        placeholder=''
+                        readOnly={true}
+                        value={this.props.waybill.departureAddress || ''}
+                        onChange={this.handleDepartureAddress.bind(this)}/>
+
+        <ValidatedInput id='destinationAddress'
+                        name='destinationAddress'
+                        type='text'
+                        title='Destination address'
+                        placeholder=''
+                        readOnly={true}
+                        value={this.props.waybill.destinationAddress || ''}
+                        onChange={this.handleDestinationAddress.bind(this)}/>
+
         <CheckPointTable checkPoints={this.props.checkPoints}/>
       </div>;
 
@@ -200,25 +270,72 @@ class WaybillForm extends React.Component {
         <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend> {creatingLabel} </legend>
-            <MyInput id='waybillNumber' type='text' placeholder='' readOnly={disableEditing}
-                   value={this.props.waybill.waybillNumber || ''} onChange={this.handleWaybillNumberChange.bind(this)}
-                     validations='isWaybillNumber' validationError='Allowable characters:letters, numbers,-'
-                     title='Waybill number' name='waybillNumber' required/>
-            <MyInput id='number' type='text' placeholder='' title='Invoice number' name='number'
-                   value={this.props.waybill.invoiceNumber || ''} onChange={this.handleInvoiceNumberChange.bind(this)} readOnly={true}/>
-            <MyInput id='registerDate' type='text' placeholder=''
-                   value={this.props.waybill.invoiceDate || ''} onChange={this.handleInvoiceDate.bind(this)}
-                     readOnly={true} title='Register date' name='registerDate'/>
-            <MyInput id='customerCompany' type='text' title='Customer company' placeholder=''
-                   value={this.props.waybill.customerCompany || ''} onChange={this.handleCustomerCompany.bind(this)}
-                     readOnly={true} name='customerCompany'/>
-            <MyInput id='driverFullName' name='driverFullName' type='text' title='Full name of driver' placeholder=''
-                   value={this.props.waybill.driverFullName || ''} onChange={this.handleDriverFullName.bind(this)}
-                   readOnly={true}/>
-            <MyInput id='price' name='price' type='text' title='Price' placeholder='' readOnly={disableEditing}
-                   value={this.props.waybill.price || ''} onChange={this.handlePrice.bind(this)}/>
-            <MyInput id='totalDistance' name='totalDistance' type='text' title='Total distance, km' placeholder='' readOnly={true}
-                   value={this.props.waybill.totalDistance || ''} onChange={this.handleTotalDistance.bind(this)}/>
+            <ValidatedInput id='waybillNumber'
+                            type='text'
+                            placeholder=''
+                            readOnly={disableEditing}
+                            value={this.props.waybill.waybillNumber || ''}
+                            onChange={this.handleWaybillNumberChange.bind(this)}
+                            validations='isWaybillNumber'
+                            validationError='Allowable characters:letters, numbers,-'
+                            title='Waybill number'
+                            name='waybillNumber'
+                            required/>
+
+            <ValidatedInput id='number'
+                            type='text'
+                            placeholder=''
+                            title='Invoice number'
+                            name='number'
+                            value={this.props.waybill.invoiceNumber || ''}
+                            onChange={this.handleInvoiceNumberChange.bind(this)}
+                            readOnly={true}/>
+
+            <ValidatedInput id='registerDate'
+                            type='text'
+                            placeholder=''
+                            value={this.props.waybill.invoiceDate || ''}
+                            onChange={this.handleInvoiceDate.bind(this)}
+                            readOnly={true}
+                            title='Register date'
+                            name='registerDate'/>
+
+            <ValidatedInput id='customerCompany'
+                            type='text'
+                            title='Customer company'
+                            placeholder=''
+                            value={this.props.waybill.customerCompany || ''}
+                            onChange={this.handleCustomerCompany.bind(this)}
+                            readOnly={true}
+                            name='customerCompany'/>
+
+            <ValidatedInput id='driverFullName'
+                            name='driverFullName'
+                            type='text'
+                            title='Full name of driver'
+                            placeholder=''
+                            value={this.props.waybill.driverFullName || ''}
+                            onChange={this.handleDriverFullName.bind(this)}
+                            readOnly={true}/>
+
+            <ValidatedInput id='price'
+                            name='price'
+                            type='text'
+                            title='Price'
+                            placeholder=''
+                            readOnly={disableEditing}
+                            value={this.props.waybill.price || ''}
+                            onChange={this.handlePrice.bind(this)}/>
+
+            <ValidatedInput id='totalDistance'
+                            name='totalDistance'
+                            type='text'
+                            title='Total distance, km'
+                            placeholder=''
+                            readOnly={true}
+                            value={this.props.waybill.totalDistance || ''}
+                            onChange={this.handleTotalDistance.bind(this)}/>
+
             {userFields}
             {userActions}
           </fieldset>

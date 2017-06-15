@@ -1,8 +1,6 @@
 import $ from 'jquery';
 import { startOperation, cancelOperation } from './operation.action';
-import {
-  INIT_CUSTOMERS
-} from '../constants/actionTypes';
+import { INIT_CUSTOMERS } from '../constants/actionTypes';
 
 export function loadCustomers() {
   return (dispatch) => {
@@ -13,10 +11,9 @@ export function loadCustomers() {
       },
       dataType: 'json'
     }).done(json => {
-      //CREATE ACTION
       dispatch({
-        type: INIT_CUSTOMERS, //action type, name according to convention
-        payload: json //action data, name according to convention
+        type: INIT_CUSTOMERS,
+        payload: json
       });
     }).fail(() => {
       console.log('Could not get list of customer companies');

@@ -1,7 +1,7 @@
 import React from 'react';
 import Formsy from 'formsy-react';
 
-const MySelect = React.createClass({
+const ValidatedSelect = React.createClass({
 
   mixins: [Formsy.Mixin],
 
@@ -22,9 +22,16 @@ const MySelect = React.createClass({
     const labelClass ='label '+(this.showError() ? 'required' : '');
     return (
       <div className={className}>
-        <label htmlFor={this.props.name} className={labelClass}>{this.props.title}</label>
-        <select name={this.props.name} className='form-control small-select' onChange={this.props.onChange}
-                value={this.getValue()} disabled={this.props.disabled} selected="selected">
+        <label htmlFor={this.props.name}
+               className={labelClass}> {this.props.title} </label>
+
+        <select name={this.props.name}
+                className='form-control small-select'
+                onChange={this.props.onChange}
+                value={this.getValue()}
+                disabled={this.props.disabled}
+                selected="selected">
+
           {this.props.options}
         </select>
         <span className='validation-error'>{errorMessage}</span>
@@ -34,4 +41,4 @@ const MySelect = React.createClass({
 
 });
 
-export default MySelect;
+export default ValidatedSelect;

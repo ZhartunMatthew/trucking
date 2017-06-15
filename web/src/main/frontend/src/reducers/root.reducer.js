@@ -15,7 +15,6 @@ import CurrentUserReducer from './currentUser.reducer';
 import CheckPointReducer from './checkPoint.reducer';
 import LostTypesReducer from './productType.reducer';
 
-//This attached each reducer to particular field in application state
 export default combineReducers({
   truckingCompanies: TruckingCompaniesReducer,
   operation: OperationReducer,
