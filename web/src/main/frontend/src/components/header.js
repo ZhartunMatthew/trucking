@@ -40,7 +40,9 @@ HeaderComponent.propTypes = {
 };
 
 function mapStateToProps() {
-  return {};
+  return {
+
+  };
 }
 
 function mapDispatchToProps(dispatch) {
