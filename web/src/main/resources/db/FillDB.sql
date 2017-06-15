@@ -63,9 +63,9 @@ INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_d
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 215, 'CHECKED', 2);
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Блок охлаждения', 132, 'CHECKED', 2);
 INSERT INTO waybill (departure_date, departure_country, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
-            destination_date, destination_country, destination_city, destination_street, destination_house, destination_longitude,  destinatione_latitude,
+            destination_date, destination_country, destination_city, destination_street, destination_house, destinatione_latitude, destination_longitude,
             waybill_number, id_invoice, waybill_state, price, total_distance)
-    VALUES ('2017-04-21', 'Беларусь', 'Минск', 'ул. Богдановича', '117а', 'широта', 'долгота', NULL, 'Россия', 'Москва', 'пр.Свободы', '31', 'широта', 'долгота',
+    VALUES ('2017-04-21', 'Беларусь', 'Минск', 'улица Богдановича', '117а', '53.9353069', '27.5790794', NULL, 'Россия', 'Москва', 'проспект Свободы', '31', '55.838039', '37.4514803',
             '834761', 2, 'TRANSPORTATION_STARTED', 1200, 2900);
 
 /*state d, delivered*/
@@ -74,19 +74,19 @@ INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_d
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 210, 'DELIVERED', 3); /*delivered*/
 INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 3, 'LOST', 3);  /*lost*/
 INSERT INTO waybill (departure_date, departure_country, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
-                           destination_date, destination_country, destination_city, destination_street, destination_house, destination_longitude,  destinatione_latitude,
+                           destination_date, destination_country, destination_city, destination_street, destination_house, destinatione_latitude, destination_longitude,
                            waybill_number, id_invoice, waybill_state, price, total_distance)
-      VALUES ('2017-03-22', 'Беларусь', 'Минск', 'ул. Богдановича', '117а', 'широта', 'долгота', '2017-03-24', 'Россия', 'Москва', 'пр.Свободы', '31', 'широта', 'долгота',
+      VALUES ('2017-03-22', 'Беларусь', 'Минск', 'улица Богдановича', '117а', '53.9353069', '27.5790794', '2017-03-24', 'Россия', 'Москва', 'проспект Свободы', '31', '55.838039', '37.4514803',
               '834760', 3, 'TRANSPORTATION_COMPLETED', 1500, 3100);
 commit;
 
 /*checkpoint*/
 INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
-  VALUES ('Могилев', 'широта', 'долгота', '2017-04-21', 1);
+  VALUES ('Могилев', '53.883542', '30.2815377', '2017-04-21', 1);
 INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
-      VALUES ('Смоленск', 'широта', 'долгота', NULL, 1);
+      VALUES ('Смоленск', '54.7801138', '31.9299219', NULL, 1);
 INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
-VALUES ('Смоленск', 'широта', 'долгота', '2017-03-23', 2);
+VALUES ('Смоленск', '54.7801138', '31.9299219', '2017-03-23', 2);
 commit;
 
 UPDATE user
