@@ -7,6 +7,7 @@ import { updateOperation, resetOperation, cancelOperation } from '../../actions/
 import { Role } from '../../constants/roles';
 import MyInput from '../common/input';
 import Formsy from 'formsy-react';
+import { setActionDescription } from '../../actions/modal.action'
 
 class WaybillForm extends React.Component {
 
@@ -90,6 +91,9 @@ class WaybillForm extends React.Component {
   save() {
     this.props.waybill.checkPoints = this.props.checkPoints;
     this.props.createWaybill(this.props.waybill);
+    let action = "Новый путевой лист!";
+    let description = "Путевой лист <b>№" + this.props.waybill.waybillNumber + "</b> был создан";
+    setActionDescription(action, description);
     this.cancel();
   }
 
@@ -134,7 +138,9 @@ class WaybillForm extends React.Component {
         </div>
         <div className='btn-group float-right' role='group'>
           <button type='button' className={`${disabledClass} btn btn-primary`}
-                  onClick={this.save.bind(this)} disabled={!this.state.canSubmit}>Save
+                  onClick={this.save.bind(this)} disabled={!this.state.canSubmit}
+                  data-toggle="modal"
+                  data-target="#modal-action">Save
           </button>
         </div>
       </div>;
