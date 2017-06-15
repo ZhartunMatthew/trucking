@@ -1,9 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { setActionDescription } from '../actions/modal.action';
 
 class ReportPage extends React.Component {
 
   download() {
+    setActionDescription("Скачивание отчета началось","");
     setTimeout(() => {
       const response = {
         file: 'api/report',
@@ -43,7 +45,10 @@ class ReportPage extends React.Component {
               <div>
                 You can download your profits and losses report here.
               </div>
-              <button onClick={this.download} className='btn btn-success'>Download report </button>
+              <button onClick={this.download}
+                      className='btn btn-success'
+                      data-toggle="modal"
+                      data-target="#modal-action"> Download report </button>
             </div>
           </div>
         </div>

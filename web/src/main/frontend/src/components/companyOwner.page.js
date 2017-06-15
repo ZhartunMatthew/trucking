@@ -11,6 +11,7 @@ import { loadWaybills } from '../actions/waybill.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 import UserComponent from './user/user-component'
+import Modal from './modal/modal'
 
 class CompanyOwnerPage extends React.Component {
 
@@ -61,6 +62,7 @@ class CompanyOwnerPage extends React.Component {
           {
             this.props.children
           }
+          <Modal/>
         </div>
         <FooterComponent/>
       </div>
