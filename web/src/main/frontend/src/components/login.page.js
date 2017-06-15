@@ -19,18 +19,16 @@ export class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-md header-login">
+        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-xl header-login">
           <a className="navbar-brand" href="#"> Trucking </a>
-          <div className="collapse navbar-collapse" id="containerNavbar">
-            <ul className="navbar-nav mr-auto">
-              <li/>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <a className="nav-link" href="#" data-toggle="modal" data-target="#login-modal"> Login </a>
-              </li>
-            </ul>
-          </div>
+          <ul className="navbar-nav mr-auto">
+            <li/>
+          </ul>
+          <ul className="nav navbar-nav navbar-right">
+            <li>
+              <a className="nav-link" href="#" data-toggle="modal" data-target="#login-modal"> Login </a>
+            </li>
+          </ul>
         </nav>
         <div id="login-content" className="background-login"/>
         <div id="login-modal" className="modal fade" role="dialog">
