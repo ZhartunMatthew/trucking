@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import WaybillForm from './waybill-form';
 import { bindActionCreators } from 'redux';
-import CheckPointComponent from '../checkPoint/checkPoint-component';
 import OwnerWaybillsTable from './ownerWaybill-table';
 import CheckPointTable from '../checkPoint/checkPoint-table';
 import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles'
+import MapComponent from '../map/map-component';
 
 class WaybillComponent extends React.Component {
 
@@ -22,11 +22,11 @@ class WaybillComponent extends React.Component {
     if(role === Role.MANAGER) {
       content = (
         <div className='row'>
-          <div className='col-sm-4'>
+          <div className='col-md-4'>
             <WaybillForm/>
           </div>
-          <div className='col-sm-6'>
-            <CheckPointComponent/>
+          <div className='col-md-8'>
+            <MapComponent/>
           </div>
         </div>
       );

@@ -1,5 +1,5 @@
 import {
-  UPDATE_CHECK_POINTS
+  UPDATE_CHECK_POINTS, DELETE_CHECK_POINT
 } from '../constants/actionTypes';
 
 export function updateCheckPoints(item) {
@@ -7,6 +7,15 @@ export function updateCheckPoints(item) {
     dispatch({
       type: UPDATE_CHECK_POINTS,
       payload: item
+    })
+  }
+}
+
+export function deleteCheckPoint(key) {
+  return (dispatch) => {
+    dispatch({
+      type: DELETE_CHECK_POINT,
+      payload: key
     })
   }
 }

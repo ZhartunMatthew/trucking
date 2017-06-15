@@ -1,19 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { bindActionCreators } from 'redux';
 import DriverWaybillsForm from './driverWaybills-form';
 import DriverWaybillsTable from './driverWaybills-table';
+import MapComponent from '../map/map-component';
 
 class DriverWaybillComponent extends React.Component {
 
   render() {
     let content = this.props.currentDriverWaybill ? (
       <div className='row'>
-        <div className='col-sm-7'>
+        <div className='col-md-5'>
           <DriverWaybillsForm changes={this.props.changes} driverWaybill={this.props.currentDriverWaybill}/>
         </div>
-        <div className='col-sm-5'>
-          <DriverWaybillsTable driverWaybills={this.props.driverWaybills}/>
+        <div className='col-md-7'>
+          <MapComponent waybill={this.props.currentDriverWaybill}/>
         </div>
       </div>
     ) : (

@@ -70,10 +70,14 @@ class InvoiceForm extends React.Component {
     this.props.startOperation({
       waybillNumber: '',
       departureDate: '',
+      departureLatitude: '',
+      departureLongitude: '',
       departureCountry: '',
       departureCity: '',
       departureStreet: '',
       departureHouse: '',
+      destinationLatitude: '',
+      destinationLongitude: '',
       destinationCountry: '',
       destinationCity: '',
       destinationStreet: '',
@@ -86,18 +90,20 @@ class InvoiceForm extends React.Component {
       customerCompany: this.props.invoice.customerCompany,
       driverFullName: this.props.invoice.driverFullName,
       checkPoints: [],
-      idTruckingCompany: this.props.invoice.truckingCompanyId
+      idTruckingCompany: this.props.invoice.truckingCompanyId,
+      departureAddress: '',
+      destinationAddress: ''
     });
     this.context.router.push('/waybill');
   }
 
   cancel() {
-    if (this.props.userRole === Role.COMPANY_OWNER){
-      this.props.cancelOperation();
-    }else {
+    if (this.props.userRole === Role.DISPATCHER) {
       this.context.router.push('/customer');
-      this.props.cancelOperation();
+    } else if (this.props.userRole === Role.MANAGER) {
+      this.context.router.push('/invoice');
     }
+    this.props.cancelOperation();
   }
 
   create() {
