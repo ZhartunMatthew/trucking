@@ -22,7 +22,7 @@ class CarComponent extends React.Component {
           <div className='col-sm-4'>
             <CarForm changes={this.props.changes} car={this.props.currentCar}/>
           </div>
-          <div className='col-sm-5'>
+          <div className='col-sm-6'>
             <CarTable cars={this.props.cars}/>
           </div>
         </div>
