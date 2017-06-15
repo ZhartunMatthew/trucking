@@ -9,7 +9,7 @@ import {
 export function loadFreeCars() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/car/available',
+      url: 'api/car/available',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -28,7 +28,7 @@ export function loadFreeCars() {
 export function loadFreeDrivers() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/user/freeDrivers',
+      url: 'api/user/freeDrivers',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },

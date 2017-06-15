@@ -7,7 +7,7 @@ import {
 export function loadCars() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/car',
+      url: 'api/car',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -26,7 +26,7 @@ export function loadCars() {
 export function fetchCar(carId) {
   return (dispatch) => {
     $.ajax({
-      url: '/api/car/' + carId,
+      url: 'api/car/' + carId,
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -44,7 +44,7 @@ export function makeNewCar(car) {
   return (dispatch) => {
     $.ajax({
       type: 'POST',
-      url: '/api/car',
+      url: 'api/car',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(car),
       headers: {
@@ -64,7 +64,7 @@ export function updateCar(car) {
   return (dispatch) => {
     $.ajax({
       type: 'PUT',
-      url: '/api/car/' + car.id,
+      url: 'api/car/' + car.id,
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(car),
       headers: {
@@ -85,7 +85,7 @@ export function deleteCar(car) {
   return (dispatch) => {
     $.ajax({
       type: 'DELETE',
-      url: '/api/car/' + car.id,
+      url: 'api/car/' + car.id,
       contentType: 'application/json; charset=utf-8',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'

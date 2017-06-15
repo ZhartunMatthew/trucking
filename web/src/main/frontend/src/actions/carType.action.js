@@ -6,7 +6,7 @@ import {
 export function loadCarTypes() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/car-type',
+      url: 'api/car-type',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },

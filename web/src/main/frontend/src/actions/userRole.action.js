@@ -8,7 +8,7 @@ import {
 export function loadUserRole() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/userRole',
+      url: 'api/userRole',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -28,7 +28,7 @@ export function loadUserRole() {
 export function loadRoles() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/userRole/all',
+      url: 'api/userRole/all',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -48,7 +48,7 @@ export function loadRoles() {
 export function loadCurrentUser() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/userRole/current',
+      url: 'api/userRole/current',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },

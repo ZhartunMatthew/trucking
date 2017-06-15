@@ -3,7 +3,7 @@ import $ from 'jquery';
 export function logOut() {
   return () => {
     $.ajax({
-      url: '/logout',
+      url: 'logout',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       }
@@ -16,7 +16,7 @@ export function logOut() {
 export function logIn(credentials) {
   $.ajax({
     type: 'POST',
-    url: '/login',
+    url: 'login',
     contentType: 'application/json; charset=utf-8',
     data: JSON.stringify(credentials),
     headers: {

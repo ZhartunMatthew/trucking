@@ -7,7 +7,7 @@ export function createWaybill(waybill) {
   return (dispatch) => {
     $.ajax({
       type: 'POST',
-      url: '/api/waybill',
+      url: 'api/waybill',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(waybill),
       headers: {
@@ -23,7 +23,7 @@ export function createWaybill(waybill) {
 export function loadWaybills() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/waybill',
+      url: 'api/waybill',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },

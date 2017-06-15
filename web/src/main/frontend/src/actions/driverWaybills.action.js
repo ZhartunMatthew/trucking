@@ -7,7 +7,7 @@ import {
 export function loadDriverWaybills() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/waybill/driver',
+      url: 'api/waybill/driver',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -27,7 +27,7 @@ export function loadDriverWaybills() {
 export function loadProducts(idInvoice) {
   return (dispatch) => {
     $.ajax({
-      url: '/api/product/' + idInvoice,
+      url: 'api/product/' + idInvoice,
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -47,7 +47,7 @@ export function passCheckPoint(checkPoint) {
   return (dispatch) => {
     $.ajax({
       type: 'PUT',
-      url: '/api/checkpoint/check',
+      url: 'api/checkpoint/check',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(checkPoint),
       headers: {
@@ -67,7 +67,7 @@ export function passDestination(products, idWaybill) {
   return (dispatch) => {
     $.ajax({
       type: 'PUT',
-      url: '/api/waybill/check/' + idWaybill,
+      url: 'api/waybill/check/' + idWaybill,
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(products),
       headers: {

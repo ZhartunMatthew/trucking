@@ -6,7 +6,7 @@ class ReportPage extends React.Component {
   download() {
     setTimeout(() => {
       const response = {
-        file: '/api/report',
+        file: 'api/report',
       };
       window.location.href = response.file;
     }, 100);

@@ -8,7 +8,7 @@ import {
 export function loadUsers() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/user',
+      url: 'api/user',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -28,7 +28,7 @@ export function loadUsers() {
 export function fetchUser(userId) {
   return (dispatch) => {
     $.ajax({
-      url: '/api/user/' + userId,
+      url: 'api/user/' + userId,
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -46,7 +46,7 @@ export function makeNewUser(user) {
   return (dispatch) => {
     $.ajax({
       type: 'POST',
-      url: '/api/user',
+      url: 'api/user',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(user),
       headers: {
@@ -66,7 +66,7 @@ export function updateUser(user) {
   return (dispatch) => {
     $.ajax({
       type: 'PUT',
-      url: '/api/user/' + user.id,
+      url: 'api/user/' + user.id,
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(user),
       headers: {
@@ -87,7 +87,7 @@ export function deleteUser(user) {
   return (dispatch) => {
     $.ajax({
       type: 'DELETE',
-      url: '/api/user/' + user.id,
+      url: '/pi/user/' + user.id,
       contentType: 'application/json; charset=utf-8',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'

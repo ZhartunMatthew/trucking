@@ -7,7 +7,7 @@ import {
 export function loadInvoices() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/invoice',
+      url: 'api/invoice',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -26,7 +26,7 @@ export function loadInvoices() {
 export function fetchInvoice(invoiceId) {
   return (dispatch) => {
     $.ajax({
-      url: '/api/invoice/' + invoiceId,
+      url: 'api/invoice/' + invoiceId,
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -44,7 +44,7 @@ export function updateInvoice(invoice) {
   return (dispatch) => {
     $.ajax({
       type: 'PUT',
-      url: '/api/invoice/' + invoice.id,
+      url: 'api/invoice/' + invoice.id,
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(invoice),
       headers: {
@@ -63,7 +63,7 @@ export function createInvoice(invoice) {
   return (dispatch) => {
     $.ajax({
       type: 'POST',
-      url: '/api/invoice/',
+      url: 'api/invoice/',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(invoice),
       headers: {

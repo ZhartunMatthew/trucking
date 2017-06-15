@@ -7,7 +7,7 @@ import {
 export function loadCustomers() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/customer-company',
+      url: 'api/customer-company',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -27,7 +27,7 @@ export function loadCustomers() {
 export function fetchCustomer(companyId) {
   return (dispatch) => {
     $.ajax({
-      url: '/api/customer-company/' + companyId,
+      url: 'api/customer-company/' + companyId,
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
@@ -45,7 +45,7 @@ export function makeNewCustomerCompany(company) {
   return (dispatch) => {
     $.ajax({
       type: 'POST',
-      url: '/api/customer-company',
+      url: 'api/customer-company',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(company),
       headers: {
@@ -65,7 +65,7 @@ export function updateCustomerCompany(company) {
   return (dispatch) => {
     $.ajax({
       type: 'PUT',
-      url: '/api/customer-company/' + company.id,
+      url: 'api/customer-company/' + company.id,
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(company),
       headers: {
@@ -86,7 +86,7 @@ export function deleteCustomerCompany(company) {
   return (dispatch) => {
     $.ajax({
       type: 'DELETE',
-      url: '/api/customer-company/' + company.id,
+      url: 'api/customer-company/' + company.id,
       contentType: 'application/json; charset=utf-8',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'

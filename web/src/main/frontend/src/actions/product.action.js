@@ -7,7 +7,7 @@ import {
 export function loadProducts(invoiceId) {
   return (dispatch) => {
     $.ajax({
-      url: '/api/product',
+      url: 'api/product',
       data: JSON.stringify(invoiceId),
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
@@ -55,7 +55,7 @@ export function deleteProduct(id) {
 export function loadLostTypes() {
   return (dispatch) => {
     $.ajax({
-      url: '/api/product/lostType',
+      url: 'api/product/lostType',
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
