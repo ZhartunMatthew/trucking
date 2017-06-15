@@ -55,4 +55,10 @@ public class UserService {
     public User securedFindOne(Long id) {
         return userRepository.findOne(id);
     }
+
+    @PreAuthorize("hasAnyRole('COMPANY_OWNER')")
+    @Transactional
+    public Long count(Long truckingCompanyId) {
+        return userRepository.countByTruckingCompany_Id(truckingCompanyId);
+    }
 }

@@ -54,4 +54,10 @@ public class CustomerCompanyService {
     public CustomerCompany securedFindOne(Long id) {
         return customerCompanyRepository.findOne(id);
     }
+
+    @PreAuthorize("hasAnyRole('COMPANY_OWNER')")
+    @Transactional
+    public Long count(Long truckingCompanyId) {
+        return customerCompanyRepository.countByTruckingCompany_Id(truckingCompanyId);
+    }
 }

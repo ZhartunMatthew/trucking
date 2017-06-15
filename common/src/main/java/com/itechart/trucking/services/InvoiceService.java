@@ -62,4 +62,10 @@ public class InvoiceService {
     public Invoice securedFindOne(Long id) {
         return invoiceRepository.findOne(id);
     }
+
+    @PreAuthorize("hasAnyRole('COMPANY_OWNER')")
+    @Transactional
+    public Long count(Long truckingCompanyId) {
+        return invoiceRepository.countByTruckingCompany_Id(truckingCompanyId);
+    }
 }

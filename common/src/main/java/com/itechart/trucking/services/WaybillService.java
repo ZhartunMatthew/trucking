@@ -69,5 +69,4 @@ public class WaybillService {
         return waybillRepository.findOne(id);
     }
 
-
 }

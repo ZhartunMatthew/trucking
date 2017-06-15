@@ -47,4 +47,10 @@ public class CarService {
     public List<Car> findAvailable() {
         return carRepository.findByAvailableTrue();
     }
+
+    @PreAuthorize("hasAnyRole('COMPANY_OWNER', 'MANAGER')")
+    @Transactional
+    public Long count(Long truckingCompanyId) {
+        return carRepository.countByTruckingCompany_Id(truckingCompanyId);
+    }
 }

@@ -141,3 +141,11 @@ WHERE id_product = 6;
 UPDATE product
 SET price = 300
 WHERE id_product = 7;
+
+UPDATE waybill
+set price = 12000, total_distance = 300
+WHERE id_waybill = 1;
+
+UPDATE waybill
+set price = 9000, total_distance = 200
+WHERE id_waybill = 2;
