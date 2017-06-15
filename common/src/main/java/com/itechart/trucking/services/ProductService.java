@@ -43,8 +43,8 @@ public class ProductService {
     }
 
     @PreAuthorize("hasAnyRole('COMPANY_OWNER')")
-    public Long count(ProductStateEnum state, Long id) {
-        return productRepository.countByProductStateAndInvoice_TruckingCompany_Id(state, id);
+    public List<Product> findAllByState(ProductStateEnum state, Long id) {
+        return productRepository.findAllByProductStateAndInvoice_TruckingCompany_Id(state, id);
     }
 
     @PreAuthorize("hasAnyRole('COMPANY_OWNER')")

@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByInvoice_Id(Long id);
 
-    Long countByProductStateAndInvoice_TruckingCompany_Id(ProductStateEnum state, Long id);
-
     List<Product> findByInvoice_TruckingCompany_Id(Long Id);
+
+    List<Product> findAllByProductStateAndInvoice_TruckingCompany_Id(ProductStateEnum state, Long id);
 }

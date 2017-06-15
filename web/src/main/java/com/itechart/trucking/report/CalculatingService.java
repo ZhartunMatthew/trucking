@@ -52,12 +52,21 @@ public class CalculatingService {
     }
 
     private void calculateProduct() {
-        Long lost = productService.count(ProductStateEnum.LOST, truckingCompanyId);
-        Long delivered = productService.count(ProductStateEnum.DELIVERED, truckingCompanyId);
+        List<Product> lostList = productService.findAllByState(ProductStateEnum.LOST, truckingCompanyId);
+        long lost = 0;
+        long delivered = 0;
+        for (Product product: lostList) {
+            lost += product.getLostAmount();
+            delivered += product.getAmount() - product.getLostAmount();
+        }
+        List<Product> deliveredList = productService.findAllByState(ProductStateEnum.DELIVERED, truckingCompanyId);
+        for (Product product: deliveredList) {
+            delivered += product.getAmount();
+        }
         reportInfo.setProductLost(lost);
         reportInfo.setProductDelivered(delivered);
         reportInfo.setProductsSum(lost + delivered);
-        reportInfo.setProductLostPercent(lost * 100 / (lost + delivered));
+        reportInfo.setProductLostPercent((double)100*lost/(lost + delivered));
         double productLostPrice = 0;
         List<Product> productList = productService.FindAll(truckingCompanyId);
         for (Product product: productList) {

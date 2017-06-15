@@ -10,7 +10,7 @@ public class ReportInfo {
     private Long productsSum;
     private Long productDelivered;
     private Long productLost;
-    private Long productLostPercent;
+    private Double productLostPercent;
     private Double productLostPrice;
 
     private Double avgDistance;
@@ -80,11 +80,11 @@ public class ReportInfo {
         this.productLost = productLost;
     }
 
-    public Long getProductLostPercent() {
+    public Double getProductLostPercent() {
         return productLostPercent;
     }
 
-    public void setProductLostPercent(Long productLostPercent) {
+    public void setProductLostPercent(Double productLostPercent) {
         this.productLostPercent = productLostPercent;
     }
 
