@@ -40,7 +40,7 @@ class TruckingCompanyTable extends React.Component {
     return (
       <div>
         <h1>List of companies</h1>
-        <table className='table table-hover'>
+        <table className='table table-striped table-hover'>
           <thead>
           <tr>
             <th>#</th>

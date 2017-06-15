@@ -84,7 +84,7 @@ class UserTable extends React.Component {
     return (
       <div>
         <h1>List of users</h1>
-        <table className='table table-hover'>
+        <table className='table table-striped table-hover'>
           <thead>
           <tr>
             <th>#</th>

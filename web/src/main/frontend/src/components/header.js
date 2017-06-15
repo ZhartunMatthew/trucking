@@ -19,18 +19,16 @@ class HeaderComponent extends React.Component {
       )
     });
     return (
-        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+        <nav className="navbar navbar-inverse bg-inverse navbar-toggleable-xl">
           <a className="navbar-brand" href="#">Trucking</a>
-          <div className="collapse navbar-collapse" id="containerNavbar">
-            <ul className="navbar-nav mr-auto">
-              {navItems}
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <a className="nav-link" href="#" onClick={this.onLogOut.bind(this)}> Log out </a>
-              </li>
-            </ul>
-          </div>
+          <ul className="navbar-nav mr-auto">
+            {navItems}
+          </ul>
+          <ul className="nav navbar-nav navbar-right">
+            <li>
+              <a className="nav-link" href="#" onClick={this.onLogOut.bind(this)}> Log out </a>
+            </li>
+          </ul>
         </nav>
     );
   }
