@@ -92,5 +92,4 @@ public class CalculatingService {
         reportInfo.setOutcome(outcome);
         reportInfo.setRevenue(income - outcome);
     }
-
 }

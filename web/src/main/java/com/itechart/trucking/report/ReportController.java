@@ -29,7 +29,7 @@ public class ReportController {
         Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
         ReportInfo reportInfo = calculatingService.calculate(truckingCompanyId);
 
-        ReportBuilder.buildFinancialReport();
+        ReportBuilder.buildFinancialReport(reportInfo);
         response.setHeader("Content-Disposition", "attachment; filename=\"report.xls\"");
         File xls = new File("report.xls");
         FileInputStream in = new FileInputStream(xls);
