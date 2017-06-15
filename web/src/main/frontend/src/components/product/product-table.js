@@ -45,17 +45,20 @@ class ProductTable extends React.Component {
           )});
       }
     }
+    let actionHeader =
+      this.props.userRole === Role.DISPATCHER ? <th> Action </th> : null;
     return (
       <div>
         <h1> List of products </h1>
         <table className='table table-hover'>
           <thead>
-          <tr>
-            <th>#</th>
-            <th>name</th>
-            <th>amount</th>
-            <th>price</th>
-          </tr>
+            <tr>
+              <th> # </th>
+              <th> Name </th>
+              <th> Amount </th>
+              <th> Price </th>
+              {actionHeader}
+            </tr>
           </thead>
           <tbody>
             {rows}

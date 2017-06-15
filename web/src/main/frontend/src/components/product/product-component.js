@@ -17,16 +17,18 @@ class ProductComponent extends React.Component {
 
     let content =
       <div className='col'>
-        <div className='col-sm-8'>
+        <div>
           <ProductTable/>
         </div>
-        <div className='col-sm-8'>
+        <div>
           {productForm}
         </div>
       </div>;
 
     return (
-      <div> {content} </div>
+      <div>
+        {content}
+      </div>
     );
   }
 }
