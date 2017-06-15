@@ -3,51 +3,41 @@ import React from 'react';
 import { updateOperation } from '../../actions/operation.action';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  withGoogleMap,
-  GoogleMap,
-  DirectionsRenderer,
-  Geocoder,
-  Marker
-} from 'react-google-maps';
+import { withGoogleMap, GoogleMap, DirectionsRenderer, Geocoder, Marker} from 'react-google-maps';
 import SearchBox from 'react-google-maps/lib/places/SearchBox';
+import $ from 'jquery';
 import { updateCheckPoints, deleteCheckPoint } from  '../../actions/checkPoint.action';
-import {
-  MAX_COUNT_OF_WAYPOINTS,
-  INPUT_STYLE,
-  DEFAULT_ZOOM,
-  DEFAULT_LATITUDE,
-  DEFAULT_LONGITUDE,
-  METERS_PER_KILOMETER
-}  from '../../constants/map.constants';
+import { passCheckPoint } from '../../actions/driverWaybills.action';
+import { DEFAULT_LONGITUDE, DEFAULT_LATITUDE, DEFAULT_ZOOM, GREEN_ICON, RED_ICON,
+METERS_PER_KILOMETER, INPUT_STYLE, MAX_COUNT_OF_WAYPOINTS} from '../../constants/map.constants';
+import { Role } from '../../constants/roles';
 
 const DirectionsGoogleMap = withGoogleMap(props => (
-  <GoogleMap
-    defaultZoom={DEFAULT_ZOOM}
-    defaultCenter={props.center}
-    onClick={props.onClick}
-  >
-    <SearchBox
-      id='start-search-box'
-      ref={props.onStartSearchBoxMounted}
-      bounds={props.bounds}
-      onPlacesChanged={props.handleStartSearchBox}
-      controlPosition={google.maps.ControlPosition.TOP_LEFT}
-      inputPlaceholder='Departure place'
-      inputStyle={INPUT_STYLE}
-    />
-    <SearchBox
-      id='end-search-box'
-      ref={props.onEndSearchBoxMounted}
-      bounds={props.bounds}
-      onPlacesChanged={props.handleEndSearchBox}
-      controlPosition={google.maps.ControlPosition.TOP_LEFT}
-      inputPlaceholder='Destination place'
-      inputStyle={INPUT_STYLE}
-    />
+  <GoogleMap defaultZoom={DEFAULT_ZOOM} defaultCenter={props.center} onClick={props.onClick}>
+    {props.isManager ?
+      <div>
+        <SearchBox
+          ref={props.onStartSearchBoxMounted}
+          bounds={props.bounds}
+          onPlacesChanged={props.handleStartSearchBox}
+          controlPosition={google.maps.ControlPosition.TOP_LEFT}
+          inputPlaceholder='Departure place'
+          inputStyle={INPUT_STYLE}
+        />
+        <SearchBox
+          ref={props.onEndSearchBoxMounted}
+          bounds={props.bounds}
+          onPlacesChanged={props.handleEndSearchBox}
+          controlPosition={google.maps.ControlPosition.TOP_LEFT}
+          inputPlaceholder='Destination place'
+          inputStyle={INPUT_STYLE}
+        />
+      </div> : null
+    }
     {props.markers.map(marker => (
       <Marker
         {...marker}
+        onClick={() => props.onMarkerClick(marker)}
         onRightClick={() => props.onMarkerRightClick(marker)}
       />
     ))}
@@ -60,14 +50,17 @@ class MapComponent extends React.Component {
   constructor(props) {
     super(props);
     this.handleRouteChange = this.handleRouteChange.bind(this);
-    this.handleOnMapClick = this.handleOnMapClick.bind(this);
-    this.convertLocationIntoAddress = this.convertLocationIntoAddress.bind(this);
-    this.calculateTotalDistance = this.calculateTotalDistance.bind(this);
-    this.handleStartSearchBox = this.handleStartSearchBox.bind(this);
-    this.handleStartSearchBoxMounted = this.handleStartSearchBoxMounted.bind(this);
-    this.handleEndSearchBox = this.handleEndSearchBox.bind(this);
-    this.handleEndSearchBoxMounted = this.handleEndSearchBoxMounted.bind(this);
-    this.handleOnMarkerRightClick = this.handleOnMarkerRightClick.bind(this);
+    let isManager = this.props.userRole === Role.MANAGER;
+    this._params = {
+      handleOnMapClick: isManager ? this.handleOnMapClick.bind(this) : $.noop,
+      handleOnMarkerClick: isManager ? $.noop : this.handleOnMarkerClick.bind(this),
+      handleStartSearchBox: isManager ? this.handleStartSearchBox.bind(this) : $.noop,
+      handleEndSearchBox: isManager ? this.handleEndSearchBox.bind(this) : $.noop,
+      handleStartSearchBoxMounted: isManager ? this.handleStartSearchBoxMounted.bind(this) : $.noop,
+      handleEndSearchBoxMounted: isManager ? this.handleEndSearchBoxMounted.bind(this) : $.noop,
+      handleOnMarkerRightClick: isManager ? this.handleOnMarkerRightClick.bind(this) : $.noop,
+      isManager: isManager
+    };
     this.state = {
       start: null,
       waypoints: [],
@@ -75,9 +68,55 @@ class MapComponent extends React.Component {
       directions: null,
       markers: []
     };
-    this.state.markersToWaypointsMap = new Map();
     this.defaultCenter = new google.maps.LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
     this.defaultBounds = new google.maps.LatLngBounds(this.defaultCenter, this.defaultCenter);
+    if (isManager) {
+      this.convertLocationIntoAddress = this.convertLocationIntoAddress.bind(this);
+      this.calculateTotalDistance = this.calculateTotalDistance.bind(this);
+      this.state.markersToWaypointsMap = new Map();
+    } else {
+      this.initState = this.initState.bind(this);
+      this.initState();
+      this.handleRouteChange();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.userRole === Role.DRIVER) {
+      let nextMarkers = [];
+      for (let checkPoint of nextProps.waybill.checkPoints) {
+        nextMarkers.push({
+          position: new google.maps.LatLng(checkPoint.latitude, checkPoint.longitude),
+          key: checkPoint.id,
+          icon: checkPoint.pathDate ? GREEN_ICON : RED_ICON,
+          clickable: checkPoint.pathDate === null
+        });
+      }
+      this.setState({
+        markers: nextMarkers
+      })
+    }
+  }
+
+  initState() {
+    for (let checkPoint of this.props.waybill.checkPoints) {
+      let marker = {
+        position: new google.maps.LatLng(checkPoint.latitude, checkPoint.longitude),
+        key: checkPoint.id,
+        icon: checkPoint.pathDate ? GREEN_ICON : RED_ICON,
+        clickable: checkPoint.pathDate === null
+      };
+      this.state.markers.push(marker);
+      let waypoint = {
+        location: new google.maps.LatLng(checkPoint.latitude, checkPoint.longitude),
+        stopover: false
+      };
+      this.state.waypoints.push(waypoint);
+    }
+    this.state.start = new google.maps.LatLng(this.props.waybill.departureLatitude,
+      this.props.waybill.departureLongitude);
+    this.state.end = new google.maps.LatLng(this.props.waybill.destinationLatitude,
+      this.props.waybill.destinationLongitude);
   }
 
   handleStartSearchBoxMounted(searchBox) {
@@ -101,7 +140,7 @@ class MapComponent extends React.Component {
   handleOnMapClick(event) {
     if (this.state.start && this.state.end && this.state.waypoints.length < MAX_COUNT_OF_WAYPOINTS) {
       let geocoder = new google.maps.Geocoder();
-      geocoder.geocode({'location': event.latLng}, (results, status) => {
+      geocoder.geocode({location: event.latLng}, (results, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
           let marker = {
             position: event.latLng,
@@ -121,10 +160,6 @@ class MapComponent extends React.Component {
             key: marker.key
           };
           this.props.updateCheckPoints(checkPoint);
-          this.props.updateOperation(null, {});
-          this.props.updateOperation('currentCheckPointDescription', '');
-          this.props.updateOperation('currentCheckPointLatitude', '');
-          this.props.updateOperation('currentCheckPointLongitude', '');
           this.handleRouteChange();
         }
       });
@@ -143,6 +178,18 @@ class MapComponent extends React.Component {
     this.handleRouteChange();
   }
 
+  handleOnMarkerClick(targetMarker) {
+    let index = this.state.markers.findIndex(marker => marker === targetMarker);
+    this.state.markers[index].icon = GREEN_ICON;
+    this.state.markers[index].clickable = false;
+    let checkPoint = this.props.waybill.checkPoints.find(checkPoint => checkPoint.id === targetMarker.key);
+    this.props.passCheckPoint(checkPoint);
+    const nextMarkers = this.state.markers;
+    this.setState({
+      markers: nextMarkers
+    });
+  }
+
   handleRouteChange() {
     const DirectionsService = new google.maps.DirectionsService();
     DirectionsService.route({
@@ -150,12 +197,14 @@ class MapComponent extends React.Component {
       destination: this.state.end,
       waypoints: this.state.waypoints,
       travelMode: google.maps.TravelMode.DRIVING
-    }, (response, status) => {
+    }, (result, status) => {
       if (status === google.maps.DirectionsStatus.OK) {
         this.setState({
-          directions: response
+          directions: result
         });
-        this.calculateTotalDistance(response.routes[0].legs);
+        if (this.props.userRole === Role.MANAGER) {
+          this.calculateTotalDistance(result.routes[0].legs);
+        }
       } else {
         console.error('error fetching directions ${result}');
       }
@@ -173,7 +222,7 @@ class MapComponent extends React.Component {
 
   convertLocationIntoAddress(location, fieldPrefix) {
     let geocoder = new google.maps.Geocoder();
-    geocoder.geocode({'location': location}, (results, status) => {
+    geocoder.geocode({location: location}, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
         let address_component = {};
         for(let component of results[0].address_components) {
@@ -184,6 +233,8 @@ class MapComponent extends React.Component {
         this.props.updateOperation(fieldPrefix + 'City', address_component.locality);
         this.props.updateOperation(fieldPrefix + 'Street', address_component.route);
         this.props.updateOperation(fieldPrefix + 'House', address_component.street_number);
+        this.props.updateOperation(fieldPrefix + 'Latitude', results[0].geometry.location.lat());
+        this.props.updateOperation(fieldPrefix + 'Longitude', results[0].geometry.location.lng());
         if (this.state.start && this.state.end) {
           this.handleRouteChange();
         }
@@ -203,34 +254,43 @@ class MapComponent extends React.Component {
         }
         center={this.defaultCenter}
         bounds={this.defaultBounds}
-        onClick={this.handleOnMapClick}
+        onClick={this._params.handleOnMapClick}
         directions={directions}
-        handleStartSearchBox={this.handleStartSearchBox}
-        handleEndSearchBox={this.handleEndSearchBox}
-        onStartSearchBoxMounted={this.handleStartSearchBoxMounted}
-        onEndSearchBoxMounted={this.handleEndSearchBoxMounted}
-        onMarkerRightClick={this.handleOnMarkerRightClick}
+        handleStartSearchBox={this._params.handleStartSearchBox}
+        handleEndSearchBox={this._params.handleEndSearchBox}
+        onStartSearchBoxMounted={this._params.handleStartSearchBoxMounted}
+        onEndSearchBoxMounted={this._params.handleEndSearchBoxMounted}
+        onMarkerClick={this._params.handleOnMarkerClick}
+        onMarkerRightClick={this._params.handleOnMarkerRightClick}
         markers={this.state.markers}
+        isManager={this._params.isManager}
       />
     );
   }
 }
 
 MapComponent.propTypes = {
+  userRole: React.PropTypes.string.isRequired,
+  waybill: React.PropTypes.object,
   updateOperation: React.PropTypes.func.isRequired,
-  updateCheckPoints: React.PropTypes.func.isRequired,
-  deleteCheckPoint: React.PropTypes.func.isRequired
+  updateCheckPoints: React.PropTypes.func,
+  deleteCheckPoint: React.PropTypes.func,
+  passCheckPoint: React.PropTypes.func
+
 };
 
-let mapStateToProps = function () {
-  return {};
+let mapStateToProps = function (state) {
+  return {
+    userRole: state.userRole.userRole
+  };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     updateOperation: bindActionCreators(updateOperation, dispatch),
     updateCheckPoints: bindActionCreators(updateCheckPoints, dispatch),
-    deleteCheckPoint: bindActionCreators(deleteCheckPoint, dispatch)
+    deleteCheckPoint: bindActionCreators(deleteCheckPoint, dispatch),
+    passCheckPoint: bindActionCreators(passCheckPoint, dispatch)
   }
 }
 
