@@ -8,6 +8,7 @@ import { startOperation, cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 import UserComponent from '../components/user/user-component'
+import Modal from './modal/modal'
 
 class AdminPage extends React.Component {
 
@@ -44,6 +45,7 @@ class AdminPage extends React.Component {
           {
             this.props.children
           }
+          <Modal/>
         </div>
         <FooterComponent/>
       </div>

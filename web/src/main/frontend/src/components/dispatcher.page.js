@@ -7,6 +7,7 @@ import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 import CustomerComponent from './customer/customer-component'
+import Modal from './modal/modal'
 
 class DispatcherPage extends React.Component {
 
@@ -34,6 +35,7 @@ class DispatcherPage extends React.Component {
           {
             this.props.children
           }
+          <Modal/>
         </div>
         <FooterComponent/>
       </div>
@@ -42,7 +44,9 @@ class DispatcherPage extends React.Component {
 }
 
 function mapStateToProps() {
-  return {};
+  return {
+
+  };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -12,6 +12,7 @@ import { Role } from '../../constants/roles';
 import MyInput from '../common/input';
 import MySelect from '../common/select-component';
 import Formsy from 'formsy-react';
+import { setActionDescription } from '../../actions/modal.action'
 
 class InvoiceForm extends React.Component {
 
@@ -110,6 +111,9 @@ class InvoiceForm extends React.Component {
     this.props.clearProducts();
     this.props.createInvoice(this.props.invoice);
     this.cancel();
+    let action = "Новая накладная!";
+    let description = "Товарная накладная <b>№" + this.props.invoice.number + "</b> успешно добавлена";
+    setActionDescription(action, description);
   }
 
   render() {
@@ -134,32 +138,56 @@ class InvoiceForm extends React.Component {
 
     let managerActions =
       <div className='btn-group float-right' role='group'>
-        <button type='button' className={`btn btn-primary`} onClick={this.save.bind(this)}> OK </button>
+        <button type='button'
+                className={`btn btn-primary`}
+                onClick={this.save.bind(this)}> OK </button>
       </div>;
 
     let dispatcherActions =
       <div className='btn-group float-right' role='group'>
-        <button type='button' className={`btn btn-primary`} onClick={this.create.bind(this)}
-                disabled={!this.state.canSubmit}> Create </button>
+        <button type='button'
+                className={`btn btn-primary`}
+                onClick={this.create.bind(this)}
+                disabled={!this.state.canSubmit}
+                data-toggle="modal"
+                data-target="#modal-action"> Create </button>
       </div>;
 
     let disableEditing = role !== Role.DISPATCHER;
     const defaultDriver = this.props.invoice.driverId ? this.props.invoice.driverId : [];
     const defaultCar = this.props.invoice.carId ? this.props.invoice.carId : [];
     const defaultDestination = this.props.invoice.destinationCustomerCompanyId ? this.props.invoice.destinationCustomerCompanyId : [];
+
     let dispatcherSelects =
       <div>
-        <MySelect id="destinationCustomerCompanyId" label="Destination customer" onChange={this.handleDestinationCustomerChange.bind(this)}
-                options={this.props.destinationCustomers.map((customer)=>{return ( <option value={customer.id}> {customer.name}, {customer.city} </option> )})}
-                value={defaultDestination} disabled={disableEditing} name="destinationCustomerCompanyId" title="Destination customer"  validations="isRequiredSelect"/>
+        <MySelect id="destinationCustomerCompanyId"
+                  label="Destination customer"
+                  onChange={this.handleDestinationCustomerChange.bind(this)}
+                  options={this.props.destinationCustomers.map((customer)=>{return ( <option value={customer.id}> {customer.name}, {customer.city} </option> )})}
+                  value={defaultDestination} disabled={disableEditing}
+                  name="destinationCustomerCompanyId"
+                  title="Destination customer"
+                  validations="isRequiredSelect"/>
 
-       <MySelect id="driverId" label="Driver" onChange={this.handleDriverChange.bind(this)}
-                options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
-                value={defaultDriver} disabled={disableEditing} name="driverId" title="Driver" validations="isRequiredSelect"/>
+       <MySelect id="driverId"
+                 label="Driver"
+                 onChange={this.handleDriverChange.bind(this)}
+                 options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
+                 value={defaultDriver}
+                 disabled={disableEditing}
+                 name="driverId"
+                 title="Driver"
+                 validations="isRequiredSelect"/>
 
-        <MySelect id="carId" label="Car" onChange={this.handleCarChange.bind(this)}
-                options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number}, {car.type} </option> )})}
-                value={defaultCar} disabled={disableEditing} name="carId" title="Car" validations="isRequiredSelect" />
+        <MySelect id="carId"
+                  label="Car"
+                  onChange={this.handleCarChange.bind(this)}
+                  options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number}, {car.type} </option> )})}
+                  value={defaultCar}
+                  disabled={disableEditing}
+                  name="carId"
+                  title="Car"
+                  validations="isRequiredSelect" />
       </div>;
 
     let userActions = null;
