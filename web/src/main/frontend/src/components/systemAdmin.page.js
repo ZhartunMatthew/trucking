@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 import TruckingCompanyComponent from './truckingCompany/truckingCompany-component'
+import Modal from './modal/modal'
 
 class SystemAdminPage extends React.Component {
 
@@ -33,6 +34,7 @@ class SystemAdminPage extends React.Component {
             {
               this.props.children
             }
+            <Modal/>
           </div>
           <FooterComponent/>
         </div>
