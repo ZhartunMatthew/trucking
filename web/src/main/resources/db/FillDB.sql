@@ -36,6 +36,9 @@ INSERT INTO user (name, surname, patronymic, email, country, city, street, house
 /*Company owner*/
 INSERT INTO user (name, surname, patronymic, email, country, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
   VALUES ('Абрамович', 'Аркадий', 'Иванович', 'abram123@mail.ru', 'ОАЭ', 'Абу-Даби', 'Царская', '14', 'е', 'abram_superman', '6666', 'ds0fsa8a', 1, 'COMPANY_OWNER');
+
+INSERT INTO user (name, surname, patronymic, email, country, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
+  VALUES ('Васин', 'Василий', 'Васильев', 'vasya123@mail.ru', 'Беларусь', 'Минск', 'Асаналиева', '7', '223', 'vasya_superman', '5555', 'c8s0f8sa', 1, 'DRIVER');
 commit;
 
 /*car*/
@@ -113,6 +116,10 @@ WHERE id_user = 5;
 UPDATE user
 SET password = "$2a$10$tveXoVLTOMvjI0HxbQnf5uxoue5nLhl5BuJgLVLEOo.GKxdxwlhbS"
 WHERE id_user = 6;
+
+UPDATE user
+SET password = "$2a$10$HPw0gHvDp03aWcYZ.LDvHu7VAmPT5HBKxax83Arv978.8X1ZgACFy"
+WHERE id_user = 7;
 
 UPDATE product
 SET price = 300
