@@ -8,7 +8,7 @@ import { Role } from '../../constants/roles'
 
 class UserComponent extends React.Component {
 
-  componentDidMount() {
+  componentWillUnmount() {
     if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
     }

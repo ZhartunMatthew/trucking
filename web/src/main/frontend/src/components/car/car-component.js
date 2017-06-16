@@ -11,6 +11,9 @@ class CarComponent extends React.Component {
 
   componentDidMount() {
     this.props.loadCarTypes();
+  }
+
+  componentWillUnmount() {
     if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
     }

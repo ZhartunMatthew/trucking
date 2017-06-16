@@ -12,11 +12,13 @@ import { Role } from '../../constants/roles'
 
 class InvoiceComponent extends React.Component {
 
-  componentDidMount() {
+  componentWillUnmount() {
     if(this.props.userRole === Role.COMPANY_OWNER) {
       this.props.cancelOperation();
     }
+  }
 
+  componentDidMount() {
     if(this.props.userRole === Role.DISPATCHER) {
       this.props.loadFreeDrivers();
       this.props.loadFreeCars(true);

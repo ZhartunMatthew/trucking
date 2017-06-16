@@ -9,7 +9,7 @@ import MapComponent from '../map/map-component';
 
 class WaybillComponent extends React.Component {
 
-  componentDidMount() {
+  componentWillUnmount() {
     if (this.props.userRole === Role.COMPANY_OWNER) {
       this.props.cancelCurrentOperation();
     }
