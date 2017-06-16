@@ -40,7 +40,10 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<UserDTO>> findAll() {
         LOGGER.info("REST request. Path:/api/user  method: GET");
-        List<User> users = userService.findAll();
+        Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        List<User> users = truckingCompanyId == null
+                ? userService.findAll() : userService.findByTruckingCompanyId(truckingCompanyId);
+
         List<UserDTO> userDTOs = new ArrayList<>();
         for (User user : users){
             UserDTO userDTO = conversionService.convert(user, UserDTO.class);
