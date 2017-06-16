@@ -105,8 +105,6 @@ class WaybillForm extends React.Component {
         <div className='btn-group float-right' role='group'>
           <button type='button' className={`${disabledClass} btn btn-primary`}
                   onClick={this.save.bind(this)} disabled={!this.state.canSubmit}
-                  data-toggle="modal"
-                  data-target="#modal-action"
                   data-animation="false">Save
           </button>
         </div>

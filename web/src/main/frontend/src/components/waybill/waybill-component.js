@@ -6,6 +6,8 @@ import OwnerWaybillsTable from './ownerWaybill-table';
 import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles'
 import MapComponent from '../map/map-component';
+import InvoiceTable from '../invoice/invoice-table';
+import { setActionDescription } from '../../actions/modal.action';
 
 class WaybillComponent extends React.Component {
 
@@ -13,41 +15,56 @@ class WaybillComponent extends React.Component {
     if (this.props.userRole === Role.COMPANY_OWNER) {
       this.props.cancelCurrentOperation();
     }
+
+    if(this.props.userRole === Role.MANAGER && this.props.currentWaybill === null) {
+      setActionDescription("Error while updating form", "Returned to the start page");
+    }
   }
 
   render() {
     let role = this.props.userRole;
     let content = null;
-    if (role === Role.MANAGER) {
-      content = (
-        <div className='row'>
-          <div className='col-md-4'>
-            <WaybillForm/>
-          </div>
-          <div className='col-md-8'>
-            <MapComponent/>
-          </div>
-        </div>
-      );
-    }
-    if (role === Role.COMPANY_OWNER) {
-      content = this.props.currentWaybill ? (
-          <div className='row'>
-            <div className='col-md-4'>
-              <WaybillForm changes={this.props.changes} waybill={this.props.currentWaybill}/>
-            </div>
-            <div className='col-md-8'>
-              <MapComponent waybill={this.props.currentWaybill}/>
-            </div>
-          </div>
-        ) : (
+    let waybillForm = null;
+    let mapComponent = null;
+    let emptyOperationContent = null;
+
+    if(this.props.currentWaybill !== null) {
+      if(role === Role.MANAGER) {
+        waybillForm = <WaybillForm/>;
+        mapComponent = <MapComponent/>;
+      }
+      if(role === Role.COMPANY_OWNER) {
+        waybillForm = <WaybillForm changes={this.props.changes} waybill={this.props.currentWaybill}/>;
+        mapComponent = <MapComponent waybill={this.props.currentWaybill}/>;
+      }
+    } else {
+      if(role === Role.MANAGER) {
+        this.context.router.push("/invoice");
+        emptyOperationContent = <InvoiceTable invoices={this.props.invoices}/>;
+      }
+      if(role === Role.COMPANY_OWNER) {
+        emptyOperationContent =
           <div className='row'>
             <div className='col align-self-center'>
               <OwnerWaybillsTable waybills={this.props.driverWaybills}/>
             </div>
-          </div>
-        );
+          </div>;
+      }
     }
+
+    content = this.props.currentWaybill ? (
+        <div className='row'>
+          <div className='col-md-4'>
+            {waybillForm}
+          </div>
+          <div className='col-md-8'>
+            {mapComponent}
+          </div>
+        </div>
+      ) : (
+        emptyOperationContent
+      );
+
     return (
       <div className='container'>
         {content}
@@ -56,13 +73,18 @@ class WaybillComponent extends React.Component {
   }
 }
 
+WaybillComponent.contextTypes = {
+  router: React.PropTypes.func
+};
+
 let mapStateToProps = function (state) {
   return {
     checkPoints: state.checkPoints.checkPoints,
     driverWaybills: state.driverWaybills.driverWaybills,
     currentWaybill: state.operation.modifiedValue,
     changes: state.operation.changes,
-    userRole: state.userRole.userRole
+    userRole: state.userRole.userRole,
+    invoices: state.invoices.invoices
   };
 };
 

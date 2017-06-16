@@ -188,8 +188,6 @@ class DriverWaybillsForm extends React.Component {
                     this.props.driverWaybill.waybillState === 'TRANSPORTATION_STARTED' &&
                     <button type="button" className="btn btn-success" data-dismiss="modal"
                             onClick={this.passDestination.bind(this)}
-                            data-toggle="modal"
-                            data-target="#modal-action"
                             data-animation="false">Save</button>
                   }
                   <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>

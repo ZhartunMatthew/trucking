@@ -47,8 +47,7 @@ class ReportPage extends React.Component {
               </div>
               <button onClick={this.download}
                       className='btn btn-success'
-                      data-toggle="modal"
-                      data-target="#modal-action"> Download report </button>
+                      data-animation="false"> Download report </button>
             </div>
           </div>
         </div>
