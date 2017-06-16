@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -48,6 +47,7 @@ public class UserRoleController {
         usersRoles.add(UserRoleEnum.ADMIN);
         usersRoles.add(UserRoleEnum.MANAGER);
         usersRoles.add(UserRoleEnum.DISPATCHER);
+        usersRoles.add(UserRoleEnum.DRIVER);
         usersRoles.add(UserRoleEnum.COMPANY_OWNER);
         LOGGER.info("Return usersRolesList.size={}", usersRoles.size());
         return new ResponseEntity<>(usersRoles, HttpStatus.OK);
