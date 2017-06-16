@@ -43,7 +43,7 @@ public class UserRoleController {
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List> findAll() {
         LOGGER.info("REST request. Path:/api/userRole/all  method: GET");
-        List usersRoles = new ArrayList<String>();
+        List usersRoles = new ArrayList<UserRoleEnum>();
         usersRoles.add(UserRoleEnum.ADMIN);
         usersRoles.add(UserRoleEnum.MANAGER);
         usersRoles.add(UserRoleEnum.DISPATCHER);

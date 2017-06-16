@@ -120,7 +120,8 @@ class CustomerForm extends React.Component {
                   onClick={this.props.changes ? this.save.bind(this) : null}
                   disabled={!this.state.canSubmit}
                   data-toggle="modal"
-                  data-target="#modal-action"> Save </button>
+                  data-target="#modal-action"
+                  data-animation="false"> Save </button>
         </div>
       </div>;
 
