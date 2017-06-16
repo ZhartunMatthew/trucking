@@ -69,7 +69,7 @@ class DriverWaybillsForm extends React.Component {
           <td>{product.amount}</td>
           <td width="15%">
             <Input id={"amountLost" + product.id}
-                   label="Amount lost"
+                   label="Amount lost, pcs"
                    type="text"
                    value={product.lostAmount}
                    readOnly={disableEditing}
@@ -174,7 +174,7 @@ class DriverWaybillsForm extends React.Component {
                   <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Amount</th>
+                    <th>Amount, pcs</th>
                     <th colSpan="3">Lost information</th>
                   </tr>
                   </thead>

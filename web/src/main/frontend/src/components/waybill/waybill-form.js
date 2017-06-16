@@ -186,7 +186,7 @@ class WaybillForm extends React.Component {
             <ValidatedInput id='price'
                             name='price'
                             type='text'
-                            title='Price'
+                            title='Price, $'
                             placeholder=''
                             readOnly={disableEditing}
                             value={this.props.waybill.price || ''}

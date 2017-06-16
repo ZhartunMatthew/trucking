@@ -83,7 +83,7 @@ class CarTable extends React.Component {
             <th>Number</th>
             <th>Brand</th>
             <th>Model</th>
-            <th>Fuel consumption</th>
+            <th>Fuel consumption, L/100km</th>
             <th>Type</th>
             <th>Actions</th>
           </tr>
