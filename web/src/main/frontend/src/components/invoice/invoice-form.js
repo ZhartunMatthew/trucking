@@ -147,8 +147,6 @@ class InvoiceForm extends React.Component {
                 className={`btn btn-primary`}
                 onClick={this.create.bind(this)}
                 disabled={!this.state.canSubmit}
-                data-toggle="modal"
-                data-target="#modal-action"
                 data-animation="false"> Create </button>
       </div>;
 

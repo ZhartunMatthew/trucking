@@ -164,8 +164,6 @@ class UserForm extends React.Component {
                   className={`${disabledClass} btn btn-primary`}
                   onClick={this.props.changes ? this.save.bind(this) : null}
                   disabled={!this.state.canSubmit}
-                  data-toggle="modal"
-                  data-target="#modal-action"
                   data-animation="false"> Save </button>
         </div>
       </div>;
