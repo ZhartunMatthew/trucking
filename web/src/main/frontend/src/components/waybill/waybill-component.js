@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import WaybillForm from './waybill-form';
 import { bindActionCreators } from 'redux';
 import OwnerWaybillsTable from './ownerWaybill-table';
-import CheckPointTable from '../checkPoint/checkPoint-table';
 import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles'
 import MapComponent from '../map/map-component';
@@ -11,7 +10,7 @@ import MapComponent from '../map/map-component';
 class WaybillComponent extends React.Component {
 
   componentDidMount() {
-    if(this.props.userRole === Role.COMPANY_OWNER) {
+    if (this.props.userRole === Role.COMPANY_OWNER) {
       this.props.cancelCurrentOperation();
     }
   }
@@ -19,7 +18,7 @@ class WaybillComponent extends React.Component {
   render() {
     let role = this.props.userRole;
     let content = null;
-    if(role === Role.MANAGER) {
+    if (role === Role.MANAGER) {
       content = (
         <div className='row'>
           <div className='col-md-4'>
@@ -31,14 +30,14 @@ class WaybillComponent extends React.Component {
         </div>
       );
     }
-    if(role === Role.COMPANY_OWNER){
+    if (role === Role.COMPANY_OWNER) {
       content = this.props.currentWaybill ? (
           <div className='row'>
-            <div className='col-sm-5'>
+            <div className='col-md-4'>
               <WaybillForm changes={this.props.changes} waybill={this.props.currentWaybill}/>
             </div>
-            <div className='col-sm-5'>
-              <CheckPointTable checkPoints={this.props.currentWaybill.checkPoints}/>
+            <div className='col-md-8'>
+              <MapComponent waybill={this.props.currentWaybill}/>
             </div>
           </div>
         ) : (

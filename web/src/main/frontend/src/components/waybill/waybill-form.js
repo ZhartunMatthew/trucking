@@ -56,40 +56,8 @@ class WaybillForm extends React.Component {
     this.props.updateOperation('totalDistance', event.target.value);
   }
 
-  handleDepartureCountry(event) {
-    this.props.updateOperation('departureCountry', event.target.value);
-  }
-
-  handleDepartureCity(event) {
-    this.props.updateOperation('departureCity', event.target.value);
-  }
-
-  handleDepartureStreet(event) {
-    this.props.updateOperation('departureStreet', event.target.value);
-  }
-
-  handleDepartureHouse(event) {
-    this.props.updateOperation('departureHouse', event.target.value);
-  }
-
   handleDepartureAddress(event) {
     this.props.updateOperation('departureAddress', event.target.value);
-  }
-
-  handleDestinationCountry(event) {
-    this.props.updateOperation('destinationCountry', event.target.value);
-  }
-
-  handleDestinationCity(event) {
-    this.props.updateOperation('destinationCity', event.target.value);
-  }
-
-  handleDestinationStreet(event) {
-    this.props.updateOperation('destinationStreet', event.target.value);
-  }
-
-  handleDestinationHouse(event) {
-    this.props.updateOperation('destinationHouse', event.target.value);
   }
 
   handleDestinationAddress(event) {
@@ -115,18 +83,6 @@ class WaybillForm extends React.Component {
   }
 
   render() {
-
-    Formsy.addValidationRule('isStreet', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
-    });
-
-    Formsy.addValidationRule('isCountryCity', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\s*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
-    });
-
-    Formsy.addValidationRule('isHouseFlat', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
-    });
 
     Formsy.addValidationRule('isLetterOrNumber', function(values, value) {
       return (/^[а-яА-ЯёЁa-zA-Z0-9]+$/.test(value));
@@ -165,106 +121,14 @@ class WaybillForm extends React.Component {
         </div>
       </div>;
 
-    let userFields =
-      <div>
-        <ValidatedInput id='departureCountry'
-                        name='departureCountry'
-                        type='text'
-                        title='Departure country'
-                        placeholder=''
-                        readOnly={disableEditing}
-                        value={this.props.waybill.departureCountry || ''}
-                        onChange={this.handleDepartureCountry.bind(this)}/>
-
-        <ValidatedInput id='departureCity'
-                        name='departureCity'
-                        type='text'
-                        title='Departure city'
-                        placeholder=''
-                        readOnly={disableEditing}
-                        value={this.props.waybill.departureCity || ''}
-                        onChange={this.handleDepartureCity.bind(this)}/>
-
-        <ValidatedInput id='departureStreet'
-                        name='departureStreet'
-                        type='text'
-                        title='Departure street'
-                        placeholder=''
-                        readOnly={disableEditing}
-                        value={this.props.waybill.departureStreet || ''}
-                        onChange={this.handleDepartureStreet.bind(this)}/>
-
-        <ValidatedInput id='departureHouse'
-                        name='departureHouse'
-                        type='text'
-                        title='Departure house'
-                        placeholder=''
-                        readOnly={disableEditing}
-                        value={this.props.waybill.departureHouse || ''}
-                        onChange={this.handleDepartureHouse.bind(this)}/>
-
-        <ValidatedInput id='destinationCountry'
-                        name='destinationCountry'
-                        type='text'
-                        title='Destination country'
-                        placeholder=''
-                        readOnly={disableEditing}
-                        value={this.props.waybill.destinationCountry || ''}
-                        onChange={this.handleDestinationCountry.bind(this)}/>
-
-        <ValidatedInput id='destinationCity'
-                        name='destinationCity'
-                        type='text'
-                        title='Destination city'
-                        placeholder=''
-                        readOnly={disableEditing}
-                        value={this.props.waybill.destinationCity || ''}
-                        onChange={this.handleDestinationCity.bind(this)}/>
-
-        <ValidatedInput id='destinationStreet'
-                        name='destinationStreet'
-                        type='text'
-                        title='Destination street'
-                        placeholder=''
-                        readOnly={disableEditing}
-                        value={this.props.waybill.destinationStreet || ''}
-                        onChange={this.handleDestinationStreet.bind(this)}/>
-
-        <ValidatedInput id='destinationHouse'
-                        name='destinationHouse'
-                        type='text'
-                        title='Destination house'
-                        placeholder=''
-                        readOnly={disableEditing}
-                        value={this.props.waybill.destinationHouse || ''}
-                        onChange={this.handleDestinationHouse.bind(this)}/>
-      </div>;
-
-    let managerFields =
-      <div>
-        <ValidatedInput id='departureAddress'
-                        name='departureAddress'
-                        type='text'
-                        title='Departure address'
-                        placeholder=''
-                        readOnly={true}
-                        value={this.props.waybill.departureAddress || ''}
-                        onChange={this.handleDepartureAddress.bind(this)}/>
-
-        <ValidatedInput id='destinationAddress'
-                        name='destinationAddress'
-                        type='text'
-                        title='Destination address'
-                        placeholder=''
-                        readOnly={true}
-                        value={this.props.waybill.destinationAddress || ''}
-                        onChange={this.handleDestinationAddress.bind(this)}/>
-
-        <CheckPointTable checkPoints={this.props.checkPoints}/>
-      </div>;
-
     userActions = role === Role.MANAGER ? managerActions : userActions;
-    userFields = role === Role.MANAGER ? managerFields : userFields;
+    let departureAddress = role === Role.MANAGER ? this.props.waybill.departureAddress
+      : this.props.waybill.departureCountry + ', г.' + this.props.waybill.departureCity
+      + ', ' + this.props.waybill.departureStreet + ', д.' + this.props.waybill.departureHouse;
+    let destinationAddress = role === Role.MANAGER ? this.props.waybill.destinationAddress
+      : this.props.waybill.destinationCountry + ', г.' + this.props.waybill.destinationCity
+      + ', ' + this.props.waybill.destinationStreet + ', д.' + this.props.waybill.destinationHouse;
+    let checkPoints = role === Role.MANAGER ? this.props.checkPoints : this.props.waybill.checkPoints;
 
     return (
       <div>
@@ -337,7 +201,25 @@ class WaybillForm extends React.Component {
                             value={this.props.waybill.totalDistance || ''}
                             onChange={this.handleTotalDistance.bind(this)}/>
 
-            {userFields}
+            <ValidatedInput id='departureAddress'
+                            name='departureAddress'
+                            type='text'
+                            title='Departure address'
+                            placeholder=''
+                            readOnly={true}
+                            value={departureAddress || ''}
+                            onChange={this.handleDepartureAddress.bind(this)}/>
+
+            <ValidatedInput id='destinationAddress'
+                            name='destinationAddress'
+                            type='text'
+                            title='Destination address'
+                            placeholder=''
+                            readOnly={true}
+                            value={destinationAddress || ''}
+                            onChange={this.handleDestinationAddress.bind(this)}/>
+
+            <CheckPointTable checkPoints={checkPoints}/>
             {userActions}
           </fieldset>
         </Formsy.Form>

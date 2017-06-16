@@ -51,9 +51,10 @@ class MapComponent extends React.Component {
     super(props);
     this.handleRouteChange = this.handleRouteChange.bind(this);
     let isManager = this.props.userRole === Role.MANAGER;
+    let isCompanyOwner = this.props.userRole === Role.COMPANY_OWNER;
     this._params = {
       handleOnMapClick: isManager ? this.handleOnMapClick.bind(this) : $.noop,
-      handleOnMarkerClick: isManager ? $.noop : this.handleOnMarkerClick.bind(this),
+      handleOnMarkerClick: isManager || isCompanyOwner ? $.noop : this.handleOnMarkerClick.bind(this),
       handleStartSearchBox: isManager ? this.handleStartSearchBox.bind(this) : $.noop,
       handleEndSearchBox: isManager ? this.handleEndSearchBox.bind(this) : $.noop,
       handleStartSearchBoxMounted: isManager ? this.handleStartSearchBoxMounted.bind(this) : $.noop,
