@@ -15,7 +15,9 @@ class WaybillComponent extends React.Component {
     if (this.props.userRole === Role.COMPANY_OWNER) {
       this.props.cancelCurrentOperation();
     }
+  }
 
+  componentDidMount() {
     if(this.props.userRole === Role.MANAGER && this.props.currentWaybill === null) {
       setActionDescription("Error while updating form", "Returned to the start page");
     }
