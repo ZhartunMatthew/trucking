@@ -7,8 +7,10 @@ import ProductComponent from "../product/product-component";
 import { bindActionCreators } from 'redux';
 import { startOperation, cancelOperation } from '../../actions/operation.action';
 import { loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
-import { loadCustomers } from '../../actions/customer.action'
-import { Role } from '../../constants/roles'
+import { loadCustomers } from '../../actions/customer.action';
+import { Role } from '../../constants/roles';
+import CustomerTable from '../customer/customer-table';
+import { setActionDescription } from '../../actions/modal.action';
 
 class InvoiceComponent extends React.Component {
 
@@ -23,70 +25,72 @@ class InvoiceComponent extends React.Component {
       this.props.loadAllCustomers();
       this.props.cancelOperation();
 
-      this.props.startOperation({
-        number: '',
-        registerDate: '',
-        checkDate: '',
-        invoiceState: 'ISSUED',
-        customerCompanyId: this.props.customerCompany.id,
-        customerCompany: this.props.customerCompany.name,
-        customerCompanyCity: this.props.customerCompany.city,
-        destinationCustomerCompanyId: getFirstId(this.props.destinationCustomers, 1),
-        truckingCompanyId: this.props.customerCompany.truckingCompanyId,
-        truckingCompany: '',
-        driverId: getFirstId(this.props.users, 5),
-        managerId: '',
-        dispatcherId: '',
-        carId: getFirstId(this.props.cars, 1),
-        currentProductName: '',
-        currentProductAmount: '',
-        products: []
-      });
+      if (this.props.currentInvoice !== null) {
+        this.props.startOperation({
+          number: '',
+          registerDate: '',
+          checkDate: '',
+          invoiceState: 'ISSUED',
+          customerCompanyId: this.props.customerCompany.id,
+          customerCompany: this.props.customerCompany.name,
+          customerCompanyCity: this.props.customerCompany.city,
+          destinationCustomerCompanyId: getFirstId(this.props.destinationCustomers, 1),
+          truckingCompanyId: this.props.customerCompany.truckingCompanyId,
+          truckingCompany: '',
+          driverId: getFirstId(this.props.users, 5),
+          managerId: '',
+          dispatcherId: '',
+          carId: getFirstId(this.props.cars, 1),
+          currentProductName: '',
+          currentProductAmount: '',
+          products: []
+        });
+      } else {
+        setActionDescription("Error while updating form", "Returned to the start page");
+      }
     }
   }
 
   render() {
     let role = this.props.userRole;
-    let content = null;
-    if(role === Role.MANAGER || role === Role.COMPANY_OWNER) {
-      content = this.props.currentInvoice ? (
-        <div className='row'>
-          <div className='col-sm-6'>
-            <InvoiceForm changes={this.props.changes}
-                         invoice={this.props.currentInvoice}/>
-          </div>
-          <div className='col-sm-6'>
-            <ProductTable products={this.props.currentInvoice.products}/>
-          </div>
-        </div>
-      ) : (
-        <div className='row'>
-          <div className='col align-self-center'>
-            <InvoiceTable invoices={this.props.invoices}/>
-          </div>
-        </div>
-      );
+    let productContent = null;
+    let emptyOperationContent = null;
+
+    if(this.props.currentInvoice !== null) {
+      if (role === Role.MANAGER || role === Role.COMPANY_OWNER) {
+        productContent = <ProductTable products={this.props.currentInvoice.products}/>;
+      }
+      if (role === Role.DISPATCHER) {
+        this.copyProductsFromStateToInvoice();
+        productContent = <ProductComponent/>;
+      }
+    } else {
+      if (role === Role.MANAGER || role === Role.COMPANY_OWNER) {
+        emptyOperationContent = <InvoiceTable invoices={this.props.invoices}/>;
+      }
+      if (role === Role.DISPATCHER) {
+        this.context.router.push("/customer");
+        emptyOperationContent = <CustomerTable customers={this.props.destinationCustomers}/>;
+      }
     }
 
-    if(role === 'DISPATCHER') {
-      this.copyProductsFromStateToInvoice();
-      content = this.props.currentInvoice ? (
-        <div className='row'>
-          <div className='col-sm-6'>
-            <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice}/>
-          </div>
-          <div className='col-sm-6'>
-            <ProductComponent/>
-          </div>
+    let content = this.props.currentInvoice ? (
+      <div className='row'>
+        <div className='col-sm-6'>
+          <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice}/>
         </div>
-      ) : (
-        <div className='row'>
-          <div className='col align-self-center'>
-            <InvoiceTable invoices={this.props.invoices}/>
-          </div>
+        <div className='col-sm-6'>
+          {productContent}
         </div>
-      );
-    }
+      </div>
+    ) : (
+      <div className='row'>
+        <div className='col align-self-center'>
+          {emptyOperationContent}
+        </div>
+      </div>
+    );
+
     return (
       <div className='container'>
         {content}
