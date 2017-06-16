@@ -178,7 +178,7 @@ class CarForm extends React.Component {
 
             <ValidatedInput id='fuelConsumption'
                             type='text'
-                            title="Fuel consumption"
+                            title="Fuel consumption, L/100km"
                             placeholder='Enter fuel consumption here'
                             name="fuelConsumption"
                             value={this.props.car.fuelConsumption  || ''}

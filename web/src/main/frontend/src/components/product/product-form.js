@@ -92,7 +92,7 @@ class ProductForm extends React.Component {
                               validationError="This field must be a number"
                               required
                               name='currentProductAmount'
-                              title='Amount'/>
+                              title='Amount, pcs'/>
 
               <ValidatedInput id='currentProductPrice'
                               type='text'
@@ -101,7 +101,7 @@ class ProductForm extends React.Component {
                               onChange={this.handlePriceChange.bind(this)}
                               required
                               name='currentProductPrice'
-                              title='Price'
+                              title='Price, $'
                               validations="isNumeric"
                               validationError="This field must be a number"/>
 

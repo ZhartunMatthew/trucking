@@ -37,8 +37,8 @@ class OwnerWaybillsTable extends React.Component {
             <th>#</th>
             <th>number</th>
             <th>state</th>
-            <th>price</th>
-            <th>total distance</th>
+            <th>price, $</th>
+            <th>total distance, km</th>
             <th>checkpoints amount</th>
             <th>actions</th>
           </tr>
