@@ -5,7 +5,7 @@ class ModalComponent extends React.Component {
 
   render() {
     return (
-      <div id="modal-action" className="modal fade" role="dialog">
+      <div id="modal-action" className="modal" role="dialog">
         <div className="modal-dialog modal-action-dialog">
           <div className="panel panel-info modal-action-content">
             <div className="panel-heading">

@@ -61,4 +61,9 @@ public class UserService {
     public Long count(Long truckingCompanyId) {
         return userRepository.countByTruckingCompany_Id(truckingCompanyId);
     }
+
+    @PreAuthorize("hasPermission(null, 'User', 'GET')")
+    public List<User> findByTruckingCompanyId(Long id) {
+        return userRepository.findAllByTruckingCompany_Id(id);
+    }
 }

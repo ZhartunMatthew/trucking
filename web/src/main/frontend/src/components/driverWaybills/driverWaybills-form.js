@@ -189,7 +189,8 @@ class DriverWaybillsForm extends React.Component {
                     <button type="button" className="btn btn-success" data-dismiss="modal"
                             onClick={this.passDestination.bind(this)}
                             data-toggle="modal"
-                            data-target="#modal-action">Save</button>
+                            data-target="#modal-action"
+                            data-animation="false">Save</button>
                   }
                   <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
               </div>

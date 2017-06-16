@@ -150,7 +150,8 @@ class WaybillForm extends React.Component {
           <button type='button' className={`${disabledClass} btn btn-primary`}
                   onClick={this.save.bind(this)} disabled={!this.state.canSubmit}
                   data-toggle="modal"
-                  data-target="#modal-action">Save
+                  data-target="#modal-action"
+                  data-animation="false">Save
           </button>
         </div>
       </div>;

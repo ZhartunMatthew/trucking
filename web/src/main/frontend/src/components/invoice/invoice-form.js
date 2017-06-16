@@ -148,7 +148,8 @@ class InvoiceForm extends React.Component {
                 onClick={this.create.bind(this)}
                 disabled={!this.state.canSubmit}
                 data-toggle="modal"
-                data-target="#modal-action"> Create </button>
+                data-target="#modal-action"
+                data-animation="false"> Create </button>
       </div>;
 
     let disableEditing = role !== Role.DISPATCHER;
