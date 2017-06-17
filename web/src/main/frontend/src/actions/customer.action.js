@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { startOperation, cancelOperation } from './operation.action';
 import { INIT_CUSTOMERS } from '../constants/actionTypes';
+import { setActionDescription, setActionFail } from '../actions/modal.action'
 
 export function loadCustomers() {
   return (dispatch) => {
@@ -39,6 +40,7 @@ export function fetchCustomer(companyId) {
 }
 
 export function makeNewCustomerCompany(company) {
+  let statusCode = 0;
   return (dispatch) => {
     $.ajax({
       type: 'POST',
@@ -48,17 +50,27 @@ export function makeNewCustomerCompany(company) {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
-      dataType: 'json'
+      dataType: 'json',
+      error: function (xhr) {
+        statusCode = xhr.status;
+      }
     }).done((json) => {
       dispatch(startOperation(json));
       loadCustomers()(dispatch);
+
+      setActionDescription({
+        action: 'New customer!',
+        description: 'Customer <b>' + company.name + '</b> has been successfully added'
+      });
     }).fail(() => {
+      setActionFail(statusCode);
       console.log('Could not save company');
     });
   }
 }
 
 export function updateCustomerCompany(company) {
+  let statusCode = 0;
   return (dispatch) => {
     $.ajax({
       type: 'PUT',
@@ -68,11 +80,20 @@ export function updateCustomerCompany(company) {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
-      dataType: 'json'
+      dataType: 'json',
+      error: function (xhr) {
+        statusCode = xhr.status;
+      }
     }).done((json) => {
       loadCustomers()(dispatch);
       dispatch(startOperation(json));
+
+      setActionDescription({
+        action: 'Customer changing!',
+        description: 'Info about customer <b>' + company.name + '</b> has been changed'
+      });
     }).fail(() => {
+      setActionFail(statusCode);
       console.log('Could not update company');
     });
   }

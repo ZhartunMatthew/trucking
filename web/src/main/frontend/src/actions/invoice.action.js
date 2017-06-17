@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { startOperation } from './operation.action';
 import { INIT_INVOICES } from '../constants/actionTypes';
+import { setActionDescription, setActionFail } from '../actions/modal.action'
 
 export function loadInvoices() {
   return (dispatch) => {
@@ -40,6 +41,7 @@ export function fetchInvoice(invoiceId) {
 
 export function updateInvoice(invoice) {
   return (dispatch) => {
+    let statusCode = 0;
     $.ajax({
       type: 'PUT',
       url: 'api/invoice/' + invoice.id,
@@ -48,10 +50,19 @@ export function updateInvoice(invoice) {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
-      dataType: 'json'
+      dataType: 'json',
+      error: function (xhr) {
+        statusCode = xhr.status;
+      }
     }).done((json) => {
       loadInvoices()(dispatch);
+
+      setActionDescription({
+        action: 'Invoice accepted!',
+        description: 'Invoice <b>№' + invoice.number + '</b> accepted for processing'
+      })
     }).fail(() => {
+      setActionFail(statusCode);
       console.log('Could not update invoice');
     });
   }
@@ -59,6 +70,7 @@ export function updateInvoice(invoice) {
 
 export function createInvoice(invoice) {
   return (dispatch) => {
+    let statusCode = 0;
     $.ajax({
       type: 'POST',
       url: 'api/invoice/',
@@ -67,11 +79,20 @@ export function createInvoice(invoice) {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
-      dataType: 'json'
+      dataType: 'json',
+      error: function (xhr) {
+        statusCode = xhr.status;
+      }
     }).done((json) => {
       loadInvoices()(dispatch);
       dispatch(startOperation(json));
+
+      setActionDescription({
+        action: 'New invoice!',
+        description: 'Invoice <b>№' + invoice.number + '</b> has been successfully added'
+      })
     }).fail(() => {
+      setActionFail(statusCode);
       console.log('Could not create invoice');
     });
   }

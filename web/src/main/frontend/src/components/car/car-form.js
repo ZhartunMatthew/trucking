@@ -7,7 +7,6 @@ import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { Role } from '../../constants/roles'
-import { setActionDescription } from '../../actions/modal.action';
 import { sentenceCase } from 'change-case';
 
 class CarForm extends React.Component {
@@ -50,18 +49,11 @@ class CarForm extends React.Component {
   }
 
   save() {
-    let action = "";
-    let description = "";
     if (this.props.car.id) {
       this.props.updateCar(this.props.car);
-      action = "Изменения машины!";
-      description = "Информация о машине <b>" + this.props.car.number + "</b> была изменена";
     } else {
       this.props.createCar(this.props.car);
-      action = "Новая машины!";
-      description = "Машина с номером <b>" + this.props.car.number + "</b> успешно добавлена";
     }
-    setActionDescription(action, description);
   }
 
   reset() {
@@ -110,8 +102,7 @@ class CarForm extends React.Component {
           <button type='button'
                   className={`${disabledClass} btn btn-primary`}
                   onClick={this.props.changes ? this.save.bind(this) : null}
-                  disabled={!this.state.canSubmit}
-                  data-animation="false"> Save </button>
+                  disabled={!this.state.canSubmit}> Save </button>
 
         </div>
       </div>;

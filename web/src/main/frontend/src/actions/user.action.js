@@ -3,7 +3,7 @@ import { startOperation, cancelOperation } from './operation.action';
 import {
   INIT_USERS
 } from '../constants/actionTypes';
-
+import { setActionDescription, setActionFail } from '../actions/modal.action'
 
 export function loadUsers() {
   return (dispatch) => {
@@ -43,6 +43,7 @@ export function fetchUser(userId) {
 
 export function makeNewUser(user) {
   return (dispatch) => {
+    let statusCode = 0;
     $.ajax({
       type: 'POST',
       url: 'api/user',
@@ -51,11 +52,20 @@ export function makeNewUser(user) {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
-      dataType: 'json'
+      dataType: 'json',
+      error: function (xhr) {
+        statusCode = xhr.status;
+      }
     }).done((json) => {
       dispatch(startOperation(json));
       loadUsers()(dispatch);
+
+      setActionDescription({
+        action: 'New user!',
+        description: 'User <b>' + user.name + ' ' + user.surname + '</b> has been added'
+      });
     }).fail(() => {
+      setActionFail(statusCode);
       console.log('Could not save user');
     });
   }
@@ -63,6 +73,7 @@ export function makeNewUser(user) {
 
 export function updateUser(user) {
   return (dispatch) => {
+    let statusCode = 0;
     $.ajax({
       type: 'PUT',
       url: 'api/user/' + user.id,
@@ -71,11 +82,20 @@ export function updateUser(user) {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
-      dataType: 'json'
+      dataType: 'json',
+      error: function (xhr) {
+        statusCode = xhr.status;
+      }
     }).done((json) => {
       loadUsers()(dispatch);
       dispatch(startOperation(json));
+
+      setActionDescription({
+        action: 'User changing!',
+        description: 'Info about user <b>' + user.name + ' ' + user.surname + '</b> has been changed'
+      });
     }).fail(() => {
+      setActionFail(statusCode);
       console.log('Could not update user');
     });
   }
@@ -96,6 +116,7 @@ export function deleteUser(user) {
       dispatch(cancelOperation(null));
     }).fail(() => {
       console.log('Could not delete user');
+      setActionFail('404');
     });
   }
 }

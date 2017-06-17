@@ -10,7 +10,7 @@ import { loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
 import { loadCustomers } from '../../actions/customer.action';
 import { Role } from '../../constants/roles';
 import CustomerTable from '../customer/customer-table';
-import { setActionDescription } from '../../actions/modal.action';
+import { setActionFail } from '../../actions/modal.action';
 
 class InvoiceComponent extends React.Component {
 
@@ -48,7 +48,7 @@ class InvoiceComponent extends React.Component {
           products: []
         });
       } else {
-        setActionDescription("Error while updating form", "Returned to the start page");
+        setActionFail();
       }
     }
   }

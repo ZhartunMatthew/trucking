@@ -6,7 +6,6 @@ import { updateOperation, resetOperation, cancelOperation } from '../../actions/
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
-import { setActionDescription } from '../../actions/modal.action';
 
 class CustomerForm extends React.Component {
 
@@ -52,18 +51,11 @@ class CustomerForm extends React.Component {
   }
 
   save() {
-    let action = "";
-    let description = "";
     if (this.props.customer.id) {
       this.props.updateCustomer(this.props.customer);
-      action = "Изменения клиента!";
-      description = "Информация о клиенте <b>" + this.props.customer.name + "</b> была изменена";
     } else {
       this.props.createCustomer(this.props.customer);
-      action = "Новый клиент!";
-      description = "Клиент <b>" + this.props.customer.name + "</b> был добавлен";
     }
-    setActionDescription(action, description);
   }
 
   reset() {
@@ -118,8 +110,7 @@ class CustomerForm extends React.Component {
           <button type='button'
                   className={`${disabledClass} btn btn-primary`}
                   onClick={this.props.changes ? this.save.bind(this) : null}
-                  disabled={!this.state.canSubmit}
-                  data-animation="false"> Save </button>
+                  disabled={!this.state.canSubmit}> Save </button>
         </div>
       </div>;
 

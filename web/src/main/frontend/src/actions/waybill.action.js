@@ -2,9 +2,11 @@ import $ from 'jquery';
 import {
   INIT_DRIVERWAYBILLS
 } from '../constants/actionTypes';
+import { setActionDescription, setActionFail } from '../actions/modal.action'
 
 export function createWaybill(waybill) {
   return (dispatch) => {
+    let statusCode = 0;
     $.ajax({
       type: 'POST',
       url: 'api/waybill',
@@ -13,8 +15,17 @@ export function createWaybill(waybill) {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
-      dataType: 'json'
+      dataType: 'json',
+      error: function (xhr) {
+        statusCode = xhr.status;
+      }
+    }).done(() => {
+      setActionDescription({
+        action: 'New waybill!',
+        description: 'Waybill <b>' + waybill.waybillNumber + '</b> has been successfully created'
+      });
     }).fail(() => {
+      setActionFail(statusCode);
       console.log('Could not create waybill');
     });
   }

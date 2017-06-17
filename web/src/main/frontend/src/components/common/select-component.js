@@ -10,7 +10,6 @@ const ValidatedSelect = React.createClass({
   },
 
   render() {
-    console.log(this.showError());
     const className = 'form-group' + (this.props.className || ' ') +
       (this.showError() ? 'required' : '');
     const errorMessage = this.getErrorMessage();

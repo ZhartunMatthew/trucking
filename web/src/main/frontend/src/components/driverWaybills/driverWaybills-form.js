@@ -7,7 +7,6 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { passCheckPoint, passDestination} from '../../actions/driverWaybills.action';
 import { cancelOperation, updateOperation } from '../../actions/operation.action';
-import { setActionDescription } from '../../actions/modal.action'
 
 class DriverWaybillsForm extends React.Component {
 
@@ -32,9 +31,6 @@ class DriverWaybillsForm extends React.Component {
 
   passDestination() {
     this.props.passDestination(this.props.products, this.props.driverWaybill.id);
-    let action = "Путевой лист закрыт!";
-    let description = "Путевой лист <b>№" + this.props.driverWaybill.waybillNumber + "</b> успешно закрыт";
-    setActionDescription(action, description);
   }
 
   cancel() {
@@ -187,8 +183,7 @@ class DriverWaybillsForm extends React.Component {
                   {
                     this.props.driverWaybill.waybillState === 'TRANSPORTATION_STARTED' &&
                     <button type="button" className="btn btn-success" data-dismiss="modal"
-                            onClick={this.passDestination.bind(this)}
-                            data-animation="false">Save</button>
+                            onClick={this.passDestination.bind(this)}>Save</button>
                   }
                   <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
               </div>

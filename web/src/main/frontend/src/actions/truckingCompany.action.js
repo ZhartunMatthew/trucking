@@ -3,6 +3,7 @@ import { startOperation, cancelOperation } from './operation.action';
 import {
   INIT_TRUCKINGCOMPANIES
 } from '../constants/actionTypes';
+import { setActionDescription, setActionFail } from '../actions/modal.action'
 
 export function loadTruckingCompanies() {
   return (dispatch) => {
@@ -42,6 +43,7 @@ export function fetchTruckingCompany(companyId) {
 
 export function makeNewTruckingCompany(company) {
   return (dispatch) => {
+    let statusCode = 0;
     $.ajax({
       type: 'POST',
       url: 'api/trucking-company',
@@ -50,11 +52,20 @@ export function makeNewTruckingCompany(company) {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
-      dataType: 'json'
+      dataType: 'json',
+      error: function (xhr) {
+        statusCode = xhr.status;
+      }
     }).done((json) => {
       dispatch(startOperation(json));
       loadTruckingCompanies()(dispatch);
+
+      setActionDescription({
+        action: 'New trucking company!',
+        description: 'Trucking company <b>' + company.name + '</b> has been successfully added'
+      });
     }).fail(() => {
+      setActionFail(statusCode);
       console.log('Could not save company');
     });
   }
@@ -62,6 +73,7 @@ export function makeNewTruckingCompany(company) {
 
 export function updateTruckingCompany(company) {
   return (dispatch) => {
+    let statusCode = 0;
     $.ajax({
       type: 'PUT',
       url: 'api/trucking-company/' + company.id,
@@ -70,11 +82,20 @@ export function updateTruckingCompany(company) {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
-      dataType: 'json'
+      dataType: 'json',
+      error: function (xhr) {
+        statusCode = xhr.status;
+      }
     }).done((json) => {
       loadTruckingCompanies()(dispatch);
       dispatch(startOperation(json));
+
+      setActionDescription({
+        action: 'Trucking company changing!',
+        description: 'Info about trucking company <b>' + company.name + '</b> has been changed'
+      });
     }).fail(() => {
+      setActionFail(statusCode);
       console.log('Could not update company');
     });
   }

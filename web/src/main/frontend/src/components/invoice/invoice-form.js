@@ -10,7 +10,6 @@ import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
-import { setActionDescription } from '../../actions/modal.action';
 import { sentenceCase } from 'change-case';
 
 class InvoiceForm extends React.Component {
@@ -110,9 +109,6 @@ class InvoiceForm extends React.Component {
     this.props.clearProducts();
     this.props.createInvoice(this.props.invoice);
     this.cancel();
-    let action = "Новая накладная!";
-    let description = "Товарная накладная <b>№" + this.props.invoice.number + "</b> успешно добавлена";
-    setActionDescription(action, description);
   }
 
   render() {
@@ -147,8 +143,7 @@ class InvoiceForm extends React.Component {
         <button type='button'
                 className={`btn btn-primary`}
                 onClick={this.create.bind(this)}
-                disabled={!this.state.canSubmit}
-                data-animation="false"> Create </button>
+                disabled={!this.state.canSubmit}> Create </button>
       </div>;
 
     let disableEditing = role !== Role.DISPATCHER;
