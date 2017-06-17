@@ -67,8 +67,8 @@ class WaybillForm extends React.Component {
   save() {
     this.props.waybill.checkPoints = this.props.checkPoints;
     this.props.createWaybill(this.props.waybill);
-    let action = "Новый путевой лист!";
-    let description = "Путевой лист <b>№" + this.props.waybill.waybillNumber + "</b> был создан";
+    let action = "New waybill!";
+    let description = "Waybill <b>№" + this.props.waybill.waybillNumber + "</b> has been successfully added";
     setActionDescription(action, description);
     this.cancel();
   }

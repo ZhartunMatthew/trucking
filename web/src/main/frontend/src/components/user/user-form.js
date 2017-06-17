@@ -96,12 +96,12 @@ class UserForm extends React.Component {
     let description = "";
     if (this.props.user.id) {
       this.props.updateUser(this.props.user);
-      action = "Изменение пользователя!";
-      description = "Информация пользователя <b>" + this.props.user.name + ' ' + this.props.user.surname + "</b> была изменена";
+      action = "User changing!";
+      description = "Info about user <b>" + this.props.user.name + ' ' + this.props.user.surname + "</b> has been changed";
     } else {
       this.props.createUser(this.props.user);
-      action = "Новый пользователь!";
-      description = "Пользователь <b>" + this.props.user.name + ' ' + this.props.user.surname + "</b> был создан";
+      action = "New user!";
+      description = "User <b>" + this.props.user.name + ' ' + this.props.user.surname + "</b> has been added";
     }
     setActionDescription(action, description);
   }

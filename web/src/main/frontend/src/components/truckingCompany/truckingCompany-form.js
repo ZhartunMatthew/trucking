@@ -55,14 +55,14 @@ class TruckingCompanyForm extends React.Component {
     let description = "";
     if (this.props.truckingCompany.id) {
       this.props.updateTruckingCompany(this.props.truckingCompany);
-      action = "Изменения грузоперевозчика!";
-      description = "Информация о грузоперевозчике <b>" + this.props.truckingCompany.name + "</b> была изменена";
+      action = "Trucking company changing!";
+      description = "Info about trucking company <b>" + this.props.truckingCompany.name + "</b> has been changed";
     } else {
       this.props.createTruckingCompany(this.props.truckingCompany);
       action = "Новый грузоперевозчик!";
-      description = "Грузоперевозчик <b>" + this.props.truckingCompany.name + "</b> успешно добавлен";
+      description = "Trucking company <b>" + this.props.truckingCompany.name + "</b> has been successfully added";
     }
-    setActionDescription(action, description);
+    //setActionDescription(action, description);
   }
 
   reset() {

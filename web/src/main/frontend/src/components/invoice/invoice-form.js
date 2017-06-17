@@ -109,8 +109,8 @@ class InvoiceForm extends React.Component {
     this.props.clearProducts();
     this.props.createInvoice(this.props.invoice);
     this.cancel();
-    let action = "Новая накладная!";
-    let description = "Товарная накладная <b>№" + this.props.invoice.number + "</b> успешно добавлена";
+    let action = "New invoice!";
+    let description = "Invoice <b>№" + this.props.invoice.number + "</b> has been successfully added";
     setActionDescription(action, description);
   }
 

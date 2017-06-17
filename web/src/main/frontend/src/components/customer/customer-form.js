@@ -56,12 +56,12 @@ class CustomerForm extends React.Component {
     let description = "";
     if (this.props.customer.id) {
       this.props.updateCustomer(this.props.customer);
-      action = "Изменения клиента!";
-      description = "Информация о клиенте <b>" + this.props.customer.name + "</b> была изменена";
+      action = "Customer changing!";
+      description = "Info about customer <b>" + this.props.customer.name + "</b> has been changed";
     } else {
       this.props.createCustomer(this.props.customer);
-      action = "Новый клиент!";
-      description = "Клиент <b>" + this.props.customer.name + "</b> был добавлен";
+      action = "New customer!";
+      description = "Customer <b>" + this.props.customer.name + "</b> has been successfully added";
     }
     setActionDescription(action, description);
   }

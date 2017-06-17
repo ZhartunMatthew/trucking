@@ -53,12 +53,12 @@ class CarForm extends React.Component {
     let description = "";
     if (this.props.car.id) {
       this.props.updateCar(this.props.car);
-      action = "Изменения машины!";
-      description = "Информация о машине <b>" + this.props.car.number + "</b> была изменена";
+      action = "Car changing!";
+      description = "Info about car <b>" + this.props.car.number + "</b> has been changed";
     } else {
       this.props.createCar(this.props.car);
       action = "Новая машины!";
-      description = "Машина с номером <b>" + this.props.car.number + "</b> успешно добавлена";
+      description = "Car with number <b>" + this.props.car.number + "</b> has been successfully added";
     }
     setActionDescription(action, description);
   }

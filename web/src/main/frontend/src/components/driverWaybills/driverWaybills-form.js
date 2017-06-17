@@ -32,8 +32,8 @@ class DriverWaybillsForm extends React.Component {
 
   passDestination() {
     this.props.passDestination(this.props.products, this.props.driverWaybill.id);
-    let action = "Путевой лист закрыт!";
-    let description = "Путевой лист <b>№" + this.props.driverWaybill.waybillNumber + "</b> успешно закрыт";
+    let action = "Waybill has been closed!";
+    let description = "Waybill <b>№" + this.props.driverWaybill.waybillNumber + "</b> has been successfully closed";
     setActionDescription(action, description);
   }
 
