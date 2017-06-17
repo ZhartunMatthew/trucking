@@ -58,7 +58,7 @@
     "url-loader": "^0.5.6",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.4.1",
-    "formsy-react": "^0.19.2"
+    "change-case": "^3.0.1"
   },
   "dependencies": {
     "react-router": "^2.8.0",

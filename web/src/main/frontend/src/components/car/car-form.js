@@ -8,6 +8,7 @@ import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { Role } from '../../constants/roles'
 import { setActionDescription } from '../../actions/modal.action';
+import { sentenceCase } from 'change-case';
 
 class CarForm extends React.Component {
 
@@ -190,7 +191,9 @@ class CarForm extends React.Component {
                              name="type"
                              onChange={this.handleTypeChange.bind(this)}
                              value={defaultType}
-                             options={this.props.carTypes.map((type)=>{return ( <option> {type} </option> )})}
+                             options={this.props.carTypes.map(type => {return (
+                               <option key={type} value={type}> {sentenceCase(type)} </option>
+                             )})}
                              disabled={disableEditing}
                              validations="isRequiredSelect"/>
 

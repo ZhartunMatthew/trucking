@@ -14,11 +14,6 @@ const ValidatedSelect = React.createClass({
     const className = 'form-group' + (this.props.className || ' ') +
       (this.showError() ? 'required' : '');
     const errorMessage = this.getErrorMessage();
-    const options = this.props.options.map((option, i) => (
-      <option key={option.title+option.value} value={option.value}>
-        {option.title}
-      </option>
-    ));
     const labelClass ='label '+(this.showError() ? 'required' : '');
     return (
       <div className={className}>
