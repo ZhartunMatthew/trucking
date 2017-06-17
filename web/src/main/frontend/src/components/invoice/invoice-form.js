@@ -10,7 +10,6 @@ import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
-import { setActionDescription } from '../../actions/modal.action'
 
 class InvoiceForm extends React.Component {
 
@@ -109,9 +108,6 @@ class InvoiceForm extends React.Component {
     this.props.clearProducts();
     this.props.createInvoice(this.props.invoice);
     this.cancel();
-    let action = "New invoice!";
-    let description = "Invoice <b>№" + this.props.invoice.number + "</b> has been successfully added";
-    setActionDescription(action, description);
   }
 
   render() {

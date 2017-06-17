@@ -67,9 +67,6 @@ class WaybillForm extends React.Component {
   save() {
     this.props.waybill.checkPoints = this.props.checkPoints;
     this.props.createWaybill(this.props.waybill);
-    let action = "New waybill!";
-    let description = "Waybill <b>№" + this.props.waybill.waybillNumber + "</b> has been successfully added";
-    setActionDescription(action, description);
     this.cancel();
   }
 
@@ -104,8 +101,7 @@ class WaybillForm extends React.Component {
         </div>
         <div className='btn-group float-right' role='group'>
           <button type='button' className={`${disabledClass} btn btn-primary`}
-                  onClick={this.save.bind(this)} disabled={!this.state.canSubmit}
-                  data-animation="false">Save
+                  onClick={this.save.bind(this)} disabled={!this.state.canSubmit}>Save
           </button>
         </div>
       </div>;

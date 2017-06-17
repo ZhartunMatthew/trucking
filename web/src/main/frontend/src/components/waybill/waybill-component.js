@@ -7,7 +7,7 @@ import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles'
 import MapComponent from '../map/map-component';
 import InvoiceTable from '../invoice/invoice-table';
-import { setActionDescription } from '../../actions/modal.action';
+import { setActionFail} from '../../actions/modal.action';
 
 class WaybillComponent extends React.Component {
 
@@ -19,7 +19,7 @@ class WaybillComponent extends React.Component {
 
   componentDidMount() {
     if(this.props.userRole === Role.MANAGER && this.props.currentWaybill === null) {
-      setActionDescription("Error while updating form", "Returned to the start page");
+      setActionFail();
     }
   }
 
