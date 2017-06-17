@@ -156,3 +156,11 @@ WHERE id_waybill = 1;
 UPDATE waybill
 set price = 9000, total_distance = 200
 WHERE id_waybill = 2;
+
+UPDATE user
+SET is_available = 1
+WHERE id_user = 5;
+
+UPDATE user
+SET is_available = 1
+WHERE id_user = 7;

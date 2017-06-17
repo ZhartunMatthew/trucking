@@ -30,6 +30,8 @@ export function setActionFail(status) {
 function showModal(color) {
   if(color !== undefined) {
     $('#modal-content').css('background-color', color);
+  } else {
+    $('#modal-content').css('background-color', initialBackground);
   }
   $('#modal-action').animate({
     opacity: 1,
