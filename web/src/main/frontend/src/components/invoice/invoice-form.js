@@ -142,8 +142,7 @@ class InvoiceForm extends React.Component {
         <button type='button'
                 className={`btn btn-primary`}
                 onClick={this.create.bind(this)}
-                disabled={!this.state.canSubmit}
-                data-animation="false"> Create </button>
+                disabled={!this.state.canSubmit}> Create </button>
       </div>;
 
     let disableEditing = role !== Role.DISPATCHER;

@@ -6,7 +6,6 @@ import { updateOperation, resetOperation, cancelOperation } from '../../actions/
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
-import { setActionDescription } from '../../actions/modal.action';
 
 class CustomerForm extends React.Component {
 
