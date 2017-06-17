@@ -5,7 +5,10 @@ import { setActionDescription } from '../actions/modal.action';
 class ReportPage extends React.Component {
 
   download() {
-    setActionDescription("Downloading started","");
+    setActionDescription({
+      action: 'Downloading started',
+      description: ''
+    });
     setTimeout(() => {
       const response = {
         file: 'api/report',
