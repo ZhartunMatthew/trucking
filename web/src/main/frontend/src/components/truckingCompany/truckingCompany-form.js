@@ -5,7 +5,6 @@ import { updateTruckingCompany, makeNewTruckingCompany } from '../../actions/tru
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
-import { setActionDescription } from '../../actions/modal.action';
 
 class TruckingCompanyForm extends React.Component {
 
@@ -51,18 +50,11 @@ class TruckingCompanyForm extends React.Component {
   }
 
   save() {
-    let action = "";
-    let description = "";
     if (this.props.truckingCompany.id) {
       this.props.updateTruckingCompany(this.props.truckingCompany);
-      action = "Trucking company changing!";
-      description = "Info about trucking company <b>" + this.props.truckingCompany.name + "</b> has been changed";
     } else {
       this.props.createTruckingCompany(this.props.truckingCompany);
-      action = "Новый грузоперевозчик!";
-      description = "Trucking company <b>" + this.props.truckingCompany.name + "</b> has been successfully added";
     }
-    //setActionDescription(action, description);
   }
 
   reset() {
@@ -184,8 +176,7 @@ class TruckingCompanyForm extends React.Component {
                 <button type='button'
                         className={`${disabledClass} btn btn-primary`}
                         onClick={this.props.changes ? this.save.bind(this) : null}
-                        disabled={!this.state.canSubmit}
-                        data-animation="false"> Save </button>
+                        disabled={!this.state.canSubmit}> Save </button>
               </div>
             </div>
           </fieldset>
