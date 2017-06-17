@@ -39,7 +39,7 @@ public class InvoiceService {
         invoiceRepository.delete(id);
     }
 
-    @PreAuthorize("hasPermission(#id, 'Invoice', 'GET')")
+    @PreAuthorize("hasPermission(null, 'Invoice', 'GET')")
     @Transactional(readOnly = true)
     public List<Invoice> findByTruckingCompanyId(Long id) {
         return invoiceRepository.findAllByTruckingCompany_Id(id);

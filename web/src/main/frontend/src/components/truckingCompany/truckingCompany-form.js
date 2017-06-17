@@ -62,7 +62,7 @@ class TruckingCompanyForm extends React.Component {
       action = "Новый грузоперевозчик!";
       description = "Грузоперевозчик <b>" + this.props.truckingCompany.name + "</b> успешно добавлен";
     }
-    //setActionDescription(action, description);
+    setActionDescription(action, description);
   }
 
   reset() {
