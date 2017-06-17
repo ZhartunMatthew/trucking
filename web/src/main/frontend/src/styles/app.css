@@ -125,12 +125,18 @@ a {
 
 .modal-action-dialog {
   width: 350px !important;
+  opacity: 0;
+  z-index: 1;
+  bottom: 60px;
+  left: 30px;
+  position: fixed;
 }
 
 .modal-action-content {
   margin: auto;
   margin-top: 40px;
-  background-color: white;
+  background-color: #0a6028;
+  color: white;
   padding: 20px;
   border-radius: 10px;
   width: 100%;
