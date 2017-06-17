@@ -8,7 +8,6 @@ import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
-import { setActionDescription } from '../../actions/modal.action'
 
 class UserForm extends React.Component {
 
@@ -92,18 +91,11 @@ class UserForm extends React.Component {
   }
 
   save() {
-    let action = "";
-    let description = "";
     if (this.props.user.id) {
       this.props.updateUser(this.props.user);
-      action = "User changing!";
-      description = "Info about user <b>" + this.props.user.name + ' ' + this.props.user.surname + "</b> has been changed";
     } else {
       this.props.createUser(this.props.user);
-      action = "New user!";
-      description = "User <b>" + this.props.user.name + ' ' + this.props.user.surname + "</b> has been added";
     }
-    setActionDescription(action, description);
   }
 
   reset() {
@@ -165,8 +157,7 @@ class UserForm extends React.Component {
           <button type='button'
                   className={`${disabledClass} btn btn-primary`}
                   onClick={this.props.changes ? this.save.bind(this) : null}
-                  disabled={!this.state.canSubmit}
-                  data-animation="false"> Save </button>
+                  disabled={!this.state.canSubmit}> Save </button>
         </div>
       </div>;
 

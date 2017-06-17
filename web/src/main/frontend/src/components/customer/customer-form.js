@@ -52,18 +52,11 @@ class CustomerForm extends React.Component {
   }
 
   save() {
-    let action = "";
-    let description = "";
     if (this.props.customer.id) {
       this.props.updateCustomer(this.props.customer);
-      action = "Customer changing!";
-      description = "Info about customer <b>" + this.props.customer.name + "</b> has been changed";
     } else {
       this.props.createCustomer(this.props.customer);
-      action = "New customer!";
-      description = "Customer <b>" + this.props.customer.name + "</b> has been successfully added";
     }
-    setActionDescription(action, description);
   }
 
   reset() {
@@ -118,8 +111,7 @@ class CustomerForm extends React.Component {
           <button type='button'
                   className={`${disabledClass} btn btn-primary`}
                   onClick={this.props.changes ? this.save.bind(this) : null}
-                  disabled={!this.state.canSubmit}
-                  data-animation="false"> Save </button>
+                  disabled={!this.state.canSubmit}> Save </button>
         </div>
       </div>;
 
