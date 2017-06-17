@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deleteCustomerCompany } from '../../actions/customer.action';
 import { startOperation } from '../../actions/operation.action';
-import { Role } from '../../constants/roles'
+import { Role } from '../../constants/roles';
 
 class CustomerTable extends React.Component {
 
@@ -12,7 +12,14 @@ class CustomerTable extends React.Component {
   }
 
   onShowCreateCustomerForm() {
-    this.props.startOperation({number: '', taxpayerNumber: '',country: '', city: '', street: '', house: ''});
+    this.props.startOperation({
+      number: '',
+      taxpayerNumber: '',
+      country: '',
+      city: '',
+      street: '',
+      house: ''
+    });
   }
 
   deleteCustomer(customerCompany) {
