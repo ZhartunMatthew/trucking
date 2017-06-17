@@ -143,6 +143,8 @@ class UserForm extends React.Component {
       return (/^[а-яА-ЯёЁa-zA-Z0-9]+\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
     });
 
+    Formsy.addValidationRule('none', () => {return true});
+
     let editingLabel = <span> Editing of <b> {this.props.user.name} </b> user </span>;
     let creatingLabel = <span>Create new user</span>;
     const defaultUserRole = this.props.user.userRole ? this.props.user.userRole : [];
@@ -180,6 +182,8 @@ class UserForm extends React.Component {
     userActions = role === Role.ADMIN ? adminActions : userActions;
     userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
     let disableEditing = role !== Role.ADMIN;
+    let passValidation = this.props.user.id === null ? 'isLoginPass' : 'none';
+    let passType = this.props.user.id === null ? 'text' : 'password';
 
     return (
       <div>
@@ -248,7 +252,7 @@ class UserForm extends React.Component {
                             validationError='Allowable characters: letters, numbers, -, _, at least 4 characters'/>
 
             <ValidatedInput id='password'
-                            type='text'
+                            type={passType}
                             placeholder='Enter password here'
                             value={this.props.user.password  || ''}
                             onChange={this.handlePasswordChange.bind(this)}
@@ -256,7 +260,7 @@ class UserForm extends React.Component {
                             name='password'
                             title='Password'
                             required
-                            validations="isLoginPassword"
+                            validations={passValidation}
                             validationError='Allowable characters: letters, numbers, -, _, at least 4 characters'/>
 
             <ValidatedInput id='country'
