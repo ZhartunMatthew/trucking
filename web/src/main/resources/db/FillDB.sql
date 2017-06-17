@@ -47,9 +47,9 @@ INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available
 INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
   VALUES ('9999-GTY', 'bmw', 'COVERED_BODY', 'МАЗ-54323', 26.6, TRUE , 1);
 INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('3928-ABC', 'bmw', 'REFRIGIRATOR', 'МАЗ-54323', 26.6, FALSE , 1);
+  VALUES ('3928-ABC', 'bmw', 'REFRIGERATOR', 'МАЗ-54323', 26.6, FALSE , 1);
 INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('1058-EDF', 'bmw', 'REFRIGIRATOR', '15-1566-05', 26.6, FALSE , 1);
+  VALUES ('1058-EDF', 'bmw', 'REFRIGERATOR', '15-1566-05', 26.6, FALSE , 1);
 commit;
 
 /*invoice + product + waybill*/

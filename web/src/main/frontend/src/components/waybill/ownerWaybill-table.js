@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {startOperation } from '../../actions/operation.action';
+import { sentenceCase } from 'change-case';
 
 class OwnerWaybillsTable extends React.Component {
 
@@ -15,7 +16,7 @@ class OwnerWaybillsTable extends React.Component {
           <tr key={waybill.id}>
             <th scope='row'> {index + 1} </th>
             <td> {waybill.waybillNumber}</td>
-            <td> {waybill.waybillState}</td>
+            <td> {sentenceCase(waybill.waybillState)}</td>
             <td> {waybill.price}</td>
             <td> {waybill.totalDistance}</td>
             <td> {waybill.allCheckPoints}</td>

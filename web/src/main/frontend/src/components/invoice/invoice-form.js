@@ -10,7 +10,8 @@ import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
-import { setActionDescription } from '../../actions/modal.action'
+import { setActionDescription } from '../../actions/modal.action';
+import { sentenceCase } from 'change-case';
 
 class InvoiceForm extends React.Component {
 
@@ -179,7 +180,9 @@ class InvoiceForm extends React.Component {
         <ValidatedSelect id="carId"
                          label="Car"
                          onChange={this.handleCarChange.bind(this)}
-                         options={this.props.cars.map((car)=>{return ( <option value={car.id}> {car.number}, {car.type} </option> )})}
+                         options={this.props.cars.map((car)=>{return (
+                           <option value={car.id}> {car.number}, {sentenceCase(car.type)} </option>
+                         )})}
                          value={defaultCar}
                          disabled={disableEditing}
                          name="carId"

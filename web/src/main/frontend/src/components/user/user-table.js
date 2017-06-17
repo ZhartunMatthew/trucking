@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deleteUser } from '../../actions/user.action';
 import { startOperation } from '../../actions/operation.action';
-import { Role } from '../../constants/roles'
+import { Role } from '../../constants/roles';
+import { sentenceCase } from 'change-case';
 
 class UserTable extends React.Component {
 
@@ -41,7 +42,7 @@ class UserTable extends React.Component {
             <td> {user.name}</td>
             <td> {user.surname}</td>
             <td> {user.patronymic}</td>
-            <td> {user.userRole}</td>
+            <td> {sentenceCase(user.userRole)}</td>
             <td>
               <div className='btn-toolbar text-center'>
                 <button className='btn btn-primary' onClick={this.onShowUpdateUserForm.bind(this, user)}>Update</button>
@@ -59,7 +60,7 @@ class UserTable extends React.Component {
             <td> {user.name}</td>
             <td> {user.surname}</td>
             <td> {user.patronymic}</td>
-            <td> {user.userRole}</td>
+            <td> {sentenceCase(user.userRole)}</td>
             <td>
               <div className='btn-toolbar text-center'>
                 <button className='btn btn-primary' onClick={this.onShowUpdateUserForm.bind(this, user)}> Open </button>
@@ -91,7 +92,7 @@ class UserTable extends React.Component {
             <th>name</th>
             <th>surname</th>
             <th>patronymic</th>
-            <th>userRole</th>
+            <th>user role</th>
             <th>actions</th>
           </tr>
           </thead>

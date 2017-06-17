@@ -8,7 +8,8 @@ import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
-import { setActionDescription } from '../../actions/modal.action'
+import { setActionDescription } from '../../actions/modal.action';
+import { sentenceCase } from 'change-case';
 
 class UserForm extends React.Component {
 
@@ -324,7 +325,9 @@ class UserForm extends React.Component {
 
             <ValidatedSelect id="userRole"
                              onChange={this.handleUserRoleChange.bind(this)}
-                             options={this.props.userRolesList.map((type)=>{return ( <option> {type} </option> )})}
+                             options={this.props.userRolesList.map(type => {return (
+                               <option key={type} value={type}> {sentenceCase(type)} </option>
+                             )})}
                              value={defaultUserRole}
                              disabled={disableEditing}
                              name="User Role"

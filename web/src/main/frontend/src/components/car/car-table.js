@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deleteCar } from '../../actions/car.action';
 import { startOperation } from '../../actions/operation.action';
-import { Role } from '../../constants/roles'
+import { Role } from '../../constants/roles';
+import { sentenceCase } from 'change-case';
 
 class CarTable extends React.Component {
 
@@ -29,7 +30,7 @@ class CarTable extends React.Component {
             <td> {car.brand}</td>
             <td> {car.model}</td>
             <td> {car.fuelConsumption}</td>
-            <td> {car.type}</td>
+            <td> {sentenceCase(car.type)}</td>
             <td>
               <div className='btn-toolbar text-center'>
                 <button className='btn btn-primary'
@@ -51,7 +52,7 @@ class CarTable extends React.Component {
             <td> {car.brand}</td>
             <td> {car.model}</td>
             <td> {car.fuelConsumption}</td>
-            <td> {car.type}</td>
+            <td> {sentenceCase(car.type)}</td>
             <td>
               <div className='btn-toolbar text-center'>
                 <button className='btn btn-primary'
