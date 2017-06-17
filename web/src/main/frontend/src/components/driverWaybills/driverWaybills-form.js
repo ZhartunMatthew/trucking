@@ -32,9 +32,6 @@ class DriverWaybillsForm extends React.Component {
 
   passDestination() {
     this.props.passDestination(this.props.products, this.props.driverWaybill.id);
-    let action = "Waybill has been closed!";
-    let description = "Waybill <b>№" + this.props.driverWaybill.waybillNumber + "</b> has been successfully closed";
-    setActionDescription(action, description);
   }
 
   cancel() {
@@ -187,8 +184,7 @@ class DriverWaybillsForm extends React.Component {
                   {
                     this.props.driverWaybill.waybillState === 'TRANSPORTATION_STARTED' &&
                     <button type="button" className="btn btn-success" data-dismiss="modal"
-                            onClick={this.passDestination.bind(this)}
-                            data-animation="false">Save</button>
+                            onClick={this.passDestination.bind(this)}>Save</button>
                   }
                   <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
               </div>
