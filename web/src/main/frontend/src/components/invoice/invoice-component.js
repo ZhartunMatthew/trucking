@@ -57,7 +57,7 @@ class InvoiceComponent extends React.Component {
       this.props.loadRegisteredInvoices();
       setTimeout(function (self) {
         self.props.loadRegisteredInvoices();
-      }, 100, this);
+      }, 200, this);
     }
   }
 
