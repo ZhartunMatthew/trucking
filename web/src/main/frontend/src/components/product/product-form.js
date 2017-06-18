@@ -67,6 +67,10 @@ class ProductForm extends React.Component {
       return !(/\s/g.test(value));
     });
 
+    Formsy.addValidationRule('isPositiveNumber', function(values, value) {
+      return Number(value) > 0;
+    });
+
     let role = this.props.userRole;
     if(role === Role.DISPATCHER) {
       return (
@@ -96,10 +100,12 @@ class ProductForm extends React.Component {
                               onChange={this.handleAmountChange.bind(this)}
                               validations={{
                                 isNumeric: true,
+                                isPositiveNumber: true,
                                 maxLength: MAX_LENGTH_OF_NUMERIC
                               }}
                               validationErrors={{
                                 isNumeric: VALIDATION_ERRORS.DIGITS,
+                                isPositiveNumber: VALIDATION_ERRORS.POSITIVE_NUMBER,
                                 maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
                               }}
                               required
@@ -116,10 +122,12 @@ class ProductForm extends React.Component {
                               title='Price, $'
                               validations={{
                                 isNumeric: true,
+                                isPositiveNumber: true,
                                 maxLength: MAX_LENGTH_OF_NUMERIC
                               }}
                               validationErrors={{
                                 isNumeric: VALIDATION_ERRORS.DIGITS,
+                                isPositiveNumber: VALIDATION_ERRORS.POSITIVE_NUMBER,
                                 maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
                               }}/>
 

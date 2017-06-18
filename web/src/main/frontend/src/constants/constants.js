@@ -7,6 +7,7 @@ export const MAX_LENGTH_OF_NUMERIC = 11;
 export const VALIDATION_ERRORS = {
   LETTERS: 'This field must contain only letters',
   DIGITS: 'This field must be a number',
+  POSITIVE_NUMBER: 'This field must contain positive number',
   LETTERS_DIGITS: 'This field must contain letters and numbers',
   LETTERS_DIGITS_HYPHEN: 'This field must contain letters, numbers and hyphen',
   LETTERS_DIGITS_SLASH: 'This field must contain letters, numbers and slash',

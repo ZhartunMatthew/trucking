@@ -85,6 +85,10 @@ class WaybillForm extends React.Component {
       return (/^[а-яА-ЯёЁa-zA-Z0-9]+-?[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
     });
 
+    Formsy.addValidationRule('isPositiveNumber', function(values, value) {
+      return Number(value) > 0;
+    });
+
     let creatingLabel = <span> Create waybill </span>;
     const disabledClass = this.props.changes ? '' : 'disabled';
     let role = this.props.userRole;
@@ -195,10 +199,12 @@ class WaybillForm extends React.Component {
                             onChange={this.handlePrice.bind(this)}
                             validations={{
                               isNumeric: true,
+                              isPositiveNumber: true,
                               maxLength: MAX_LENGTH_OF_NUMERIC
                             }}
                             validationErrors={{
                               isNumeric: VALIDATION_ERRORS.DIGITS,
+                              isPositiveNumber: VALIDATION_ERRORS.POSITIVE_NUMBER,
                               maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
                             }}
                             required/>
