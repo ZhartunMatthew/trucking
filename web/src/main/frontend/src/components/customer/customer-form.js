@@ -6,6 +6,7 @@ import { updateOperation, resetOperation, cancelOperation } from '../../actions/
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
+import { VALIDATION_ERRORS, MAX_LENGTH_OF_STRING } from '../../constants/constants';
 
 class CustomerForm extends React.Component {
 
@@ -158,8 +159,14 @@ class CustomerForm extends React.Component {
                             name='name'
                             title='Company name'
                             required
-                            validations="isCompany"
-                            validationError='Allowable characters:letters, numbers,-,_,space,.,/'/>
+                            validations={{
+                              isCompany: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isCompany: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN_UNDERSCORE_DOT_SPACE_SLASH,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='taxpayerNumber'
                             type='text'
@@ -170,8 +177,14 @@ class CustomerForm extends React.Component {
                             name='taxpayerNumber'
                             title='Taxpayer number'
                             required
-                            validations="isLetterOrNumber"
-                            validationError='Allowable characters letters and numbers'/>
+                            validations={{
+                              isLetterOrNumber: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isLetterOrNumber: VALIDATION_ERRORS.LETTERS_DIGITS,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='country'
                             type='text'
@@ -182,8 +195,14 @@ class CustomerForm extends React.Component {
                             name='country'
                             title='Country'
                             required
-                            validations='isCountryCity'
-                            validationError='Allowable characters:letters, numbers,-,space'/>
+                            validations={{
+                              isCountryCity: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isCountryCity: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN_SPACE,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='city'
                             type='text'
@@ -194,8 +213,14 @@ class CustomerForm extends React.Component {
                             name='city'
                             title='City'
                             required
-                            validations='isCountryCity'
-                            validationError='Allowable characters:letters, numbers,-,space'/>
+                            validations={{
+                              isCountryCity: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isCountryCity: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN_SPACE,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='street'
                             type='text'
@@ -206,8 +231,14 @@ class CustomerForm extends React.Component {
                             name='street'
                             title='street'
                             required
-                            validations='isStreet'
-                            validationError='Allowable characters:letters, numbers,-,space,.,/'/>
+                            validations={{
+                              isStreet: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isStreet: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN_UNDERSCORE_DOT_SPACE_SLASH,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='house'
                             type='text'
@@ -218,8 +249,14 @@ class CustomerForm extends React.Component {
                             name='house'
                             title='House'
                             required
-                            validations='isHouseFlat'
-                            validationError='Allowable characters:letters, numbers,/'/>
+                            validations={{
+                              isHouseFlat: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isHouseFlat: VALIDATION_ERRORS.LETTERS_DIGITS_SLASH,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             {userActions}
           </fieldset>

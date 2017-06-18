@@ -8,6 +8,7 @@ import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { Role } from '../../constants/roles'
 import { sentenceCase } from 'change-case';
+import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
 
 class CarForm extends React.Component {
 
@@ -66,25 +67,17 @@ class CarForm extends React.Component {
 
   render() {
     Formsy.addValidationRule('isRequiredSelect', function(values, value) {
-      if(value.length === 0){
-        return false;
-      } else {
-        return true;
-      }
+      return value !== DEFAULT_SELECT_VALUE;
     });
 
-    Formsy.addValidationRule('isLetter', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z]+$/.test(value));
-    });
-
-    Formsy.addValidationRule('isRequired', function(values, value) {
+    Formsy.addValidationRule('isName', function(values, value) {
       return !(/\s/g.test(value));
     });
 
     let editingLabel = <span> Editing of <b> {this.props.car.number} </b> car </span>;
     let creatingLabel = <span>Create new car</span>;
     const disabledClass = this.props.changes ? '' : 'disabled';
-    const defaultType = this.props.car.type ? this.props.car.type : [];
+    const defaultType = this.props.car.type ? this.props.car.type : DEFAULT_SELECT_VALUE;
 
     let adminActions =
       <div className='btn-toolbar text-center'>
@@ -139,8 +132,11 @@ class CarForm extends React.Component {
                             value={this.props.car.number || ''}
                             onChange={this.handleNumberChange.bind(this)}
                             readOnly={disableEditing}
-                            validations="isRequired"
-                            validationError='This field must contain something'/>
+                            validations={{
+                              isName: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
 
             <ValidatedInput id='brand'
                             type='text'
@@ -151,8 +147,11 @@ class CarForm extends React.Component {
                             value={this.props.car.brand  || ''}
                             onChange={this.handleBrandChange.bind(this)}
                             readOnly={disableEditing}
-                            validations='isLetter'
-                            validationError='This field must contain only letters'/>
+                            validations={{
+                              isName: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
 
             <ValidatedInput id='model'
                             type='text'
@@ -163,19 +162,29 @@ class CarForm extends React.Component {
                             value={this.props.car.model  || ''}
                             onChange={this.handleModelChange.bind(this)}
                             readOnly={disableEditing}
-                            validations="isRequired"
-                            validationError='This field must contain something'/>
+                            validations={{
+                              isName: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
 
             <ValidatedInput id='fuelConsumption'
                             type='text'
                             title="Fuel consumption, L/100km"
                             placeholder='Enter fuel consumption here'
                             name="fuelConsumption"
-                            value={this.props.car.fuelConsumption  || ''}
+                            value={this.props.car.fuelConsumption.toString()  || ''}
                             onChange={this.handleFuelConsumptionChange.bind(this)}
                             readOnly={disableEditing}
-                            validations="isNumeric" required
-                            validationError="This field must be a number"/>
+                            validations={{
+                              isNumeric: true,
+                              maxLength: MAX_LENGTH_OF_NUMERIC
+                            }}
+                            required
+                            validationErrors={{
+                              isNumeric: VALIDATION_ERRORS.DIGITS,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
+                            }}/>
 
             <ValidatedSelect id="Type"
                              title="Type"

@@ -37,13 +37,13 @@ class InvoiceComponent extends React.Component {
           customerCompanyId: this.props.customerCompany.id,
           customerCompany: this.props.customerCompany.name,
           customerCompanyCity: this.props.customerCompany.city,
-          destinationCustomerCompanyId: getFirstId(this.props.destinationCustomers, 1),
+          destinationCustomerCompanyId: null,
           truckingCompanyId: this.props.customerCompany.truckingCompanyId,
           truckingCompany: '',
-          driverId: getFirstId(this.props.users, 5),
+          driverId: null,
           managerId: '',
           dispatcherId: '',
-          carId: getFirstId(this.props.cars, 1),
+          carId: null,
           currentProductName: '',
           currentProductAmount: '',
           products: []
@@ -154,13 +154,3 @@ let mapStateToProps = function (state) {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InvoiceComponent);
-
-function getFirstId(list, val) {
-  if(list !== null && list !== undefined) {
-    if(list[0] !== null && list[0] !== undefined) {
-      return list[0].id;
-    } else {
-      return val;
-    }
-  }
-}

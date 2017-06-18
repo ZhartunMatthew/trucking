@@ -6,6 +6,7 @@ import { updateProducts } from  '../../actions/product.action';
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
+import { VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
 
 class ProductForm extends React.Component {
 
@@ -62,8 +63,8 @@ class ProductForm extends React.Component {
 
   render() {
 
-    Formsy.addValidationRule('isLetter', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z]+$/.test(value));
+    Formsy.addValidationRule('isName', function(values, value) {
+      return !(/\s/g.test(value));
     });
 
     let role = this.props.userRole;
@@ -77,8 +78,13 @@ class ProductForm extends React.Component {
                               placeholder=''
                               value={this.props.currentProductName}
                               onChange={this.handleProductNameChange.bind(this)}
-                              validations='isLetter'
-                              validationError='This field must contain only letters'
+                              validations={{
+                                isName: true,
+                                maxLength: MAX_LENGTH_OF_STRING
+                              }}
+                              validaionsErrors={{
+                                maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                              }}
                               required
                               name='currentProductName'
                               title='Product name'/>
@@ -88,8 +94,14 @@ class ProductForm extends React.Component {
                               placeholder=''
                               value={this.props.currentProductAmount}
                               onChange={this.handleAmountChange.bind(this)}
-                              validations="isNumeric"
-                              validationError="This field must be a number"
+                              validations={{
+                                isNumeric: true,
+                                maxLength: MAX_LENGTH_OF_NUMERIC
+                              }}
+                              validationErrors={{
+                                isNumeric: VALIDATION_ERRORS.DIGITS,
+                                maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
+                              }}
                               required
                               name='currentProductAmount'
                               title='Amount, pcs'/>
@@ -102,8 +114,14 @@ class ProductForm extends React.Component {
                               required
                               name='currentProductPrice'
                               title='Price, $'
-                              validations="isNumeric"
-                              validationError="This field must be a number"/>
+                              validations={{
+                                isNumeric: true,
+                                maxLength: MAX_LENGTH_OF_NUMERIC
+                              }}
+                              validationErrors={{
+                                isNumeric: VALIDATION_ERRORS.DIGITS,
+                                maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
+                              }}/>
 
               <div className='btn-toolbar text-center'>
                 <div className='btn-group' role='group'>
