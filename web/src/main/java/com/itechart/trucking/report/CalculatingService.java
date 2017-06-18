@@ -66,7 +66,11 @@ public class CalculatingService {
         reportInfo.setProductLost(lost);
         reportInfo.setProductDelivered(delivered);
         reportInfo.setProductsSum(lost + delivered);
-        reportInfo.setProductLostPercent((double)100*lost/(lost + delivered));
+        double percent =0;
+        if (lost + delivered !=0 ) {
+            percent = (double) 100 * lost / (lost + delivered);
+        }
+        reportInfo.setProductLostPercent(percent);
         double productLostPrice = 0;
         List<Product> productList = productService.FindAll(truckingCompanyId);
         for (Product product: productList) {
@@ -87,10 +91,16 @@ public class CalculatingService {
             fuelCost += waybill.getTotalDistance() * waybill.getInvoice().getCar().getFuelConsumption() * 0.5;
             price += waybill.getPrice();
         }
-        reportInfo.setAvgDistance(distance / count);
+        if (count!=0) {
+            reportInfo.setAvgDistance(distance / count);
+            reportInfo.setAvgInvoiceRevenue(price / count);
+        } else {
+            reportInfo.setAvgDistance(0);
+            reportInfo.setAvgInvoiceRevenue(0);
+        }
         reportInfo.setTotalDistance(distance);
         reportInfo.setFuelPrice(fuelCost);
-        reportInfo.setAvgInvoiceRevenue(price / count);
+
         reportInfo.setTotalInvoiceRevenue(price);
     }
 

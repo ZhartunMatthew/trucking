@@ -164,3 +164,7 @@ WHERE id_user = 5;
 UPDATE user
 SET is_available = 1
 WHERE id_user = 7;
+
+UPDATE product
+SET lost_amount = 1, lost_reason = 'SPOILED', lost_description='Product was broken'
+WHERE id_product = 7;
