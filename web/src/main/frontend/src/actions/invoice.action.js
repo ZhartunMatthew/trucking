@@ -22,6 +22,25 @@ export function loadInvoices() {
   }
 }
 
+export function loadRegisteredInvoices() {
+  return (dispatch) => {
+    $.ajax({
+      url: 'api/invoice/registered',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      dataType: 'json'
+    }).done(json => {
+      dispatch({
+        type: INIT_INVOICES,
+        payload: json
+      });
+    }).fail(() => {
+      console.log('Could not get list of invoices');
+    });
+  }
+}
+
 export function fetchInvoice(invoiceId) {
   return (dispatch) => {
     $.ajax({

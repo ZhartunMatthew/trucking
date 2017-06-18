@@ -54,6 +54,17 @@ public class InvoiceController {
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/registered", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<InvoiceDTO>> findAllRegistered() {
+        LOGGER.info("REST request. Path:/api/invoice/registered  method: GET");
+        CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
+        List<InvoiceDTO> dtos = new LinkedList<>();
+        Long trId = details.getTruckingCompanyId();
+        invoiceService.findAllRegistered(trId).forEach(entity ->
+                dtos.add(conversionService.convert(entity, InvoiceDTO.class)));
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<InvoiceDTO> findOne(@PathVariable Long id) {
         LOGGER.info("REST request. Path:/api/invoice/{} method: GET", id);

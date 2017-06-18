@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { selectTab } from '../actions/navigation.action';
-import { loadInvoices, fetchInvoice } from '../actions/invoice.action';
+import { loadRegisteredInvoices, fetchInvoice } from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
@@ -12,7 +12,7 @@ import Modal from './modal/modal'
 class ManagerPage extends React.Component {
 
   componentDidMount() {
-    this.props.loadInvoices();
+    this.props.loadRegisteredInvoices();
     this.props.cancelCurrentOperation();
   }
 
@@ -49,7 +49,7 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
   return {
     selectTab: bindActionCreators(selectTab, dispatch),
-    loadInvoices: bindActionCreators(loadInvoices, dispatch),
+    loadRegisteredInvoices: bindActionCreators(loadRegisteredInvoices, dispatch),
     fetchInvoice: bindActionCreators(fetchInvoice, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
   }
