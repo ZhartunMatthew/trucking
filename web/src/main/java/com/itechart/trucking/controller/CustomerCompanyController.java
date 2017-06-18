@@ -51,7 +51,7 @@ public class CustomerCompanyController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<CustomerCompanyDTO>> findByName(@RequestParam(value = "name") String name) {
-        LOGGER.info("REST request. Path:/api/customer-company/search  method: GET, companuName:{}", name);
+        LOGGER.info("REST request. Path:/api/customer-company/search  method: GET, companyName:{}", name);
         List<CustomerCompany> companies = service.findByNameContaining(name);
         List<CustomerCompanyDTO> companyDTOs = new ArrayList<>();
         companies.forEach(customerCompany ->

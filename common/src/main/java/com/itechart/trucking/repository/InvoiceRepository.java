@@ -15,4 +15,6 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     Invoice findByWaybill_Id(Long id);
 
     Long countByTruckingCompany_Id(Long truckingCompanyId);
+
+    List<Invoice>  findAllByTruckingCompany_IdAndWaybill_Id(Long id, Long waybillId);
 }
