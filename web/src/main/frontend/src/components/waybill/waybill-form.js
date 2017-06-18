@@ -6,8 +6,8 @@ import { updateOperation, resetOperation, cancelOperation } from '../../actions/
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
-import { setActionDescription } from '../../actions/modal.action'
 import CheckPointTable from '../checkPoint/checkPoint-table';
+import { VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
 
 class WaybillForm extends React.Component {
 
@@ -81,10 +81,6 @@ class WaybillForm extends React.Component {
 
   render() {
 
-    Formsy.addValidationRule('isLetterOrNumber', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z0-9]+$/.test(value));
-    });
-
     Formsy.addValidationRule('isWaybillNumber', function(values, value) {
       return (/^[а-яА-ЯёЁa-zA-Z0-9]+-?[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
     });
@@ -135,8 +131,14 @@ class WaybillForm extends React.Component {
                             readOnly={disableEditing}
                             value={this.props.waybill.waybillNumber || ''}
                             onChange={this.handleWaybillNumberChange.bind(this)}
-                            validations='isWaybillNumber'
-                            validationError='Allowable characters:letters, numbers,-'
+                            validations={{
+                              isWaybillNumber: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isWaybillNumber: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}
                             title='Waybill number'
                             name='waybillNumber'
                             required/>
@@ -183,8 +185,16 @@ class WaybillForm extends React.Component {
                             title='Price, $'
                             placeholder=''
                             readOnly={disableEditing}
-                            value={this.props.waybill.price || ''}
-                            onChange={this.handlePrice.bind(this)}/>
+                            value={this.props.waybill.price.toString() || ''}
+                            onChange={this.handlePrice.bind(this)}
+                            validations={{
+                              isNumeric: true,
+                              maxLength: MAX_LENGTH_OF_NUMERIC
+                            }}
+                            validationErrors={{
+                              isNumeric: VALIDATION_ERRORS.DIGITS,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
+                            }}/>
 
             <ValidatedInput id='totalDistance'
                             name='totalDistance'
