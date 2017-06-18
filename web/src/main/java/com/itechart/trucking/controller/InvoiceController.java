@@ -1,13 +1,17 @@
 package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.InvoiceDTO;
+import com.itechart.trucking.entity.Car;
 import com.itechart.trucking.entity.Invoice;
+import com.itechart.trucking.entity.User;
 import com.itechart.trucking.entity.enums.InvoiceStateEnum;
 import com.itechart.trucking.entity.enums.ProductStateEnum;
 import com.itechart.trucking.entity.enums.UserRoleEnum;
 import com.itechart.trucking.security.detail.CustomUserDetails;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
+import com.itechart.trucking.services.CarService;
 import com.itechart.trucking.services.InvoiceService;
+import com.itechart.trucking.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +33,12 @@ public class InvoiceController {
 
     @Autowired
     private InvoiceService invoiceService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CarService carService;
 
     @Autowired
     private ConversionService conversionService;
@@ -84,12 +94,39 @@ public class InvoiceController {
         dto.setRegisterDate(new Date());
         dto.setDispatcherId(details.getId());
         dto.setInvoiceState(InvoiceStateEnum.ISSUED);
-        if(dto.getDriverId() == null) {
-            dto.setDriverId(5L);
-            LOGGER.info("DRIVER IS NULL");
+
+        if(!updateInvoiceDriver(dto.getDriverId())
+                || !updateInvoiceCar(dto.getCarId())) {
+            return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
         }
+
         Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
         return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
     }
 
+    private boolean updateInvoiceDriver(Long driverId) {
+        User user = userService.findOne(driverId);
+        System.out.println(">>>>>>>>>>>>>>>>> DRIVER UPDATE");
+        if(user == null) {
+            System.out.println(">>>>>>>>>>>>>>>>> DRIVER NULL");
+            return false;
+        }
+        user.setAvailable(false);
+        userService.save(user);
+        System.out.println(">>>>>>>>>>>>>>>>> DRIVER SAVED");
+        return true;
+    }
+
+    private boolean updateInvoiceCar(Long carId) {
+        Car car = carService.findOne(carId);
+        System.out.println(">>>>>>>>>>>>>>>>> CAR UPDATE");
+        if(car == null) {
+            System.out.println(">>>>>>>>>>>>>>>>> CAR NULL");
+            return false;
+        }
+        car.setAvailable(false);
+        carService.save(car);
+        System.out.println(">>>>>>>>>>>>>>>>> CAR SAVED");
+        return true;
+    }
 }

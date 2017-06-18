@@ -13,8 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,14 +49,12 @@ public class CarController {
         return new ResponseEntity<>(carDTOs, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/available", /*params = "available",*/ method = RequestMethod.GET,
+    @RequestMapping(value = "/available", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<CarDTO>> findAvailableCars(/*@RequestParam Boolean available*/) {
+    public ResponseEntity<List<CarDTO>> findAvailableCars() {
         LOGGER.info("REST request. Path:/api/car  method: GET");
-        /*if (!available) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }*/
-        List<Car> cars = service.findAvailable();
+        Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
+        List<Car> cars = service.findAvailable(truckingCompanyId);
         List<CarDTO> carDTOs = new ArrayList<>();
         cars.forEach(car ->
                 carDTOs.add(conversionService.convert(car, CarDTO.class))

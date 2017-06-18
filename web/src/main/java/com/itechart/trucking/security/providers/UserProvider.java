@@ -53,6 +53,19 @@ public class UserProvider implements AbstractDataProvider {
         if(details.getRole() == UserRoleEnum.ADMIN) {
             return true;
         }
+        if(details.getRole() == UserRoleEnum.DISPATCHER
+                || details.getRole() == UserRoleEnum.DRIVER) {
+            User user = userService.securedFindOne(userId);
+            if(user == null) {
+                return false;
+            } else {
+                if(details.getTruckingCompanyId().equals(user.getTruckingCompany().getId())) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
         return false;
     }
 
