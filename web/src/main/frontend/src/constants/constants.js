@@ -1,6 +1,7 @@
 export const DEFAULT_SELECT_VALUE = 'Not chosen';
 
 export const MAX_LENGTH_OF_STRING = 255;
+export const MAX_LENGTH_OF_TAXPAYER_NUMBER = 250;
 export const MAX_LENGTH_OF_NUMERIC = 11;
 
 export const VALIDATION_ERRORS = {
@@ -14,6 +15,7 @@ export const VALIDATION_ERRORS = {
   LETTERS_DIGITS_HYPHEN_UNDERSCORE_DOT_SPACE_SLASH: 'This field must contain letters, numbers, slash, underscore, space, hyphen and dot',
   INVALID_EMAIL: 'Invalid email',
   INVALID_LOGIN_PASSWORD: 'Allowable characters: letters, numbers, hyphen, underscore',
+  MAX_LENGTH_OF_TAXPAYER_NUMBER: 'This field must contain not more than ' + MAX_LENGTH_OF_TAXPAYER_NUMBER + ' characters',
   MAX_LENGTH_OF_STRING: 'This field must contain not more than ' + MAX_LENGTH_OF_STRING + ' characters',
   MAX_LENGTH_OF_NUMERIC: 'This field must contain not more than ' + MAX_LENGTH_OF_NUMERIC + ' characters'
 };

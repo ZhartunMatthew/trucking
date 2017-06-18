@@ -5,7 +5,7 @@ import { updateTruckingCompany, makeNewTruckingCompany } from '../../actions/tru
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
-import { VALIDATION_ERRORS, MAX_LENGTH_OF_STRING } from '../../constants/constants';
+import { VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, MAX_LENGTH_OF_TAXPAYER_NUMBER } from '../../constants/constants';
 
 class TruckingCompanyForm extends React.Component {
 
@@ -123,11 +123,11 @@ class TruckingCompanyForm extends React.Component {
                             required
                             validations={{
                               isLetterOrNumber: true,
-                              maxLength: MAX_LENGTH_OF_STRING
+                              maxLength: MAX_LENGTH_OF_TAXPAYER_NUMBER
                             }}
                             validationErrors={{
                               isLetterOrNumber: VALIDATION_ERRORS.LETTERS_DIGITS,
-                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_TAXPAYER_NUMBER
                             }}/>
 
             <ValidatedInput id='country'
