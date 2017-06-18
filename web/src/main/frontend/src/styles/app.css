@@ -123,6 +123,10 @@ a {
   width: 100%;
 }
 
+#modal-action {
+  display: none;
+}
+
 .modal-action-dialog {
   width: 350px !important;
   opacity: 0;

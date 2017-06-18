@@ -10,6 +10,7 @@ export function setActionDescription(info) {
   setTimeout(function() {
     hideModal();
   }, popupDelay);
+  returnInitialBackground();
 }
 
 export function setActionFail(status) {
@@ -28,6 +29,7 @@ export function setActionFail(status) {
 }
 
 function showModal(color) {
+  $('#modal-action').css('display', 'block');
   if(color !== undefined) {
     $('#modal-content').css('background-color', color);
   } else {
@@ -48,7 +50,8 @@ function hideModal() {
 
 function returnInitialBackground() {
   setTimeout(function () {
-      $('#modal-content').css('background-color', initialBackground)
+      $('#modal-content').css('background-color', initialBackground);
+      $('#modal-action').css('display', 'none');
     }, popupDelay + animationDelay
   )
 }
