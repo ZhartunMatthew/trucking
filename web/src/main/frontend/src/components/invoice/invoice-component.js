@@ -11,6 +11,7 @@ import { loadCustomers } from '../../actions/customer.action';
 import { Role } from '../../constants/roles';
 import CustomerTable from '../customer/customer-table';
 import { setActionFail } from '../../actions/modal.action';
+import { loadRegisteredInvoices } from '../../actions/invoice.action';
 
 class InvoiceComponent extends React.Component {
 
@@ -50,6 +51,13 @@ class InvoiceComponent extends React.Component {
       } else {
         setActionFail();
       }
+    }
+
+    if(this.props.userRole === Role.MANAGER) {
+      this.props.loadRegisteredInvoices();
+      setTimeout(function (self) {
+        self.props.loadRegisteredInvoices();
+      }, 100, this);
     }
   }
 
@@ -126,7 +134,8 @@ function mapDispatchToProps(dispatch) {
     startOperation: bindActionCreators(startOperation, dispatch),
     loadFreeDrivers: bindActionCreators(loadFreeDrivers, dispatch),
     loadFreeCars: bindActionCreators(loadFreeCars, dispatch),
-    loadAllCustomers: bindActionCreators(loadCustomers, dispatch)
+    loadAllCustomers: bindActionCreators(loadCustomers, dispatch),
+    loadRegisteredInvoices: bindActionCreators(loadRegisteredInvoices, dispatch)
   }
 }
 
