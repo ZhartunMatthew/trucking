@@ -93,12 +93,16 @@ class WaybillForm extends React.Component {
     let managerActions =
       <div className='btn-toolbar text-center'>
         <div className='btn-group' role='group'>
-          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+          <button type='button'
+                  className='btn btn-success'
+                  onClick={this.cancel.bind(this)}> Close </button>
         </div>
         <div className='btn-group float-right' role='group'>
-          <button type='button' className={`${disabledClass} btn btn-primary`}
-                  onClick={this.save.bind(this)} disabled={!this.state.canSubmit}>Save
-          </button>
+          <button type='button'
+                  className={`${disabledClass} btn btn-primary`}
+                  onClick={this.save.bind(this)}
+                  disabled={!this.state.canSubmit}> Save </button>
+
         </div>
       </div>;
 
@@ -115,9 +119,11 @@ class WaybillForm extends React.Component {
     let departureAddress = role === Role.MANAGER ? this.props.waybill.departureAddress
       : this.props.waybill.departureCountry + ', г.' + this.props.waybill.departureCity
       + ', ' + this.props.waybill.departureStreet + ', д.' + this.props.waybill.departureHouse;
+
     let destinationAddress = role === Role.MANAGER ? this.props.waybill.destinationAddress
       : this.props.waybill.destinationCountry + ', г.' + this.props.waybill.destinationCity
       + ', ' + this.props.waybill.destinationStreet + ', д.' + this.props.waybill.destinationHouse;
+
     let checkPoints = role === Role.MANAGER ? this.props.checkPoints : this.props.waybill.checkPoints;
 
     return (
@@ -194,7 +200,8 @@ class WaybillForm extends React.Component {
                             validationErrors={{
                               isNumeric: VALIDATION_ERRORS.DIGITS,
                               maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
-                            }}/>
+                            }}
+                            required/>
 
             <ValidatedInput id='totalDistance'
                             name='totalDistance'
@@ -212,7 +219,8 @@ class WaybillForm extends React.Component {
                             placeholder=''
                             readOnly={true}
                             value={departureAddress || ''}
-                            onChange={this.handleDepartureAddress.bind(this)}/>
+                            onChange={this.handleDepartureAddress.bind(this)}
+                            required/>
 
             <ValidatedInput id='destinationAddress'
                             name='destinationAddress'
@@ -221,7 +229,8 @@ class WaybillForm extends React.Component {
                             placeholder=''
                             readOnly={true}
                             value={destinationAddress || ''}
-                            onChange={this.handleDestinationAddress.bind(this)}/>
+                            onChange={this.handleDestinationAddress.bind(this)}
+                            required/>
 
             <CheckPointTable checkPoints={checkPoints}/>
             {userActions}
