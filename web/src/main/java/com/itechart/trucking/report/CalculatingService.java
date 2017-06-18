@@ -1,6 +1,5 @@
 package com.itechart.trucking.report;
 
-import com.itechart.trucking.entity.Invoice;
 import com.itechart.trucking.entity.Product;
 import com.itechart.trucking.entity.Waybill;
 import com.itechart.trucking.entity.enums.ProductStateEnum;

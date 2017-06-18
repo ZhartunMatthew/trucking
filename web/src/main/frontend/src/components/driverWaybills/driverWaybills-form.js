@@ -1,5 +1,4 @@
 import React from 'react';
-import Input from '../common/text-input';
 import CheckBox from '../common/checkbox';
 import TextareaElement from '../common/textarea';
 import Select from '../common/select';
@@ -7,8 +6,20 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { passCheckPoint, passDestination} from '../../actions/driverWaybills.action';
 import { cancelOperation, updateOperation } from '../../actions/operation.action';
+import ValidatedInput from '../common/input';
+import Formsy from 'formsy-react';
+import { VALIDATION_ERRORS, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
 
 class DriverWaybillsForm extends React.Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      errors: {},
+      canSubmit: false
+    };
+  }
 
   handleProductLostChange(id, product, event) {
     this.props.updateOperation("amountLost" + id, event.target.value);
@@ -37,6 +48,14 @@ class DriverWaybillsForm extends React.Component {
     this.props.cancelOperation();
   }
 
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
+
   render() {
     let checkPoints = this.props.driverWaybill.checkPoints.map((checkPoint, index) => {
       return (
@@ -55,6 +74,14 @@ class DriverWaybillsForm extends React.Component {
         </tr>
       )
     });
+
+    Formsy.addValidationRule('isInBounds', function(values, value, args) {
+      if(value === null || value.length === 0) {
+        return true;
+      }
+      return Number(value) > 0 && Number(value) <= args[0];
+    });
+
     let disableEditing = this.props.driverWaybill.waybillState === 'TRANSPORTATION_COMPLETED';
     let products = this.props.products.map((product, index) => {
       let defaultType = product.lostReason ? product.lostReason : [];
@@ -64,12 +91,24 @@ class DriverWaybillsForm extends React.Component {
           <td>{product.name}</td>
           <td>{product.amount}</td>
           <td width="15%">
-            <Input id={"amountLost" + product.id}
-                   label="Amount lost, pcs"
-                   type="text"
-                   value={product.lostAmount}
-                   readOnly={disableEditing}
-                   onChange={this.handleProductLostChange.bind(this, product.id, product)}/>
+            <ValidatedInput id={"amountLost" + product.id}
+                            label="Amount lost, pcs"
+                            name={"amountLost" + product.id}
+                            type="text"
+                            value={product.lostAmount}
+                            readOnly={disableEditing}
+                            onChange={this.handleProductLostChange.bind(this, product.id, product)}
+                            required={false}
+                            validations={{
+                              isNumeric: true,
+                              isInBounds: [product.amount],
+                              maxLength: MAX_LENGTH_OF_NUMERIC
+                            }}
+                            validationErrors={{
+                              isNumeric: VALIDATION_ERRORS.DIGITS,
+                              isInBounds: VALIDATION_ERRORS.OUT_OF_BOUNDS,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
+                            }}/>
 
           </td>
           { product.lostAmount &&
@@ -155,42 +194,50 @@ class DriverWaybillsForm extends React.Component {
         </form>
 
         {/*Modal*/}
-        <div id="myModal" className="modal fade" role="dialog">
-          <div className="modal-dialog">
-            {/*Modal content*/}
-            <div className="modal-content">
-              <div className="modal-header">
-                <h3 className="modal-title">Product list</h3>
-                <button type="button" className="close" data-dismiss="modal">&times;</button>
-              </div>
-              <div className="modal-body">
-                <p>Please, enter info about lost products</p>
-                <table className='table table-hover'>
-                  <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Amount, pcs</th>
-                    <th colSpan="3">Lost information</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {products}
-                  </tbody>
-                </table>
-              </div>
-                <div className="modal-footer">
-                  {
-                    this.props.driverWaybill.waybillState === 'TRANSPORTATION_STARTED' &&
-                    <button type="button" className="btn btn-success" data-dismiss="modal"
-                            onClick={this.passDestination.bind(this)}>Save</button>
-                  }
-                  <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+        <Formsy.Form onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <div id="myModal" className="modal fade" role="dialog">
+            <div className="modal-dialog">
+              {/*Modal content*/}
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h3 className="modal-title">Product list</h3>
+                  <button type="button" className="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div className="modal-body">
+                  <p>Please, enter info about lost products</p>
+                  <table className='table table-hover'>
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Amount, pcs</th>
+                      <th colSpan="3">Lost information</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {products}
+                    </tbody>
+                  </table>
+                </div>
+                  <div className="modal-footer">
+                    {
+                      this.props.driverWaybill.waybillState === 'TRANSPORTATION_STARTED' &&
+                      <button type="button"
+                              className="btn btn-success"
+                              data-dismiss="modal"
+                              onClick={this.passDestination.bind(this)}
+                              disabled={!this.state.canSubmit}> Save </button>
+                    }
+                    <button type="button"
+                            className="btn btn-default"
+                            data-dismiss="modal"> Close `</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Formsy.Form>
       </div>
+
     );
   }
 }

@@ -18,5 +18,6 @@ export const VALIDATION_ERRORS = {
   INVALID_LOGIN_PASSWORD: 'Allowable characters: letters, numbers, hyphen, underscore',
   MAX_LENGTH_OF_TAXPAYER_NUMBER: 'This field must contain not more than ' + MAX_LENGTH_OF_TAXPAYER_NUMBER + ' characters',
   MAX_LENGTH_OF_STRING: 'This field must contain not more than ' + MAX_LENGTH_OF_STRING + ' characters',
-  MAX_LENGTH_OF_NUMERIC: 'This field must contain not more than ' + MAX_LENGTH_OF_NUMERIC + ' characters'
+  MAX_LENGTH_OF_NUMERIC: 'This field must contain not more than ' + MAX_LENGTH_OF_NUMERIC + ' characters',
+  OUT_OF_BOUNDS: 'Data is out of bounds'
 };
