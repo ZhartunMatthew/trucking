@@ -106,27 +106,21 @@ public class InvoiceController {
 
     private boolean updateInvoiceDriver(Long driverId) {
         User user = userService.findOne(driverId);
-        System.out.println(">>>>>>>>>>>>>>>>> DRIVER UPDATE");
         if(user == null) {
-            System.out.println(">>>>>>>>>>>>>>>>> DRIVER NULL");
             return false;
         }
         user.setAvailable(false);
         userService.save(user);
-        System.out.println(">>>>>>>>>>>>>>>>> DRIVER SAVED");
         return true;
     }
 
     private boolean updateInvoiceCar(Long carId) {
         Car car = carService.findOne(carId);
-        System.out.println(">>>>>>>>>>>>>>>>> CAR UPDATE");
         if(car == null) {
-            System.out.println(">>>>>>>>>>>>>>>>> CAR NULL");
             return false;
         }
         car.setAvailable(false);
         carService.save(car);
-        System.out.println(">>>>>>>>>>>>>>>>> CAR SAVED");
         return true;
     }
 }
