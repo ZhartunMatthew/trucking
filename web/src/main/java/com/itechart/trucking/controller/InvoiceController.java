@@ -1,13 +1,17 @@
 package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.InvoiceDTO;
+import com.itechart.trucking.entity.Car;
 import com.itechart.trucking.entity.Invoice;
+import com.itechart.trucking.entity.User;
 import com.itechart.trucking.entity.enums.InvoiceStateEnum;
 import com.itechart.trucking.entity.enums.ProductStateEnum;
 import com.itechart.trucking.entity.enums.UserRoleEnum;
 import com.itechart.trucking.security.detail.CustomUserDetails;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
+import com.itechart.trucking.services.CarService;
 import com.itechart.trucking.services.InvoiceService;
+import com.itechart.trucking.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,12 @@ public class InvoiceController {
     private InvoiceService invoiceService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CarService carService;
+
+    @Autowired
     private ConversionService conversionService;
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -40,6 +50,17 @@ public class InvoiceController {
         List<InvoiceDTO> dtos = new LinkedList<>();
         Long trId = details.getTruckingCompanyId();
         invoiceService.findByTruckingCompanyId(trId).forEach(entity ->
+                dtos.add(conversionService.convert(entity, InvoiceDTO.class)));
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/registered", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<InvoiceDTO>> findAllRegistered() {
+        LOGGER.info("REST request. Path:/api/invoice/registered  method: GET");
+        CustomUserDetails details = CustomUserDetailsProvider.getUserDetails();
+        List<InvoiceDTO> dtos = new LinkedList<>();
+        Long trId = details.getTruckingCompanyId();
+        invoiceService.findAllRegistered(trId).forEach(entity ->
                 dtos.add(conversionService.convert(entity, InvoiceDTO.class)));
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
@@ -84,12 +105,33 @@ public class InvoiceController {
         dto.setRegisterDate(new Date());
         dto.setDispatcherId(details.getId());
         dto.setInvoiceState(InvoiceStateEnum.ISSUED);
-        if(dto.getDriverId() == null) {
-            dto.setDriverId(5L);
-            LOGGER.info("DRIVER IS NULL");
+
+        if(!updateInvoiceDriver(dto.getDriverId())
+                || !updateInvoiceCar(dto.getCarId())) {
+            return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
         }
+
         Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
         return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
     }
 
+    private boolean updateInvoiceDriver(Long driverId) {
+        User user = userService.findOne(driverId);
+        if(user == null) {
+            return false;
+        }
+        user.setAvailable(false);
+        userService.save(user);
+        return true;
+    }
+
+    private boolean updateInvoiceCar(Long carId) {
+        Car car = carService.findOne(carId);
+        if(car == null) {
+            return false;
+        }
+        car.setAvailable(false);
+        carService.save(car);
+        return true;
+    }
 }

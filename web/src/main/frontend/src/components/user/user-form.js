@@ -9,6 +9,7 @@ import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { sentenceCase } from 'change-case';
+import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING } from '../../constants/constants';
 
 class UserForm extends React.Component {
 
@@ -109,27 +110,22 @@ class UserForm extends React.Component {
 
   render() {
     Formsy.addValidationRule('isRequiredSelect', function(values, value) {
-      if(value.length === 0){
-        return false;
-      } else {
-        return true;
-      }
+      return value !== DEFAULT_SELECT_VALUE
     });
 
     Formsy.addValidationRule('isLoginPassword', function(values, value) {
-      return (/^[a-z0-9_-]{4,16}$/.test(value));
+      return (/^[a-z0-9_-]*$/.test(value));
     });
 
-    Formsy.addValidationRule('isLetter', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z]+$/.test(value));
+    Formsy.addValidationRule('isName', function(values, value) {
+      return !(/\s/g.test(value));
+    });
+    Formsy.addValidationRule('isCountryCity', function(values, value) {
+      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\s*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
     });
 
     Formsy.addValidationRule('isStreet', function(values, value) {
       return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
-    });
-
-    Formsy.addValidationRule('isCountryCity', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\s*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
     });
 
     Formsy.addValidationRule('isHouseFlat', function(values, value) {
@@ -140,7 +136,7 @@ class UserForm extends React.Component {
 
     let editingLabel = <span> Editing of <b> {this.props.user.name} </b> user </span>;
     let creatingLabel = <span>Create new user</span>;
-    const defaultUserRole = this.props.user.userRole ? this.props.user.userRole : [];
+    const defaultUserRole = this.props.user.userRole ? this.props.user.userRole : DEFAULT_SELECT_VALUE;
     const disabledClass = this.props.changes ? '' : 'disabled';
 
     let adminActions =
@@ -174,8 +170,7 @@ class UserForm extends React.Component {
     userActions = role === Role.ADMIN ? adminActions : userActions;
     userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
     let disableEditing = role !== Role.ADMIN;
-    let passValidation = this.props.user.id === null ? 'isLoginPass' : 'none';
-    let passType = this.props.user.id === null ? 'text' : 'password';
+    let showPassword = !this.props.user.id && role === Role.ADMIN;
 
     return (
       <div>
@@ -191,8 +186,11 @@ class UserForm extends React.Component {
                             name='name'
                             title='Name'
                             required
-                            validations="isLetter"
-                            validationError='This field must contain only letters'/>
+                            validations={{
+                              isName: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
 
             <ValidatedInput id='surname'
                             type='text'
@@ -203,8 +201,11 @@ class UserForm extends React.Component {
                             name='surname'
                             title='Surname'
                             required
-                            validations="isLetter"
-                            validationError='This field must contain only letters'/>
+                            validations={{
+                              isName: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
 
             <ValidatedInput id='patronymic'
                             type='text'
@@ -215,8 +216,11 @@ class UserForm extends React.Component {
                             name='patronymic'
                             title='Patronymic'
                             required
-                            validations="isLetter"
-                            validationError='This field must contain only letters'/>
+                            validations={{
+                              isName: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
 
             <ValidatedInput id='email'
                             type='text'
@@ -227,8 +231,14 @@ class UserForm extends React.Component {
                             name='email'
                             title='Email'
                             required
-                            validations="isEmail"
-                            validationError='Invalid email'/>
+                            validations={{
+                              isEmail: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isEmail: VALIDATION_ERRORS.INVALID_EMAIL,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='login'
                             type='text'
@@ -240,20 +250,34 @@ class UserForm extends React.Component {
                             name='login'
                             title='Login'
                             required
-                            validations="isLoginPassword"
-                            validationError='Allowable characters: letters, numbers, -, _, at least 4 characters'/>
+                            validations={{
+                              isLoginPassword: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isLoginPassword: VALIDATION_ERRORS.INVALID_LOGIN_PASSWORD,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
-            <ValidatedInput id='password'
-                            type={passType}
-                            placeholder='Enter password here'
-                            value={this.props.user.password  || ''}
-                            onChange={this.handlePasswordChange.bind(this)}
-                            readOnly={disableEditing || this.props.user.id}
-                            name='password'
-                            title='Password'
-                            required
-                            validations={passValidation}
-                            validationError='Allowable characters: letters, numbers, -, _, at least 4 characters'/>
+            {showPassword ? <ValidatedInput id='password'
+                                            type='text'
+                                            placeholder='Enter password here'
+                                            value={this.props.user.password || ''}
+                                            onChange={this.handlePasswordChange.bind(this)}
+                                            readOnly={disableEditing || this.props.user.id}
+                                            name='password'
+                                            title='Password'
+                                            required
+                                            validations={{
+                                              isLoginPassword: true,
+                                              maxLength: MAX_LENGTH_OF_STRING
+                                            }}
+                                            validationErrors={{
+                                              isLoginPassword: VALIDATION_ERRORS.INVALID_LOGIN_PASSWORD,
+                                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                                            }}/>
+              : null
+            }
 
             <ValidatedInput id='country'
                             type='text'
@@ -264,8 +288,14 @@ class UserForm extends React.Component {
                             name='country'
                             title='Country'
                             required
-                            validations="isCountryCity"
-                            validationError='Allowable characters:letters, numbers,-,space'/>
+                            validations={{
+                              isCountryCity: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isCountryCity: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN_SPACE,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='city'
                             type='text'
@@ -276,8 +306,14 @@ class UserForm extends React.Component {
                             name='city'
                             title='City'
                             required
-                            validations="isCountryCity"
-                            validationError='Allowable characters:letters, numbers,-,space'/>
+                            validations={{
+                              isCountryCity: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isCountryCity: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN_SPACE,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='street'
                             type='text'
@@ -288,8 +324,14 @@ class UserForm extends React.Component {
                             name='street'
                             title='Street'
                             required
-                            validations="isStreet"
-                            validationError='Allowable characters:letters, numbers,-,space,.,/'/>
+                            validations={{
+                              isStreet: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isStreet: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN_UNDERSCORE_DOT_SPACE_SLASH,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='house'
                             type='text'
@@ -300,8 +342,15 @@ class UserForm extends React.Component {
                             name='house'
                             title='House'
                             required
-                            validations="isHouseFlat"
-                            validationError='Allowable characters:letters, numbers, /'/>
+                            validations={{
+                              isHouseFlat: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isHouseFlat: VALIDATION_ERRORS.LETTERS_DIGITS_SLASH,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
+
 
             <ValidatedInput id='flat'
                             type='text'
@@ -311,8 +360,15 @@ class UserForm extends React.Component {
                             readOnly={disableEditing}
                             name='flat'
                             title='Flat'
-                            required validations="isHouseFlat"
-                            validationError='Allowable characters:letters, numbers, /'/>
+                            required
+                            validations={{
+                              isHouseFlat: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isHouseFlat: VALIDATION_ERRORS.LETTERS_DIGITS_SLASH,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedSelect id="userRole"
                              onChange={this.handleUserRoleChange.bind(this)}

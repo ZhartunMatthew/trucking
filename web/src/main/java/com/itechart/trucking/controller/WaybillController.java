@@ -1,19 +1,15 @@
 package com.itechart.trucking.controller;
 
+import com.itechart.trucking.dto.CheckPointDTO;
 import com.itechart.trucking.dto.InvoiceDTO;
 import com.itechart.trucking.dto.ProductDTO;
 import com.itechart.trucking.dto.WaybillDTO;
-import com.itechart.trucking.entity.Invoice;
-import com.itechart.trucking.entity.Product;
-import com.itechart.trucking.entity.Waybill;
+import com.itechart.trucking.entity.*;
 import com.itechart.trucking.entity.enums.InvoiceStateEnum;
-import com.itechart.trucking.entity.enums.ProductLostEnum;
 import com.itechart.trucking.entity.enums.ProductStateEnum;
 import com.itechart.trucking.entity.enums.WaybillStateEnum;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
-import com.itechart.trucking.services.InvoiceService;
-import com.itechart.trucking.services.ProductService;
-import com.itechart.trucking.services.WaybillService;
+import com.itechart.trucking.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +37,12 @@ public class WaybillController {
 
     @Autowired
     private InvoiceService invoiceService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CarService carService;
 
     @Autowired
     private ConversionService conversionService;
@@ -81,6 +83,11 @@ public class WaybillController {
         LOGGER.info("REST request. Path:/api/waybill  method: POST. waybill: {}", waybillDTO);
         waybillDTO.setDepartureDate(new Date());
         waybillDTO.setWaybillState(WaybillStateEnum.TRANSPORTATION_STARTED);
+        CheckPointDTO endPoint = new CheckPointDTO();
+        endPoint.setLatitude(waybillDTO.getDestinationLatitude());
+        endPoint.setLongitude(waybillDTO.getDestinationLongitude());
+        endPoint.setDescription(waybillDTO.getDestinationAddress());
+        waybillDTO.getCheckPoints().add(endPoint);
         Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
         WaybillDTO resultWaybill = conversionService.convert(waybillEntity, WaybillDTO.class);
         return new ResponseEntity<>(resultWaybill, HttpStatus.OK);
@@ -111,6 +118,12 @@ public class WaybillController {
         invoiceService.save(conversionService.convert(invoiceDTO, Invoice.class));
         waybillDTO.setWaybillState(WaybillStateEnum.TRANSPORTATION_COMPLETED);
         waybillDTO.setDestinationDate(new Date());
+
+        if(!updateWaybillDriver(waybillDTO.getInvoiceId())
+                || !updateWaybillCar(waybillDTO.getInvoiceId())) {
+            return new ResponseEntity<>(waybillDTO, HttpStatus.BAD_REQUEST);
+        }
+
         return updateWaybill(waybillDTO);
     }
 
@@ -124,5 +137,33 @@ public class WaybillController {
         Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
         WaybillDTO resultWaybill = conversionService.convert(waybillEntity, WaybillDTO.class);
         return new ResponseEntity<>(resultWaybill, HttpStatus.OK);
+    }
+
+    private boolean updateWaybillDriver(Long invoiceId) {
+        Invoice invoice = invoiceService.findOne(invoiceId);
+        if(invoice == null) {
+            return false;
+        }
+        User user = userService.findOne(invoice.getDriverUser().getId());
+        if(user == null) {
+            return false;
+        }
+        user.setAvailable(true);
+        userService.save(user);
+        return true;
+    }
+
+    private boolean updateWaybillCar(Long invoiceId) {
+        Invoice invoice = invoiceService.findOne(invoiceId);
+        if(invoice == null) {
+            return false;
+        }
+        Car car = carService.findOne(invoice.getCar().getId());
+        if(car == null) {
+            return false;
+        }
+        car.setAvailable(true);
+        carService.save(car);
+        return true;
     }
 }

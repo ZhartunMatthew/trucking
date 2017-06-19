@@ -11,6 +11,7 @@ import { loadCustomers } from '../../actions/customer.action';
 import { Role } from '../../constants/roles';
 import CustomerTable from '../customer/customer-table';
 import { setActionFail } from '../../actions/modal.action';
+import { loadRegisteredInvoices } from '../../actions/invoice.action';
 
 class InvoiceComponent extends React.Component {
 
@@ -36,13 +37,13 @@ class InvoiceComponent extends React.Component {
           customerCompanyId: this.props.customerCompany.id,
           customerCompany: this.props.customerCompany.name,
           customerCompanyCity: this.props.customerCompany.city,
-          destinationCustomerCompanyId: getFirstId(this.props.destinationCustomers, 1),
+          destinationCustomerCompanyId: null,
           truckingCompanyId: this.props.customerCompany.truckingCompanyId,
           truckingCompany: '',
-          driverId: getFirstId(this.props.users, 5),
+          driverId: null,
           managerId: '',
           dispatcherId: '',
-          carId: getFirstId(this.props.cars, 1),
+          carId: null,
           currentProductName: '',
           currentProductAmount: '',
           products: []
@@ -50,6 +51,13 @@ class InvoiceComponent extends React.Component {
       } else {
         setActionFail();
       }
+    }
+
+    if(this.props.userRole === Role.MANAGER) {
+      this.props.loadRegisteredInvoices();
+      setTimeout(function (self) {
+        self.props.loadRegisteredInvoices();
+      }, 200, this);
     }
   }
 
@@ -126,7 +134,8 @@ function mapDispatchToProps(dispatch) {
     startOperation: bindActionCreators(startOperation, dispatch),
     loadFreeDrivers: bindActionCreators(loadFreeDrivers, dispatch),
     loadFreeCars: bindActionCreators(loadFreeCars, dispatch),
-    loadAllCustomers: bindActionCreators(loadCustomers, dispatch)
+    loadAllCustomers: bindActionCreators(loadCustomers, dispatch),
+    loadRegisteredInvoices: bindActionCreators(loadRegisteredInvoices, dispatch)
   }
 }
 
@@ -145,13 +154,3 @@ let mapStateToProps = function (state) {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InvoiceComponent);
-
-function getFirstId(list, val) {
-  if(list !== null && list !== undefined) {
-    if(list[0] !== null && list[0] !== undefined) {
-      return list[0].id;
-    } else {
-      return val;
-    }
-  }
-}

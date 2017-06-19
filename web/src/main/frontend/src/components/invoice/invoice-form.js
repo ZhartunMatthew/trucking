@@ -11,6 +11,7 @@ import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { sentenceCase } from 'change-case';
+import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING } from '../../constants/constants';
 
 class InvoiceForm extends React.Component {
 
@@ -114,12 +115,7 @@ class InvoiceForm extends React.Component {
   render() {
 
     Formsy.addValidationRule('isRequiredSelect', function(values, value) {
-      console.log(typeof value);
-      if(typeof value === "number"){
-        return false;
-      } else if(typeof value === "string"){
-        return true;
-      }
+      return value !== DEFAULT_SELECT_VALUE;
     });
 
     Formsy.addValidationRule('isWaybillNumber', function(values, value) {
@@ -147,42 +143,44 @@ class InvoiceForm extends React.Component {
       </div>;
 
     let disableEditing = role !== Role.DISPATCHER;
-    const defaultDriver = this.props.invoice.driverId ? this.props.invoice.driverId : [];
-    const defaultCar = this.props.invoice.carId ? this.props.invoice.carId : [];
-    const defaultDestination = this.props.invoice.destinationCustomerCompanyId ? this.props.invoice.destinationCustomerCompanyId : [];
+    const defaultDriver = this.props.invoice.driverId ? this.props.invoice.driverId : DEFAULT_SELECT_VALUE;
+    const defaultCar = this.props.invoice.carId ? this.props.invoice.carId : DEFAULT_SELECT_VALUE;
+    const defaultDestination = this.props.invoice.destinationCustomerCompanyId
+      ? this.props.invoice.destinationCustomerCompanyId : DEFAULT_SELECT_VALUE;
 
     let dispatcherSelects =
       <div>
-        <ValidatedSelect id="destinationCustomerCompanyId"
-                         label="Destination customer"
+        <ValidatedSelect id='destinationCustomerCompanyId'
+                         label='Destination customer'
                          onChange={this.handleDestinationCustomerChange.bind(this)}
                          options={this.props.destinationCustomers.map((customer)=>{return ( <option value={customer.id}> {customer.name}, {customer.city} </option> )})}
-                         value={defaultDestination} disabled={disableEditing}
-                         name="destinationCustomerCompanyId"
-                         title="Destination customer"
-                         validations="isRequiredSelect"/>
+                         value={defaultDestination}
+                         disabled={disableEditing}
+                         name='destinationCustomerCompanyId'
+                         title='Destination customer'
+                         validations='isRequiredSelect'/>
 
-       <ValidatedSelect id="driverId"
-                        label="Driver"
+       <ValidatedSelect id='driverId'
+                        label='Driver'
                         onChange={this.handleDriverChange.bind(this)}
                         options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
                         value={defaultDriver}
                         disabled={disableEditing}
-                        name="driverId"
-                        title="Driver"
-                        validations="isRequiredSelect"/>
+                        name='driverId'
+                        title='Driver'
+                        validations='isRequiredSelect'/>
 
-        <ValidatedSelect id="carId"
-                         label="Car"
+        <ValidatedSelect id='carId'
+                         label='Car'
                          onChange={this.handleCarChange.bind(this)}
                          options={this.props.cars.map((car)=>{return (
                            <option value={car.id}> {car.number}, {sentenceCase(car.type)} </option>
                          )})}
                          value={defaultCar}
                          disabled={disableEditing}
-                         name="carId"
-                         title="Car"
-                         validations="isRequiredSelect" />
+                         name='carId'
+                         title='Car'
+                         validations='isRequiredSelect'/>
       </div>;
 
     let userActions = null;
@@ -210,8 +208,14 @@ class InvoiceForm extends React.Component {
                             title='Invoice number'
                             name='number'
                             required
-                            validations='isWaybillNumber'
-                            validationError='Allowable characters:letters, numbers,-'/>
+                            validations={{
+                              isWaybillNumber: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isWaybillNumber: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='registerDate'
                             type='text'

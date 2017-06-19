@@ -1,5 +1,6 @@
 import React from 'react';
 import Formsy from 'formsy-react';
+import { DEFAULT_SELECT_VALUE } from '../../constants/constants';
 
 const ValidatedSelect = React.createClass({
 
@@ -24,8 +25,8 @@ const ValidatedSelect = React.createClass({
                 onChange={this.props.onChange}
                 value={this.getValue()}
                 disabled={this.props.disabled}
-                selected="selected">
-
+                selected='selected'>
+          <option value={DEFAULT_SELECT_VALUE}>{DEFAULT_SELECT_VALUE}</option>
           {this.props.options}
         </select>
         <span className='validation-error'>{errorMessage}</span>

@@ -1,10 +1,7 @@
 package com.itechart.trucking.services;
 
-
-import com.itechart.trucking.entity.TruckingCompany;
 import com.itechart.trucking.entity.User;
 import com.itechart.trucking.entity.Waybill;
-import com.itechart.trucking.repository.TruckingCompanyRepository;
 import com.itechart.trucking.repository.UserRepository;
 import com.itechart.trucking.repository.WaybillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +9,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
-
-
 
 @Service
 public class WaybillService {
 
     @Autowired
     private WaybillRepository waybillRepository;
-
-    @Autowired
-    private TruckingCompanyRepository truckingCompanyRepository;
 
     @Autowired
     private  UserRepository userRepository;

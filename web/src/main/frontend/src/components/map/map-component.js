@@ -8,8 +8,8 @@ import SearchBox from 'react-google-maps/lib/places/SearchBox';
 import $ from 'jquery';
 import { updateCheckPoints, deleteCheckPoint } from  '../../actions/checkPoint.action';
 import { passCheckPoint } from '../../actions/driverWaybills.action';
-import { DEFAULT_LONGITUDE, DEFAULT_LATITUDE, DEFAULT_ZOOM, GREEN_ICON, RED_ICON,
-METERS_PER_KILOMETER, INPUT_STYLE, MAX_COUNT_OF_WAYPOINTS} from '../../constants/map.constants';
+import { DEFAULT_LONGITUDE, DEFAULT_LATITUDE, DEFAULT_ZOOM, ICONS, METERS_PER_KILOMETER,
+  INPUT_STYLE, MAX_COUNT_OF_WAYPOINTS} from '../../constants/map.constants';
 import { Role } from '../../constants/roles';
 
 const DirectionsGoogleMap = withGoogleMap(props => (
@@ -41,7 +41,10 @@ const DirectionsGoogleMap = withGoogleMap(props => (
         onRightClick={() => props.onMarkerRightClick(marker)}
       />
     ))}
-    {props.directions && <DirectionsRenderer directions={props.directions} />}
+    <DirectionsRenderer
+      directions={props.directions}
+      options={{suppressMarkers: !props.isManager}}
+    />
   </GoogleMap>
 ));
 
@@ -77,47 +80,51 @@ class MapComponent extends React.Component {
       this.state.markersToWaypointsMap = new Map();
     } else {
       this.initState = this.initState.bind(this);
-      this.initState();
+      this.initState(this.props);
       this.handleRouteChange();
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.userRole === Role.DRIVER) {
-      let nextMarkers = [];
-      for (let checkPoint of nextProps.waybill.checkPoints) {
-        nextMarkers.push({
-          position: new google.maps.LatLng(checkPoint.latitude, checkPoint.longitude),
-          key: checkPoint.id,
-          icon: checkPoint.pathDate ? GREEN_ICON : RED_ICON,
-          clickable: checkPoint.pathDate === null
-        });
-      }
-      this.setState({
-        markers: nextMarkers
-      })
+      this.state.waypoints = [];
+      this.state.markers = [];
+      this.initState(nextProps);
+      this.handleRouteChange();
     }
   }
 
-  initState() {
-    for (let checkPoint of this.props.waybill.checkPoints) {
+  initState(props) {
+    this.state.start = new google.maps.LatLng(props.waybill.departureLatitude,
+      this.props.waybill.departureLongitude);
+    let markerStart = {
+      position: this.state.start,
+      key: 'start-point',
+      icon: ICONS.GREEN_START_ICON,
+      clickable: false
+    };
+    this.state.markers.push(markerStart);
+    this.state.end = new google.maps.LatLng(props.waybill.destinationLatitude,
+      this.props.waybill.destinationLongitude);
+    let enabledCheckPoint = props.waybill.checkPoints.find(checkPoint => !checkPoint.pathDate);
+    for (let checkPoint of props.waybill.checkPoints) {
       let marker = {
         position: new google.maps.LatLng(checkPoint.latitude, checkPoint.longitude),
         key: checkPoint.id,
-        icon: checkPoint.pathDate ? GREEN_ICON : RED_ICON,
-        clickable: checkPoint.pathDate === null
+        icon: checkPoint.pathDate ? ICONS.GREEN_ICON : ICONS.RED_ICON,
+        clickable: enabledCheckPoint === checkPoint,
       };
+      if (marker.position.lat() === this.state.end.lat() && marker.position.lng() === this.state.end.lng()) {
+        marker.icon = checkPoint.pathDate ? ICONS.GREEN_END_ICON : ICONS.RED_END_ICON;
+      } else {
+        let waypoint = {
+          location: new google.maps.LatLng(checkPoint.latitude, checkPoint.longitude),
+          stopover: false
+        };
+        this.state.waypoints.push(waypoint);
+      }
       this.state.markers.push(marker);
-      let waypoint = {
-        location: new google.maps.LatLng(checkPoint.latitude, checkPoint.longitude),
-        stopover: false
-      };
-      this.state.waypoints.push(waypoint);
     }
-    this.state.start = new google.maps.LatLng(this.props.waybill.departureLatitude,
-      this.props.waybill.departureLongitude);
-    this.state.end = new google.maps.LatLng(this.props.waybill.destinationLatitude,
-      this.props.waybill.destinationLongitude);
   }
 
   handleStartSearchBoxMounted(searchBox) {
@@ -181,7 +188,7 @@ class MapComponent extends React.Component {
 
   handleOnMarkerClick(targetMarker) {
     let index = this.state.markers.findIndex(marker => marker === targetMarker);
-    this.state.markers[index].icon = GREEN_ICON;
+    this.state.markers[index].icon = ICONS.GREEN_ICON;
     this.state.markers[index].clickable = false;
     let checkPoint = this.props.waybill.checkPoints.find(checkPoint => checkPoint.id === targetMarker.key);
     this.props.passCheckPoint(checkPoint);

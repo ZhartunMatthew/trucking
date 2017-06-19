@@ -6,8 +6,8 @@ import { updateOperation, resetOperation, cancelOperation } from '../../actions/
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
-import { setActionDescription } from '../../actions/modal.action'
 import CheckPointTable from '../checkPoint/checkPoint-table';
+import { VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
 
 class WaybillForm extends React.Component {
 
@@ -81,12 +81,12 @@ class WaybillForm extends React.Component {
 
   render() {
 
-    Formsy.addValidationRule('isLetterOrNumber', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z0-9]+$/.test(value));
-    });
-
     Formsy.addValidationRule('isWaybillNumber', function(values, value) {
       return (/^[а-яА-ЯёЁa-zA-Z0-9]+-?[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+    });
+
+    Formsy.addValidationRule('isPositiveNumber', function(values, value) {
+      return Number(value) > 0;
     });
 
     let creatingLabel = <span> Create waybill </span>;
@@ -97,12 +97,16 @@ class WaybillForm extends React.Component {
     let managerActions =
       <div className='btn-toolbar text-center'>
         <div className='btn-group' role='group'>
-          <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+          <button type='button'
+                  className='btn btn-success'
+                  onClick={this.cancel.bind(this)}> Close </button>
         </div>
         <div className='btn-group float-right' role='group'>
-          <button type='button' className={`${disabledClass} btn btn-primary`}
-                  onClick={this.save.bind(this)} disabled={!this.state.canSubmit}>Save
-          </button>
+          <button type='button'
+                  className={`${disabledClass} btn btn-primary`}
+                  onClick={this.save.bind(this)}
+                  disabled={!this.state.canSubmit}> Save </button>
+
         </div>
       </div>;
 
@@ -119,9 +123,11 @@ class WaybillForm extends React.Component {
     let departureAddress = role === Role.MANAGER ? this.props.waybill.departureAddress
       : this.props.waybill.departureCountry + ', г.' + this.props.waybill.departureCity
       + ', ' + this.props.waybill.departureStreet + ', д.' + this.props.waybill.departureHouse;
+
     let destinationAddress = role === Role.MANAGER ? this.props.waybill.destinationAddress
       : this.props.waybill.destinationCountry + ', г.' + this.props.waybill.destinationCity
       + ', ' + this.props.waybill.destinationStreet + ', д.' + this.props.waybill.destinationHouse;
+
     let checkPoints = role === Role.MANAGER ? this.props.checkPoints : this.props.waybill.checkPoints;
 
     return (
@@ -135,8 +141,14 @@ class WaybillForm extends React.Component {
                             readOnly={disableEditing}
                             value={this.props.waybill.waybillNumber || ''}
                             onChange={this.handleWaybillNumberChange.bind(this)}
-                            validations='isWaybillNumber'
-                            validationError='Allowable characters:letters, numbers,-'
+                            validations={{
+                              isWaybillNumber: true,
+                              maxLength: MAX_LENGTH_OF_STRING
+                            }}
+                            validationErrors={{
+                              isWaybillNumber: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}
                             title='Waybill number'
                             name='waybillNumber'
                             required/>
@@ -183,8 +195,19 @@ class WaybillForm extends React.Component {
                             title='Price, $'
                             placeholder=''
                             readOnly={disableEditing}
-                            value={this.props.waybill.price || ''}
-                            onChange={this.handlePrice.bind(this)}/>
+                            value={this.props.waybill.price.toString() || ''}
+                            onChange={this.handlePrice.bind(this)}
+                            validations={{
+                              isNumeric: true,
+                              isPositiveNumber: true,
+                              maxLength: MAX_LENGTH_OF_NUMERIC
+                            }}
+                            validationErrors={{
+                              isNumeric: VALIDATION_ERRORS.DIGITS,
+                              isPositiveNumber: VALIDATION_ERRORS.POSITIVE_NUMBER,
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
+                            }}
+                            required/>
 
             <ValidatedInput id='totalDistance'
                             name='totalDistance'
@@ -202,7 +225,8 @@ class WaybillForm extends React.Component {
                             placeholder=''
                             readOnly={true}
                             value={departureAddress || ''}
-                            onChange={this.handleDepartureAddress.bind(this)}/>
+                            onChange={this.handleDepartureAddress.bind(this)}
+                            required/>
 
             <ValidatedInput id='destinationAddress'
                             name='destinationAddress'
@@ -211,7 +235,8 @@ class WaybillForm extends React.Component {
                             placeholder=''
                             readOnly={true}
                             value={destinationAddress || ''}
-                            onChange={this.handleDestinationAddress.bind(this)}/>
+                            onChange={this.handleDestinationAddress.bind(this)}
+                            required/>
 
             <CheckPointTable checkPoints={checkPoints}/>
             {userActions}

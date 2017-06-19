@@ -68,4 +68,9 @@ public class InvoiceService {
     public Long count(Long truckingCompanyId) {
         return invoiceRepository.countByTruckingCompany_Id(truckingCompanyId);
     }
+
+    public List<Invoice> findAllRegistered(Long truckingId) {
+        return invoiceRepository
+                .findAllByTruckingCompany_IdAndWaybill_Id(truckingId, null);
+    }
 }

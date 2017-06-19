@@ -48,7 +48,9 @@ public class CarProvider implements AbstractDataProvider {
         }
         UserRoleEnum role = details.getRole();
         Long companyId = details.getTruckingCompanyId();
-        if (role == UserRoleEnum.ADMIN) { //админ может обновить машину только своей компании
+        if (role == UserRoleEnum.ADMIN
+                || role == UserRoleEnum.DISPATCHER
+                || role == UserRoleEnum.DRIVER) { //админ может обновить машину только своей компании
             List<Car> cars = truckingCompanyService.securedFindOne(companyId).getCars();
             for (Car car : cars) {
                 if (car.getId().equals(carId)) {
