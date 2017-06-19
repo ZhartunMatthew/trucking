@@ -53,7 +53,7 @@ class CarTable extends React.Component {
             <td> {car.model}</td>
             <td> {car.fuelConsumption}</td>
             <td> {sentenceCase(car.type)}</td>
-            <td>
+            <td width={'15%'}>
               <div className='btn-toolbar text-center'>
                 <button className='btn btn-primary'
                         onClick={this.onShowUpdateCarForm.bind(this, car)}>Open</button>
@@ -64,16 +64,16 @@ class CarTable extends React.Component {
       }
     });
     let adminActions =
-      <td colSpan={3}>
-      <button className='btn btn-default'
-              onClick={this.onShowCreateCarForm.bind(this)}>Create new car
-      </button>
-    </td>;
+        <button className='btn btn-default'
+                onClick={this.onShowCreateCarForm.bind(this)}> Create new car
+        </button>;
+
     let ownerActions = null;
     let userActions = null;
     let role = this.props.userRole;
     userActions = role === Role.ADMIN ? adminActions : userActions;
     userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
+
     return (
       <div>
         <h1>List of cars</h1>
@@ -91,11 +91,9 @@ class CarTable extends React.Component {
           </thead>
           <tbody>
             {rows}
-          <tr>
-            {userActions}
-          </tr>
           </tbody>
         </table>
+        {userActions}
       </div>
     );
   }

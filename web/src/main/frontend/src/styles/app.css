@@ -149,3 +149,11 @@ a {
   z-index: 1;
   margin-bottom: 0;
 }
+
+.btn-default {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.btn-default:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}

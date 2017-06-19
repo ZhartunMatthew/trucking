@@ -72,10 +72,7 @@ class UserTable extends React.Component {
     });
 
     let adminActions =
-      <td colSpan={3}>
-        <button className='btn btn-default' onClick={this.onShowCreateUserForm.bind(this)}>Create new user
-        </button>
-      </td>;
+        <button className='btn btn-default' onClick={this.onShowCreateUserForm.bind(this)}> Create new user </button>;
 
     let ownerActions = null;
     let userActions = null;
@@ -97,12 +94,10 @@ class UserTable extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {rows}
-          <tr>
-            {userActions}
-          </tr>
+            {rows}
           </tbody>
         </table>
+        {userActions}
       </div>
     );
   }
