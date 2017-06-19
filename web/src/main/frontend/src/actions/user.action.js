@@ -95,7 +95,8 @@ export function updateUser(user) {
         description: 'Info about user <b>' + user.name + ' ' + user.surname + '</b> has been changed'
       });
     }).fail(() => {
-      setActionFail(statusCode);
+      statusCode !== 409 ? setActionFail(statusCode)
+        : setValidationFail("Login is already exists");
       console.log('Could not update user');
     });
   }
