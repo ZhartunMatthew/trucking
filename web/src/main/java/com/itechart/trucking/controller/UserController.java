@@ -70,6 +70,9 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) {
         LOGGER.info("REST request. Path:/api/user  method: POST. user: {}", userDTO);
+        if(checkIsLoginExist(userDTO.getLogin())) {
+            return new ResponseEntity<>(userDTO, HttpStatus.CONFLICT);
+        }
         userDTO.setSalt("qqqqqqqq");
         userDTO.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
         Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
@@ -89,12 +92,16 @@ public class UserController {
         LOGGER.info("REST request. Path:/api/user/{}  method: PUT.  userInfo: {}", id, userDTO);
         User userEntity = userService.save(conversionService.convert(userDTO, User.class));
         UserDTO resultUser = conversionService.convert(userEntity, UserDTO.class);
-        return new ResponseEntity<>(resultUser,HttpStatus.OK);
+        return new ResponseEntity<>(resultUser, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
         LOGGER.info("REST request. Path:/api/user/{}  method: DELETE.", id);
         userService.delete(id);
+    }
+
+    public boolean checkIsLoginExist(String login) {
+        return userService.findByLogin(login).isPresent();
     }
 }

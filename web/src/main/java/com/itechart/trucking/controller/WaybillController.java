@@ -131,7 +131,6 @@ public class WaybillController {
     private ResponseEntity<WaybillDTO> updateWaybill(WaybillDTO waybillDTO) {
         Waybill waybillEntity = waybillService.saveFullWaybill(conversionService.convert(waybillDTO, Waybill.class));
         if(waybillEntity == null) {
-            System.out.println("AAAAAAAAAAAAAAAAAA");
             return new ResponseEntity<>(waybillDTO, HttpStatus.BAD_REQUEST);
         }
         WaybillDTO resultWaybill = conversionService.convert(waybillEntity, WaybillDTO.class);
