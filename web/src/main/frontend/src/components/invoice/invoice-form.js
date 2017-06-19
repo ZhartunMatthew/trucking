@@ -12,7 +12,7 @@ import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { sentenceCase } from 'change-case';
-import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING } from '../../constants/constants';
+import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, getDateString } from '../../constants/constants';
 
 class InvoiceForm extends React.Component {
 
@@ -262,21 +262,6 @@ class InvoiceForm extends React.Component {
       </div>
     );
   }
-}
-
-function getDateString(date) {
-  if(date === undefined) {
-    date = new Date();
-  } else {
-    console.log(date);
-    date = new Date(date);
-    let day = 24 * 60 * 60  * 1000;
-    date = new Date(date.getTime() + day);
-  }
-  let formattedDate = ('0' + date.getDate()).slice(-2);
-  let formattedMonth = ('0' + (date.getMonth() + 1)).slice(-2);
-  let formattedYear = date.getFullYear().toString();
-  return formattedYear + '-' + formattedMonth + '-' + formattedDate;
 }
 
 InvoiceForm.propTypes = {
