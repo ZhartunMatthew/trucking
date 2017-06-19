@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { startOperation, cancelOperation } from './operation.action';
 import { INIT_CUSTOMERS } from '../constants/actionTypes';
-import { setActionDescription, setActionFail } from '../actions/modal.action'
+import { setActionDescription, setActionFail, setValidationFail } from '../actions/modal.action'
 
 export function loadCustomers() {
   return (dispatch) => {
@@ -63,7 +63,8 @@ export function makeNewCustomerCompany(company) {
         description: 'Customer <b>' + company.name + '</b> has been successfully added'
       });
     }).fail(() => {
-      setActionFail(statusCode);
+      statusCode !== 409 ? setActionFail(statusCode)
+        : setValidationFail("Company with same taxpayer number already exists");
       console.log('Could not save company');
     });
   }
@@ -93,7 +94,8 @@ export function updateCustomerCompany(company) {
         description: 'Info about customer <b>' + company.name + '</b> has been changed'
       });
     }).fail(() => {
-      setActionFail(statusCode);
+      statusCode !== 409 ? setActionFail(statusCode)
+        : setValidationFail("Company with same taxpayer number already exists");
       console.log('Could not update company');
     });
   }

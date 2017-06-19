@@ -2,7 +2,6 @@ package com.itechart.trucking.repository;
 
 
 import com.itechart.trucking.entity.CustomerCompany;
-import com.itechart.trucking.entity.TruckingCompany;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +14,6 @@ public interface CustomerCompanyRepository extends JpaRepository<CustomerCompany
     List<CustomerCompany> findAllByTruckingCompany_Id(Long id);
 
     Long countByTruckingCompany_Id(Long truckingCompanyId);
+
+    CustomerCompany findByTaxpayerNumber(String tax);
 }

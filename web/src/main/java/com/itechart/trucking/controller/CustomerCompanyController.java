@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/customer-company")
@@ -64,6 +65,9 @@ public class CustomerCompanyController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<CustomerCompanyDTO> create(@RequestBody CustomerCompanyDTO dto) {
         LOGGER.info("REST request. Path:/api/customer-company  method: POST. company: {}", dto);
+        if(service.findByTaxpayerNumber(dto.getTaxpayerNumber()).isPresent()) {
+            return new ResponseEntity<>(dto, HttpStatus.CONFLICT);
+        }
         Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
         dto.setTruckingCompanyId(truckingCompanyId);
         CustomerCompany company = conversionService.convert(dto, CustomerCompany.class);
@@ -75,6 +79,12 @@ public class CustomerCompanyController {
     public ResponseEntity<CustomerCompanyDTO> update(@PathVariable Long id,
                                                      @RequestBody CustomerCompanyDTO dtoForUpdate) {
         LOGGER.info("REST request. Path:/api/customer-company/{}  method: PUT.  companyInfo: {}", id, dtoForUpdate);
+        Optional<CustomerCompany> tempCustomer = service.findByTaxpayerNumber(dtoForUpdate.getTaxpayerNumber());
+        if(tempCustomer.isPresent()) {
+            if(!tempCustomer.get().getId().equals(dtoForUpdate.getId())) {
+                return new ResponseEntity<>(dtoForUpdate, HttpStatus.CONFLICT);
+            }
+        }
         CustomerCompany currentCompany = service.findOne(id);
         if (currentCompany == null) {
             LOGGER.warn("Not found customerCompany id: {}", id);

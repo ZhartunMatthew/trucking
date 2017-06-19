@@ -114,6 +114,4 @@ public class InvoiceService {
         return invoiceRepository
                 .findAllByTruckingCompany_IdAndWaybill_Id(truckingId, null);
     }
-
-
 }

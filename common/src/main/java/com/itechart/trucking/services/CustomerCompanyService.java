@@ -1,7 +1,6 @@
 package com.itechart.trucking.services;
 
 import com.itechart.trucking.entity.CustomerCompany;
-import com.itechart.trucking.entity.TruckingCompany;
 import com.itechart.trucking.repository.CustomerCompanyRepository;
 import com.itechart.trucking.repository.TruckingCompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerCompanyService {
@@ -59,5 +59,9 @@ public class CustomerCompanyService {
     @Transactional
     public Long count(Long truckingCompanyId) {
         return customerCompanyRepository.countByTruckingCompany_Id(truckingCompanyId);
+    }
+
+    public Optional<CustomerCompany> findByTaxpayerNumber(String tax) {
+        return Optional.ofNullable(customerCompanyRepository.findByTaxpayerNumber(tax));
     }
 }

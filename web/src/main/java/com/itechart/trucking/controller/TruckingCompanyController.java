@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/trucking-company")
@@ -66,8 +67,11 @@ public class TruckingCompanyController {
     public ResponseEntity<TruckingCompanyDTO> update(@PathVariable Long id,
                                                      @RequestBody TruckingCompanyDTO dtoForUpdate) {
         LOGGER.info("REST request. Path:/api/trucking-company/{}  method: PUT.  companyInfo: {}", id, dtoForUpdate);
-        if(service.findByTaxpayerNumber(dtoForUpdate.getTaxpayerNumber()).isPresent()) {
-            return new ResponseEntity<>(dtoForUpdate, HttpStatus.CONFLICT);
+        Optional<TruckingCompany> tempTrucking = service.findByTaxpayerNumber(dtoForUpdate.getTaxpayerNumber());
+        if(tempTrucking.isPresent()) {
+            if(!tempTrucking.get().getId().equals(dtoForUpdate.getId())) {
+                return new ResponseEntity<>(dtoForUpdate, HttpStatus.CONFLICT);
+            }
         }
         TruckingCompany currentCompany = service.findOne(id);
         if (currentCompany == null) {

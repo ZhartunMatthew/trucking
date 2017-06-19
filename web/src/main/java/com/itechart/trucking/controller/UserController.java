@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/user")
@@ -70,7 +71,7 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) {
         LOGGER.info("REST request. Path:/api/user  method: POST. user: {}", userDTO);
-        if(checkIsLoginExist(userDTO.getLogin())) {
+        if(userService.findByLogin(userDTO.getLogin()).isPresent()) {
             return new ResponseEntity<>(userDTO, HttpStatus.CONFLICT);
         }
         userDTO.setSalt("qqqqqqqq");
@@ -90,8 +91,11 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         LOGGER.info("REST request. Path:/api/user/{}  method: PUT.  userInfo: {}", id, userDTO);
-        if(checkIsLoginExist(userDTO.getLogin())) {
-            return new ResponseEntity<>(userDTO, HttpStatus.CONFLICT);
+        Optional<User> tempUser = userService.findByLogin(userDTO.getLogin());
+        if(tempUser.isPresent()) {
+            if(!tempUser.get().getId().equals(userDTO.getId())) {
+                return new ResponseEntity<>(userDTO, HttpStatus.CONFLICT);
+            }
         }
         User userEntity = userService.save(conversionService.convert(userDTO, User.class));
         UserDTO resultUser = conversionService.convert(userEntity, UserDTO.class);
@@ -102,9 +106,5 @@ public class UserController {
     public void delete(@PathVariable Long id) {
         LOGGER.info("REST request. Path:/api/user/{}  method: DELETE.", id);
         userService.delete(id);
-    }
-
-    public boolean checkIsLoginExist(String login) {
-        return userService.findByLogin(login).isPresent();
     }
 }
