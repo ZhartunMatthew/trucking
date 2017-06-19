@@ -168,3 +168,40 @@ WHERE id_user = 7;
 UPDATE product
 SET lost_amount = 1, lost_reason = 'SPOILED', lost_description='Product was broken'
 WHERE id_product = 7;
+
+UPDATE invoice
+    SET driver = 7, invoice_state = 'DELIVERED'
+WHERE id_invoice = 2;
+
+UPDATE product
+SET product_state = 'LOST', lost_amount = 5, lost_reason = 'SPOILED', lost_description='Product was broken'
+WHERE id_product = 4;
+
+UPDATE product
+SET product_state = 'DELIVERED'
+WHERE id_product = 5;
+
+UPDATE waybill
+SET departure_date = '2017-04-30', waybill_state = 'TRANSPORTATION_COMPLETED'
+WHERE id_waybill = 1;
+
+UPDATE check_point
+SET path_date = '2017-04-29'
+WHERE id_checkpoint = 2;
+
+UPDATE car
+SET is_available = 1
+WHERE id_car = 3;
+
+UPDATE car
+SET is_available = 1
+WHERE id_car = 4;
+
+INSERT INTO customer_company
+(name, taxpayer_number, country, city, street, house, trucking_company)
+VALUES ('ОАО РосТорг', '219ЕT34K', 'Россия', 'Москва', 'пр. Кутузовский', '79с', 1);
+
+INSERT INTO customer_company
+(name, taxpayer_number, country, city, street, house, trucking_company)
+VALUES ('OOO Компьютербай', '736AB10C', 'Беларусь', 'Брест', 'пл. Свободы', '12', 1);
+
