@@ -1,9 +1,7 @@
 package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.InvoiceDTO;
-import com.itechart.trucking.entity.Car;
 import com.itechart.trucking.entity.Invoice;
-import com.itechart.trucking.entity.User;
 import com.itechart.trucking.entity.enums.InvoiceStateEnum;
 import com.itechart.trucking.entity.enums.ProductStateEnum;
 import com.itechart.trucking.entity.enums.UserRoleEnum;
@@ -105,33 +103,10 @@ public class InvoiceController {
         dto.setRegisterDate(new Date());
         dto.setDispatcherId(details.getId());
         dto.setInvoiceState(InvoiceStateEnum.ISSUED);
-
-        if(!updateInvoiceDriver(dto.getDriverId())
-                || !updateInvoiceCar(dto.getCarId())) {
+        Invoice invoiceFromDB = invoiceService.saveFullInvoice(conversionService.convert(dto, Invoice.class));
+        if(invoiceFromDB == null) {
             return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
         }
-
-        Invoice invoiceFromDB = invoiceService.save(conversionService.convert(dto, Invoice.class));
         return new ResponseEntity<>(conversionService.convert(invoiceFromDB, InvoiceDTO.class), HttpStatus.OK);
-    }
-
-    private boolean updateInvoiceDriver(Long driverId) {
-        User user = userService.findOne(driverId);
-        if(user == null) {
-            return false;
-        }
-        user.setAvailable(false);
-        userService.save(user);
-        return true;
-    }
-
-    private boolean updateInvoiceCar(Long carId) {
-        Car car = carService.findOne(carId);
-        if(car == null) {
-            return false;
-        }
-        car.setAvailable(false);
-        carService.save(car);
-        return true;
     }
 }

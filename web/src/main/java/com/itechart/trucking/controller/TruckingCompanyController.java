@@ -2,8 +2,6 @@ package com.itechart.trucking.controller;
 
 import com.itechart.trucking.dto.TruckingCompanyDTO;
 import com.itechart.trucking.entity.TruckingCompany;
-import com.itechart.trucking.entity.User;
-import com.itechart.trucking.entity.enums.UserRoleEnum;
 import com.itechart.trucking.services.TruckingCompanyService;
 import com.itechart.trucking.services.UserService;
 import org.slf4j.Logger;
@@ -13,7 +11,6 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -58,8 +55,7 @@ public class TruckingCompanyController {
     public ResponseEntity<TruckingCompanyDTO> create(@RequestBody TruckingCompanyDTO dto) {
         LOGGER.info("REST request. Path:/api/trucking-company  method: POST. company: {}", dto);
         TruckingCompany company = conversionService.convert(dto, TruckingCompany.class);
-        TruckingCompanyDTO dtoFromDB = conversionService.convert(service.save(company), TruckingCompanyDTO.class);
-        userService.save(createAdminForTruckingCompany(company));
+        TruckingCompanyDTO dtoFromDB = conversionService.convert(service.saveFullTruckingCompany(company), TruckingCompanyDTO.class);
         return new ResponseEntity<>(dtoFromDB, HttpStatus.OK);
     }
 
@@ -77,16 +73,4 @@ public class TruckingCompanyController {
         LOGGER.info("Return updated truckingCompany: {}", updatedDTO);
         return new ResponseEntity<>(updatedDTO, HttpStatus.OK);
     }
-
-    private User createAdminForTruckingCompany(TruckingCompany company) {
-        User user = new User();
-        user.setSurname("");
-        user.setLogin("admin" + company.getTaxpayerNumber());
-        user.setPassword(new BCryptPasswordEncoder().encode("admin"));
-        user.setSalt("salt");
-        user.setTruckingCompany(company);
-        user.setUserRole(UserRoleEnum.ADMIN);
-        return user;
-    }
-
 }

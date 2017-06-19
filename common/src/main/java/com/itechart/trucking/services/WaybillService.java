@@ -1,7 +1,11 @@
 package com.itechart.trucking.services;
 
+import com.itechart.trucking.entity.Car;
+import com.itechart.trucking.entity.Invoice;
 import com.itechart.trucking.entity.User;
 import com.itechart.trucking.entity.Waybill;
+import com.itechart.trucking.repository.CarRepository;
+import com.itechart.trucking.repository.InvoiceRepository;
 import com.itechart.trucking.repository.UserRepository;
 import com.itechart.trucking.repository.WaybillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,12 @@ public class WaybillService {
     @Autowired
     private  UserRepository userRepository;
 
+    @Autowired
+    private CarRepository carRepository;
+
+    @Autowired
+    private InvoiceRepository invoiceRepository;
+
     @PreAuthorize("hasPermission(null, 'Waybill', 'GET')")
     @Transactional(readOnly = true)
     public List<Waybill> findAll() {
@@ -35,6 +45,43 @@ public class WaybillService {
     @PreAuthorize("hasPermission(null, 'Waybill', 'POST') or hasPermission(#waybill.id, 'Waybill', 'PUT')")
     @Transactional
     public Waybill save(Waybill waybill) {return waybillRepository.saveAndFlush(waybill);}
+
+    @PreAuthorize("hasPermission(null, 'Waybill', 'POST') or hasPermission(#waybill.id, 'Waybill', 'PUT')")
+    @Transactional
+    public Waybill saveFullWaybill(Waybill waybill) {
+        if(!updateWaybillDriver(waybill.getInvoice().getId()) || !updateWaybillCar(waybill.getInvoice().getId())) {
+            return null;
+        }
+        return waybillRepository.saveAndFlush(waybill);
+    }
+
+    private boolean updateWaybillDriver(Long invoiceId) {
+        Invoice invoice = invoiceRepository.findOne(invoiceId);
+        if(invoice == null) {
+            return false;
+        }
+        User user = userRepository.findOne(invoice.getDriverUser().getId());
+        if(user == null) {
+            return false;
+        }
+        user.setAvailable(true);
+        userRepository.save(user);
+        return true;
+    }
+
+    private boolean updateWaybillCar(Long invoiceId) {
+        Invoice invoice = invoiceRepository.findOne(invoiceId);
+        if(invoice == null) {
+            return false;
+        }
+        Car car = carRepository.findOne(invoice.getCar().getId());
+        if(car == null) {
+            return false;
+        }
+        car.setAvailable(true);
+        carRepository.save(car);
+        return true;
+    }
 
     @PreAuthorize("hasPermission(#id, 'Waybill', 'DELETE')")
     @Transactional
