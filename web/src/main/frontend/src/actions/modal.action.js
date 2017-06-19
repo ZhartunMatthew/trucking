@@ -60,8 +60,8 @@ function hideModal() {
 
 function returnInitialBackground() {
   setTimeout(function () {
-      $('#modal-content').css('background-color', initialBackground);
-      $('#modal-action').css('display', 'none');
-    }, popupDelay + animationDelay
+    $('#modal-content').css('background-color', initialBackground);
+    $('#modal-action').css('display', 'none');
+  }, popupDelay + animationDelay
   )
 }

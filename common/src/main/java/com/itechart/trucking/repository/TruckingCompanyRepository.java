@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TruckingCompanyRepository extends JpaRepository<TruckingCompany, Long> {
+    TruckingCompany findByTaxpayerNumber(String taxNumber);
 }
