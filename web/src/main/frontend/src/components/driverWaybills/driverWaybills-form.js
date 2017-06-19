@@ -17,7 +17,7 @@ class DriverWaybillsForm extends React.Component {
 
     this.state = {
       errors: {},
-      canSubmit: false
+      canSubmit: true
     };
   }
 
@@ -49,11 +49,15 @@ class DriverWaybillsForm extends React.Component {
   }
 
   enableButton() {
-    this.setState({ canSubmit: true });
+    this.setState({
+      canSubmit: true
+    });
   }
 
   disableButton() {
-    this.setState({ canSubmit: false });
+    this.setState({
+      canSubmit: false
+    });
   }
 
   render() {
@@ -101,13 +105,11 @@ class DriverWaybillsForm extends React.Component {
                             required={false}
                             validations={{
                               isNumeric: true,
-                              isInBounds: [product.amount],
-                              maxLength: MAX_LENGTH_OF_NUMERIC
+                              isInBounds: [product.amount]
                             }}
                             validationErrors={{
                               isNumeric: VALIDATION_ERRORS.DIGITS,
-                              isInBounds: VALIDATION_ERRORS.OUT_OF_BOUNDS,
-                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
+                              isInBounds: VALIDATION_ERRORS.OUT_OF_BOUNDS
                             }}/>
 
           </td>
