@@ -9,6 +9,7 @@ import { cancelOperation, updateOperation } from '../../actions/operation.action
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
 import { VALIDATION_ERRORS, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
+import { WAYBILL_STATE } from '../../constants/constants';
 
 class DriverWaybillsForm extends React.Component {
 
@@ -61,6 +62,7 @@ class DriverWaybillsForm extends React.Component {
   }
 
   render() {
+    let indexOfEnabledCheckPoint = this.props.driverWaybill.checkPoints.findIndex(checkPoint => !checkPoint.pathDate);
     let checkPoints = this.props.driverWaybill.checkPoints.map((checkPoint, index) => {
       return (
         <tr key={checkPoint.id}>
@@ -68,6 +70,8 @@ class DriverWaybillsForm extends React.Component {
           <td>
             {checkPoint.pathDate ? (
                 <CheckBox className="checkPointBox" checked disabled/>
+              ) : indexOfEnabledCheckPoint !== index ? (
+                <CheckBox className="checkPointBox" unchecked disabled/>
               ) : (
                 <CheckBox className="checkPointBox" onChange={this.passCheckpoint.bind(this, checkPoint)}/>
               )
@@ -86,7 +90,7 @@ class DriverWaybillsForm extends React.Component {
       return Number(value) > 0 && Number(value) <= args[0];
     });
 
-    let disableEditing = this.props.driverWaybill.waybillState === 'TRANSPORTATION_COMPLETED';
+    let disableEditing = this.props.driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED;
     let products = this.props.products.map((product, index) => {
       let defaultType = product.lostReason ? product.lostReason : [];
       return (

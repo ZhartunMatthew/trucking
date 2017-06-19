@@ -1,5 +1,6 @@
 package com.itechart.trucking.controller;
 
+import com.itechart.trucking.dto.CheckPointDTO;
 import com.itechart.trucking.dto.InvoiceDTO;
 import com.itechart.trucking.dto.ProductDTO;
 import com.itechart.trucking.dto.WaybillDTO;
@@ -82,6 +83,11 @@ public class WaybillController {
         LOGGER.info("REST request. Path:/api/waybill  method: POST. waybill: {}", waybillDTO);
         waybillDTO.setDepartureDate(new Date());
         waybillDTO.setWaybillState(WaybillStateEnum.TRANSPORTATION_STARTED);
+        CheckPointDTO endPoint = new CheckPointDTO();
+        endPoint.setLatitude(waybillDTO.getDestinationLatitude());
+        endPoint.setLongitude(waybillDTO.getDestinationLongitude());
+        endPoint.setDescription(waybillDTO.getDestinationAddress());
+        waybillDTO.getCheckPoints().add(endPoint);
         Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
         WaybillDTO resultWaybill = conversionService.convert(waybillEntity, WaybillDTO.class);
         return new ResponseEntity<>(resultWaybill, HttpStatus.OK);

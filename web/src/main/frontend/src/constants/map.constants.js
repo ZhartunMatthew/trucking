@@ -19,5 +19,13 @@ export const DEFAULT_LATITUDE = 53.9216192;
 export const DEFAULT_LONGITUDE = 27.5694262;
 export const DEFAULT_ZOOM = 7;
 export const METERS_PER_KILOMETER = 1000;
-export const RED_ICON = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-export const GREEN_ICON = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+export const ICONS = {
+  RED_ICON: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+  RED_END_ICON: 'https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png' +
+  '&text=B&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1',
+  GREEN_ICON: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+  GREEN_START_ICON: 'https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png' +
+  '&text=A&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1',
+  GREEN_END_ICON: 'https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png' +
+  '&text=B&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1'
+};
