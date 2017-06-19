@@ -137,7 +137,7 @@ class WaybillForm extends React.Component {
             <legend> {creatingLabel} </legend>
             <ValidatedInput id='waybillNumber'
                             type='text'
-                            placeholder=''
+                            placeholder='Enter waybill number here'
                             readOnly={disableEditing}
                             value={this.props.waybill.waybillNumber || ''}
                             onChange={this.handleWaybillNumberChange.bind(this)}
@@ -193,7 +193,7 @@ class WaybillForm extends React.Component {
                             name='price'
                             type='text'
                             title='Price, $'
-                            placeholder=''
+                            placeholder='Enter price here'
                             readOnly={disableEditing}
                             value={this.props.waybill.price.toString() || ''}
                             onChange={this.handlePrice.bind(this)}

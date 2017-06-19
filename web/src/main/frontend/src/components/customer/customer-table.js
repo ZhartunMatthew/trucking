@@ -86,18 +86,18 @@ class CustomerTable extends React.Component {
 
     return (
       <div>
-        <h1>List of companies</h1>
+        <h3>List of companies</h3>
         <table className='table table-striped table-hover'>
           <thead>
           <tr>
             <th>#</th>
-            <th>name</th>
-            <th>taxpayer number</th>
-            <th>country</th>
-            <th>city</th>
-            <th>street</th>
-            <th>house</th>
-            <th>actions</th>
+            <th>Name</th>
+            <th>Taxpayer number</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Street</th>
+            <th>House</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>

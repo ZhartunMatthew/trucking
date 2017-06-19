@@ -206,7 +206,7 @@ class InvoiceForm extends React.Component {
 
             <ValidatedInput id='number'
                             type='text'
-                            placeholder=''
+                            placeholder='Enter invoice number here'
                             value={this.props.invoice !== null ? this.props.invoice.number || '' : ''}
                             onChange={this.handleNumberChange.bind(this)}
                             readOnly={disableEditing}

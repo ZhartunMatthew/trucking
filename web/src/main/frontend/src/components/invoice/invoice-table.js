@@ -28,15 +28,15 @@ class InvoiceTable extends React.Component {
 
     return (
       <div>
-        <h1>List of invoices</h1>
+        <h3>List of invoices</h3>
         <table className='table table-striped table-hover'>
           <thead>
           <tr>
             <th>#</th>
-            <th>invoice number</th>
-            <th>register date</th>
-            <th>customer company</th>
-            <th>actions</th>
+            <th>Invoice number</th>
+            <th>Register date</th>
+            <th>Customer company</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>

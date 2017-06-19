@@ -72,7 +72,7 @@ class UserTable extends React.Component {
     });
 
     let adminActions =
-        <button className='btn btn-default' onClick={this.onShowCreateUserForm.bind(this)}> Create new user </button>;
+        <button className='btn btn-default' onClick={this.onShowCreateUserForm.bind(this)}> Create </button>;
 
     let ownerActions = null;
     let userActions = null;
@@ -81,16 +81,16 @@ class UserTable extends React.Component {
     userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
     return (
       <div>
-        <h1>List of users</h1>
+        <h3>List of users</h3>
         <table className='table table-striped table-hover'>
           <thead>
           <tr>
             <th>#</th>
-            <th>name</th>
-            <th>surname</th>
-            <th>patronymic</th>
-            <th>user role</th>
-            <th>actions</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Patronymic</th>
+            <th>User role</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>

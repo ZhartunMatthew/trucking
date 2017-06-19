@@ -229,7 +229,7 @@ class CustomerForm extends React.Component {
                             onChange={this.handleStreetChange.bind(this)}
                             readOnly={disableEditing}
                             name='street'
-                            title='street'
+                            title='Street'
                             required
                             validations={{
                               isStreet: true,
