@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-class Error extends React.Component {
+class ErrorPage extends React.Component {
 
   render() {
     return (
@@ -14,4 +14,4 @@ function mapStateToProps() {
   return {}
 }
 
-export default connect(mapStateToProps)(Error);
+export default connect(mapStateToProps)(ErrorPage);
