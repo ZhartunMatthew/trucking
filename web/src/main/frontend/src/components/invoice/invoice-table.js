@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startOperation } from '../../actions/operation.action';
-import { getDateString } from '../../constants/constants'
+import { getDateString } from '../../constants/date.functions'
 
 class InvoiceTable extends React.Component {
 

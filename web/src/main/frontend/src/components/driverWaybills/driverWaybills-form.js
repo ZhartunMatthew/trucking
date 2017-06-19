@@ -10,6 +10,8 @@ import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
 import { VALIDATION_ERRORS, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
 import { WAYBILL_STATE } from '../../constants/constants';
+import { getDateString, reformatDate } from '../../constants/date.functions'
+
 
 class DriverWaybillsForm extends React.Component {
 
@@ -78,7 +80,7 @@ class DriverWaybillsForm extends React.Component {
             }
           </td>
           <td> {checkPoint.description}</td>
-          <td> {checkPoint.pathDate}</td>
+          <td> {reformatDate(checkPoint.pathDate)}</td>
         </tr>
       )
     });
@@ -154,7 +156,7 @@ class DriverWaybillsForm extends React.Component {
             <label>
               <b> Departure date: </b>
             </label>
-            <p>{this.props.driverWaybill.departureDate}</p>
+            <p>{getDateString(this.props.driverWaybill.departureDate)}</p>
 
             <label>
               <b> Destination place: </b>
@@ -165,7 +167,7 @@ class DriverWaybillsForm extends React.Component {
             <label>
               <b> Destination date: </b>
             </label>
-            <p>{this.props.driverWaybill.destinationDate}</p>
+            <p>{reformatDate(this.props.driverWaybill.destinationDate)}</p>
 
             <div>
               <h3>Checkpoints {this.props.driverWaybill.passedCheckPoints}/{this.props.driverWaybill.allCheckPoints}</h3>

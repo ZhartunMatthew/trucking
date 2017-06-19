@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { startOperation } from '../../actions/operation.action';
 import { loadProducts } from '../../actions/driverWaybills.action';
 import { loadLostTypes } from '../../actions/product.action'
-import { getDateString } from '../../constants/constants'
+import { getDateString } from '../../constants/date.functions'
 
 class DriverWaybillsTable extends React.Component {
 

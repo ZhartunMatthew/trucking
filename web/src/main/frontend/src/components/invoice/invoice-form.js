@@ -12,7 +12,8 @@ import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { sentenceCase } from 'change-case';
-import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, getDateString } from '../../constants/constants';
+import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING } from '../../constants/constants';
+import { getDateString } from '../../constants/date.functions';
 
 class InvoiceForm extends React.Component {
 
