@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TruckingCompanyService {
@@ -60,5 +61,9 @@ public class TruckingCompanyService {
 
     public TruckingCompany securedFindOne(Long id) {
         return truckingCompanyRepository.findOne(id);
+    }
+
+    public Optional<TruckingCompany> findByTaxpayerNumber(String tax) {
+        return Optional.ofNullable(truckingCompanyRepository.findByTaxpayerNumber(tax));
     }
 }

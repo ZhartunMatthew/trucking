@@ -54,6 +54,9 @@ public class TruckingCompanyController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<TruckingCompanyDTO> create(@RequestBody TruckingCompanyDTO dto) {
         LOGGER.info("REST request. Path:/api/trucking-company  method: POST. company: {}", dto);
+        if(service.findByTaxpayerNumber(dto.getTaxpayerNumber()).isPresent()) {
+            return new ResponseEntity<>(dto, HttpStatus.CONFLICT);
+        }
         TruckingCompany company = conversionService.convert(dto, TruckingCompany.class);
         TruckingCompanyDTO dtoFromDB = conversionService.convert(service.saveFullTruckingCompany(company), TruckingCompanyDTO.class);
         return new ResponseEntity<>(dtoFromDB, HttpStatus.OK);
