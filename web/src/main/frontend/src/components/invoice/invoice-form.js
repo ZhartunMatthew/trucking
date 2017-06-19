@@ -165,15 +165,15 @@ class InvoiceForm extends React.Component {
                          title='Destination customer'
                          validations='isRequiredSelect'/>
 
-       <ValidatedSelect id='driverId'
-                        label='Driver'
-                        onChange={this.handleDriverChange.bind(this)}
-                        options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
-                        value={defaultDriver}
-                        disabled={disableEditing}
-                        name='driverId'
-                        title='Driver'
-                        validations='isRequiredSelect'/>
+        <ValidatedSelect id='driverId'
+                         label='Driver'
+                         onChange={this.handleDriverChange.bind(this)}
+                         options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
+                         value={defaultDriver}
+                         disabled={disableEditing}
+                         name='driverId'
+                         title='Driver'
+                         validations='isRequiredSelect'/>
 
         <ValidatedSelect id='carId'
                          label='Car'
@@ -195,6 +195,14 @@ class InvoiceForm extends React.Component {
 
     let customerInfo = role === Role.DISPATCHER
       ? this.props.invoice.customerCompany + ', ' + this.props.invoice.customerCompanyCity : this.props.invoice.customerCompany;
+
+
+    let dateValue = null;
+    if(role !== Role.DISPATCHER) {
+      dateValue = getDateString(this.props.invoice.registerDate);
+    } else {
+      dateValue = getDateString();
+    }
 
     return (
       <div>
@@ -225,7 +233,7 @@ class InvoiceForm extends React.Component {
             <ValidatedInput id='registerDate'
                             type='text'
                             placeholder=''
-                            value={this.props.invoice !== null ? this.props.invoice.registerDate || '' : ''}
+                            value={dateValue}
                             onChange={this.handleRegisterDate.bind(this)}
                             readOnly={true}
                             name='registerDate'
@@ -254,6 +262,21 @@ class InvoiceForm extends React.Component {
       </div>
     );
   }
+}
+
+function getDateString(date) {
+  if(date === undefined) {
+    date = new Date();
+  } else {
+    console.log(date);
+    date = new Date(date);
+    let day = 24 * 60 * 60  * 1000;
+    date = new Date(date.getTime() + day);
+  }
+  let formattedDate = ('0' + date.getDate()).slice(-2);
+  let formattedMonth = ('0' + (date.getMonth() + 1)).slice(-2);
+  let formattedYear = date.getFullYear().toString();
+  return formattedYear + '-' + formattedMonth + '-' + formattedDate;
 }
 
 InvoiceForm.propTypes = {
