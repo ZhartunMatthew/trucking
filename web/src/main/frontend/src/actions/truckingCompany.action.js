@@ -3,7 +3,7 @@ import { startOperation, cancelOperation } from './operation.action';
 import {
   INIT_TRUCKINGCOMPANIES
 } from '../constants/actionTypes';
-import { setActionDescription, setActionFail } from '../actions/modal.action'
+import { setActionDescription, setActionFail, setValidationFail } from '../actions/modal.action'
 
 export function loadTruckingCompanies() {
   return (dispatch) => {
