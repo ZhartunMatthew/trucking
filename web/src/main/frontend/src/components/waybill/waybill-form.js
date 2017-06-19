@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createWaybill } from '../../actions/waybill.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
+import { clearCheckPoints } from '../../actions/checkPoint.action';
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
@@ -73,7 +74,8 @@ class WaybillForm extends React.Component {
   cancel() {
     if (this.props.userRole === Role.COMPANY_OWNER){
       this.props.cancelOperation();
-    }else {
+    } else {
+      this.props.clearCheckPoints();
       this.props.cancelOperation();
       this.context.router.push('/invoice');
     }
@@ -259,6 +261,7 @@ WaybillForm.propTypes = {
   updateOperation: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired,
   resetOperation: React.PropTypes.func.isRequired,
+  clearCheckPoints: React.PropTypes.func.isRequired
 };
 
 let mapStateToProps = function (state) {
@@ -276,6 +279,7 @@ function mapDispatchToProps(dispatch) {
     updateOperation: bindActionCreators(updateOperation, dispatch),
     cancelOperation: bindActionCreators(cancelOperation, dispatch),
     resetOperation: bindActionCreators(resetOperation, dispatch),
+    clearCheckPoints: bindActionCreators(clearCheckPoints, dispatch)
   }
 }
 

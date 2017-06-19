@@ -1,5 +1,5 @@
 import {
-  UPDATE_CHECK_POINTS, DELETE_CHECK_POINT
+  UPDATE_CHECK_POINTS, DELETE_CHECK_POINT, CLEAR_CHECK_POINTS
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -20,6 +20,9 @@ const CheckPointReducer = (state = initialState, action) => {
     case DELETE_CHECK_POINT:
       let nextCheckPoints = state.checkPoints.filter(checkPoint => checkPoint.key !== action.payload);
       return Object.assign({}, state, {checkPoints: nextCheckPoints});
+
+    case CLEAR_CHECK_POINTS:
+      return Object.assign({}, state, {checkPoints: []});
 
     default:
       return state;
