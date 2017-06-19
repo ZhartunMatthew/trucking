@@ -6,6 +6,7 @@ import { loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
 import { startOperation, updateOperation, cancelOperation } from '../../actions/operation.action';
 import { loadCustomers } from '../../actions/customer.action'
 import { clearProducts } from '../../actions/product.action';
+import { setValidationFail } from '../../actions/modal.action';
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select-component';
@@ -107,9 +108,13 @@ class InvoiceForm extends React.Component {
   }
 
   create() {
-    this.props.clearProducts();
-    this.props.createInvoice(this.props.invoice);
-    this.cancel();
+    if (Array.isArray(this.props.invoice.products) && this.props.invoice.products.length) {
+      this.props.clearProducts();
+      this.props.createInvoice(this.props.invoice);
+      this.cancel();
+    } else {
+      setValidationFail('Can\'t save invoice without products!' + '<br>' + 'Please add products to invoice.');
+    }
   }
 
   render() {
