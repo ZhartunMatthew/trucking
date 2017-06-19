@@ -31,17 +31,17 @@ class OwnerWaybillsTable extends React.Component {
     });
     return (
       <div>
-        <h1>List of waybills</h1>
+        <h3>List of waybills</h3>
         <table className='table table-striped table-hover'>
           <thead>
           <tr>
             <th>#</th>
-            <th>number</th>
-            <th>state</th>
-            <th>price, $</th>
-            <th>total distance, km</th>
-            <th>checkpoints amount</th>
-            <th>actions</th>
+            <th>Number</th>
+            <th>State</th>
+            <th>Price, $</th>
+            <th>Total distance, km</th>
+            <th>Checkpoints amount</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>

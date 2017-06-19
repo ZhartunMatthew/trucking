@@ -76,7 +76,7 @@ class CarTable extends React.Component {
 
     return (
       <div>
-        <h1>List of cars</h1>
+        <h3>List of cars</h3>
         <table className='table table-striped table-hover'>
           <thead>
           <tr>

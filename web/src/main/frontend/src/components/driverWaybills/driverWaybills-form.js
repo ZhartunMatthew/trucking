@@ -1,15 +1,15 @@
 import React from 'react';
 import CheckBox from '../common/checkbox';
 import TextareaElement from '../common/textarea';
-import Select from '../common/select';
+import ValidatedSelect from '../common/select-component';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { passCheckPoint, passDestination} from '../../actions/driverWaybills.action';
 import { cancelOperation, updateOperation } from '../../actions/operation.action';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
-import { VALIDATION_ERRORS, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
-import { WAYBILL_STATE } from '../../constants/constants';
+import { VALIDATION_ERRORS, WAYBILL_STATE, DEFAULT_SELECT_VALUE } from '../../constants/constants';
+import { sentenceCase } from 'change-case';
 
 class DriverWaybillsForm extends React.Component {
 
@@ -90,9 +90,13 @@ class DriverWaybillsForm extends React.Component {
       return Number(value) > 0 && Number(value) <= args[0];
     });
 
+    Formsy.addValidationRule('isRequiredSelect', function(values, value) {
+      return value !== DEFAULT_SELECT_VALUE;
+    });
+
     let disableEditing = this.props.driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED;
     let products = this.props.products.map((product, index) => {
-      let defaultType = product.lostReason ? product.lostReason : [];
+      let defaultType = product.lostReason ? product.lostReason : DEFAULT_SELECT_VALUE;
       return (
         <tr key={product.id}>
           <th scope='row'> {index + 1} </th>
@@ -119,12 +123,16 @@ class DriverWaybillsForm extends React.Component {
           </td>
           { product.lostAmount &&
             <td>
-              <Select id={"typeLost" + product.id}
-                      label="Reason lost"
-                      value={defaultType}
-                      disabled={disableEditing}
-                      options={this.props.lostTypes.map((type) => {return ( <option> {type} </option> )})}
-                      onChange={this.handleProductTypeChange.bind(this, product.id, product)}/>
+              <ValidatedSelect id={"typeLost" + product.id}
+                               title="Reason lost"
+                               name='reasonLostType'
+                               value={defaultType}
+                               disabled={disableEditing}
+                               options={this.props.lostTypes.map(type => {return (
+                                 <option key={type} value={type}> {sentenceCase(type)} </option>
+                               )})}
+                               onChange={this.handleProductTypeChange.bind(this, product.id, product)}
+                               validations='isRequiredSelect'/>
             </td>
           }
           { product.lostAmount &&
@@ -134,6 +142,7 @@ class DriverWaybillsForm extends React.Component {
                              readOnly={disableEditing}
                              value={product.lostDescription}
                              rows={4}
+                             maxLength={255}
                              onChange={this.handleProductDescChange.bind(this, product.id, product)}/>
             </td>
           }
@@ -173,9 +182,9 @@ class DriverWaybillsForm extends React.Component {
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>pass</th>
-                  <th>description</th>
-                  <th>pass date</th>
+                  <th>Pass</th>
+                  <th>Description</th>
+                  <th>Pass date</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -227,7 +236,7 @@ class DriverWaybillsForm extends React.Component {
                 </div>
                   <div className="modal-footer">
                     {
-                      this.props.driverWaybill.waybillState === 'TRANSPORTATION_STARTED' &&
+                      this.props.driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_STARTED &&
                       <button type="button"
                               className="btn btn-success"
                               data-dismiss="modal"

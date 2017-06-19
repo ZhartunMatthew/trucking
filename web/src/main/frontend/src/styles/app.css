@@ -33,6 +33,18 @@
   margin-bottom: 20px;
 }
 
+.navbar-nav {
+  font-size: 1.15em;
+}
+
+.navbar-brand {
+  font-size: 1.4rem !important;
+}
+
+legend {
+  font-size: 1.3rem !important;
+}
+
 a {
   text-decoration: none;
 }
@@ -98,7 +110,7 @@ a {
 }
 
 .background-login {
-  margin-top: -56px;
+  margin-top: -61px;
   background-size: 100%;
   background-repeat: repeat;
   position: absolute;

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { startOperation } from '../../actions/operation.action';
 import { loadProducts } from '../../actions/driverWaybills.action';
 import { loadLostTypes } from '../../actions/product.action'
-
+import { WAYBILL_STATE } from '../../constants/constants';
 
 class DriverWaybillsTable extends React.Component {
 
@@ -24,7 +24,7 @@ class DriverWaybillsTable extends React.Component {
           <td>{driverWaybill.passedCheckPoints}/{driverWaybill.allCheckPoints}</td>
           <td>
             <div className='btn-toolbar text-center'>
-              { driverWaybill.waybillState === 'TRANSPORTATION_COMPLETED' ? (
+              { driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED ? (
                 <button className='btn btn-info' onClick={this.onShowUpdateWaybillForm.bind(this, driverWaybill)}>
                   Show
                 </button>
@@ -42,14 +42,14 @@ class DriverWaybillsTable extends React.Component {
 
     return (
       <div>
-        <h1>List of waybills</h1>
+        <h3>List of waybills</h3>
         <table className='table table-striped table-hover'>
           <thead>
           <tr>
             <th>#</th>
-            <th>number</th>
-            <th>departure date</th>
-            <th>checkpoints: passed/all </th>
+            <th>Number</th>
+            <th>Departure date</th>
+            <th>Checkpoints: passed/all </th>
           </tr>
           </thead>
           <tbody>

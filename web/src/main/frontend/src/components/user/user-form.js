@@ -377,8 +377,8 @@ class UserForm extends React.Component {
                              )})}
                              value={defaultUserRole}
                              disabled={disableEditing}
-                             name="User Role"
-                             title="Type"
+                             name="userRole"
+                             title="User role"
                              validations="isRequiredSelect"/>
             {userActions}
           </fieldset>

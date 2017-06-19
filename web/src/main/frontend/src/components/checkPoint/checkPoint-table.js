@@ -25,7 +25,7 @@ class CheckPointTable extends React.Component {
           <thead>
           <tr>
             <th>#</th>
-            <th>description</th>
+            <th>Description</th>
           </tr>
           </thead>
           <tbody>

@@ -79,7 +79,7 @@ class ProductForm extends React.Component {
             <fieldset>
               <ValidatedInput id='currentProductName'
                               type='text'
-                              placeholder=''
+                              placeholder='Enter product name here'
                               value={this.props.currentProductName}
                               onChange={this.handleProductNameChange.bind(this)}
                               validations={{
@@ -95,7 +95,7 @@ class ProductForm extends React.Component {
 
               <ValidatedInput id='currentProductAmount'
                               type='text'
-                              placeholder=''
+                              placeholder='Enter products amount here'
                               value={this.props.currentProductAmount}
                               onChange={this.handleAmountChange.bind(this)}
                               validations={{
@@ -114,7 +114,7 @@ class ProductForm extends React.Component {
 
               <ValidatedInput id='currentProductPrice'
                               type='text'
-                              placeholder=''
+                              placeholder='Enter price here'
                               value={this.props.currentProductPrice}
                               onChange={this.handlePriceChange.bind(this)}
                               required
