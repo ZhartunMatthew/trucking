@@ -8,7 +8,8 @@ import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
 import CheckPointTable from '../checkPoint/checkPoint-table';
-import { VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
+import { VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, MAX_LENGTH_OF_NUMERIC} from '../../constants/constants';
+import { getDateString } from '../../constants/date.functions'
 
 class WaybillForm extends React.Component {
 
@@ -167,7 +168,7 @@ class WaybillForm extends React.Component {
             <ValidatedInput id='registerDate'
                             type='text'
                             placeholder=''
-                            value={this.props.waybill.invoiceDate || ''}
+                            value={getDateString(this.props.waybill.invoiceDate) || ''}
                             onChange={this.handleInvoiceDate.bind(this)}
                             readOnly={true}
                             title='Register date'

@@ -13,6 +13,7 @@ import ValidatedSelect from '../common/select-component';
 import Formsy from 'formsy-react';
 import { sentenceCase } from 'change-case';
 import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING } from '../../constants/constants';
+import { getDateString } from '../../constants/date.functions';
 
 class InvoiceForm extends React.Component {
 
@@ -165,15 +166,15 @@ class InvoiceForm extends React.Component {
                          title='Destination customer'
                          validations='isRequiredSelect'/>
 
-       <ValidatedSelect id='driverId'
-                        label='Driver'
-                        onChange={this.handleDriverChange.bind(this)}
-                        options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
-                        value={defaultDriver}
-                        disabled={disableEditing}
-                        name='driverId'
-                        title='Driver'
-                        validations='isRequiredSelect'/>
+        <ValidatedSelect id='driverId'
+                         label='Driver'
+                         onChange={this.handleDriverChange.bind(this)}
+                         options={this.props.users.map((driver)=>{return ( <option value={driver.id}> {driver.name} {driver.surname} </option> )})}
+                         value={defaultDriver}
+                         disabled={disableEditing}
+                         name='driverId'
+                         title='Driver'
+                         validations='isRequiredSelect'/>
 
         <ValidatedSelect id='carId'
                          label='Car'
@@ -195,6 +196,14 @@ class InvoiceForm extends React.Component {
 
     let customerInfo = role === Role.DISPATCHER
       ? this.props.invoice.customerCompany + ', ' + this.props.invoice.customerCompanyCity : this.props.invoice.customerCompany;
+
+
+    let dateValue = null;
+    if(role !== Role.DISPATCHER) {
+      dateValue = getDateString(this.props.invoice.registerDate);
+    } else {
+      dateValue = getDateString();
+    }
 
     return (
       <div>
@@ -225,7 +234,7 @@ class InvoiceForm extends React.Component {
             <ValidatedInput id='registerDate'
                             type='text'
                             placeholder=''
-                            value={this.props.invoice !== null ? this.props.invoice.registerDate || '' : ''}
+                            value={dateValue}
                             onChange={this.handleRegisterDate.bind(this)}
                             readOnly={true}
                             name='registerDate'

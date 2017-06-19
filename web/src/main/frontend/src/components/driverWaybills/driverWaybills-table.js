@@ -5,6 +5,7 @@ import { startOperation } from '../../actions/operation.action';
 import { loadProducts } from '../../actions/driverWaybills.action';
 import { loadLostTypes } from '../../actions/product.action'
 import { WAYBILL_STATE } from '../../constants/constants';
+import { getDateString } from '../../constants/date.functions'
 
 class DriverWaybillsTable extends React.Component {
 
@@ -20,7 +21,7 @@ class DriverWaybillsTable extends React.Component {
         <tr key={driverWaybill.id}>
           <th scope='row'> {index + 1} </th>
           <td>{driverWaybill.waybillNumber}</td>
-          <td>{driverWaybill.departureDate}</td>
+          <td>{getDateString(driverWaybill.departureDate)}</td>
           <td>{driverWaybill.passedCheckPoints}/{driverWaybill.allCheckPoints}</td>
           <td>
             <div className='btn-toolbar text-center'>

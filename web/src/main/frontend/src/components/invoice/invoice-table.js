@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startOperation } from '../../actions/operation.action';
+import { getDateString } from '../../constants/date.functions'
 
 class InvoiceTable extends React.Component {
 
@@ -15,7 +16,7 @@ class InvoiceTable extends React.Component {
         <tr key={invoice.id}>
           <th scope='row'> {index + 1} </th>
           <td> {invoice.number}</td>
-          <td> {invoice.registerDate}</td>
+          <td> {getDateString(invoice.registerDate)}</td>
           <td> {invoice.customerCompany}</td>
           <td>
             <div className='btn-toolbar text-center'>
