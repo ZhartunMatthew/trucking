@@ -3,7 +3,7 @@ import { startOperation, cancelOperation } from './operation.action';
 import {
   INIT_USERS
 } from '../constants/actionTypes';
-import { setActionDescription, setActionFail } from '../actions/modal.action'
+import { setActionDescription, setActionFail, setValidationFail } from '../actions/modal.action'
 
 export function loadUsers() {
   return (dispatch) => {
@@ -65,7 +65,7 @@ export function makeNewUser(user) {
         description: 'User <b>' + user.name + ' ' + user.surname + '</b> has been added'
       });
     }).fail(() => {
-      setActionFail(statusCode);
+      statusCode !== 409 ? setActionFail(statusCode) : setValidationFail("Login is already exists");
       console.log('Could not save user');
     });
   }
@@ -101,7 +101,6 @@ export function updateUser(user) {
   }
 }
 
-
 export function deleteUser(user) {
   return (dispatch) => {
     $.ajax({
@@ -120,6 +119,4 @@ export function deleteUser(user) {
     });
   }
 }
-
-
 

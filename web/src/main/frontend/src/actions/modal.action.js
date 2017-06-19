@@ -28,6 +28,16 @@ export function setActionFail(status) {
   returnInitialBackground();
 }
 
+export function setValidationFail(info) {
+  showModal(errorBackground);
+  $('#modal-action-text').html('Operation failed!');
+  $('#modal-description-text').html(info);
+  setTimeout(function() {
+    hideModal();
+  }, popupDelay);
+  returnInitialBackground();
+}
+
 function showModal(color) {
   $('#modal-action').css('display', 'block');
   if(color !== undefined) {
@@ -50,8 +60,8 @@ function hideModal() {
 
 function returnInitialBackground() {
   setTimeout(function () {
-      $('#modal-content').css('background-color', initialBackground);
-      $('#modal-action').css('display', 'none');
-    }, popupDelay + animationDelay
+    $('#modal-content').css('background-color', initialBackground);
+    $('#modal-action').css('display', 'none');
+  }, popupDelay + animationDelay
   )
 }
