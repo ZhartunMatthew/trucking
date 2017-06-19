@@ -190,7 +190,8 @@ class MapComponent extends React.Component {
 
   handleOnMarkerClick(targetMarker) {
     let index = this.state.markers.findIndex(marker => marker === targetMarker);
-    this.state.markers[index].icon = ICONS.GREEN_ICON;
+    this.state.markers[index].icon = this.state.markers[index].icon === ICONS.RED_END_ICON
+      ? ICONS.GREEN_END_ICON : ICONS.GREEN_ICON;
     this.state.markers[index].clickable = false;
     let checkPoint = this.props.waybill.checkPoints.find(checkPoint => checkPoint.id === targetMarker.key);
     this.props.passCheckPoint(checkPoint);
