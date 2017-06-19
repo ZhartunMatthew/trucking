@@ -16,4 +16,5 @@
     <include file="2017-06-12--V1-add-lost-product-info.xml" relativeToChangelogFile="true"/>
     <include file="2017-06-14--V1-add-product-price.xml" relativeToChangelogFile="true"/>
     <include file="2017-06-17--V1-fix-car-type.xml" relativeToChangelogFile="true"/>
+    <include file="2017-06-19--V1-add-system-admin.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

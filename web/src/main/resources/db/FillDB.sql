@@ -19,8 +19,7 @@ commit;
 
 /*user*/
 /*System_Admin*/
-INSERT INTO user (name, surname, patronymic, email, country, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
-  VALUES ('Иван', 'Иванов', 'Иванович', 'ivanov123@mail.ru', 'Беларусь','Минск', 'Калиновского', '21', '65', 'ivan_superman', '1111', '5gds7fs7', NULL, 'SYSTEM_ADMIN');
+# system admin already exists
 /*Admin*/
 INSERT INTO user (name, surname, patronymic, email, country, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
   VALUES ('Петров', 'Петр', 'Петрович', 'petrov123@mail.ru', 'Беларусь', 'Минск', 'Казинца', '38', '176', 'petya_superman', '2222', 'e89wr78w', 1, 'ADMIN');
