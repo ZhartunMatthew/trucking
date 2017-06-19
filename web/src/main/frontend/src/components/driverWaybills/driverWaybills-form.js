@@ -236,7 +236,7 @@ class DriverWaybillsForm extends React.Component {
                     }
                     <button type="button"
                             className="btn btn-default"
-                            data-dismiss="modal"> Close `</button>
+                            data-dismiss="modal"> Close </button>
                 </div>
               </div>
             </div>
