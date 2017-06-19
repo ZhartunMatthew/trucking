@@ -113,11 +113,6 @@ public class WaybillController {
         waybillDTO.setWaybillState(WaybillStateEnum.TRANSPORTATION_COMPLETED);
         waybillDTO.setDestinationDate(new Date());
 
-        if(!updateWaybillDriver(waybillDTO.getInvoiceId())
-                || !updateWaybillCar(waybillDTO.getInvoiceId())) {
-            return new ResponseEntity<>(waybillDTO, HttpStatus.BAD_REQUEST);
-        }
-
         return updateWaybill(waybillDTO);
     }
 
@@ -128,36 +123,12 @@ public class WaybillController {
     }
 
     private ResponseEntity<WaybillDTO> updateWaybill(WaybillDTO waybillDTO) {
-        Waybill waybillEntity = waybillService.save(conversionService.convert(waybillDTO, Waybill.class));
+        Waybill waybillEntity = waybillService.saveFullWaybill(conversionService.convert(waybillDTO, Waybill.class));
+        if(waybillEntity == null) {
+            System.out.println("AAAAAAAAAAAAAAAAAA");
+            return new ResponseEntity<>(waybillDTO, HttpStatus.BAD_REQUEST);
+        }
         WaybillDTO resultWaybill = conversionService.convert(waybillEntity, WaybillDTO.class);
         return new ResponseEntity<>(resultWaybill, HttpStatus.OK);
-    }
-
-    private boolean updateWaybillDriver(Long invoiceId) {
-        Invoice invoice = invoiceService.findOne(invoiceId);
-        if(invoice == null) {
-            return false;
-        }
-        User user = userService.findOne(invoice.getDriverUser().getId());
-        if(user == null) {
-            return false;
-        }
-        user.setAvailable(true);
-        userService.save(user);
-        return true;
-    }
-
-    private boolean updateWaybillCar(Long invoiceId) {
-        Invoice invoice = invoiceService.findOne(invoiceId);
-        if(invoice == null) {
-            return false;
-        }
-        Car car = carService.findOne(invoice.getCar().getId());
-        if(car == null) {
-            return false;
-        }
-        car.setAvailable(true);
-        carService.save(car);
-        return true;
     }
 }
