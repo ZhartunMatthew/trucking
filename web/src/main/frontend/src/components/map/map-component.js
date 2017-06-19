@@ -1,13 +1,14 @@
 /* global google */
 import React from 'react';
-import { updateOperation } from '../../actions/operation.action';
+import { updateOperation, resetOperation } from '../../actions/operation.action';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withGoogleMap, GoogleMap, DirectionsRenderer, Geocoder, Marker} from 'react-google-maps';
 import SearchBox from 'react-google-maps/lib/places/SearchBox';
 import $ from 'jquery';
-import { updateCheckPoints, deleteCheckPoint } from  '../../actions/checkPoint.action';
+import { createCheckPoint, deleteCheckPoint, clearCheckPoints } from  '../../actions/checkPoint.action';
 import { passCheckPoint } from '../../actions/driverWaybills.action';
+import { setValidationFail } from '../../actions/modal.action';
 import { DEFAULT_LONGITUDE, DEFAULT_LATITUDE, DEFAULT_ZOOM, ICONS, METERS_PER_KILOMETER,
   INPUT_STYLE, MAX_COUNT_OF_WAYPOINTS} from '../../constants/map.constants';
 import { Role } from '../../constants/roles';
@@ -77,6 +78,7 @@ class MapComponent extends React.Component {
     if (isManager) {
       this.convertLocationIntoAddress = this.convertLocationIntoAddress.bind(this);
       this.calculateTotalDistance = this.calculateTotalDistance.bind(this);
+      this.resetState = this.resetState.bind(this);
       this.state.markersToWaypointsMap = new Map();
     } else {
       this.initState = this.initState.bind(this);
@@ -167,7 +169,7 @@ class MapComponent extends React.Component {
             longitude: event.latLng.lng(),
             key: marker.key
           };
-          this.props.updateCheckPoints(checkPoint);
+          this.props.createCheckPoint(checkPoint);
           this.handleRouteChange();
         }
       });
@@ -214,8 +216,28 @@ class MapComponent extends React.Component {
           this.calculateTotalDistance(result.routes[0].legs);
         }
       } else {
-        console.error('error fetching directions ${result}');
+        console.log(result);
+        console.log('Build route failed, ' + status);
+        this.resetState();
       }
+    });
+  }
+
+  resetState() {
+    setValidationFail('Can\'t build route between departure and destination places');
+    let waybillNumber = this.props.waybill.waybillNumber;
+    let waybillPrice = this.props.waybill.price;
+    this.props.resetOperation();
+    this.props.clearCheckPoints();
+    this.props.updateOperation('waybillNumber', waybillNumber);
+    this.props.updateOperation('price', waybillPrice);
+    this.setState({
+      start: null,
+      waypoints: [],
+      end: null,
+      directions: null,
+      markers: [],
+      markersToWaypointsMap: new Map()
     });
   }
 
@@ -281,10 +303,11 @@ MapComponent.propTypes = {
   userRole: React.PropTypes.string.isRequired,
   waybill: React.PropTypes.object,
   updateOperation: React.PropTypes.func.isRequired,
-  updateCheckPoints: React.PropTypes.func,
+  createCheckPoint: React.PropTypes.func,
   deleteCheckPoint: React.PropTypes.func,
-  passCheckPoint: React.PropTypes.func
-
+  passCheckPoint: React.PropTypes.func,
+  resetOperation: React.PropTypes.func,
+  clearCheckPoints: React.PropTypes.func
 };
 
 let mapStateToProps = function (state) {
@@ -296,9 +319,11 @@ let mapStateToProps = function (state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateOperation: bindActionCreators(updateOperation, dispatch),
-    updateCheckPoints: bindActionCreators(updateCheckPoints, dispatch),
+    createCheckPoint: bindActionCreators(createCheckPoint, dispatch),
     deleteCheckPoint: bindActionCreators(deleteCheckPoint, dispatch),
-    passCheckPoint: bindActionCreators(passCheckPoint, dispatch)
+    passCheckPoint: bindActionCreators(passCheckPoint, dispatch),
+    resetOperation: bindActionCreators(resetOperation, dispatch),
+    clearCheckPoints: bindActionCreators(clearCheckPoints, dispatch)
   }
 }
 

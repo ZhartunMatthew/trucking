@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateOperation, cancelOperation } from '../../actions/operation.action';
-import { updateCheckPoints } from  '../../actions/checkPoint.action';
+import { createCheckPoint } from  '../../actions/checkPoint.action';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
 
@@ -102,7 +102,7 @@ function mapDispatchToProps(dispatch) {
   return {
     updateOperation: bindActionCreators(updateOperation, dispatch),
     cancelOperation: bindActionCreators(cancelOperation, dispatch),
-    updateCheckPoints: bindActionCreators(updateCheckPoints,dispatch)
+    updateCheckPoints: bindActionCreators(createCheckPoint,dispatch)
   }
 }
 

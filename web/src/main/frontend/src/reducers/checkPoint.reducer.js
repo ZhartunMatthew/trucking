@@ -1,5 +1,5 @@
 import {
-  UPDATE_CHECK_POINTS, DELETE_CHECK_POINT, CLEAR_CHECK_POINTS
+  CREATE_CHECK_POINT, DELETE_CHECK_POINT, CLEAR_CHECK_POINTS
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 
 const CheckPointReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_CHECK_POINTS:
+    case CREATE_CHECK_POINT:
       if(state.checkPoints === undefined) {
         state.checkPoints = [];
       }

@@ -1,11 +1,11 @@
 import {
-  UPDATE_CHECK_POINTS, DELETE_CHECK_POINT, CLEAR_CHECK_POINTS
+  CREATE_CHECK_POINT, DELETE_CHECK_POINT, CLEAR_CHECK_POINTS
 } from '../constants/actionTypes';
 
-export function updateCheckPoints(item) {
+export function createCheckPoint(item) {
   return (dispatch) => {
     dispatch({
-      type: UPDATE_CHECK_POINTS,
+      type: CREATE_CHECK_POINT,
       payload: item
     })
   }

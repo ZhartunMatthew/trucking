@@ -33,7 +33,7 @@ class WaybillComponent extends React.Component {
     if(this.props.currentWaybill !== null) {
       if(role === Role.MANAGER) {
         waybillForm = <WaybillForm/>;
-        mapComponent = <MapComponent/>;
+        mapComponent = <MapComponent waybill={this.props.currentWaybill}/>;
       }
       if(role === Role.COMPANY_OWNER) {
         waybillForm = <WaybillForm changes={this.props.changes} waybill={this.props.currentWaybill}/>;
