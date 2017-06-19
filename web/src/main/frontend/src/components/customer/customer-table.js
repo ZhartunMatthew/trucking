@@ -70,11 +70,9 @@ class CustomerTable extends React.Component {
     });
 
     let adminActions =
-      <td colSpan={3}>
         <button className='btn btn-default' onClick={this.onShowCreateCustomerForm.bind(this)}>
           Create new company
-        </button>
-      </td>;
+        </button>;
 
     let dispatcherActions = null;
 
@@ -104,11 +102,9 @@ class CustomerTable extends React.Component {
           </thead>
           <tbody>
             {rows}
-            <tr>
-              {userActions}
-            </tr>
           </tbody>
         </table>
+        {userActions}
       </div>
     );
   }

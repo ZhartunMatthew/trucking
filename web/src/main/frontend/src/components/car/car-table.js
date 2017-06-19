@@ -65,10 +65,10 @@ class CarTable extends React.Component {
     });
     let adminActions =
       <td colSpan={3}>
-      <button className='btn btn-default'
-              onClick={this.onShowCreateCarForm.bind(this)}>Create new car
-      </button>
-    </td>;
+        <button className='btn btn-default'
+                onClick={this.onShowCreateCarForm.bind(this)}>Create new car
+        </button>
+      </td>;
     let ownerActions = null;
     let userActions = null;
     let role = this.props.userRole;
@@ -91,11 +91,9 @@ class CarTable extends React.Component {
           </thead>
           <tbody>
             {rows}
-          <tr>
-            {userActions}
-          </tr>
           </tbody>
         </table>
+        {userActions}
       </div>
     );
   }
