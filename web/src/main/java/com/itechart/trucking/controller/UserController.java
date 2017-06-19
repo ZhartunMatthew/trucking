@@ -90,6 +90,9 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         LOGGER.info("REST request. Path:/api/user/{}  method: PUT.  userInfo: {}", id, userDTO);
+        if(checkIsLoginExist(userDTO.getLogin())) {
+            return new ResponseEntity<>(userDTO, HttpStatus.CONFLICT);
+        }
         User userEntity = userService.save(conversionService.convert(userDTO, User.class));
         UserDTO resultUser = conversionService.convert(userEntity, UserDTO.class);
         return new ResponseEntity<>(resultUser, HttpStatus.OK);

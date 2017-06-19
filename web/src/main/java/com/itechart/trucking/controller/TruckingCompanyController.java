@@ -66,6 +66,9 @@ public class TruckingCompanyController {
     public ResponseEntity<TruckingCompanyDTO> update(@PathVariable Long id,
                                                      @RequestBody TruckingCompanyDTO dtoForUpdate) {
         LOGGER.info("REST request. Path:/api/trucking-company/{}  method: PUT.  companyInfo: {}", id, dtoForUpdate);
+        if(service.findByTaxpayerNumber(dtoForUpdate.getTaxpayerNumber()).isPresent()) {
+            return new ResponseEntity<>(dtoForUpdate, HttpStatus.CONFLICT);
+        }
         TruckingCompany currentCompany = service.findOne(id);
         if (currentCompany == null) {
             LOGGER.warn("Not found truckingCompany id: {}", id);
