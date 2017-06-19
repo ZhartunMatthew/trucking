@@ -20,3 +20,8 @@ export const VALIDATION_ERRORS = {
   MAX_LENGTH_OF_STRING: 'This field must contain not more than ' + MAX_LENGTH_OF_STRING + ' characters',
   MAX_LENGTH_OF_NUMERIC: 'This field must contain not more than ' + MAX_LENGTH_OF_NUMERIC + ' characters'
 };
+
+export const WAYBILL_STATE = {
+  TRANSPORTATION_STARTED: 'TRANSPORTATION_STARTED',
+  TRANSPORTATION_COMPLETED: 'TRANSPORTATION_COMPLETED'
+};
