@@ -13,23 +13,29 @@ class ReportPage extends React.Component {
     this.initWaybillHighstockConfig = this.initWaybillHighstockConfig.bind(this);
     this.initProductHighchartsConfig = this.initProductHighchartsConfig.bind(this);
     this.state = {
-      waybillHighstockConfig: {},
-      carHighchartsConfig: {},
-      productHighchartsConfig: {}
+      waybillHighstockConfig: this.initWaybillHighstockConfig(this.props),
+      carHighchartsConfig: this.initCarHighchartsConfig(this.props),
+      productHighchartsConfig: this.initProductHighchartsConfig(this.props)
     };
-    this.initCarHighchartsConfig();
-    this.initWaybillHighstockConfig();
-    this.initProductHighchartsConfig();
   }
 
-  initWaybillHighstockConfig() {
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      waybillHighstockConfig: this.initWaybillHighstockConfig(nextProps),
+      carHighchartsConfig: this.initCarHighchartsConfig(nextProps),
+      productHighchartsConfig: this.initProductHighchartsConfig(nextProps)
+    });
+  }
+
+  initWaybillHighstockConfig(props) {
     let data = [];
-    for (let name in this.props.highcharts.revenueByDate) {
+    for (let name in props.highcharts.revenueByDate) {
       data.push([
-        Number(name), this.props.highcharts.revenueByDate[name]
+        Number(name),
+        props.highcharts.revenueByDate[name]
       ]);
     }
-    this.state.waybillHighstockConfig = {
+    return {
       rangeSelector: {
         selected: 1
       },
@@ -46,15 +52,15 @@ class ReportPage extends React.Component {
     };
   }
 
-  initCarHighchartsConfig() {
+  initCarHighchartsConfig(props) {
     let series = [];
-    for (let name in this.props.highcharts.revenueByCarType) {
+    for (let name in props.highcharts.revenueByCarType) {
       series.push({
         name: sentenceCase(name),
-        data: [this.props.highcharts.revenueByCarType[name]]
+        data: [props.highcharts.revenueByCarType[name]]
       });
     }
-    this.state.carHighchartsConfig = {
+    return {
       chart: {
         type: 'column'
       },
@@ -78,15 +84,15 @@ class ReportPage extends React.Component {
     };
   }
 
-  initProductHighchartsConfig() {
+  initProductHighchartsConfig(props) {
     let data = [];
-    for (let name in this.props.highcharts.lostProductsByState) {
+    for (let name in props.highcharts.lostProductsByState) {
       data.push([
         sentenceCase(name),
-        this.props.highcharts.lostProductsByState[name]
+        props.highcharts.lostProductsByState[name]
       ]);
     }
-    this.state.productHighchartsConfig = {
+    return {
       chart: {
         type: 'pie'
       },
