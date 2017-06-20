@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { setActionDescription } from '../actions/modal.action';
 import ReactHighcharts from 'react-highcharts';
-import ReactHighstock from 'react-highcharts';
+import ReactHighstock from 'react-highcharts/ReactHighstock.src';
 import { sentenceCase } from 'change-case';
 
 class ReportPage extends React.Component {
