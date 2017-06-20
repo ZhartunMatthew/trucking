@@ -10,5 +10,5 @@ import java.util.HashMap;
 @Setter
 @ToString
 public class HighchartsDTO {
-    private HashMap<Long, Double> earningByDate;
+    private HashMap<Long, Double> revenueByDate;
 }

@@ -23,28 +23,28 @@ public class HighchartsUtil {
 
     public HighchartsDTO calculate(Long truckingCompanyId) {
         dto = new HighchartsDTO();
-        dto.setEarningByDate(new HashMap<>());
+        dto.setRevenueByDate(new HashMap<>());
         this.truckingCompanyId = truckingCompanyId;
-        calculateEarningByDate();
+        calculateRevenueByDate();
         return dto;
     }
 
-    private void calculateEarningByDate() {
+    private void calculateRevenueByDate() {
         List<Waybill> waybills = waybillService.findAllByState(WaybillStateEnum.TRANSPORTATION_COMPLETED,
                 truckingCompanyId);
         for (Waybill waybill : waybills) {
             Long key = waybill.getDestinationDate().getTime();
-            if (dto.getEarningByDate().containsKey(key)) {
-                Double earning = dto.getEarningByDate().get(key);
-                earning += calculateWaybillEarning(waybill);
-                dto.getEarningByDate().put(key, earning);
+            if (dto.getRevenueByDate().containsKey(key)) {
+                Double revenue = dto.getRevenueByDate().get(key);
+                revenue += calculateWaybillRevenue(waybill);
+                dto.getRevenueByDate().put(key, revenue);
             } else {
-                dto.getEarningByDate().put(key, calculateWaybillEarning(waybill));
+                dto.getRevenueByDate().put(key, calculateWaybillRevenue(waybill));
             }
         }
     }
 
-    private Double calculateWaybillEarning(Waybill waybill) {
+    private Double calculateWaybillRevenue(Waybill waybill) {
         Double fuelCost = waybill.getTotalDistance() * waybill.getInvoice().getCar().getFuelConsumption() * 0.5;
         Double price = waybill.getPrice();
         Double lostProductsPrice = 0d;

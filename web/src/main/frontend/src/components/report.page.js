@@ -5,6 +5,34 @@ import ReactHighstock from 'react-highcharts/ReactHighstock.src';
 
 class ReportPage extends React.Component {
 
+  constructor(props) {
+    super(props);
+    let waybillHighstockData = [];
+    for (let name in this.props.highcharts.revenueByDate) {
+      waybillHighstockData.push([
+        Number(name), this.props.highcharts.revenueByDate[name]
+      ]);
+    }
+    let waybillHighstockConfig = {
+      rangeSelector: {
+        selected: 1
+      },
+      title: {
+        text: 'Revenue per date'
+      },
+      series: [{
+        name: 'Revenue = ',
+        data: waybillHighstockData,
+        tooltip: {
+          valueDecimals: 2
+        }
+      }]
+    };
+    this.state = {
+      waybillHighstockConfig: waybillHighstockConfig
+    }
+  }
+
   download() {
     setActionDescription({
       action: 'Downloading started',
@@ -19,27 +47,6 @@ class ReportPage extends React.Component {
   }
 
   render() {
-    let waybillHighstockData = [];
-    for (let name in this.props.highcharts.earningByDate) {
-      waybillHighstockData.push([
-        Number(name), this.props.highcharts.earningByDate[name]
-      ]);
-    }
-    let waybillHighstockConfig = {
-      rangeSelector: {
-        selected: 1
-      },
-      title: {
-        text: 'Earning per date'
-      },
-      series: [{
-        name: 'Earning',
-        data: waybillHighstockData,
-        tooltip: {
-          valueDecimals: 2
-        }
-      }]
-    };
     return(
       <div className='container'>
         <div className='row'>
@@ -67,7 +74,7 @@ class ReportPage extends React.Component {
               </tr>
             </table>
             <div>
-              <ReactHighstock config={waybillHighstockConfig}/>
+              <ReactHighstock config={this.state.waybillHighstockConfig}/>
             </div>
             <div>
               <div>
