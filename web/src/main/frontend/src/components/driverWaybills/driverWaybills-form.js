@@ -89,28 +89,31 @@ class DriverWaybillsForm extends React.Component {
       if(value === null || value.length === 0) {
         return true;
       }
-      return Number(value) > 0 && Number(value) <= args[0];
+      return Number(value) >= 0 && Number(value) <= args[0];
     });
 
     Formsy.addValidationRule('isRequiredSelect', function(values, value) {
       return value !== DEFAULT_SELECT_VALUE;
     });
 
-    let disableEditing = this.props.driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED;
+    // let disableEditing = this.props.driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED;
     let products = this.props.products.map((product, index) => {
-      let defaultType = product.lostReason ? product.lostReason : DEFAULT_SELECT_VALUE;
+      let defType = product.lostReason ? product.lostReason : DEFAULT_SELECT_VALUE;
+      let disableEditing = this.props.driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED || product.lostAmount <=0 || product.lostAmount > product.amount;
+      let defaultType = disableEditing ? '' : defType;
+      let disableProd = this.props.driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED;
       return (
         <tr key={product.id}>
           <th scope='row'> {index + 1} </th>
           <td>{product.name}</td>
           <td>{product.amount}</td>
-          <td width="15%">
+          <td width="17%">
             <ValidatedInput id={"amountLost" + product.id}
-                            label="Amount lost, pcs"
+                            title="Amount lost, u."
                             name={"amountLost" + product.id}
                             type="text"
                             value={product.lostAmount}
-                            readOnly={disableEditing}
+                            readOnly={disableProd}
                             onChange={this.handleProductLostChange.bind(this, product.id, product)}
                             required={false}
                             validations={{
@@ -121,9 +124,7 @@ class DriverWaybillsForm extends React.Component {
                               isNumeric: VALIDATION_ERRORS.DIGITS,
                               isInBounds: VALIDATION_ERRORS.OUT_OF_BOUNDS
                             }}/>
-
           </td>
-          { product.lostAmount &&
             <td>
               <ValidatedSelect id={"typeLost" + product.id}
                                title="Reason lost"
@@ -134,10 +135,8 @@ class DriverWaybillsForm extends React.Component {
                                  <option key={type} value={type}> {sentenceCase(type)} </option>
                                )})}
                                onChange={this.handleProductTypeChange.bind(this, product.id, product)}
-                               validations='isRequiredSelect'/>
+                               validations="isRequiredSelect"/>
             </td>
-          }
-          { product.lostAmount &&
             <td>
             <TextareaElement id={"descLost" + product.id}
                              label="Description lost"
@@ -147,7 +146,6 @@ class DriverWaybillsForm extends React.Component {
                              maxLength={255}
                              onChange={this.handleProductDescChange.bind(this, product.id, product)}/>
             </td>
-          }
         </tr>
       )
     });
@@ -227,7 +225,7 @@ class DriverWaybillsForm extends React.Component {
                     <tr>
                       <th>#</th>
                       <th>Name</th>
-                      <th>Amount, pcs</th>
+                      <th>Amount, u.</th>
                       <th colSpan="3">Lost information</th>
                     </tr>
                     </thead>

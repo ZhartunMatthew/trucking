@@ -12,7 +12,7 @@ class TextareaElement extends React.Component {
     amountOfLines = amountOfLines < MIN_AMOUNT_OF_ROWS ? MIN_AMOUNT_OF_ROWS : amountOfLines;
     return (
       <div className='form-group'>
-        <label className='control-label'>
+        <label className='label'>
           {this.props.label}
         </label>
         <textarea id={this.props.id}
