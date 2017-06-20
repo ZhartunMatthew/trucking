@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { setActionDescription } from '../actions/modal.action';
+import ReactHighstock from 'react-highcharts/ReactHighstock.src';
 
 class ReportPage extends React.Component {
 
@@ -18,6 +19,27 @@ class ReportPage extends React.Component {
   }
 
   render() {
+    let waybillHighstockData = [];
+    for (let name in this.props.highcharts.earningByDate) {
+      waybillHighstockData.push([
+        Number(name), this.props.highcharts.earningByDate[name]
+      ]);
+    }
+    let waybillHighstockConfig = {
+      rangeSelector: {
+        selected: 1
+      },
+      title: {
+        text: 'Earning per date'
+      },
+      series: [{
+        name: 'Earning',
+        data: waybillHighstockData,
+        tooltip: {
+          valueDecimals: 2
+        }
+      }]
+    };
     return(
       <div className='container'>
         <div className='row'>
@@ -45,6 +67,9 @@ class ReportPage extends React.Component {
               </tr>
             </table>
             <div>
+              <ReactHighstock config={waybillHighstockConfig}/>
+            </div>
+            <div>
               <div>
                 You can download your profits and losses report here.
               </div>
@@ -66,7 +91,8 @@ function mapStateToProps(state) {
     cars: state.cars.cars,
     customers: state.customers.customers,
     users: state.users.users,
-    invoices: state.invoices.invoices
+    invoices: state.invoices.invoices,
+    highcharts: state.highcharts.highcharts
   }
 }
 

@@ -14,6 +14,7 @@ import DriverWaybillsReducer from './driverWaybill.reducer';
 import CurrentUserReducer from './currentUser.reducer';
 import CheckPointReducer from './checkPoint.reducer';
 import LostTypesReducer from './productType.reducer';
+import HighchartsReducer from './highcharts.reducer';
 
 export default combineReducers({
   truckingCompanies: TruckingCompaniesReducer,
@@ -31,4 +32,5 @@ export default combineReducers({
   driverWaybills: DriverWaybillsReducer,
   currentUser: CurrentUserReducer,
   lostTypes: LostTypesReducer,
+  highcharts: HighchartsReducer
 });

@@ -8,6 +8,7 @@ import { loadCars } from '../actions/car.action';
 import { loadInvoices } from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import { loadWaybills } from '../actions/waybill.action';
+import { loadHighcharts } from '../actions/highcharts.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 import UserComponent from './user/user-component'
@@ -22,6 +23,7 @@ class CompanyOwnerPage extends React.Component {
     this.props.loadCars();
     this.props.loadInvoices();
     this.props.loadWaybills();
+    this.props.loadHighcharts();
   }
 
   render() {
@@ -84,6 +86,7 @@ function mapDispatchToProps(dispatch) {
     loadCars: bindActionCreators(loadCars, dispatch),
     loadInvoices: bindActionCreators(loadInvoices, dispatch),
     loadWaybills: bindActionCreators(loadWaybills, dispatch),
+    loadHighcharts: bindActionCreators(loadHighcharts, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }

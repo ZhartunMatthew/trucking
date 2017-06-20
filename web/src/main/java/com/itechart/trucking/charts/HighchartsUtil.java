@@ -1,0 +1,59 @@
+package com.itechart.trucking.charts;
+
+import com.itechart.trucking.dto.HighchartsDTO;
+import com.itechart.trucking.entity.Product;
+import com.itechart.trucking.entity.Waybill;
+import com.itechart.trucking.entity.enums.ProductStateEnum;
+import com.itechart.trucking.services.InvoiceService;
+import com.itechart.trucking.services.ProductService;
+import com.itechart.trucking.services.WaybillService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.List;
+
+@Component
+public class HighchartsUtil {
+
+    @Autowired
+    private WaybillService waybillService;
+
+    private HighchartsDTO dto;
+    private Long truckingCompanyId;
+
+    public HighchartsDTO calculate(Long truckingCompanyId) {
+        dto = new HighchartsDTO();
+        dto.setEarningByDate(new HashMap<>());
+        this.truckingCompanyId = truckingCompanyId;
+        calculateEarningByDate();
+        return dto;
+    }
+
+    protected void calculateEarningByDate() {
+        List<Waybill> waybills = waybillService.findByInvoice_TruckingCompany(truckingCompanyId);
+        for (Waybill waybill : waybills) {
+            Long key = waybill.getDestinationDate().getTime();
+            if (dto.getEarningByDate().containsKey(key)) {
+                Double earning = dto.getEarningByDate().get(key);
+                earning += calculateWaybillEarning(waybill);
+                dto.getEarningByDate().put(key, earning);
+            } else {
+                dto.getEarningByDate().put(key, calculateWaybillEarning(waybill));
+            }
+        }
+    }
+
+    protected Double calculateWaybillEarning(Waybill waybill) {
+        Double fuelCost = waybill.getTotalDistance() * waybill.getInvoice().getCar().getFuelConsumption() * 0.5;
+        Double price = waybill.getPrice();
+        Double lostProductsPrice = 0d;
+        List<Product> products = waybill.getInvoice().getProducts();
+        for (Product product : products) {
+            if (product.getProductState() == ProductStateEnum.LOST) {
+                lostProductsPrice += product.getPrice();
+            }
+        }
+        return price - fuelCost - lostProductsPrice;
+    }
+}
