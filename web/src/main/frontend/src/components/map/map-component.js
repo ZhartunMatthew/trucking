@@ -88,7 +88,8 @@ class MapComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.userRole === Role.DRIVER) {
+    if (this.props.userRole === Role.DRIVER
+      && this.props.waybill.passedCheckPoints !== this.props.waybill.allCheckPoints) {
       this.state.waypoints = [];
       this.state.markers = [];
       this.initState(nextProps);
