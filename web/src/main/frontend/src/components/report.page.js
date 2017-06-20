@@ -46,7 +46,7 @@ class ReportPage extends React.Component {
         text: 'Revenue per date'
       },
       tooltip: {
-        pointFormat: '{series.name}: <b>${point.y}</b>',
+        pointFormat: '{series.name}: <b>${point.y:.2f}</b>',
         xDateFormat: '%A, %b %e, %Y'
       },
       series: [{
@@ -89,14 +89,14 @@ class ReportPage extends React.Component {
         enabled: false
       },
       tooltip: {
-        pointFormat: '{series.name}: <b>${point.y}</b>',
+        pointFormat: '{series.name}: <b>${point.y:.2f}</b>',
       },
       plotOptions: {
         column: {
           cursor: 'pointer',
           dataLabels: {
             enabled: true,
-            format: '<b>${y}',
+            format: '<b>${y:.2f}',
             style: {
               color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
             }
@@ -123,7 +123,7 @@ class ReportPage extends React.Component {
         text: 'Reasons of loss products'
       },
       tooltip: {
-        pointFormat: '{series.name}: <b>${point.y}</b>'
+        pointFormat: '{series.name}: <b>${point.y:.2f}</b>'
       },
       plotOptions: {
         pie: {
@@ -131,7 +131,7 @@ class ReportPage extends React.Component {
           cursor: 'pointer',
           dataLabels: {
             enabled: true,
-            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            format: '<b>{point.name}</b>: {point.percentage:.2f} %',
             style: {
               color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
             }
