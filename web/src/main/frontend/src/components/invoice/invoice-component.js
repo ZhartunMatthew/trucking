@@ -12,6 +12,7 @@ import { Role } from '../../constants/roles';
 import CustomerTable from '../customer/customer-table';
 import { setActionFail } from '../../actions/modal.action';
 import { loadRegisteredInvoices } from '../../actions/invoice.action';
+import { POOLING_TIMEOUT } from '../../constants/constants'
 
 class InvoiceComponent extends React.Component {
 
@@ -55,9 +56,10 @@ class InvoiceComponent extends React.Component {
 
     if(this.props.userRole === Role.MANAGER) {
       this.props.loadRegisteredInvoices();
-      setTimeout(function (self) {
+      setInterval(function (self) {
+        console.log("Invoice list were updated");
         self.props.loadRegisteredInvoices();
-      }, 200, this);
+      }, POOLING_TIMEOUT, this);
     }
   }
 
