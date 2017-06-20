@@ -26,17 +26,20 @@ public class CustomErrorController implements ErrorController {
         ST errorPage =  templateGroup.getInstanceOf("error_page");
         Integer status = response.getStatus();
         if(status == 404) {
-            return renderPage(errorPage, "404", "Requested page not found", "");
+            return renderPage(errorPage, "404",
+                    "Requested page not found", "", request.getContextPath());
         } else {
-            return renderPage(errorPage, status.toString(), "Something went wrong", "We are working on it");
+            return renderPage(errorPage, status.toString(),
+                    "Something went wrong", "We are working on it", request.getContextPath());
         }
     }
 
-    private String renderPage(ST template, String errorCode, String message, String label) {
+    private String renderPage(ST template, String errorCode, String message, String label, String path) {
         template.add("title", "Error page");
         template.add("status", errorCode);
         template.add("message", message);
         template.add("label", label);
+        template.add("homepage", path.length() != 0 ? path : "/");
         return template.render();
     }
 }

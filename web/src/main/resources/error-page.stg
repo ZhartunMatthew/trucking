@@ -1,4 +1,4 @@
-error_page(title, message, status, label) ::= <<
+error_page(title, message, status, label, homepage) ::= <<
 \<head>
     \<meta charset="utf-8">
     \<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +21,7 @@ error_page(title, message, status, label) ::= <<
         \<p>\<small>Error <status>\</small>\</p>
     \</h1>
     \<p class="lead"><label>\</p>\<br>
-    \<a href="/"> Try to go home \</a>
+    \<a href="<homepage>"> Try to go home \</a>
 \</div>
 \</body>
 >>
