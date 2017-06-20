@@ -20,12 +20,12 @@ class UserComponent extends React.Component {
           <div className='col-sm-4'>
             <UserForm changes={this.props.changes} user={this.props.currentUser}/>
           </div>
-          <div className='col-sm-5'>
+          <div className='col-sm-8'>
             <UserTable users={this.props.users}/>
           </div>
         </div>
       ) : (
-        <div className='row'>
+        <div className='container col-sm-10'>
           <div className='col align-self-center'>
             <UserTable users={this.props.users}/>
           </div>

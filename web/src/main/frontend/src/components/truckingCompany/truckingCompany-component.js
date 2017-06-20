@@ -11,12 +11,12 @@ class TruckingCompanyComponent extends React.Component {
         <div className='col-sm-4'>
           <TruckingCompanyForm changes={this.props.changes} truckingCompany={this.props.currentTruckingCompany}/>
         </div>
-        <div className='col-sm-6'>
+        <div className='col-sm-8'>
           <TruckingCompanyTable truckingCompanies={this.props.truckingCompanies}/>
         </div>
       </div>
     ) : (
-      <div className='row'>
+      <div className='container col-sm-10'>
         <div className='col align-self-center'>
           <TruckingCompanyTable truckingCompanies={this.props.truckingCompanies}/>
         </div>

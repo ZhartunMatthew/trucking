@@ -38,11 +38,11 @@ class CustomerTable extends React.Component {
             <td> {customer.city}</td>
             <td> {customer.street}</td>
             <td> {customer.house}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowUpdateCustomerForm.bind(this, customer)}> Update </button>
-                <button className='btn btn-danger' onClick={this.deleteCustomer.bind(this, customer)}> Delete </button>
-              </div>
+            <td style={{paddingRight: '0px'}}>
+                <button className='btn btn-primary'
+                        onClick={this.onShowUpdateCustomerForm.bind(this, customer)}>
+                        Update
+                </button>
             </td>
           </tr>
         )
@@ -58,15 +58,15 @@ class CustomerTable extends React.Component {
             <td> {customer.city}</td>
             <td> {customer.street}</td>
             <td> {customer.house}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowUpdateCustomerForm.bind(this, customer)}> Open </button>
-              </div>
+            <td style={{paddingRight: '0px'}}>
+              <button className='btn btn-primary'
+                      onClick={this.onShowUpdateCustomerForm.bind(this, customer)}>
+                      Open
+              </button>
             </td>
           </tr>
         )
       }
-
     });
 
     let adminActions =
@@ -87,7 +87,7 @@ class CustomerTable extends React.Component {
     return (
       <div>
         <h3>List of companies</h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>

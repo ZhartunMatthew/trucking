@@ -169,3 +169,8 @@ a {
 .btn-default:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
+
+.table {
+  width: inherit !important;
+  text-align-last: center;
+}

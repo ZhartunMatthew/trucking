@@ -31,7 +31,7 @@ class CustomerComponent extends React.Component {
           </div>
         </div>
       ) : (
-        <div className='row'>
+        <div className='container col-sm-10'>
           <div className='col align-self-center'>
             <CustomerTable customers={this.props.customers}/>
           </div>

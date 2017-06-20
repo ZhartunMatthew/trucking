@@ -23,7 +23,7 @@ class DriverWaybillsTable extends React.Component {
           <td>{driverWaybill.waybillNumber}</td>
           <td>{getDateString(driverWaybill.departureDate)}</td>
           <td>{driverWaybill.passedCheckPoints}/{driverWaybill.allCheckPoints}</td>
-          <td>
+          <td style={{paddingRight: '0px'}}>
             <div className='btn-toolbar text-center'>
               { driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED ? (
                 <button className='btn btn-info' onClick={this.onShowUpdateWaybillForm.bind(this, driverWaybill)}>
@@ -44,7 +44,7 @@ class DriverWaybillsTable extends React.Component {
     return (
       <div>
         <h3>List of waybills</h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>

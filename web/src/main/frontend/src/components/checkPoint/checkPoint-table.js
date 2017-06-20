@@ -21,7 +21,7 @@ class CheckPointTable extends React.Component {
     return (
       <div>
         <h3> List of check points </h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>

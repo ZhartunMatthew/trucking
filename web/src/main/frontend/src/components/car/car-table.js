@@ -29,16 +29,15 @@ class CarTable extends React.Component {
             <td> {car.number}</td>
             <td> {car.brand}</td>
             <td> {car.model}</td>
-            <td> {car.fuelConsumption}</td>
+            <td style={{textAlign: 'center'}}>
+              {car.fuelConsumption}
+            </td>
             <td> {sentenceCase(car.type)}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary'
-                        onClick={this.onShowUpdateCarForm.bind(this, car)}> Update </button>
-
-                <button className='btn btn-danger'
-                        onClick={this.deleteCar.bind(this, car)}> Delete </button>
-              </div>
+            <td style={{paddingRight: '0px'}}>
+              <button className='btn btn-primary'
+                      onClick={this.onShowUpdateCarForm.bind(this, car)}>
+                      Update
+              </button>
             </td>
           </tr>
         )
@@ -51,13 +50,14 @@ class CarTable extends React.Component {
             <td> {car.number}</td>
             <td> {car.brand}</td>
             <td> {car.model}</td>
-            <td> {car.fuelConsumption}</td>
+            <td style={{textAlign: 'center'}}>
+              {car.fuelConsumption}
+            </td>
             <td> {sentenceCase(car.type)}</td>
-            <td width={'15%'}>
-              <div className='btn-toolbar text-center'>
+            <td style={{paddingRight: '0px'}}>
                 <button className='btn btn-primary'
-                        onClick={this.onShowUpdateCarForm.bind(this, car)}>Open</button>
-              </div>
+                        onClick={this.onShowUpdateCarForm.bind(this, car)}>Open
+                </button>
             </td>
           </tr>
         )
@@ -77,7 +77,7 @@ class CarTable extends React.Component {
     return (
       <div>
         <h3>List of cars</h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>

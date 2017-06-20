@@ -43,11 +43,11 @@ class UserTable extends React.Component {
             <td> {user.surname}</td>
             <td> {user.patronymic}</td>
             <td> {sentenceCase(user.userRole)}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowUpdateUserForm.bind(this, user)}>Update</button>
-                <button className='btn btn-danger' onClick={this.deleteUser.bind(this, user)}>Delete</button>
-              </div>
+            <td style={{paddingRight: '0px'}}>
+              <button className='btn btn-primary'
+                      onClick={this.onShowUpdateUserForm.bind(this, user)}>
+                      Update
+              </button>
             </td>
           </tr>
         )
@@ -82,7 +82,7 @@ class UserTable extends React.Component {
     return (
       <div>
         <h3>List of users</h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>

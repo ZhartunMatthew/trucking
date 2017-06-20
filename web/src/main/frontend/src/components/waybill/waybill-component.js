@@ -46,7 +46,7 @@ class WaybillComponent extends React.Component {
       }
       if(role === Role.COMPANY_OWNER) {
         emptyOperationContent =
-          <div className='row'>
+          <div className='container col-sm-10'>
             <div className='col align-self-center'>
               <OwnerWaybillsTable waybills={this.props.driverWaybills}/>
             </div>

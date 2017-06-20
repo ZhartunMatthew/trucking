@@ -5,7 +5,7 @@ use trucking;
 INSERT INTO trucking_company (name, taxpayer_number, country, city, street, house)
   VALUES ('ОАО_ГРУЗ', '351AO21P', 'Беларусь', 'Минск', 'Калиновского', '74/2');
 INSERT INTO trucking_company (name, taxpayer_number, country, city, street, house)
-  VALUES ('РОС_ТРАНС', '256МЕ89А', 'Россия', 'Москва', 'пр. Кутозовский', '54');
+  VALUES ('РОС_ТРАНС', '256МЕ89А', 'Россия', 'Москва', 'пр.Кутозовский', '54');
 INSERT INTO trucking_company (name, taxpayer_number, country, city, street, house)
   VALUES ('ТРАНСАВТО', '678АУ78Р', 'Беларусь', 'Брест', 'Ленина', '12');
 commit;
