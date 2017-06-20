@@ -8,6 +8,8 @@ import { Role } from '../../constants/roles'
 import MapComponent from '../map/map-component';
 import InvoiceTable from '../invoice/invoice-table';
 import { setActionFail} from '../../actions/modal.action';
+import { POOLING_TIMEOUT } from '../../constants/constants'
+import { loadWaybills } from '../../actions/waybill.action';
 
 class WaybillComponent extends React.Component {
 
@@ -20,6 +22,13 @@ class WaybillComponent extends React.Component {
   componentDidMount() {
     if(this.props.userRole === Role.MANAGER && this.props.currentWaybill === null) {
       setActionFail();
+    }
+
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      setInterval(function (self) {
+        console.log("Waybill list were updated");
+        self.props.loadWaybills();
+      }, POOLING_TIMEOUT, this);
     }
   }
 
@@ -92,7 +101,8 @@ let mapStateToProps = function (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
+    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch),
+    loadWaybills: bindActionCreators(loadWaybills, dispatch)
   }
 }
 

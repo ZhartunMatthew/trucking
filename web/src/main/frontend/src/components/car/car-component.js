@@ -4,13 +4,21 @@ import { bindActionCreators } from 'redux';
 import CarTable from './car-table';
 import CarForm from './car-form';
 import { loadCarTypes } from '../../actions/carType.action';
+import { loadCars } from '../../actions/car.action';
 import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles'
+import { POOLING_TIMEOUT } from '../../constants/constants'
 
 class CarComponent extends React.Component {
 
   componentDidMount() {
     this.props.loadCarTypes();
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      setInterval(function (self) {
+        console.log("Car list were updated");
+        self.props.loadCars();
+      }, POOLING_TIMEOUT, this)
+    }
   }
 
   componentWillUnmount() {
@@ -56,7 +64,8 @@ let mapStateToProps = function (state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadCarTypes: bindActionCreators(loadCarTypes, dispatch),
-    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
+    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch),
+    loadCars: bindActionCreators(loadCars, dispatch)
   }
 }
 

@@ -5,8 +5,17 @@ import UserForm from './user-form';
 import UserTable from './user-table';
 import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles'
+import { loadUsers } from '../../actions/user.action';
+import { POOLING_TIMEOUT } from '../../constants/constants'
 
 class UserComponent extends React.Component {
+
+  componentDidMount() {
+    setInterval(function (self) {
+      console.log("User list were updated");
+      self.props.loadUsers();
+    }, POOLING_TIMEOUT, this);
+  }
 
   componentWillUnmount() {
     if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
@@ -50,7 +59,8 @@ let mapStateToProps = function (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
+    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch),
+    loadUsers: bindActionCreators(loadUsers, dispatch)
   }
 }
 

@@ -61,6 +61,12 @@ class InvoiceComponent extends React.Component {
         self.props.loadRegisteredInvoices();
       }, POOLING_TIMEOUT, this);
     }
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      setInterval(function (self) {
+        console.log("Invoice list were updated");
+        self.props.loadInvoices();
+      }, POOLING_TIMEOUT, this);
+    }
   }
 
   render() {

@@ -17,7 +17,7 @@ class CustomerComponent extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.userRole === Role.DISPATCHER) {
+    if(this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
       setInterval(function (self) {
         console.log("Customer list were updated!");
         self.props.loadCustomers();
