@@ -165,29 +165,11 @@ class ReportPage extends React.Component {
       <div className='container'>
         <div className='row'>
           <div className='col align-self-center'>
-            <div className="text-center">
-              <h4>Hello {this.props.currentUser.name} {this.props.currentUser.surname}!</h4>
+            <div className="text-center mb-5">
+              <h4>Hello, {this.props.currentUser.name} {this.props.currentUser.surname}!</h4>
               <h4>Your company {this.props.currentUser.truckingCompanyName}</h4>
             </div>
-            <table className='table table-bordered'>
-              <tr>
-                <td>Cars</td>
-                <td>{this.props.cars.length}</td>
-              </tr>
-              <tr>
-                <td>Employees</td>
-                <td>{this.props.users.length-1}</td>
-              </tr>
-              <tr>
-                <td>Customers</td>
-                <td>{this.props.customers.length}</td>
-              </tr>
-              <tr>
-                <td>Deliveries</td>
-                <td>{this.props.invoices.length}</td>
-              </tr>
-            </table>
-            <div>
+            <div className="mb-3">
               <ReactHighstock config={this.state.waybillHighstockConfig}/>
             </div>
             <div className='row'>
@@ -198,13 +180,39 @@ class ReportPage extends React.Component {
                 <ReactHighcharts config={this.state.productHighchartsConfig}/>
               </div>
             </div>
-            <div>
-              <div>
-                You can download your profits and losses report here.
+            <div className="row mt-3">
+              <div className="col-sm-6">
+                <table className='table table-hover table-striped'>
+                  <tbody>
+                  <tr>
+                    <td>Cars</td>
+                    <td>{this.props.cars.length}</td>
+                  </tr>
+                  <tr>
+                    <td>Employees</td>
+                    <td>{this.props.users.length -  1}</td>
+                  </tr>
+                  <tr>
+                    <td>Customers</td>
+                    <td>{this.props.customers.length}</td>
+                  </tr>
+                  <tr>
+                    <td>Deliveries</td>
+                    <td>{this.props.invoices.length}</td>
+                  </tr>
+                  </tbody>
+                </table>
               </div>
-              <button onClick={this.download}
-                      className='btn btn-success'
-                      data-animation="false"> Download report </button>
+              <div className="col-sm-5">
+                <div>
+                  <div className="mb-2">
+                    You can download your profits and losses report here.
+                  </div>
+                  <button onClick={this.download}
+                          className='btn btn-success'
+                          data-animation="false"> Download report </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
