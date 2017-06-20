@@ -12,7 +12,7 @@ import java.util.List;
 public interface WaybillRepository extends JpaRepository<Waybill, Long> {
     List<Waybill> findByInvoice_TruckingCompany_Id(Long Id);
 
-    List<Waybill> findByInvoice_DriverUser(User user);
+    List<Waybill> findByInvoice_DriverUserOrderByWaybillState(User user);
 
     List<Waybill> findByWaybillStateAndInvoice_TruckingCompany_Id_OrderByDestinationDateAsc(WaybillStateEnum state,
                                                                                             Long id);
