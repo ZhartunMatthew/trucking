@@ -12,14 +12,10 @@ import { Role } from '../../constants/roles';
 import CustomerTable from '../customer/customer-table';
 import { setActionFail } from '../../actions/modal.action';
 import { loadRegisteredInvoices } from '../../actions/invoice.action';
+import { POOLING_TIMEOUT } from '../../constants/constants';
+import { loadInvoices } from '../../actions/invoice.action';
 
 class InvoiceComponent extends React.Component {
-
-  componentWillUnmount() {
-    if(this.props.userRole === Role.COMPANY_OWNER) {
-      this.props.cancelOperation();
-    }
-  }
 
   componentDidMount() {
     if(this.props.userRole === Role.DISPATCHER) {
@@ -55,9 +51,29 @@ class InvoiceComponent extends React.Component {
 
     if(this.props.userRole === Role.MANAGER) {
       this.props.loadRegisteredInvoices();
-      setTimeout(function (self) {
+      this.invoiceLoader = setInterval(function (self) {
+        console.log("Invoice list were updated");
         self.props.loadRegisteredInvoices();
-      }, 200, this);
+      }, POOLING_TIMEOUT, this);
+      console.log("Pulling of new invoices started");
+    }
+
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      this.invoiceLoader = setInterval(function (self) {
+        console.log("Invoice list were updated");
+        this.invoiceLoader = self.props.loadInvoices();
+      }, POOLING_TIMEOUT, this);
+      console.log("Pulling of new invoices started");
+    }
+  }
+
+  componentWillUnmount() {
+    if(this.props.userRole === Role.MANAGER || this.props.userRole === Role.COMPANY_OWNER) {
+      clearInterval(this.invoiceLoader);
+      console.log("Pooling of new invoices stopped");
+    }
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      this.props.cancelOperation();
     }
   }
 
@@ -135,7 +151,8 @@ function mapDispatchToProps(dispatch) {
     loadFreeDrivers: bindActionCreators(loadFreeDrivers, dispatch),
     loadFreeCars: bindActionCreators(loadFreeCars, dispatch),
     loadAllCustomers: bindActionCreators(loadCustomers, dispatch),
-    loadRegisteredInvoices: bindActionCreators(loadRegisteredInvoices, dispatch)
+    loadRegisteredInvoices: bindActionCreators(loadRegisteredInvoices, dispatch),
+    loadInvoices: bindActionCreators(loadInvoices, dispatch)
   }
 }
 

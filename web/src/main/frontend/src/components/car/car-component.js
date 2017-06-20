@@ -4,18 +4,31 @@ import { bindActionCreators } from 'redux';
 import CarTable from './car-table';
 import CarForm from './car-form';
 import { loadCarTypes } from '../../actions/carType.action';
+import { loadCars } from '../../actions/car.action';
 import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles'
+import { POOLING_TIMEOUT } from '../../constants/constants'
 
 class CarComponent extends React.Component {
 
   componentDidMount() {
     this.props.loadCarTypes();
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      this.carLoader = setInterval(function (self) {
+        self.props.loadCars();
+        console.log("Car list has been updated");
+      }, POOLING_TIMEOUT, this);
+      console.log("Pulling of new cars started");
+    }
   }
 
   componentWillUnmount() {
     if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
+    }
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      clearInterval(this.carLoader);
+      console.log("Pulling of new cars stopped");
     }
   }
 
@@ -56,7 +69,8 @@ let mapStateToProps = function (state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadCarTypes: bindActionCreators(loadCarTypes, dispatch),
-    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
+    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch),
+    loadCars: bindActionCreators(loadCars, dispatch)
   }
 }
 

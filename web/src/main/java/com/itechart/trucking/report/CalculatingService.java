@@ -80,7 +80,7 @@ public class CalculatingService {
     }
 
     private void calculateWaybill() {
-        List<Waybill> waybillList = waybillService.findByInvoice_TruckingCompany(truckingCompanyId);
+        List<Waybill> waybillList = waybillService.findByTruckingCompany(truckingCompanyId);
         double count = waybillList.size();
         double distance =0;
         double fuelCost =0;
