@@ -37,6 +37,8 @@ public class WaybillService {
         return waybillRepository.findAll();
     }
 
+    @PreAuthorize("hasRole('COMPANY_OWNER')")
+    @Transactional(readOnly = true)
     public List<Waybill> findAllByState(WaybillStateEnum state, Long truckingCompanyId) {
         return waybillRepository.findByWaybillStateAndInvoice_TruckingCompany_Id_OrderByDestinationDateAsc(state,
                 truckingCompanyId);
