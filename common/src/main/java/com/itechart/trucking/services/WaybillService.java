@@ -4,6 +4,7 @@ import com.itechart.trucking.entity.Car;
 import com.itechart.trucking.entity.Invoice;
 import com.itechart.trucking.entity.User;
 import com.itechart.trucking.entity.Waybill;
+import com.itechart.trucking.entity.enums.WaybillStateEnum;
 import com.itechart.trucking.repository.CarRepository;
 import com.itechart.trucking.repository.InvoiceRepository;
 import com.itechart.trucking.repository.UserRepository;
@@ -34,6 +35,11 @@ public class WaybillService {
     @Transactional(readOnly = true)
     public List<Waybill> findAll() {
         return waybillRepository.findAll();
+    }
+
+    public List<Waybill> findAllByState(WaybillStateEnum state, Long truckingCompanyId) {
+        return waybillRepository.findByWaybillStateAndInvoice_TruckingCompany_Id_OrderByDestinationDateAsc(state,
+                truckingCompanyId);
     }
 
     @PreAuthorize("hasPermission(#id, 'Waybill', 'GET')")

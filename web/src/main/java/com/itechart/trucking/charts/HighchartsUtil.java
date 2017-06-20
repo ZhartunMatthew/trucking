@@ -4,8 +4,7 @@ import com.itechart.trucking.dto.HighchartsDTO;
 import com.itechart.trucking.entity.Product;
 import com.itechart.trucking.entity.Waybill;
 import com.itechart.trucking.entity.enums.ProductStateEnum;
-import com.itechart.trucking.services.InvoiceService;
-import com.itechart.trucking.services.ProductService;
+import com.itechart.trucking.entity.enums.WaybillStateEnum;
 import com.itechart.trucking.services.WaybillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,8 +29,9 @@ public class HighchartsUtil {
         return dto;
     }
 
-    protected void calculateEarningByDate() {
-        List<Waybill> waybills = waybillService.findByInvoice_TruckingCompany(truckingCompanyId);
+    private void calculateEarningByDate() {
+        List<Waybill> waybills = waybillService.findAllByState(WaybillStateEnum.TRANSPORTATION_COMPLETED,
+                truckingCompanyId);
         for (Waybill waybill : waybills) {
             Long key = waybill.getDestinationDate().getTime();
             if (dto.getEarningByDate().containsKey(key)) {
@@ -44,7 +44,7 @@ public class HighchartsUtil {
         }
     }
 
-    protected Double calculateWaybillEarning(Waybill waybill) {
+    private Double calculateWaybillEarning(Waybill waybill) {
         Double fuelCost = waybill.getTotalDistance() * waybill.getInvoice().getCar().getFuelConsumption() * 0.5;
         Double price = waybill.getPrice();
         Double lostProductsPrice = 0d;
