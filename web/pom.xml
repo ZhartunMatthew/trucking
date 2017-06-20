@@ -74,7 +74,12 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.15</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>ST4</artifactId>
+			<version>4.0.8</version>
+			<scope>compile</scope>
+		</dependency>
     </dependencies>
 
 	<build>

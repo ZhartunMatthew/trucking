@@ -7,6 +7,7 @@ import CarComponent from './car/car-component';
 import InvoiceComponent from './invoice/invoice-component';
 import WaybillComponent from './waybill/waybill-component';
 import ReportPage from './report.page';
+import ErrorPage from './error';
 
 export const ownerRoutes = (
   <div>
@@ -17,6 +18,7 @@ export const ownerRoutes = (
       <Route path='/invoice' component={InvoiceComponent}/>
       <Route path='/waybill' component={WaybillComponent}/>
       <Route path='/report' component={ReportPage}/>
+      <Route path="*" component={ErrorPage} />
     </Route>
   </div>
 );

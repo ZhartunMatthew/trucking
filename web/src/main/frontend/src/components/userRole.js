@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Router, Route, browserHistory, hashHistory } from 'react-router';
 import { loadUserRole, loadCurrentUser } from '../actions/userRole.action';
-import Error from '../components/error';
+import ErrorPage from '../components/error';
 import { adminRoutes} from './admin.routes';
 import { systemAdminRoutes} from './systemAdmin.routes';
 import { dispatcherRoutes} from './dispatcher.routes';
@@ -55,7 +55,7 @@ class UserRole extends React.Component {
 
       default:
         return (
-          <Error/>
+          <ErrorPage/>
         )
     }
   }
