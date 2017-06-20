@@ -18,7 +18,6 @@ import { loadInvoices } from '../../actions/invoice.action';
 class InvoiceComponent extends React.Component {
 
   componentDidMount() {
-    console.log("INVOICE MOUNT");
     if(this.props.userRole === Role.DISPATCHER) {
       this.props.loadFreeDrivers();
       this.props.loadFreeCars(true);
@@ -60,7 +59,7 @@ class InvoiceComponent extends React.Component {
     }
 
     if(this.props.userRole === Role.COMPANY_OWNER) {
-      setInterval(function (self) {
+      this.invoiceLoader = setInterval(function (self) {
         console.log("Invoice list were updated");
         this.invoiceLoader = self.props.loadInvoices();
       }, POOLING_TIMEOUT, this);
@@ -69,12 +68,12 @@ class InvoiceComponent extends React.Component {
   }
 
   componentWillUnmount() {
-    if(this.props.userRole === Role.COMPANY_OWNER) {
-      this.props.cancelOperation();
-    }
     if(this.props.userRole === Role.MANAGER || this.props.userRole === Role.COMPANY_OWNER) {
       clearInterval(this.invoiceLoader);
       console.log("Pooling of new invoices stopped");
+    }
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      this.props.cancelOperation();
     }
   }
 
