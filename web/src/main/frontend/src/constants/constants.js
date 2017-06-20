@@ -3,6 +3,7 @@ export const DEFAULT_SELECT_VALUE = 'Not chosen';
 export const MAX_LENGTH_OF_STRING = 255;
 export const MAX_LENGTH_OF_TAXPAYER_NUMBER = 250;
 export const MAX_LENGTH_OF_NUMERIC = 11;
+export const POOLING_TIMEOUT = 60 * 1000;
 
 export const VALIDATION_ERRORS = {
   LETTERS: 'This field must contain only letters',

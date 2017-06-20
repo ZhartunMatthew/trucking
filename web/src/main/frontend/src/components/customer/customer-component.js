@@ -4,13 +4,24 @@ import { bindActionCreators } from 'redux';
 import CustomerTable from './customer-table';
 import CustomerForm from './customer-form';
 import { cancelOperation } from '../../actions/operation.action';
-import { Role } from '../../constants/roles'
+import { Role } from '../../constants/roles';
+import { loadCustomers } from '../../actions/customer.action';
+import { POOLING_TIMEOUT } from '../../constants/constants'
 
 class CustomerComponent extends React.Component {
 
   componentWillUnmount() {
     if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
+    }
+  }
+
+  componentDidMount() {
+    if(this.props.userRole === Role.DISPATCHER) {
+      setInterval(function (self) {
+        console.log("Customer list were updated!");
+        self.props.loadCustomers();
+      }, POOLING_TIMEOUT, this);
     }
   }
 
@@ -56,7 +67,8 @@ let mapStateToProps = function (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
+    cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch),
+    loadCustomers: bindActionCreators(loadCustomers, dispatch)
   }
 }
 
