@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { setActionDescription } from '../actions/modal.action';
 import ReactHighcharts from 'react-highcharts';
-import ReactHighstock from 'react-highcharts/ReactHighstock.src';
+import ReactHighstock from 'react-highcharts';
 import { sentenceCase } from 'change-case';
 
 class ReportPage extends React.Component {
@@ -11,12 +11,15 @@ class ReportPage extends React.Component {
     super(props);
     this.initCarHighchartsConfig = this.initCarHighchartsConfig.bind(this);
     this.initWaybillHighstockConfig = this.initWaybillHighstockConfig.bind(this);
+    this.initProductHighchartsConfig = this.initProductHighchartsConfig.bind(this);
     this.state = {
-      waybillHighstockConfig: null,
-      carHighchartsConfig: null
+      waybillHighstockConfig: {},
+      carHighchartsConfig: {},
+      productHighchartsConfig: {}
     };
     this.initCarHighchartsConfig();
     this.initWaybillHighstockConfig();
+    this.initProductHighchartsConfig();
   }
 
   initWaybillHighstockConfig() {
@@ -49,7 +52,7 @@ class ReportPage extends React.Component {
       series.push({
         name: sentenceCase(name),
         data: [this.props.highcharts.revenueByCarType[name]]
-    });
+      });
     }
     this.state.carHighchartsConfig = {
       chart: {
@@ -72,6 +75,34 @@ class ReportPage extends React.Component {
         }
       },
       series: series
+    };
+  }
+
+  initProductHighchartsConfig() {
+    let data = [];
+    for (let name in this.props.highcharts.lostProductsByState) {
+      data.push([
+        sentenceCase(name),
+        this.props.highcharts.lostProductsByState[name]
+      ]);
+    }
+    this.state.productHighchartsConfig = {
+      chart: {
+        type: 'pie'
+      },
+      title: {
+        text: 'Reasons of loss products'
+      },
+      plotOptions: {
+        pie: {
+          innerSize: 100,
+          depth: 45
+        }
+      },
+      series: [{
+        name: 'Lost products price, $',
+        data: data
+      }]
     };
   }
 
@@ -118,8 +149,13 @@ class ReportPage extends React.Component {
             <div>
               <ReactHighstock config={this.state.waybillHighstockConfig}/>
             </div>
-            <div>
-              <ReactHighcharts config={this.state.carHighchartsConfig}/>
+            <div className='row'>
+              <div className='col-md-6'>
+                <ReactHighcharts config={this.state.carHighchartsConfig}/>
+              </div>
+              <div className='col-md-6'>
+                <ReactHighcharts config={this.state.productHighchartsConfig}/>
+              </div>
             </div>
             <div>
               <div>

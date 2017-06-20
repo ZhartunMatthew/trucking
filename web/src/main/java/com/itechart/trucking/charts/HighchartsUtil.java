@@ -4,8 +4,10 @@ import com.itechart.trucking.dto.HighchartsDTO;
 import com.itechart.trucking.entity.Product;
 import com.itechart.trucking.entity.Waybill;
 import com.itechart.trucking.entity.enums.CarTypeEnum;
+import com.itechart.trucking.entity.enums.ProductLostEnum;
 import com.itechart.trucking.entity.enums.ProductStateEnum;
 import com.itechart.trucking.entity.enums.WaybillStateEnum;
+import com.itechart.trucking.services.ProductService;
 import com.itechart.trucking.services.WaybillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,16 +21,21 @@ public class HighchartsUtil {
     @Autowired
     private WaybillService waybillService;
 
+    @Autowired
+    private ProductService productService;
+
     private HighchartsDTO dto;
 
     public HighchartsDTO calculate(Long truckingCompanyId) {
         dto = new HighchartsDTO();
         dto.setRevenueByDate(new HashMap<>());
         dto.setRevenueByCarType(new HashMap<>());
+        dto.setLostProductsByState(new HashMap<>());
         List<Waybill> waybills = waybillService.findAllByState(WaybillStateEnum.TRANSPORTATION_COMPLETED,
                 truckingCompanyId);
         calculateRevenueByDate(waybills);
         calculateRevenueByCarType(waybills);
+        calculateLostProductsByState(truckingCompanyId);
         return dto;
     }
 
@@ -70,5 +77,19 @@ public class HighchartsUtil {
             }
         }
         return price - fuelCost - lostProductsPrice;
+    }
+
+    private void calculateLostProductsByState(Long truckingCompanyId) {
+        List<Product> products = productService.findAllByState(ProductStateEnum.LOST, truckingCompanyId);
+        for (Product product : products) {
+            ProductLostEnum key = product.getLostReason();
+            if (dto.getLostProductsByState().containsKey(key)) {
+                Double price = dto.getLostProductsByState().get(key);
+                price += product.getPrice();
+                dto.getLostProductsByState().put(key, price);
+            } else {
+                dto.getLostProductsByState().put(key, product.getPrice());
+            }
+        }
     }
 }
