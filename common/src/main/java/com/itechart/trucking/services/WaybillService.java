@@ -91,15 +91,15 @@ public class WaybillService {
 
     @PreAuthorize("hasPermission(#id, 'Waybill', 'GET_BY_TRUCKING_ID')")
     @Transactional(readOnly = true)
-    public List<Waybill> findByInvoice_TruckingCompany(Long id){
+    public List<Waybill> findByTruckingCompany(Long id){
         return waybillRepository.findByInvoice_TruckingCompany_Id(id);
     }
 
     @PreAuthorize("hasPermission(#id, 'Waybill', 'GET_BY_DRIVER_ID')")
     @Transactional(readOnly = true)
-    public List<Waybill> findByInvoice_DriverUser(Long id){
+    public List<Waybill> findByDriverId(Long id){
         User driver =  userRepository.findOne(id);
-        return waybillRepository.findByInvoice_DriverUser(driver);
+        return waybillRepository.findByInvoice_DriverUserOrderByWaybillState(driver);
     }
 
     @PreAuthorize("hasAnyRole('MANAGER', 'DRIVER')")
