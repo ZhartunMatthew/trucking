@@ -10,18 +10,23 @@ import { POOLING_TIMEOUT } from '../../constants/constants'
 
 class CustomerComponent extends React.Component {
 
+  componentDidMount() {
+    if(this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
+      this.customerLoader = setInterval(function (self) {
+        self.props.loadCustomers();
+        console.log("Customer list has been updated");
+      }, POOLING_TIMEOUT, this);
+      console.log("Pulling of new customers started");
+    }
+  }
+
   componentWillUnmount() {
     if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
     }
-  }
-
-  componentDidMount() {
     if(this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
-      setInterval(function (self) {
-        console.log("Customer list were updated!");
-        self.props.loadCustomers();
-      }, POOLING_TIMEOUT, this);
+      clearInterval(this.customerLoader);
+      console.log("Pulling of new customers stopped");
     }
   }
 

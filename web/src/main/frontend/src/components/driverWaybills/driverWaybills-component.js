@@ -13,10 +13,18 @@ class DriverWaybillComponent extends React.Component {
 
   componentDidMount() {
     if(this.props.userRole === Role.DRIVER) {
-      setInterval(function (self) {
-        console.log("Driver waybills were updated");
+      this.driverWaybillLoader = setInterval(function (self) {
+        console.log("Driver waybills has been updated");
         self.props.loadDriverWaybills();
       }, POOLING_TIMEOUT, this);
+      console.log("Pulling of new waybills for driver started");
+    }
+  }
+
+  componentWillUnmount() {
+    if(this.props.userRole === Role.DRIVER) {
+      clearInterval(this.driverWaybillLoader);
+      console.log("Pulling of new waybills for driver stopped");
     }
   }
 

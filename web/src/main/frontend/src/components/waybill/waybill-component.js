@@ -13,22 +13,25 @@ import { loadWaybills } from '../../actions/waybill.action';
 
 class WaybillComponent extends React.Component {
 
-  componentWillUnmount() {
-    if (this.props.userRole === Role.COMPANY_OWNER) {
-      this.props.cancelCurrentOperation();
-    }
-  }
-
   componentDidMount() {
     if(this.props.userRole === Role.MANAGER && this.props.currentWaybill === null) {
       setActionFail();
     }
 
     if(this.props.userRole === Role.COMPANY_OWNER) {
-      setInterval(function (self) {
-        console.log("Waybill list were updated");
+      this.waybillLoader = setInterval(function (self) {
         self.props.loadWaybills();
+        console.log("Waybill list were updated");
       }, POOLING_TIMEOUT, this);
+      console.log("Pulling of new waybills started");
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.userRole === Role.COMPANY_OWNER) {
+      this.props.cancelCurrentOperation();
+      clearInterval(this.waybillLoader);
+      console.log("Pulling of new waybills stopped");
     }
   }
 

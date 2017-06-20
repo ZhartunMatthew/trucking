@@ -11,15 +11,22 @@ import { POOLING_TIMEOUT } from '../../constants/constants'
 class UserComponent extends React.Component {
 
   componentDidMount() {
-    setInterval(function (self) {
-      console.log("User list were updated");
-      self.props.loadUsers();
-    }, POOLING_TIMEOUT, this);
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      this.userLoader = setInterval(function (self) {
+        self.props.loadUsers();
+        console.log("User list were updated");
+      }, POOLING_TIMEOUT, this);
+      console.log("Pulling of new users started");
+    }
   }
 
   componentWillUnmount() {
     if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
+    }
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      clearInterval(this.userLoader);
+      console.log("Pulling of new users stopped");
     }
   }
 

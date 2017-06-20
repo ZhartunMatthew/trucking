@@ -14,16 +14,21 @@ class CarComponent extends React.Component {
   componentDidMount() {
     this.props.loadCarTypes();
     if(this.props.userRole === Role.COMPANY_OWNER) {
-      setInterval(function (self) {
-        console.log("Car list were updated");
+      this.carLoader = setInterval(function (self) {
         self.props.loadCars();
-      }, POOLING_TIMEOUT, this)
+        console.log("Car list has been updated");
+      }, POOLING_TIMEOUT, this);
+      console.log("Pulling of new cars started");
     }
   }
 
   componentWillUnmount() {
     if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
+    }
+    if(this.props.userRole === Role.COMPANY_OWNER) {
+      clearInterval(this.carLoader);
+      console.log("Pulling of new cars stopped");
     }
   }
 
