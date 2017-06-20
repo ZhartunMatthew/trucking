@@ -3,6 +3,7 @@ package com.itechart.trucking.charts;
 import com.itechart.trucking.dto.HighchartsDTO;
 import com.itechart.trucking.entity.Product;
 import com.itechart.trucking.entity.Waybill;
+import com.itechart.trucking.entity.enums.CarTypeEnum;
 import com.itechart.trucking.entity.enums.ProductStateEnum;
 import com.itechart.trucking.entity.enums.WaybillStateEnum;
 import com.itechart.trucking.services.WaybillService;
@@ -19,19 +20,19 @@ public class HighchartsUtil {
     private WaybillService waybillService;
 
     private HighchartsDTO dto;
-    private Long truckingCompanyId;
 
     public HighchartsDTO calculate(Long truckingCompanyId) {
         dto = new HighchartsDTO();
         dto.setRevenueByDate(new HashMap<>());
-        this.truckingCompanyId = truckingCompanyId;
-        calculateRevenueByDate();
+        dto.setRevenueByCarType(new HashMap<>());
+        List<Waybill> waybills = waybillService.findAllByState(WaybillStateEnum.TRANSPORTATION_COMPLETED,
+                truckingCompanyId);
+        calculateRevenueByDate(waybills);
+        calculateRevenueByCarType(waybills);
         return dto;
     }
 
-    private void calculateRevenueByDate() {
-        List<Waybill> waybills = waybillService.findAllByState(WaybillStateEnum.TRANSPORTATION_COMPLETED,
-                truckingCompanyId);
+    private void calculateRevenueByDate(List<Waybill> waybills) {
         for (Waybill waybill : waybills) {
             Long key = waybill.getDestinationDate().getTime();
             if (dto.getRevenueByDate().containsKey(key)) {
@@ -40,6 +41,20 @@ public class HighchartsUtil {
                 dto.getRevenueByDate().put(key, revenue);
             } else {
                 dto.getRevenueByDate().put(key, calculateWaybillRevenue(waybill));
+            }
+        }
+    }
+
+    private void calculateRevenueByCarType(List<Waybill> waybills) {
+        for (Waybill waybill : waybills) {
+            CarTypeEnum key = waybill.getInvoice().getCar().getCarType();
+            Double currentWaybillRevenue = calculateWaybillRevenue(waybill);
+            if (dto.getRevenueByCarType().containsKey(key)) {
+                Double revenue = dto.getRevenueByCarType().get(key);
+                revenue += currentWaybillRevenue;
+                dto.getRevenueByCarType().put(key, revenue);
+            } else {
+                dto.getRevenueByCarType().put(key, currentWaybillRevenue);
             }
         }
     }

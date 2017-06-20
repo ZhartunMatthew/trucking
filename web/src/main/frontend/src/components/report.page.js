@@ -1,19 +1,32 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { setActionDescription } from '../actions/modal.action';
+import ReactHighcharts from 'react-highcharts';
 import ReactHighstock from 'react-highcharts/ReactHighstock.src';
+import { sentenceCase } from 'change-case';
 
 class ReportPage extends React.Component {
 
   constructor(props) {
     super(props);
-    let waybillHighstockData = [];
+    this.initCarHighchartsConfig = this.initCarHighchartsConfig.bind(this);
+    this.initWaybillHighstockConfig = this.initWaybillHighstockConfig.bind(this);
+    this.state = {
+      waybillHighstockConfig: null,
+      carHighchartsConfig: null
+    };
+    this.initCarHighchartsConfig();
+    this.initWaybillHighstockConfig();
+  }
+
+  initWaybillHighstockConfig() {
+    let data = [];
     for (let name in this.props.highcharts.revenueByDate) {
-      waybillHighstockData.push([
+      data.push([
         Number(name), this.props.highcharts.revenueByDate[name]
       ]);
     }
-    let waybillHighstockConfig = {
+    this.state.waybillHighstockConfig = {
       rangeSelector: {
         selected: 1
       },
@@ -21,16 +34,45 @@ class ReportPage extends React.Component {
         text: 'Revenue per date'
       },
       series: [{
-        name: 'Revenue = ',
-        data: waybillHighstockData,
+        name: 'Revenue',
+        data: data,
         tooltip: {
           valueDecimals: 2
         }
       }]
     };
-    this.state = {
-      waybillHighstockConfig: waybillHighstockConfig
+  }
+
+  initCarHighchartsConfig() {
+    let series = [];
+    for (let name in this.props.highcharts.revenueByCarType) {
+      series.push({
+        name: sentenceCase(name),
+        data: [this.props.highcharts.revenueByCarType[name]]
+    });
     }
+    this.state.carHighchartsConfig = {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Revenue by car type'
+      },
+      xAxis: {
+        categories: ['Car type']
+      },
+      credits: {
+        enabled: false
+      },
+      plotOptions: {
+        column: {
+          dataLabels: {
+            enabled: true,
+          }
+        }
+      },
+      series: series
+    };
   }
 
   download() {
@@ -75,6 +117,9 @@ class ReportPage extends React.Component {
             </table>
             <div>
               <ReactHighstock config={this.state.waybillHighstockConfig}/>
+            </div>
+            <div>
+              <ReactHighcharts config={this.state.carHighchartsConfig}/>
             </div>
             <div>
               <div>
