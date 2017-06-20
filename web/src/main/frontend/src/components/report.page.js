@@ -4,6 +4,7 @@ import { setActionDescription } from '../actions/modal.action';
 import ReactHighcharts from 'react-highcharts';
 import ReactHighstock from 'react-highcharts/ReactHighstock.src';
 import { sentenceCase } from 'change-case';
+import Highcharts from 'highcharts';
 
 class ReportPage extends React.Component {
 
@@ -30,8 +31,10 @@ class ReportPage extends React.Component {
   initWaybillHighstockConfig(props) {
     let data = [];
     for (let name in props.highcharts.revenueByDate) {
+      let day = 24 * 60 * 60  * 1000;
+      let date = Number(name) + day;
       data.push([
-        Number(name),
+        date,
         props.highcharts.revenueByDate[name]
       ]);
     }
@@ -42,12 +45,13 @@ class ReportPage extends React.Component {
       title: {
         text: 'Revenue per date'
       },
+      tooltip: {
+        pointFormat: '{series.name}: <b>${point.y}</b>',
+        xDateFormat: '%A, %b %e, %Y'
+      },
       series: [{
         name: 'Revenue',
-        data: data,
-        tooltip: {
-          valueDecimals: 2
-        }
+        data: data
       }]
     };
   }
@@ -70,13 +74,32 @@ class ReportPage extends React.Component {
       xAxis: {
         categories: ['Car type']
       },
+      yAxis: {
+        lineWidth: 1,
+        tickWidth: 1,
+        title: {
+          align: 'high',
+          offset: 0,
+          text: 'Revenue, $',
+          rotation: 0,
+          y: -10
+        }
+      },
       credits: {
         enabled: false
       },
+      tooltip: {
+        pointFormat: '{series.name}: <b>${point.y}</b>',
+      },
       plotOptions: {
         column: {
+          cursor: 'pointer',
           dataLabels: {
             enabled: true,
+            format: '<b>${y}',
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
           }
         }
       },
@@ -99,14 +122,26 @@ class ReportPage extends React.Component {
       title: {
         text: 'Reasons of loss products'
       },
+      tooltip: {
+        pointFormat: '{series.name}: <b>${point.y}</b>'
+      },
       plotOptions: {
         pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
+          },
           innerSize: 100,
           depth: 45
         }
       },
       series: [{
-        name: 'Lost products price, $',
+        name: 'Lost products price',
         data: data
       }]
     };
