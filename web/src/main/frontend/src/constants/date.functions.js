@@ -17,7 +17,8 @@ export function reformatDate(date) {
     return '';
   }
   let tempDate = getDateString(date);
-  if(new Date(tempDate).getMilliseconds() > new Date().getMilliseconds()) {
+
+  if(new Date(tempDate).getTime() >= new Date().getTime()) {
     return getDateString(undefined);
   } else {
     return tempDate;
