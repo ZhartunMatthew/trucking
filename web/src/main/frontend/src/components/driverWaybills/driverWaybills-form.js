@@ -96,11 +96,11 @@ class DriverWaybillsForm extends React.Component {
       return value !== DEFAULT_SELECT_VALUE;
     });
 
-    // let disableEditing = this.props.driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED;
+
     let products = this.props.products.map((product, index) => {
       let defType = product.lostReason ? product.lostReason : DEFAULT_SELECT_VALUE;
       let disableEditing = this.props.driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED || product.lostAmount <=0 || product.lostAmount > product.amount;
-      let defaultType = disableEditing ? '' : defType;
+      let defaultType = product.lostAmount <=0 || product.lostAmount > product.amount ? '' : defType;
       let disableProd = this.props.driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED;
       return (
         <tr key={product.id}>
