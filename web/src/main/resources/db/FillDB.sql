@@ -15,6 +15,12 @@ INSERT INTO customer_company (name, taxpayer_number, country, city, street, hous
   VALUES ('IBA', '980TH32E', 'Беларусь', 'Минск', 'Богдановича', '155',1);
 INSERT INTO customer_company (name, taxpayer_number, country, city, street, house, trucking_company)
   VALUES ('Торговая сила', '730PH99K', 'Беларусь', 'Минск', 'Уральская', '21а',1);
+INSERT INTO customer_company (name, taxpayer_number, country, city, street, house, trucking_company)
+  VALUES ('ОАО РосТорг', '219ЕT34K', 'Россия', 'Москва', 'пр. Кутузовский', '79с', 1);
+INSERT INTO customer_company(name, taxpayer_number, country, city, street, house, trucking_company)
+  VALUES ('OOO Компьютербай', '736AB10C', 'Беларусь', 'Брест', 'пл. Свободы', '12', 1);
+INSERT INTO customer_company(city, country, house, name, street, taxpayer_number, trucking_company)
+  VALUES ('Минск','Беларусь','10','ТехАрт','Толстого','45ФА',1);
 commit;
 
 /*user*/
@@ -38,58 +44,6 @@ INSERT INTO user (name, surname, patronymic, email, country, city, street, house
 
 INSERT INTO user (name, surname, patronymic, email, country, city, street, house, flat, login,  password,  salt,  trucking_company, user_role)
   VALUES ('Васин', 'Василий', 'Васильев', 'vasya123@mail.ru', 'Беларусь', 'Минск', 'Асаналиева', '7', '223', 'vasya_superman', '5555', 'c8s0f8sa', 1, 'DRIVER');
-commit;
-
-/*car*/
-INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('3214-MAN', 'bmw',  'TANK', '15-1566-05', 26.6, TRUE, 1);
-INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('9999-GTY', 'bmw', 'COVERED_BODY', 'МАЗ-54323', 26.6, TRUE , 1);
-INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('3928-ABC', 'bmw', 'REFRIGERATOR', 'МАЗ-54323', 26.6, FALSE , 1);
-INSERT INTO car (number, brand, car_type, model, fuel_consumption,  is_available, trucking_company)
-  VALUES ('1058-EDF', 'bmw', 'REFRIGERATOR', '15-1566-05', 26.6, FALSE , 1);
-commit;
-
-/*invoice + product + waybill*/
-
-/*state b, registered but not checked*/
-INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company, destination_customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834762', 3, '2017-04-25', NULL, NULL, 2, 1, 2, 1, 5, 'ISSUED');
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 110, 'REGISTERED', 1);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Ноутбук', 300, 'REGISTERED', 1);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Системный блок', 50, 'REGISTERED', 1);
-
-/*state c, checked*/
-INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company, destination_customer_company,  trucking_company, driver, invoice_state )
-  VALUES ('834761', 3, '2017-04-20', 4, '2017-04-21', 3, 1, 2, 1, 5, 'CHECKED');
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 215, 'CHECKED', 2);
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Блок охлаждения', 132, 'CHECKED', 2);
-INSERT INTO waybill (departure_date, departure_country, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
-            destination_date, destination_country, destination_city, destination_street, destination_house, destinatione_latitude, destination_longitude,
-            waybill_number, id_invoice, waybill_state, price, total_distance)
-    VALUES ('2017-04-21', 'Беларусь', 'Минск', 'улица Богдановича', '117а', '53.9353069', '27.5790794', NULL, 'Россия', 'Москва', 'проспект Свободы', '31', '55.838039', '37.4514803',
-            '834761', 2, 'TRANSPORTATION_STARTED', 1200, 2900);
-
-/*state d, delivered*/
-INSERT INTO invoice (invoice_number, dispatcher, register_date, manager, check_date, car, customer_company, destination_customer_company, trucking_company, driver, invoice_state )
-  VALUES ('834760', 3, '2017-03-22', 4, '2017-03-23', 3, 1, 2, 1, 5, 'DELIVERED');
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Компьютер планшетный', 210, 'DELIVERED', 3); /*delivered*/
-INSERT INTO product (name, amount, product_state, invoice) VALUES ('Монитор', 3, 'LOST', 3);  /*lost*/
-INSERT INTO waybill (departure_date, departure_country, departure_city,  departure_stree, departure_house, departure_latitude, departure_longitude,
-                           destination_date, destination_country, destination_city, destination_street, destination_house, destinatione_latitude, destination_longitude,
-                           waybill_number, id_invoice, waybill_state, price, total_distance)
-      VALUES ('2017-03-22', 'Беларусь', 'Минск', 'улица Богдановича', '117а', '53.9353069', '27.5790794', '2017-03-24', 'Россия', 'Москва', 'проспект Свободы', '31', '55.838039', '37.4514803',
-              '834760', 3, 'TRANSPORTATION_COMPLETED', 1500, 3100);
-commit;
-
-/*checkpoint*/
-INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
-  VALUES ('Могилев', '53.883542', '30.2815377', '2017-04-21', 1);
-INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
-      VALUES ('Смоленск', '54.7801138', '31.9299219', NULL, 1);
-INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
-VALUES ('Смоленск', '54.7801138', '31.9299219', '2017-03-23', 2);
 commit;
 
 UPDATE user
@@ -120,42 +74,6 @@ UPDATE user
 SET password = "$2a$10$HPw0gHvDp03aWcYZ.LDvHu7VAmPT5HBKxax83Arv978.8X1ZgACFy"
 WHERE id_user = 7;
 
-UPDATE product
-SET price = 300
-WHERE id_product = 1;
-
-UPDATE product
-SET price = 450
-WHERE id_product = 2;
-
-UPDATE product
-SET price = 200
-WHERE id_product = 3;
-
-UPDATE product
-SET price = 150
-WHERE id_product = 4;
-
-UPDATE product
-SET price = 200
-WHERE id_product = 5;
-
-UPDATE product
-SET price = 400
-WHERE id_product = 6;
-
-UPDATE product
-SET price = 300
-WHERE id_product = 7;
-
-UPDATE waybill
-set price = 12000, total_distance = 300
-WHERE id_waybill = 1;
-
-UPDATE waybill
-set price = 9000, total_distance = 200
-WHERE id_waybill = 2;
-
 UPDATE user
 SET is_available = 1
 WHERE id_user = 5;
@@ -164,43 +82,58 @@ UPDATE user
 SET is_available = 1
 WHERE id_user = 7;
 
-UPDATE product
-SET lost_amount = 1, lost_reason = 'SPOILED', lost_description='Product was broken'
-WHERE id_product = 7;
+INSERT INTO car (is_available, brand, fuel_consumption, model, number, trucking_company, car_type)
+VALUES
+  (TRUE,  'MAN',  20.1, '26',   'AK 6658-3', 1, 'TANK'),
+  (TRUE,  'МАЗ',  15.6, '4370', 'АМ 1925-1', 1, 'COVERED_BODY'),
+  (TRUE,  'МАЗ',  25.1, '6310', 'АИ 2831-6', 1, 'REFRIGERATOR'),
+  (TRUE,  'MAN',  19.8, 'TGM18','АК 3794-5', 1, 'REFRIGERATOR'),
+  (TRUE,  'Volvo',21.1, 'FH',   'ОН 1247-1', 1, 'COVERED_BODY');
 
-UPDATE invoice
-    SET driver = 7, invoice_state = 'DELIVERED'
-WHERE id_invoice = 2;
+INSERT INTO invoice (check_date, invoice_number, register_date, car, customer_company, dispatcher, driver, manager, trucking_company, invoice_state, destination_customer_company)
+VALUES
+  ('2017-03-25',  '846285',   '2017-03-25', 2, 5, 3, 5, 4, 1, 'DELIVERED',1),
+  ('2017-04-21',  '7496724',  '2017-04-21', 4, 2, 3, 7, 4, 1, 'DELIVERED',3),
+  ('2017-05-03',  '375946',   '2017-05-03', 1, 2, 3, 5, 4, 1, 'DELIVERED',2),
+  ('2017-05-22',  '48762395', '2017-05-22', 3, 2, 3, 7, 4, 1, 'DELIVERED',3);
 
-UPDATE product
-SET product_state = 'LOST', lost_amount = 5, lost_reason = 'SPOILED', lost_description='Product was broken'
-WHERE id_product = 4;
 
-UPDATE product
-SET product_state = 'DELIVERED'
-WHERE id_product = 5;
+INSERT INTO waybill (departure_city, departure_date, departure_house, departure_latitude, departure_longitude, departure_stree, destination_city, destination_date, destination_house, destinatione_latitude, destination_longitude, destination_street, waybill_number, id_invoice, price, total_distance, waybill_state, departure_country, destination_country)
+VALUES
+  ('Минск',   '2017-03-25', '36', '53.9046107','27.56174550000003','улица Интернациональная','Санкт-Петербург','2017-03-29','16','59.93387500000001','30.33508299999994','Садовая улица','6478396',1,19000,945.792,'TRANSPORTATION_COMPLETED','Беларусь','Россия'),
+  ('Минск',   '2017-04-21', '36', '53.9046107','27.56174550000003','улица Интернациональная','Berlin','2017-04-27','7E','52.52068999999999','13.40494000000001','Karl-Liebknecht-Straße','476936',2,30000,1134.439,'TRANSPORTATION_COMPLETED','Беларусь','Германия'),
+  ('Орша',    '2017-05-03', '1',  '54.5074171','30.41123689999995','улица Революционная','Брест','2017-05-10','10','52.09762139999999','23.734050300000035','улица Комсомольская','476295',3,25000,567.675,'TRANSPORTATION_COMPLETED','Беларусь','Беларусь'),
+  ('Могилёв', '2017-05-22', '7',  '53.9006008','30.331133000000023','Коммунистический переулок','Гродно','2017-05-28','9','53.6694492','23.812581200000068','улица Зана','3759367',4,20000,489.494,'TRANSPORTATION_COMPLETED','Беларусь','Беларусь');
 
-UPDATE waybill
-SET departure_date = '2017-04-30', waybill_state = 'TRANSPORTATION_COMPLETED'
-WHERE id_waybill = 1;
 
-UPDATE check_point
-SET path_date = '2017-04-29'
-WHERE id_checkpoint = 2;
 
-UPDATE car
-SET is_available = 1
-WHERE id_car = 3;
+INSERT INTO check_point (description, latitude, longitude, path_date, way_bill)
+VALUES
+  ('ул. Доватора, Докшицы, Беларусь','54.89359040108592','27.74871826171875','2017-03-25',1),
+  ('ул. Некрасова, 3, Псков, Псковская обл., Россия, 180000','57.81074874067238','28.33648681640625','2017-03-26',1),
+  ('ул. Михайлова, 2, Великий Новгород, Новгородская обл., Россия, 173000','58.51306560486169','31.2835693359375','2017-03-27',1),
+  ('Садовая ул., 16, Санкт-Петербург, Россия, 191186','59.93387500000001','30.33508299999994','2017-03-29',1),
+  ('Świętojańska 19, Białystok, Польша','53.124319867401844','23.166046142578125','2017-04-21',2),
+  ('Podchorążych 37, Warszawa, Польша','52.210131268181954','21.0443115234375','2017-06-23',2),
+  ('E261, Poznań, Польша','52.35446457352601','16.887788772583008','2017-06-24',2),
+  ('Karl-Liebknecht-Str. 7E, 10178 Berlin, Германия','52.52068999999999','13.40494000000001','2017-04-26',2),
+  ('улица 30 лет ВЛКСМ, Борисов, Беларусь','54.22891539940191','28.519134521484375','2017-05-03',3),
+  ('E30, Беларусь','53.514261076152074','26.676006317138672','2017-05-05',3),
+  ('Р2, Беларусь','53.12274892574202','25.905590057373047','2017-05-07',3),
+  ('ул. 17 Сентября, Кобрин, Беларусь','52.21617919424114','24.356346130371094','2017-05-08',3),
+  ('ул. Комсомольская 10, Брест, Беларусь','52.09762139999999','23.734050300000035','2017-05-10',3),
+  ('ул. Транспортная, Воложин, Беларусь','54.079332788893815','26.549835205078125','2017-05-22',4),
+  ('проспект Победы, Лида, Беларусь','53.88117256399528','25.306320190429688','2017-05-26',4),
+  ('ул. Зана 1, Гродно, Беларусь','53.6694492','23.812581200000068','2017-05-28',4);
 
-UPDATE car
-SET is_available = 1
-WHERE id_car = 4;
-
-INSERT INTO customer_company
-(name, taxpayer_number, country, city, street, house, trucking_company)
-VALUES ('ОАО РосТорг', '219ЕT34K', 'Россия', 'Москва', 'пр. Кутузовский', '79с', 1);
-
-INSERT INTO customer_company
-(name, taxpayer_number, country, city, street, house, trucking_company)
-VALUES ('OOO Компьютербай', '736AB10C', 'Беларусь', 'Брест', 'пл. Свободы', '12', 1);
-
+INSERT INTO product (amount, name, invoice, product_state, lost_amount, lost_reason, lost_description, price)
+VALUES
+  (100,'Монитор',1,'LOST',5,'LOST','Потерял на заправке',200),
+  (60,'Клавитура',1,'LOST',2,'STOLEN','Украли пока спал',70),
+  (40,'Принтер',1,'DELIVERED',NULL,NULL,NULL,120),
+  (5,'Молоко',2,'LOST',1,'SPOILED','Испортились по дороге',200),
+  (4,'Хлеб',2,'LOST',1,'SPOILED','Испортилось по дороге',100),
+  (100,'Огурцы',2,'DELIVERED',NULL,NULL,NULL,200),
+  (20,'Молоко',3,'DELIVERED',NULL,NULL,NULL,5),
+  (50,'Сок',3,'DELIVERED',NULL,NULL,NULL,2),
+  (1000,'Мороженое',4,'DELIVERED',NULL,NULL,NULL,1);
