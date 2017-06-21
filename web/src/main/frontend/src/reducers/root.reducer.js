@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import TruckingCompaniesReducer from './truckingCompany.reducer';
 import OperationReducer from './operation.reducer';
 import UserRoleReducer from './userRole.reducer';
