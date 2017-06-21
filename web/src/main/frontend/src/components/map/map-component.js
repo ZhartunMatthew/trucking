@@ -10,7 +10,7 @@ import { createCheckPoint, deleteCheckPoint, clearCheckPoints } from  '../../act
 import { passCheckPoint } from '../../actions/driverWaybills.action';
 import { setValidationFail } from '../../actions/modal.action';
 import { DEFAULT_LONGITUDE, DEFAULT_LATITUDE, DEFAULT_ZOOM, ICONS, METERS_PER_KILOMETER,
-  INPUT_STYLE, MAX_COUNT_OF_WAYPOINTS} from '../../constants/map.constants';
+  DEPARTURE_INPUT_STYLE, DESTINATION_INPUT_STYLE, MAX_COUNT_OF_WAYPOINTS} from '../../constants/map.constants';
 import { Role } from '../../constants/roles';
 
 const DirectionsGoogleMap = withGoogleMap(props => (
@@ -23,15 +23,15 @@ const DirectionsGoogleMap = withGoogleMap(props => (
           onPlacesChanged={props.handleStartSearchBox}
           controlPosition={google.maps.ControlPosition.TOP_LEFT}
           inputPlaceholder='Departure place'
-          inputStyle={INPUT_STYLE}
+          inputStyle={DEPARTURE_INPUT_STYLE}
         />
         <SearchBox
           ref={props.onEndSearchBoxMounted}
           bounds={props.bounds}
           onPlacesChanged={props.handleEndSearchBox}
-          controlPosition={google.maps.ControlPosition.TOP_LEFT}
+          controlPosition={google.maps.ControlPosition.LEFT_TOP}
           inputPlaceholder='Destination place'
-          inputStyle={INPUT_STYLE}
+          inputStyle={DESTINATION_INPUT_STYLE}
         />
       </div> : null
     }

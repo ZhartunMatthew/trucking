@@ -1,18 +1,23 @@
-export const INPUT_STYLE = {
+export const DEPARTURE_INPUT_STYLE = {
   boxSizing: 'border-box',
   MozBoxSizing: 'border-box',
   border: '1px solid transparent',
   width: '240px',
   height: '32px',
-  marginTop: '27px',
-  marginRight: '30px',
+  marginTop: '10px',
   padding: '0 12px',
   borderRadius: '1px',
   boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
   fontSize: '14px',
   outline: 'none',
-  textOverflow: 'ellipses',
+  textOverflow: 'ellipses'
 };
+
+const MARGIN_LEFT = {
+  marginLeft: '125px'
+};
+
+export const DESTINATION_INPUT_STYLE = Object.assign({}, DEPARTURE_INPUT_STYLE, MARGIN_LEFT);
 
 export const MAX_COUNT_OF_WAYPOINTS = 21;
 export const DEFAULT_LATITUDE = 53.9216192;
