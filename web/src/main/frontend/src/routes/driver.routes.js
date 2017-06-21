@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router';
-import DriverPage from './driver.page'
+import DriverPage from '../components/driver.page'
 import DriverWaybillComponent from '../components/driverWaybills/driverWaybills-component';
-import ErrorPage from './error';
+import ErrorPage from '../components/error';
 
 export const driverRoutes = (
   <div>

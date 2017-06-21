@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router';
-import DispatcherPage from './dispatcher.page';
-import InvoiceComponent from './invoice/invoice-component';
-import Customer from './customer/customer-component'
-import ErrorPage from './error';
+import DispatcherPage from '../components/dispatcher.page';
+import InvoiceComponent from '../components/invoice/invoice-component';
+import Customer from '../components/customer/customer-component'
+import ErrorPage from '../components/error';
 
 export const dispatcherRoutes = (
   <div>

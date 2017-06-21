@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router';
-import SystemAdminPage from './systemAdmin.page';
+import SystemAdminPage from '../components/systemAdmin.page';
 import TruckingCompanyComponent from '../components/truckingCompany/truckingCompany-component';
-import ErrorPage from './error';
+import ErrorPage from '../components/error';
 
 export const systemAdminRoutes = (
   <div>

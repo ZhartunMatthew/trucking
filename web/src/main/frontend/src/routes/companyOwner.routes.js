@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router';
-import CompanyOwnerPage from './companyOwner.page';
-import UserComponent from './user/user-component';
-import CustomerComponent from './customer/customer-component';
-import CarComponent from './car/car-component';
-import InvoiceComponent from './invoice/invoice-component';
-import WaybillComponent from './waybill/waybill-component';
-import ReportPage from './report.page';
-import ErrorPage from './error';
+import CompanyOwnerPage from '../components/companyOwner.page';
+import UserComponent from '../components/user/user-component';
+import CustomerComponent from '../components/customer/customer-component';
+import CarComponent from '../components/car/car-component';
+import InvoiceComponent from '../components/invoice/invoice-component';
+import WaybillComponent from '../components/waybill/waybill-component';
+import ReportPage from '../components/report.page';
+import ErrorPage from '../components/error';
 
 export const ownerRoutes = (
   <div>
