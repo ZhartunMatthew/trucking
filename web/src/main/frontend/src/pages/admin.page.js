@@ -8,7 +8,7 @@ import { startOperation, cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 import UserComponent from '../components/user/user-component'
-import Modal from './modal/modal'
+import Modal from '../components/modal/modal'
 
 class AdminPage extends React.Component {
 

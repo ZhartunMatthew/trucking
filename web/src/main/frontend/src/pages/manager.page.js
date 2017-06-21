@@ -6,8 +6,8 @@ import { loadRegisteredInvoices, fetchInvoice } from '../actions/invoice.action'
 import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
-import InvoiceComponent from './invoice/invoice-component'
-import Modal from './modal/modal'
+import InvoiceComponent from '../components/invoice/invoice-component'
+import Modal from '../components/modal/modal'
 
 class ManagerPage extends React.Component {
 

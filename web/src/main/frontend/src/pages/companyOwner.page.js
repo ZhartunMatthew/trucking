@@ -11,8 +11,8 @@ import { loadWaybills } from '../actions/waybill.action';
 import { loadHighcharts } from '../actions/highcharts.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
-import UserComponent from './user/user-component'
-import Modal from './modal/modal'
+import UserComponent from '../components/user/user-component'
+import Modal from '../components/modal/modal'
 
 class CompanyOwnerPage extends React.Component {
 

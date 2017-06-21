@@ -6,7 +6,7 @@ import {loadDriverWaybills} from "../actions/driverWaybills.action";
 import HeaderComponent from './header';
 import FooterComponent from './footer';
 import DriverWaybillComponent from '../components/driverWaybills/driverWaybills-component';
-import Modal from './modal/modal'
+import Modal from '../components/modal/modal'
 
 class DriverPage extends React.Component {
 

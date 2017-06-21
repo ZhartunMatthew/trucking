@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router';
-import AdminPage from '../components/admin.page';
+import AdminPage from '../pages/admin.page';
 import UserComponent from '../components/user/user-component';
 import CustomerComponent from '../components/customer/customer-component';
 import CarComponent from '../components/car/car-component';
-import ErrorPage from '../components/error';
+import ErrorPage from '../pages/error';
 
 export const adminRoutes = (
   <div>

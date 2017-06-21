@@ -6,8 +6,8 @@ import { loadInvoices, fetchInvoice} from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
-import CustomerComponent from './customer/customer-component'
-import Modal from './modal/modal'
+import CustomerComponent from '../components/customer/customer-component'
+import Modal from '../components/modal/modal'
 
 class DispatcherPage extends React.Component {
 

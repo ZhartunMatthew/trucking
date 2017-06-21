@@ -5,8 +5,8 @@ import { loadTruckingCompanies, fetchTruckingCompany} from '../actions/truckingC
 import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
-import TruckingCompanyComponent from './truckingCompany/truckingCompany-component'
-import Modal from './modal/modal'
+import TruckingCompanyComponent from '../components/truckingCompany/truckingCompany-component'
+import Modal from '../components/modal/modal'
 
 class SystemAdminPage extends React.Component {
 

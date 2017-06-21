@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router';
-import ManagerPage from '../components/manager.page';
+import ManagerPage from '../pages/manager.page';
 import InvoiceComponent from '../components/invoice/invoice-component';
 import WaybillComponent from '../components/waybill/waybill-component';
-import ErrorPage from '../components/error';
+import ErrorPage from '../pages/error';
 
 export const managerRoutes = (
   <div>
