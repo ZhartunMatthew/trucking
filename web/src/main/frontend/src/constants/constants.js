@@ -35,3 +35,34 @@ export const PRODUCT_STATE = {
 export const INVOICE_STATE = {
   ISSUED: 'ISSUED'
 };
+
+export const NAV_ITEMS = {
+  USERS: {
+    url: '/user',
+    caption: 'Users'
+  },
+  CUSTOMERS: {
+    url: '/customer',
+    caption: 'Customers'
+  },
+  CARS: {
+    url: '/car',
+    caption: 'Cars'
+  },
+  INVOICES: {
+    url: '/invoice',
+    caption: 'Invoices'
+  },
+  WAYBILLS: {
+    url: '/waybill',
+    caption: 'Waybills'
+  },
+  REPORT: {
+    url: '/report',
+    caption: 'Report'
+  },
+  TRUCKING_COMPANIES: {
+    url: '/companies',
+    caption: 'Trucking companies'
+  }
+};
