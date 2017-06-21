@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateOperation, cancelOperation } from '../../actions/operation.action';
+import { updateOperation } from '../../actions/operation.action';
 import { updateProducts } from  '../../actions/product.action';
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
-import { VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
+import { VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, MAX_LENGTH_OF_NUMERIC,
+  PRODUCT_STATE } from '../../constants/constants';
 
 class ProductForm extends React.Component {
 
   constructor() {
     super();
-
     this.state = {
       errors: {},
       canSubmit: false
@@ -20,11 +20,15 @@ class ProductForm extends React.Component {
   }
 
   enableButton() {
-    this.setState({ canSubmit: true });
+    this.setState({
+      canSubmit: true
+    });
   }
 
   disableButton() {
-    this.setState({ canSubmit: false });
+    this.setState({
+      canSubmit: false
+    });
   }
 
   handleProductNameChange(event) {
@@ -39,17 +43,13 @@ class ProductForm extends React.Component {
     this.props.updateOperation('currentProductPrice', event.target.value);
   }
 
-  cancel() {
-    this.props.cancelOperation();
-  }
-
   create() {
     let productItem = {
       id: this.getLastProductId() + 1,
       name: '',
       amount: 0,
       price: 0,
-      productState: 'REGISTERED'
+      productState: PRODUCT_STATE.REGISTERED
     };
     productItem.amount = this.props.currentProductAmount;
     productItem.name = this.props.currentProductName;
@@ -62,7 +62,6 @@ class ProductForm extends React.Component {
   }
 
   render() {
-
     Formsy.addValidationRule('isName', function(values, value) {
       return !(/\s/g.test(value));
     });
@@ -72,10 +71,12 @@ class ProductForm extends React.Component {
     });
 
     let role = this.props.userRole;
-    if(role === Role.DISPATCHER) {
+    if (role === Role.DISPATCHER) {
       return (
         <div>
-          <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+          <Formsy.Form className='form-horizontal'
+                       onValid={this.enableButton.bind(this)}
+                       onInvalid={this.disableButton.bind(this)}>
             <fieldset>
               <ValidatedInput id='currentProductName'
                               type='text'
@@ -151,22 +152,21 @@ class ProductForm extends React.Component {
   getLastProductId() {
     let list = this.props.productList;
     console.log(list);
-    if(list.length < 1) {
+    if (list.length < 1) {
       return 0;
     } else {
-      return list[list.length-1].id;
+      return list[list.length - 1].id;
     }
   }
 }
 
 ProductForm.propTypes = {
   updateOperation: React.PropTypes.func.isRequired,
-  cancelOperation: React.PropTypes.func.isRequired,
   updateProducts: React.PropTypes.func.isRequired,
-  userRole: React.PropTypes.String,
-  currentProductName: React.PropTypes.String,
-  currentProductAmount: React.PropTypes.String,
-  currentProductPrice: React.PropTypes.String
+  userRole: React.PropTypes.string,
+  currentProductName: React.PropTypes.string,
+  currentProductAmount: React.PropTypes.string,
+  currentProductPrice: React.PropTypes.string
 };
 
 let mapStateToProps = function (state) {
@@ -187,7 +187,6 @@ let mapStateToProps = function (state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateOperation: bindActionCreators(updateOperation, dispatch),
-    cancelOperation: bindActionCreators(cancelOperation, dispatch),
     updateProducts: bindActionCreators(updateProducts,dispatch)
   }
 }
