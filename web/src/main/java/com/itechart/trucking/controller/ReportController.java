@@ -1,7 +1,7 @@
 package com.itechart.trucking.controller;
 
 import com.itechart.trucking.report.ReportBuilder;
-import com.itechart.trucking.report.ReportCalculatingService;
+import com.itechart.trucking.report.ReportCalculatingUtil;
 import com.itechart.trucking.report.ReportInfo;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ import java.io.OutputStream;
 public class ReportController {
 
     @Autowired
-    private ReportCalculatingService reportCalculatingService;
+    private ReportCalculatingUtil reportCalculatingUtil;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportController.class);
 
@@ -32,7 +32,7 @@ public class ReportController {
     public void download(HttpServletResponse response) throws IOException {
         LOGGER.info("Path:/report/download  method: GET");
         Long truckingCompanyId = CustomUserDetailsProvider.getUserDetails().getTruckingCompanyId();
-        ReportInfo reportInfo = reportCalculatingService.calculate(truckingCompanyId);
+        ReportInfo reportInfo = reportCalculatingUtil.calculate(truckingCompanyId);
         ReportBuilder reportBuilder = new ReportBuilder(reportInfo);
         reportBuilder.buildFinancialReport();
         response.setHeader("Content-Disposition", "attachment; filename=\"report.xls\"");
