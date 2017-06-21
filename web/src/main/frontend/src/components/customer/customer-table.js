@@ -1,7 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { deleteCustomerCompany } from '../../actions/customer.action';
 import { startOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles';
 
@@ -22,14 +21,10 @@ class CustomerTable extends React.Component {
     });
   }
 
-  deleteCustomer(customerCompany) {
-    this.props.deleteCustomer(customerCompany);
-  }
-
   render() {
     let buttonName;
     let rows = this.props.customers.map((customer, index) => {
-      if(this.props.userRole === Role.ADMIN) {
+      if (this.props.userRole === Role.ADMIN) {
         buttonName = "Update";
       }
       if (this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
@@ -55,19 +50,15 @@ class CustomerTable extends React.Component {
     });
 
     let adminActions =
-        <button className='btn btn-default' onClick={this.onShowCreateCustomerForm.bind(this)}>
-          Create new company
-        </button>;
+        <button className='btn btn-default'
+                onClick={this.onShowCreateCustomerForm.bind(this)}>Create</button>;
 
     let dispatcherActions = null;
-
     let userActions = null;
-
     let role = this.props.userRole;
     userActions = role === Role.ADMIN ? adminActions : userActions;
     userActions = role === Role.DISPATCHER ? dispatcherActions : userActions;
     userActions = role === Role.COMPANY_OWNER ? dispatcherActions : userActions;
-
 
     return (
       <div>
@@ -98,8 +89,7 @@ class CustomerTable extends React.Component {
 CustomerTable.propTypes = {
   customers: React.PropTypes.array.isRequired,
   startOperation: React.PropTypes.func.isRequired,
-  deleteCustomer: React.PropTypes.func.isRequired,
-  userRole: React.PropTypes.String
+  userRole: React.PropTypes.string
 };
 
 
@@ -112,7 +102,6 @@ let mapStateToProps = function (state) {
 function mapDispatchToProps(dispatch) {
   return {
     startOperation: bindActionCreators(startOperation, dispatch),
-    deleteCustomer: bindActionCreators(deleteCustomerCompany, dispatch)
   }
 }
 
