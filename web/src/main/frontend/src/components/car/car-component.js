@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CarTable from './car-table';
 import CarForm from './car-form';
@@ -13,22 +13,22 @@ class CarComponent extends React.Component {
 
   componentDidMount() {
     this.props.loadCarTypes();
-    if(this.props.userRole === Role.COMPANY_OWNER) {
+    if (this.props.userRole === Role.COMPANY_OWNER) {
       this.carLoader = setInterval(function (self) {
         self.props.loadCars();
-        console.log("Car list has been updated");
+        console.log('Car list has been updated');
       }, POOLING_TIMEOUT, this);
-      console.log("Pulling of new cars started");
+      console.log('Pulling of new cars started');
     }
   }
 
   componentWillUnmount() {
-    if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
+    if (this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
     }
-    if(this.props.userRole === Role.COMPANY_OWNER) {
+    if (this.props.userRole === Role.COMPANY_OWNER) {
       clearInterval(this.carLoader);
-      console.log("Pulling of new cars stopped");
+      console.log('Pulling of new cars stopped');
     }
   }
 
