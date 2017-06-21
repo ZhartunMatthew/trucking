@@ -8,7 +8,7 @@ export const systemAdminRoutes = (
   <div>
     <Route path='/' component={SystemAdminPage}>
       <Route path='/companies' component={TruckingCompanyComponent}/>
-      <Route path="*" component={ErrorPage} />
+      <Route path='*' component={ErrorPage} />
     </Route>
   </div>
 );

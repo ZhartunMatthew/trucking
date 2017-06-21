@@ -12,6 +12,7 @@ export const adminRoutes = (
       <Route path ='/user' component={UserComponent}/>
       <Route path ='/customer' component={CustomerComponent}/>
       <Route path='/car' component={CarComponent}/>
+      <Route path='*' component={ErrorPage} />
     </Route>
   </div>
 );

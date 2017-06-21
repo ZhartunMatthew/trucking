@@ -10,7 +10,7 @@ export const managerRoutes = (
     <Route path='/' component={ManagerPage}>
       <Route path ='/invoice' component={InvoiceComponent}/>
       <Route path ='/waybill' component={WaybillComponent}/>
-      <Route path="*" component={ErrorPage} />
+      <Route path='*' component={ErrorPage} />
     </Route>
   </div>
 );

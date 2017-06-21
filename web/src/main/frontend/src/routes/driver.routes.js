@@ -8,7 +8,7 @@ export const driverRoutes = (
   <div>
     <Route path='/' component={DriverPage}>
       <Route path='/waybills' component={DriverWaybillComponent}/>
-      <Route path="*" component={ErrorPage} />
+      <Route path='*' component={ErrorPage} />
     </Route>
   </div>
 );

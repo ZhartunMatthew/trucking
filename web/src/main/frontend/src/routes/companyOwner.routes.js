@@ -18,7 +18,7 @@ export const ownerRoutes = (
       <Route path='/invoice' component={InvoiceComponent}/>
       <Route path='/waybill' component={WaybillComponent}/>
       <Route path='/report' component={ReportPage}/>
-      <Route path="*" component={ErrorPage} />
+      <Route path='*' component={ErrorPage} />
     </Route>
   </div>
 );

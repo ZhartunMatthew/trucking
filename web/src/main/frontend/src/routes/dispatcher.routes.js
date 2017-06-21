@@ -10,7 +10,7 @@ export const dispatcherRoutes = (
     <Route path='/' component={DispatcherPage}>
       <Route path ='/invoice' component={InvoiceComponent}/>
       <React path ='/customer' component={Customer}/>
-      <Route path="*" component={ErrorPage} />
+      <Route path='*' component={ErrorPage} />
     </Route>
   </div>
 );
