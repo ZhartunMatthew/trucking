@@ -1,8 +1,7 @@
 .main {
   display: block;
-	padding: 30px;
-	padding-top:40px;
-	width:90%;
+  padding: 40px 30px 30px;
+  width:90%;
 }
 
 .custom-menu-item > a{
@@ -127,8 +126,7 @@ a {
 }
 
 .modal-content-login {
-  margin: auto;
-  margin-top: 100px;
+  margin: 100px auto auto;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
@@ -149,8 +147,7 @@ a {
 }
 
 .modal-action-content {
-  margin: auto;
-  margin-top: 40px;
+  margin: 40px auto auto;
   color: white;
   padding: 20px;
   border-radius: 10px;

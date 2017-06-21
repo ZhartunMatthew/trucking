@@ -2,14 +2,14 @@
   "name": "ItechReactTraining",
   "private": true,
   "version": "1.0.0",
-  "description": "React Lesson - Redux",
+  "description": "Group project at St.Lab",
   "main": "",
   "scripts": {
     "build": "webpack -d --display-modules"
   },
   "repository": "",
   "keywords": [],
-  "author": "Alexander Balyev",
+  "author": "iTechArtTruckingTeam",
   "devDependencies": {
     "babel-core": "^6.22.0",
     "babel-eslint": "^7.1.0",
