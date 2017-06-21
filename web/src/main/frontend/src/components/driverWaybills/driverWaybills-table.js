@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startOperation } from '../../actions/operation.action';
 import { loadProducts } from '../../actions/driverWaybills.action';
@@ -58,7 +58,7 @@ class DriverWaybillsTable extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {rows}
+            {rows}
           </tbody>
         </table>
       </div>
@@ -71,10 +71,6 @@ DriverWaybillsTable.propTypes = {
   startOperation: React.PropTypes.func.isRequired,
 };
 
-let mapStateToProps = function () {
-  return {};
-};
-
 function mapDispatchToProps(dispatch) {
   return {
     startOperation: bindActionCreators(startOperation, dispatch),
@@ -83,4 +79,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DriverWaybillsTable);
+export default connect(() => {}, mapDispatchToProps)(DriverWaybillsTable);
