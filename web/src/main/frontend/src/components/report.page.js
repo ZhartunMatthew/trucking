@@ -30,12 +30,13 @@ class ReportPage extends React.Component {
 
   initWaybillHighstockConfig(props) {
     let data = [];
-    for (let name in props.highcharts.revenueByDate) {
-      let day = 24 * 60 * 60  * 1000;
-      let date = Number(name) + day;
+    let keys = Object.keys(props.highcharts.revenueByDate).sort();
+    for (let i = 0; i < keys.length; i++) {
+      let day = 24 * 60 * 60 * 1000;
+      let date = Number(keys[i]) + day;
       data.push([
         date,
-        props.highcharts.revenueByDate[name]
+        props.highcharts.revenueByDate[keys[i]]
       ]);
     }
     return {
