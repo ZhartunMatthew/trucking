@@ -61,7 +61,7 @@ class CustomerTable extends React.Component {
     userActions = role === Role.COMPANY_OWNER ? dispatcherActions : userActions;
 
     return (
-      <div>
+      <div className="col">
         <h3>List of companies</h3>
         <table className='table table-hover'>
           <thead>

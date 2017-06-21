@@ -110,7 +110,7 @@ class InvoiceComponent extends React.Component {
         </div>
       </div>
     ) : (
-      <div className='container col-sm-9'>
+      <div className='container col-sm-12'>
         <div className='col align-self-center'>
           {emptyOperationContent}
         </div>

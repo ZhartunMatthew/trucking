@@ -171,3 +171,7 @@ a {
   width: inherit !important;
   text-align-last: center;
 }
+
+.no-right-margin {
+  margin-right: 0;
+}

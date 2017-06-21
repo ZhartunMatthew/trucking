@@ -59,7 +59,7 @@ class CarTable extends React.Component {
     userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
 
     return (
-      <div>
+      <div className="col">
         <h3>List of cars</h3>
         <table className='table table-hover'>
           <thead>

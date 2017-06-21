@@ -28,7 +28,7 @@ class InvoiceTable extends React.Component {
     });
 
     return (
-      <div>
+      <div className="col">
         <h3>List of invoices</h3>
         <table className='table table-hover'>
           <thead>

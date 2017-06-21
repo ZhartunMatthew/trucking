@@ -62,7 +62,7 @@ class UserTable extends React.Component {
     userActions = role === Role.ADMIN ? adminActions : userActions;
     userActions = role === Role.COMPANY_OWNER ? ownerActions : userActions;
     return (
-      <div>
+      <div className="col">
         <h3>List of users</h3>
         <table className='table table-hover'>
           <thead>

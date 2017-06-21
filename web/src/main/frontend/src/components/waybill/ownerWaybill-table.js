@@ -28,7 +28,7 @@ class OwnerWaybillsTable extends React.Component {
       )
     });
     return (
-      <div>
+      <div className="col">
         <h3>List of waybills</h3>
         <table className='table table-hover'>
           <thead>

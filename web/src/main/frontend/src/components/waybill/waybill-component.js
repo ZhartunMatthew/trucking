@@ -33,6 +33,9 @@ class WaybillComponent extends React.Component {
       clearInterval(this.waybillLoader);
       console.log('Pulling of new waybills stopped');
     }
+    if (this.props.userRole === Role.MANAGER) {
+      this.props.cancelCurrentOperation();
+    }
   }
 
   render() {
@@ -58,7 +61,7 @@ class WaybillComponent extends React.Component {
       }
       if (role === Role.COMPANY_OWNER) {
         emptyOperationContent =
-          <div className='container col-sm-10'>
+          <div className='container col-sm-12'>
             <div className='col align-self-center'>
               <OwnerWaybillsTable waybills={this.props.driverWaybills}/>
             </div>

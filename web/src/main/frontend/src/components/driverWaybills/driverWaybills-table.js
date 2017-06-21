@@ -26,13 +26,13 @@ class DriverWaybillsTable extends React.Component {
           <td>{driverWaybill.totalDistance}</td>
           <td>{driverWaybill.passedCheckPoints}/{driverWaybill.allCheckPoints}</td>
           <td>
-            <div className='btn-toolbar text-center'>
+            <div>
               { driverWaybill.waybillState === WAYBILL_STATE.TRANSPORTATION_COMPLETED ? (
-                <button className='btn btn-info' onClick={this.onShowUpdateWaybillForm.bind(this, driverWaybill)}>
+                <button className='btn btn-info no-right-margin' onClick={this.onShowUpdateWaybillForm.bind(this, driverWaybill)}>
                   Show
                 </button>
                 ) : (
-                <button className='btn btn-warning' onClick={this.onShowUpdateWaybillForm.bind(this, driverWaybill)}>
+                <button className='btn btn-warning no-right-margin' onClick={this.onShowUpdateWaybillForm.bind(this, driverWaybill)}>
                    Check
                 </button>
                 )
@@ -44,7 +44,7 @@ class DriverWaybillsTable extends React.Component {
     });
 
     return (
-      <div>
+      <div className="col">
         <h3>List of waybills</h3>
         <table className='table table-striped table-hover'>
           <thead>
@@ -55,6 +55,7 @@ class DriverWaybillsTable extends React.Component {
             <th>Price, $</th>
             <th>Total distance, km</th>
             <th>Checkpoints: passed/all </th>
+            <th>Action </th>
           </tr>
           </thead>
           <tbody>

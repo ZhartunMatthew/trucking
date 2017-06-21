@@ -7,7 +7,7 @@ import ErrorPage from '../pages/error';
 export const driverRoutes = (
   <div>
     <Route path='/' component={DriverPage}>
-      <Route path='/waybills' component={DriverWaybillComponent}/>
+      <Route path='/waybill' component={DriverWaybillComponent}/>
       <Route path='*' component={ErrorPage} />
     </Route>
   </div>
