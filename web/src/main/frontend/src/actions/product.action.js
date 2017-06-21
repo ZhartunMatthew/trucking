@@ -3,7 +3,7 @@ import {
   INIT_PRODUCTS,
   UPDATE_PRODUCTS,
   CLEAR_PRODUCTS,
-  INIT_LOSTTYPES,
+  INIT_LOST_TYPES,
   DELETE_PRODUCT
 } from '../constants/actionTypes';
 
@@ -65,7 +65,7 @@ export function loadLostTypes() {
     }).done(json => {
       //CREATE ACTION
       dispatch({
-        type: INIT_LOSTTYPES, //action type, name according to convention
+        type: INIT_LOST_TYPES, //action type, name according to convention
         payload: json //action data, name according to convention
       });
     }).fail(() => {

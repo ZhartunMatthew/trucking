@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { startOperation } from './operation.action';
 import {
-  INIT_DRIVERWAYBILLS, INIT_PRODUCTS
+  INIT_DRIVER_WAYBILLS, INIT_PRODUCTS
 } from '../constants/actionTypes';
 import { setActionDescription, setActionFail } from '../actions/modal.action'
 
@@ -15,7 +15,7 @@ export function loadDriverWaybills() {
       dataType: 'json'
     }).done(json => {
       dispatch({
-        type: INIT_DRIVERWAYBILLS,
+        type: INIT_DRIVER_WAYBILLS,
         payload: json
       });
     }).fail(() => {

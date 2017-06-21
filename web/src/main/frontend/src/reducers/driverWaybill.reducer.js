@@ -1,5 +1,5 @@
 import {
-  INIT_DRIVERWAYBILLS, INIT_PRODUCTS
+  INIT_DRIVER_WAYBILLS, INIT_PRODUCTS
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 
 const DriverWaybillsReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case INIT_DRIVERWAYBILLS:
+    case INIT_DRIVER_WAYBILLS:
       return Object.assign({}, state, {driverWaybills: action.payload});
 
     case INIT_PRODUCTS:

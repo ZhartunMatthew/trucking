@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { startOperation, cancelOperation } from './operation.action';
 import {
-  INIT_TRUCKINGCOMPANIES
+  INIT_TRUCKING_COMPANIES
 } from '../constants/actionTypes';
 import { setActionDescription, setActionFail, setValidationFail } from '../actions/modal.action'
 
@@ -15,7 +15,7 @@ export function loadTruckingCompanies() {
       dataType: 'json'
     }).done(json => {
       dispatch({
-        type: INIT_TRUCKINGCOMPANIES,
+        type: INIT_TRUCKING_COMPANIES,
         payload: json
       });
     }).fail(() => {
