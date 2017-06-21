@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import InvoiceForm from './invoice-form';
 import InvoiceTable from './invoice-table';
 import ProductTable from '../product/product-table';
-import ProductComponent from "../product/product-component";
+import ProductComponent from '../product/product-component';
 import { bindActionCreators } from 'redux';
 import { startOperation, cancelOperation } from '../../actions/operation.action';
 import { loadFreeDrivers, loadFreeCars } from '../../actions/availiable.action';
@@ -12,13 +12,13 @@ import { Role } from '../../constants/roles';
 import CustomerTable from '../customer/customer-table';
 import { setActionFail } from '../../actions/modal.action';
 import { loadRegisteredInvoices } from '../../actions/invoice.action';
-import { POOLING_TIMEOUT } from '../../constants/constants';
+import { POOLING_TIMEOUT, PRODUCT_STATE, INVOICE_STATE } from '../../constants/constants';
 import { loadInvoices } from '../../actions/invoice.action';
 
 class InvoiceComponent extends React.Component {
 
   componentDidMount() {
-    if(this.props.userRole === Role.DISPATCHER) {
+    if (this.props.userRole === Role.DISPATCHER) {
       this.props.loadFreeDrivers();
       this.props.loadFreeCars(true);
       this.props.loadAllCustomers();
@@ -29,7 +29,7 @@ class InvoiceComponent extends React.Component {
           number: '',
           registerDate: '',
           checkDate: '',
-          invoiceState: 'ISSUED',
+          invoiceState: INVOICE_STATE.ISSUED,
           customerCompanyId: this.props.customerCompany.id,
           customerCompany: this.props.customerCompany.name,
           customerCompanyCity: this.props.customerCompany.city,
@@ -49,30 +49,30 @@ class InvoiceComponent extends React.Component {
       }
     }
 
-    if(this.props.userRole === Role.MANAGER) {
+    if (this.props.userRole === Role.MANAGER) {
       this.props.loadRegisteredInvoices();
       this.invoiceLoader = setInterval(function (self) {
-        console.log("Invoice list were updated");
+        console.log('Invoice list were updated');
         self.props.loadRegisteredInvoices();
       }, POOLING_TIMEOUT, this);
-      console.log("Pulling of new invoices started");
+      console.log('Pulling of new invoices started');
     }
 
-    if(this.props.userRole === Role.COMPANY_OWNER) {
+    if (this.props.userRole === Role.COMPANY_OWNER) {
       this.invoiceLoader = setInterval(function (self) {
-        console.log("Invoice list were updated");
+        console.log('Invoice list were updated');
         this.invoiceLoader = self.props.loadInvoices();
       }, POOLING_TIMEOUT, this);
-      console.log("Pulling of new invoices started");
+      console.log('Pulling of new invoices started');
     }
   }
 
   componentWillUnmount() {
-    if(this.props.userRole === Role.MANAGER || this.props.userRole === Role.COMPANY_OWNER) {
+    if (this.props.userRole === Role.MANAGER || this.props.userRole === Role.COMPANY_OWNER) {
       clearInterval(this.invoiceLoader);
-      console.log("Pooling of new invoices stopped");
+      console.log('Pooling of new invoices stopped');
     }
-    if(this.props.userRole === Role.COMPANY_OWNER) {
+    if (this.props.userRole === Role.COMPANY_OWNER) {
       this.props.cancelOperation();
     }
   }
@@ -82,7 +82,7 @@ class InvoiceComponent extends React.Component {
     let productContent = null;
     let emptyOperationContent = null;
 
-    if(this.props.currentInvoice !== null) {
+    if (this.props.currentInvoice !== null) {
       if (role === Role.MANAGER || role === Role.COMPANY_OWNER) {
         productContent = <ProductTable products={this.props.currentInvoice.products}/>;
       }
@@ -95,7 +95,7 @@ class InvoiceComponent extends React.Component {
         emptyOperationContent = <InvoiceTable invoices={this.props.invoices}/>;
       }
       if (role === Role.DISPATCHER) {
-        this.context.router.push("/customer");
+        this.context.router.push('/customer');
         emptyOperationContent = <CustomerTable customers={this.props.destinationCustomers}/>;
       }
     }
@@ -131,7 +131,7 @@ class InvoiceComponent extends React.Component {
         amount: product.amount,
         name: product.name,
         price: product.price,
-        productState: 'REGISTERED'
+        productState: PRODUCT_STATE.REGISTERED
       });
     })
   }
@@ -140,8 +140,11 @@ class InvoiceComponent extends React.Component {
 
 InvoiceComponent.contextTypes = {
   router: React.PropTypes.func,
-  userRole: React.PropTypes.String,
-  products: React.PropTypes.Array
+};
+
+InvoiceComponent.propTypes = {
+  userRole: React.PropTypes.string,
+  products: React.PropTypes.array
 };
 
 function mapDispatchToProps(dispatch) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { startOperation } from '../../actions/operation.action';
 import { getDateString } from '../../constants/date.functions'
@@ -21,9 +21,7 @@ class InvoiceTable extends React.Component {
           <td> {invoice.destinationCustomerCompany}</td>
           <td style={{paddingRight: '0px'}}>
             <button className='btn btn-primary'
-                    onClick={this.onShowUpdateInvoiceForm.bind(this, invoice)}>
-                    Open
-            </button>
+                    onClick={this.onShowUpdateInvoiceForm.bind(this, invoice)}>Open</button>
           </td>
         </tr>
       )
@@ -44,7 +42,7 @@ class InvoiceTable extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {rows}
+            {rows}
           </tbody>
         </table>
       </div>
@@ -57,16 +55,11 @@ InvoiceTable.propTypes = {
   startOperation: React.PropTypes.func.isRequired,
 };
 
-
-let mapStateToProps = function () {
-  return {};
-};
-
 function mapDispatchToProps(dispatch) {
   return {
     startOperation: bindActionCreators(startOperation, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(InvoiceTable);
+export default connect(() => {}, mapDispatchToProps)(InvoiceTable);
 
