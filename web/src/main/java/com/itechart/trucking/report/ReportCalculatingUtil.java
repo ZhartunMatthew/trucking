@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CalculatingService {
+public class ReportCalculatingUtil {
 
     @Autowired
     private CarService carService;
@@ -65,8 +65,8 @@ public class CalculatingService {
         reportInfo.setProductLost(lost);
         reportInfo.setProductDelivered(delivered);
         reportInfo.setProductsSum(lost + delivered);
-        double percent =0;
-        if (lost + delivered !=0 ) {
+        double percent = 0;
+        if (lost + delivered != 0) {
             percent = (double) 100 * lost / (lost + delivered);
         }
         reportInfo.setProductLostPercent(percent);
@@ -82,15 +82,15 @@ public class CalculatingService {
     private void calculateWaybill() {
         List<Waybill> waybillList = waybillService.findByTruckingCompany(truckingCompanyId);
         double count = waybillList.size();
-        double distance =0;
-        double fuelCost =0;
+        double distance = 0;
+        double fuelCost = 0;
         double price = 0;
         for (Waybill waybill: waybillList) {
             distance += waybill.getTotalDistance();
             fuelCost += waybill.getTotalDistance() * waybill.getInvoice().getCar().getFuelConsumption() * 0.5;
             price += waybill.getPrice();
         }
-        if (count!=0) {
+        if (count != 0) {
             reportInfo.setAvgDistance(distance / count);
             reportInfo.setAvgInvoiceRevenue(price / count);
         } else {

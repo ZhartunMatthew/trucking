@@ -15,6 +15,17 @@ public class CheckPoint extends BaseEntity {
     public CheckPoint() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_checkpoint", nullable = false, updatable = false)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @ManyToOne
     @JoinColumn(name = "way_bill", nullable = false)
     public Waybill getWaybill() {
@@ -59,16 +70,5 @@ public class CheckPoint extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_checkpoint", nullable = false, updatable = false)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

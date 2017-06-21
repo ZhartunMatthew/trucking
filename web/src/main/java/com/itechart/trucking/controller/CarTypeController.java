@@ -3,8 +3,6 @@ package com.itechart.trucking.controller;
 import com.itechart.trucking.entity.enums.CarTypeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +18,6 @@ import java.util.List;
 public class CarTypeController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CarTypeController.class);
-
-    @Autowired
-    private ConversionService conversionService;
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List> findAll() {

@@ -40,11 +40,11 @@ public class ReportBuilder {
         resource.setCellValue("Company resources");
         titles.add(resource);
         sheet.createRow(2).createCell(0).setCellValue("Number of cars:");
-        sheet.getRow(2).createCell(1).setCellValue(reportInfo.getCarsAmount() + "pcs.");
+        sheet.getRow(2).createCell(1).setCellValue(reportInfo.getCarsAmount() + " pcs.");
         sheet.createRow(3).createCell(0).setCellValue("Number of employees:");
-        sheet.getRow(3).createCell(1).setCellValue(reportInfo.getEmployeesAmount() + "pcs.");
+        sheet.getRow(3).createCell(1).setCellValue(reportInfo.getEmployeesAmount() + " pcs.");
         sheet.createRow(4).createCell(0).setCellValue("Number of clients:");
-        sheet.getRow(4).createCell(1).setCellValue(reportInfo.getCustomersAmount() + "pcs.");
+        sheet.getRow(4).createCell(1).setCellValue(reportInfo.getCustomersAmount() + " pcs.");
     }
 
     private void addProducts() {
@@ -52,15 +52,15 @@ public class ReportBuilder {
         product.setCellValue("Products");
         titles.add(product);
         sheet.createRow(9).createCell(0).setCellValue("Total:");
-        sheet.getRow(9).createCell(1).setCellValue(reportInfo.getProductsSum() + "u.");
+        sheet.getRow(9).createCell(1).setCellValue(reportInfo.getProductsSum() + " cu.");
         sheet.createRow(10).createCell(0).setCellValue("    of them delivered:");
-        sheet.getRow(10).createCell(1).setCellValue(reportInfo.getProductDelivered() + "u.");
+        sheet.getRow(10).createCell(1).setCellValue(reportInfo.getProductDelivered() + " cu.");
         sheet.createRow(11).createCell(0).setCellValue("    of them lost:");
-        sheet.getRow(11).createCell(1).setCellValue(reportInfo.getProductLost() + "u.");
+        sheet.getRow(11).createCell(1).setCellValue(reportInfo.getProductLost() + " cu.");
         sheet.createRow(12).createCell(0).setCellValue("    percentage of lost:");
-        sheet.getRow(12).createCell(1).setCellValue(String.format("%.2f", reportInfo.getProductLostPercent()) + "%");
+        sheet.getRow(12).createCell(1).setCellValue(String.format("%.2f", reportInfo.getProductLostPercent()) + " %");
         sheet.createRow(13).createCell(0).setCellValue("Cost of lost products:");
-        sheet.getRow(13).createCell(1).setCellValue(String.format("%.1f$",  reportInfo.getProductLostPrice()));
+        sheet.getRow(13).createCell(1).setCellValue(String.format("%.1f $",  reportInfo.getProductLostPrice()));
 
     }
 
@@ -69,11 +69,11 @@ public class ReportBuilder {
         waybill.setCellValue("Waybills\n");
         titles.add(waybill);
         sheet.getRow(9).createCell(3).setCellValue("Average length of waybill:");
-        sheet.getRow(9).createCell(4).setCellValue(String.format("%.1fkm.", reportInfo.getAvgDistance()));
+        sheet.getRow(9).createCell(4).setCellValue(String.format("%.1f km.", reportInfo.getAvgDistance()));
         sheet.getRow(10).createCell(3).setCellValue("Total length of waybill:");
-        sheet.getRow(10).createCell(4).setCellValue(String.format("%.1fkm.", reportInfo.getTotalDistance()));
+        sheet.getRow(10).createCell(4).setCellValue(String.format("%.1f km.", reportInfo.getTotalDistance()));
         sheet.getRow(11).createCell(3).setCellValue("Total fuel consumption:");
-        sheet.getRow(11).createCell(4).setCellValue(String.format("%.1f$", reportInfo.getFuelPrice()));
+        sheet.getRow(11).createCell(4).setCellValue(String.format("%.1f $", reportInfo.getFuelPrice()));
     }
 
     private void addInvoices() {
@@ -81,18 +81,18 @@ public class ReportBuilder {
         invoices.setCellValue("Invoices");
         titles.add(invoices);
         sheet.getRow(9).createCell(6).setCellValue("Amount of invoices:");
-        sheet.getRow(9).createCell(7).setCellValue(reportInfo.getInvoiceAmount() + "pcs.");
+        sheet.getRow(9).createCell(7).setCellValue(reportInfo.getInvoiceAmount() + " pcs.");
         sheet.getRow(10).createCell(6).setCellValue("Average cost of invoice:");
-        sheet.getRow(10).createCell(7).setCellValue(String.format("%.1f$", reportInfo.getAvgInvoiceRevenue()));
+        sheet.getRow(10).createCell(7).setCellValue(String.format("%.1f $", reportInfo.getAvgInvoiceRevenue()));
         sheet.getRow(11).createCell(6).setCellValue("Total cost of invoice:");
-        sheet.getRow(11).createCell(7).setCellValue(String.format("%.1f$", reportInfo.getTotalInvoiceRevenue()));
+        sheet.getRow(11).createCell(7).setCellValue(String.format("%.1f $", reportInfo.getTotalInvoiceRevenue()));
 
     }
 
     private void addRevenue() {
-        sheet.createRow(18).createCell(0).setCellValue(String.format("Outcome = %.1f$", reportInfo.getIncome()));
-        sheet.createRow(19).createCell(0).setCellValue(String.format("Income = %.1f$", reportInfo.getOutcome()));
-        sheet.createRow(20).createCell(0).setCellValue(String.format("Revenue = %.1f$", reportInfo.getRevenue()));
+        sheet.createRow(18).createCell(0).setCellValue(String.format("Outcome = %.1f $", reportInfo.getIncome()));
+        sheet.createRow(19).createCell(0).setCellValue(String.format("Income = %.1f $", reportInfo.getOutcome()));
+        sheet.createRow(20).createCell(0).setCellValue(String.format("Revenue = %.1f $", reportInfo.getRevenue()));
     }
 
     private void setStyles() {
@@ -132,6 +132,5 @@ public class ReportBuilder {
         sheet.setColumnWidth(0, 10000);
         sheet.setColumnWidth(3, 10000);
         sheet.setColumnWidth(6, 10000);
-
     }
 }

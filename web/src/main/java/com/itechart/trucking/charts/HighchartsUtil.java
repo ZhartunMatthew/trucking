@@ -67,7 +67,8 @@ public class HighchartsUtil {
     }
 
     private Double calculateWaybillRevenue(Waybill waybill) {
-        Double fuelCost = waybill.getTotalDistance() * waybill.getInvoice().getCar().getFuelConsumption() * 0.5;
+        Double fuelCost = waybill.getTotalDistance()
+                * waybill.getInvoice().getCar().getFuelConsumption() * 0.5;
         Double price = waybill.getPrice();
         Double lostProductsPrice = 0d;
         List<Product> products = waybill.getInvoice().getProducts();
@@ -80,7 +81,8 @@ public class HighchartsUtil {
     }
 
     private void calculateLostProductsByState(Long truckingCompanyId) {
-        List<Product> products = productService.findAllByState(ProductStateEnum.LOST, truckingCompanyId);
+        List<Product> products
+                = productService.findAllByState(ProductStateEnum.LOST, truckingCompanyId);
         for (Product product : products) {
             ProductLostEnum key = product.getLostReason();
             if (dto.getLostProductsByState().containsKey(key)) {

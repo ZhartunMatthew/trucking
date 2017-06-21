@@ -7,9 +7,7 @@ import com.itechart.trucking.entity.enums.ProductStateEnum;
 import com.itechart.trucking.entity.enums.UserRoleEnum;
 import com.itechart.trucking.security.detail.CustomUserDetails;
 import com.itechart.trucking.security.detail.CustomUserDetailsProvider;
-import com.itechart.trucking.services.CarService;
 import com.itechart.trucking.services.InvoiceService;
-import com.itechart.trucking.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +29,6 @@ public class InvoiceController {
 
     @Autowired
     private InvoiceService invoiceService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private CarService carService;
 
     @Autowired
     private ConversionService conversionService;

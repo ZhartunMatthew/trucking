@@ -39,12 +39,6 @@ public class WaybillController {
     private InvoiceService invoiceService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private CarService carService;
-
-    @Autowired
     private ConversionService conversionService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -105,7 +99,7 @@ public class WaybillController {
         for (ProductDTO product : products) {
             product.setProductState(ProductStateEnum.DELIVERED);
             if (product.getLostAmount()!= null) {
-                if (product.getLostAmount()> 0) {
+                if (product.getLostAmount() > 0) {
                     product.setProductState(ProductStateEnum.LOST);
                 }
             }
