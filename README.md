@@ -27,3 +27,9 @@ trucking\web\src\main\resources\application.properties
 ```
 trucking\web\src\main\resources\db\FillDB.sql
 ```
+При создании новой компании грузоперевозок к ней автоматически создается администратор.
+Например, если была создана компания с номером налогоплательщика '123ABC', то логин и пароль будут следующие:
+```
+Логин: admin123ABC
+Пароль: admin
+```
