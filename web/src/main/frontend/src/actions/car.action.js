@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { startOperation, cancelOperation } from './operation.action';
+import { startOperation} from './operation.action';
 import { INIT_CARS } from '../constants/actionTypes';
 import { setActionDescription, setActionFail } from '../actions/modal.action'
 
@@ -22,24 +22,7 @@ export function loadCars() {
   }
 }
 
-export function fetchCar(carId) {
-  return (dispatch) => {
-    $.ajax({
-      url: 'api/car/' + carId,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      dataType: 'json'
-    }).done(car => {
-        dispatch(startOperation(car));
-      }
-    ).fail(() => {
-      console.log('Could get a car');
-    });
-  }
-}
-
-export function makeNewCar(car) {
+export function createCar(car) {
   let statusCode = 0;
   return (dispatch) => {
     $.ajax({
@@ -98,23 +81,3 @@ export function updateCar(car) {
     });
   };
 }
-
-
-export function deleteCar(car) {
-  return (dispatch) => {
-    $.ajax({
-      type: 'DELETE',
-      url: 'api/car/' + car.id,
-      contentType: 'application/json; charset=utf-8',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    }).done(() => {
-      loadCars()(dispatch);
-      dispatch(cancelOperation(null));
-    }).fail(() => {
-      console.log('Could not delete car');
-    });
-  }
-}
-

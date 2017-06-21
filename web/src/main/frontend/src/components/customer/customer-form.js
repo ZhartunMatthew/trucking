@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateCustomerCompany, makeNewCustomerCompany } from '../../actions/customer.action';
+import { updateCustomerCompany, createCustomerCompany } from '../../actions/customer.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
@@ -289,7 +289,7 @@ let mapStateToProps = function (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCustomer: bindActionCreators(makeNewCustomerCompany, dispatch),
+    createCustomer: bindActionCreators(createCustomerCompany, dispatch),
     updateCustomer: bindActionCreators(updateCustomerCompany, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
     resetOperation: bindActionCreators(resetOperation, dispatch),

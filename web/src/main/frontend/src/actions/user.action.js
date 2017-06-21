@@ -1,8 +1,6 @@
 import $ from 'jquery';
-import { startOperation, cancelOperation } from './operation.action';
-import {
-  INIT_USERS
-} from '../constants/actionTypes';
+import { startOperation } from './operation.action';
+import { INIT_USERS } from '../constants/actionTypes';
 import { setActionDescription, setActionFail, setValidationFail } from '../actions/modal.action'
 
 export function loadUsers() {
@@ -19,29 +17,12 @@ export function loadUsers() {
         payload: json
       });
     }).fail(() => {
-      console.log('Could not get list of users');
+      console.log('Couldn\'t not get list of users');
     });
   }
 }
 
-export function fetchUser(userId) {
-  return (dispatch) => {
-    $.ajax({
-      url: 'api/user/' + userId,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      dataType: 'json'
-    }).done(user => {
-        dispatch(startOperation(user));
-      }
-    ).fail(() => {
-      console.log('Could get a single user');
-    });
-  }
-}
-
-export function makeNewUser(user) {
+export function createUser(user) {
   return (dispatch) => {
     let statusCode = 0;
     $.ajax({
@@ -66,7 +47,7 @@ export function makeNewUser(user) {
       });
     }).fail(() => {
       statusCode !== 409 ? setActionFail(statusCode) : setValidationFail("Login is already exists");
-      console.log('Could not save user');
+      console.log('Couldn\'t not save user');
     });
   }
 }
@@ -97,27 +78,7 @@ export function updateUser(user) {
     }).fail(() => {
       statusCode !== 409 ? setActionFail(statusCode)
         : setValidationFail("Login is already exists");
-      console.log('Could not update user');
+      console.log('Couldn\'t not update user');
     });
   }
 }
-
-export function deleteUser(user) {
-  return (dispatch) => {
-    $.ajax({
-      type: 'DELETE',
-      url: '/pi/user/' + user.id,
-      contentType: 'application/json; charset=utf-8',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    }).done(() => {
-      loadUsers()(dispatch);
-      dispatch(cancelOperation(null));
-    }).fail(() => {
-      console.log('Could not delete user');
-      setActionFail('404');
-    });
-  }
-}
-

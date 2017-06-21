@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { loadUsers, fetchUser } from '../actions/user.action';
-import { loadCustomers, fetchCustomer } from '../actions/customer.action';
-import { loadCars, fetchCar } from '../actions/car.action';
+import { loadUsers } from '../actions/user.action';
+import { loadCustomers } from '../actions/customer.action';
+import { loadCars } from '../actions/car.action';
 import { startOperation, cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
@@ -54,11 +54,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadUsers: bindActionCreators(loadUsers, dispatch),
-    fetchUser: bindActionCreators(fetchUser, dispatch),
     loadCustomers: bindActionCreators(loadCustomers, dispatch),
-    fetchCustomer: bindActionCreators(fetchCustomer, dispatch),
     loadCars: bindActionCreators(loadCars, dispatch),
-    fetchCar: bindActionCreators(fetchCar, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch),
     startOperation: bindActionCreators(startOperation, dispatch)
   }

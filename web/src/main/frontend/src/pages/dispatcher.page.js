@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { loadCustomers, fetchCustomer } from '../actions/customer.action';
-import { loadInvoices, fetchInvoice} from '../actions/invoice.action';
+import { loadCustomers } from '../actions/customer.action';
+import { loadInvoices} from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
@@ -44,9 +44,7 @@ class DispatcherPage extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     loadCustomers: bindActionCreators(loadCustomers, dispatch),
-    fetchCustomer: bindActionCreators(fetchCustomer, dispatch),
     loadInvoices: bindActionCreators(loadInvoices, dispatch),
-    fetchInvoices: bindActionCreators(fetchInvoice, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }

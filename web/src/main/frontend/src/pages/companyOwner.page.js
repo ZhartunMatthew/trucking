@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectTab } from '../actions/navigation.action';
 import { loadUsers } from '../actions/user.action';
 import { loadCustomers } from '../actions/customer.action';
 import { loadCars } from '../actions/car.action';
@@ -63,7 +62,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectTab: bindActionCreators(selectTab, dispatch),
     loadUsers: bindActionCreators(loadUsers, dispatch),
     loadCustomers: bindActionCreators(loadCustomers, dispatch),
     loadCars: bindActionCreators(loadCars, dispatch),

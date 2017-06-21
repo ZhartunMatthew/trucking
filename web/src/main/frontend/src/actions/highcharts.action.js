@@ -15,7 +15,7 @@ export function loadHighcharts() {
         payload: json
       });
     }).fail(() => {
-      console.log('Could not highcharts');
+      console.log('Couldn\'t not get highcharts');
     });
   }
 }

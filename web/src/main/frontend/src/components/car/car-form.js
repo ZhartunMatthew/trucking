@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateCar, makeNewCar } from '../../actions/car.action';
+import { updateCar, createCar } from '../../actions/car.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import ValidatedInput from '../common/input';
 import ValidatedSelect from '../common/select';
@@ -232,7 +232,7 @@ let mapStateToProps = function (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCar: bindActionCreators(makeNewCar, dispatch),
+    createCar: bindActionCreators(createCar, dispatch),
     updateCar: bindActionCreators(updateCar, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
     resetOperation: bindActionCreators(resetOperation, dispatch),

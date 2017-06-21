@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loadRoles } from '../../actions/userRole.action';
-import { updateUser, makeNewUser } from '../../actions/user.action';
+import { updateUser, createUser } from '../../actions/user.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
@@ -412,7 +412,7 @@ let mapStateToProps = function (state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadUsersRoles: bindActionCreators(loadRoles, dispatch),
-    createUser: bindActionCreators(makeNewUser, dispatch),
+    createUser: bindActionCreators(createUser, dispatch),
     updateUser: bindActionCreators(updateUser, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
     resetOperation: bindActionCreators(resetOperation, dispatch),
