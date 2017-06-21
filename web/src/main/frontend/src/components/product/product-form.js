@@ -63,7 +63,7 @@ class ProductForm extends React.Component {
 
   render() {
     Formsy.addValidationRule('isName', function(values, value) {
-      return !(/\s/g.test(value));
+      return !(/(\s){2,}/g.test(value));
     });
 
     Formsy.addValidationRule('isPositiveNumber', function(values, value) {
@@ -88,6 +88,7 @@ class ProductForm extends React.Component {
                                 maxLength: MAX_LENGTH_OF_STRING
                               }}
                               validaionsErrors={{
+                                isName: VALIDATION_ERRORS.TO_MUCH_SPACES_IN_A_ROW,
                                 maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
                               }}
                               required

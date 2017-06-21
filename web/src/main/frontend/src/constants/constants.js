@@ -22,7 +22,8 @@ export const VALIDATION_ERRORS = {
   + ' characters',
   MAX_LENGTH_OF_STRING: 'This field must contain not more than ' + MAX_LENGTH_OF_STRING + ' characters',
   MAX_LENGTH_OF_NUMERIC: 'This field must contain not more than ' + MAX_LENGTH_OF_NUMERIC + ' characters',
-  OUT_OF_BOUNDS: 'Data is out of bounds'
+  OUT_OF_BOUNDS: 'Data is out of bounds',
+  TO_MUCH_SPACES_IN_A_ROW: 'To much spaces in a row'
 };
 
 export const WAYBILL_STATE = {

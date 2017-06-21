@@ -169,7 +169,7 @@ a {
 
 .table {
   width: inherit !important;
-  text-align-last: center;
+  text-align-last: left;
 }
 
 .no-right-margin {

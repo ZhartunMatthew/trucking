@@ -77,7 +77,7 @@ class CustomerForm extends React.Component {
     });
 
     Formsy.addValidationRule('isCompany', function(values, value) {
-      return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*_*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
+      return !(/(\s){2,}/g.test(value));
     });
 
     Formsy.addValidationRule('isCountryCity', function(values, value) {
@@ -164,7 +164,7 @@ class CustomerForm extends React.Component {
                               maxLength: MAX_LENGTH_OF_STRING
                             }}
                             validationErrors={{
-                              isCompany: VALIDATION_ERRORS.LETTERS_DIGITS_HYPHEN_UNDERSCORE_DOT_SPACE_SLASH,
+                              isCompany: VALIDATION_ERRORS.TO_MUCH_SPACES_IN_A_ROW,
                               maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
                             }}/>
 

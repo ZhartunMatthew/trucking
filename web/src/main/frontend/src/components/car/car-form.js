@@ -75,7 +75,7 @@ class CarForm extends React.Component {
     });
 
     Formsy.addValidationRule('isName', function(values, value) {
-      return !(/\s/g.test(value));
+      return !(/(\s){2,}/g.test(value));
     });
 
     let editingLabel = <span> Editing of <b> {this.props.car.number} </b> car </span>;
@@ -138,6 +138,7 @@ class CarForm extends React.Component {
                               maxLength: MAX_LENGTH_OF_STRING
                             }}
                             validationErrors={{
+                              isName: VALIDATION_ERRORS.TO_MUCH_SPACES_IN_A_ROW,
                               maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
                             }}/>
 
@@ -155,6 +156,7 @@ class CarForm extends React.Component {
                               maxLength: MAX_LENGTH_OF_STRING
                             }}
                             validationErrors={{
+                              isName: VALIDATION_ERRORS.TO_MUCH_SPACES_IN_A_ROW,
                               maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
                             }}/>
 
@@ -172,6 +174,7 @@ class CarForm extends React.Component {
                               maxLength: MAX_LENGTH_OF_STRING
                             }}
                             validationErrors={{
+                              isName: VALIDATION_ERRORS.TO_MUCH_SPACES_IN_A_ROW,
                               maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
                             }}/>
 
