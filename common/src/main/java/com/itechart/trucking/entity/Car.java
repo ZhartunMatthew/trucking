@@ -93,6 +93,4 @@ public class Car extends BaseEntity {
     public void setAvailable(Boolean available) {
         isAvailable = available;
     }
-
-
 }

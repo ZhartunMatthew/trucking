@@ -59,10 +59,13 @@ public class TruckingCompanyService {
         return user;
     }
 
+    @Transactional
     public TruckingCompany securedFindOne(Long id) {
         return truckingCompanyRepository.findOne(id);
     }
 
+    @PreAuthorize("hasRole('SYSTEM_ADMIN')")
+    @Transactional
     public Optional<TruckingCompany> findByTaxpayerNumber(String tax) {
         return Optional.ofNullable(truckingCompanyRepository.findByTaxpayerNumber(tax));
     }

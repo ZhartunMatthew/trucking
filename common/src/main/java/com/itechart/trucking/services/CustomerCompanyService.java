@@ -2,7 +2,6 @@ package com.itechart.trucking.services;
 
 import com.itechart.trucking.entity.CustomerCompany;
 import com.itechart.trucking.repository.CustomerCompanyRepository;
-import com.itechart.trucking.repository.TruckingCompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -16,9 +15,6 @@ public class CustomerCompanyService {
 
     @Autowired
     private CustomerCompanyRepository customerCompanyRepository;
-
-    @Autowired
-    private TruckingCompanyRepository truckingCompanyRepository;
 
     @PreAuthorize("hasPermission(null, 'CustomerCompany', 'GET')")
     @Transactional(readOnly = true)
@@ -61,6 +57,8 @@ public class CustomerCompanyService {
         return customerCompanyRepository.countByTruckingCompany_Id(truckingCompanyId);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @Transactional(readOnly = true)
     public Optional<CustomerCompany> findByTaxpayerNumber(String tax) {
         return Optional.ofNullable(customerCompanyRepository.findByTaxpayerNumber(tax));
     }

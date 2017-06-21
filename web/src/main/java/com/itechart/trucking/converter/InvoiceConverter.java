@@ -50,7 +50,8 @@ public class InvoiceConverter extends AbstractTwoWayConverter<InvoiceDTO, Invoic
         entity.setProducts(products);
         CustomerCompany customerCompany = customerCompanyService.findOne(dto.getCustomerCompanyId());
         entity.setCustomerCompany(customerCompany);
-        CustomerCompany destinationCustomerCompany = customerCompanyService.findOne(dto.getDestinationCustomerCompanyId());
+        CustomerCompany destinationCustomerCompany
+                = customerCompanyService.findOne(dto.getDestinationCustomerCompanyId());
         entity.setDestinationCustomerCompany(destinationCustomerCompany);
         entity.setTruckingCompany(truckingCompanyService.findOne(dto.getTruckingCompanyId()));
         entity.setDriverUser(userService.findOne(dto.getDriverId()));
@@ -77,7 +78,8 @@ public class InvoiceConverter extends AbstractTwoWayConverter<InvoiceDTO, Invoic
         dto.setTruckingCompanyId(entity.getTruckingCompany().getId());
         dto.setTruckingCompany(entity.getTruckingCompany().getName());
         dto.setDriverId(entity.getDriverUser().getId());
-        String fullName = entity.getDriverUser().getSurname() + ' ' + entity.getDriverUser().getName() + ' '
+        String fullName = entity.getDriverUser().getSurname() + ' '
+                + entity.getDriverUser().getName() + ' '
                 + entity.getDriverUser().getPatronymic();
         dto.setDriverFullName(fullName);
         if(entity.getManagerUser() != null) {

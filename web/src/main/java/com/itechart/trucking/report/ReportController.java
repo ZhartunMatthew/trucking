@@ -19,9 +19,11 @@ import java.io.OutputStream;
 public class ReportController {
 
     @Autowired
-    CalculatingService calculatingService;
+    private CalculatingService calculatingService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportController.class);
+
+    private static final int BUFFER_SIZE = 8192;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public void download(HttpServletResponse response) throws IOException {
@@ -35,7 +37,7 @@ public class ReportController {
         FileInputStream in = new FileInputStream(xls);
         OutputStream out = response.getOutputStream();
 
-        byte[] buffer= new byte[8192];
+        byte[] buffer = new byte[BUFFER_SIZE];
         int length = 0;
 
         while ((length = in.read(buffer)) > 0){

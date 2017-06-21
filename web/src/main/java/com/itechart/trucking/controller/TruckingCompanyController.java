@@ -3,7 +3,6 @@ package com.itechart.trucking.controller;
 import com.itechart.trucking.dto.TruckingCompanyDTO;
 import com.itechart.trucking.entity.TruckingCompany;
 import com.itechart.trucking.services.TruckingCompanyService;
-import com.itechart.trucking.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,6 @@ public class TruckingCompanyController {
 
     @Autowired
     private TruckingCompanyService service;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private ConversionService conversionService;
@@ -59,7 +55,8 @@ public class TruckingCompanyController {
             return new ResponseEntity<>(dto, HttpStatus.CONFLICT);
         }
         TruckingCompany company = conversionService.convert(dto, TruckingCompany.class);
-        TruckingCompanyDTO dtoFromDB = conversionService.convert(service.saveFullTruckingCompany(company), TruckingCompanyDTO.class);
+        TruckingCompanyDTO dtoFromDB
+                = conversionService.convert(service.saveFullTruckingCompany(company), TruckingCompanyDTO.class);
         return new ResponseEntity<>(dtoFromDB, HttpStatus.OK);
     }
 

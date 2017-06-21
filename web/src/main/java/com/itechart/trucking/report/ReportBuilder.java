@@ -132,6 +132,5 @@ public class ReportBuilder {
         sheet.setColumnWidth(0, 10000);
         sheet.setColumnWidth(3, 10000);
         sheet.setColumnWidth(6, 10000);
-
     }
 }

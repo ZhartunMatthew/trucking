@@ -224,8 +224,6 @@ public class Waybill extends BaseEntity {
     public void setCheckPoints(List<CheckPoint> checkPoints) {
         this.checkPoints = checkPoints;
     }
-
-
 }
 
 
