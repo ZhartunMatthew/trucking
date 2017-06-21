@@ -19,6 +19,7 @@ export const DEFAULT_LATITUDE = 53.9216192;
 export const DEFAULT_LONGITUDE = 27.5694262;
 export const DEFAULT_ZOOM = 7;
 export const METERS_PER_KILOMETER = 1000;
+
 export const ICONS = {
   RED_ICON: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
   RED_END_ICON: 'https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png' +

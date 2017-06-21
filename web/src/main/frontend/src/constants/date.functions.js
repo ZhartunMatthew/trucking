@@ -1,5 +1,5 @@
 export function getDateString(date) {
-  if(date === undefined) {
+  if (date === undefined) {
     date = new Date();
   } else {
     date = new Date(date);
@@ -13,12 +13,12 @@ export function getDateString(date) {
 }
 
 export function reformatDate(date) {
-  if(date === null || date === undefined || date.length < 2) {
+  if (date === null || date === undefined || date.length < 2) {
     return '';
   }
   let tempDate = getDateString(date);
 
-  if(new Date(tempDate).getTime() >= new Date().getTime()) {
+  if (new Date(tempDate).getTime() >= new Date().getTime()) {
     return getDateString(undefined);
   } else {
     return tempDate;
