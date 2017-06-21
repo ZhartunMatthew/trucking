@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import TruckingCompanyForm from './truckingCompany-form';
 import TruckingCompanyTable from './truckingCompany-table';
 

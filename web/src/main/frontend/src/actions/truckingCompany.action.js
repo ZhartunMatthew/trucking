@@ -41,7 +41,7 @@ export function fetchTruckingCompany(companyId) {
   }
 }
 
-export function makeNewTruckingCompany(company) {
+export function createTruckingCompany(company) {
   return (dispatch) => {
     let statusCode = 0;
     $.ajax({

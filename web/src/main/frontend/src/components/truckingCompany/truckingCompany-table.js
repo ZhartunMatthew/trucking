@@ -1,21 +1,23 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { deleteTruckingCompany } from '../../actions/truckingCompany.action';
 import { startOperation } from '../../actions/operation.action';
 
 class TruckingCompanyTable extends React.Component {
 
-  onShowUpdateGenreForm(truckingCompany) {
+  onShowUpdateTruckingCompanyForm(truckingCompany) {
     this.props.startOperation(truckingCompany);
   }
 
-  onShowCreateGenreForm() {
-    this.props.startOperation({name: '', taxpayerNumber: '',country: '', city: '', street: '', house: ''});
-  }
-
-  deleteGenre(truckingCompany) {
-    this.props.deleteTruckingCompany(truckingCompany);
+  onShowCreateTruckingCompanyForm() {
+    this.props.startOperation({
+      name: '',
+      taxpayerNumber: '',
+      country: '',
+      city: '',
+      street: '',
+      house: ''
+    });
   }
 
   render() {
@@ -31,9 +33,7 @@ class TruckingCompanyTable extends React.Component {
           <td> {truckingCompany.house}</td>
           <td style={{paddingRight: '0px'}}>
             <button className='btn btn-primary'
-                    onClick={this.onShowUpdateGenreForm.bind(this, truckingCompany)}>
-                    Update
-            </button>
+                    onClick={this.onShowUpdateTruckingCompanyForm.bind(this, truckingCompany)}>Update</button>
           </td>
         </tr>
       )
@@ -58,7 +58,7 @@ class TruckingCompanyTable extends React.Component {
             {rows}
           </tbody>
         </table>
-        <button className='btn btn-default' onClick={this.onShowCreateGenreForm.bind(this)}>Create</button>
+        <button className='btn btn-default' onClick={this.onShowCreateTruckingCompanyForm.bind(this)}>Create</button>
       </div>
     );
   }
@@ -70,16 +70,10 @@ TruckingCompanyTable.propTypes = {
   deleteTruckingCompany: React.PropTypes.func.isRequired
 };
 
-
-let mapStateToProps = function () {
-  return {};
-};
-
 function mapDispatchToProps(dispatch) {
   return {
-    startOperation: bindActionCreators(startOperation, dispatch),
-    deleteTruckingCompany: bindActionCreators(deleteTruckingCompany, dispatch)
+    startOperation: bindActionCreators(startOperation, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TruckingCompanyTable);
+export default connect(() => {}, mapDispatchToProps)(TruckingCompanyTable);
