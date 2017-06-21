@@ -22,6 +22,8 @@ class DriverWaybillsTable extends React.Component {
           <th scope='row'> {index + 1} </th>
           <td>{driverWaybill.waybillNumber}</td>
           <td>{getDateString(driverWaybill.departureDate)}</td>
+          <td>{driverWaybill.price}</td>
+          <td>{driverWaybill.totalDistance}</td>
           <td>{driverWaybill.passedCheckPoints}/{driverWaybill.allCheckPoints}</td>
           <td>
             <div className='btn-toolbar text-center'>
@@ -50,6 +52,8 @@ class DriverWaybillsTable extends React.Component {
             <th>#</th>
             <th>Number</th>
             <th>Departure date</th>
+            <th>Price, $</th>
+            <th>Total distance, km</th>
             <th>Checkpoints: passed/all </th>
           </tr>
           </thead>

@@ -21,47 +21,32 @@ class CarTable extends React.Component {
   }
 
   render() {
+    let buttonName;
     let rows = this.props.cars.map((car, index) => {
       if(this.props.userRole === Role.ADMIN) {
-        return (
-          <tr key={car.id}>
-            <th scope='row'> {index + 1} </th>
-            <td> {car.number}</td>
-            <td> {car.brand}</td>
-            <td> {car.model}</td>
-            <td> {car.fuelConsumption}</td>
-            <td> {sentenceCase(car.type)}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary'
-                        onClick={this.onShowUpdateCarForm.bind(this, car)}> Update </button>
-
-                <button className='btn btn-danger'
-                        onClick={this.deleteCar.bind(this, car)}> Delete </button>
-              </div>
-            </td>
-          </tr>
-        )
+        buttonName = "Update";
       }
-
       if(this.props.userRole === Role.COMPANY_OWNER) {
+        buttonName = "Open";
+      }
         return (
           <tr key={car.id}>
             <th scope='row'> {index + 1} </th>
             <td> {car.number}</td>
             <td> {car.brand}</td>
             <td> {car.model}</td>
-            <td> {car.fuelConsumption}</td>
+            <td style={{textAlign: 'center'}}>
+              {car.fuelConsumption}
+            </td>
             <td> {sentenceCase(car.type)}</td>
-            <td width={'15%'}>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary'
-                        onClick={this.onShowUpdateCarForm.bind(this, car)}>Open</button>
-              </div>
+            <td style={{paddingRight: '0px'}}>
+              <button className='btn btn-primary'
+                      onClick={this.onShowUpdateCarForm.bind(this, car)}>
+                      {buttonName}
+              </button>
             </td>
           </tr>
         )
-      }
     });
     let adminActions =
         <button className='btn btn-default'
@@ -77,7 +62,7 @@ class CarTable extends React.Component {
     return (
       <div>
         <h3>List of cars</h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>
@@ -86,7 +71,7 @@ class CarTable extends React.Component {
             <th>Model</th>
             <th>Fuel consumption, L/100km</th>
             <th>Type</th>
-            <th>Actions</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>

@@ -35,15 +35,15 @@ class CarComponent extends React.Component {
   render() {
     let content = this.props.currentCar ? (
         <div className='row'>
-          <div className='col-sm-4'>
+          <div className='col-sm-3'>
             <CarForm changes={this.props.changes} car={this.props.currentCar}/>
           </div>
-          <div className='col-sm-6'>
+          <div className='col-sm-9'>
             <CarTable cars={this.props.cars}/>
           </div>
         </div>
       ) : (
-        <div className='row'>
+        <div className='container col-sm-10'>
           <div className='col align-self-center'>
             <CarTable cars={this.props.cars}/>
           </div>

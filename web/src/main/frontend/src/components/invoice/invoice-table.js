@@ -18,10 +18,12 @@ class InvoiceTable extends React.Component {
           <td> {invoice.number}</td>
           <td> {getDateString(invoice.registerDate)}</td>
           <td> {invoice.customerCompany}</td>
-          <td>
-            <div className='btn-toolbar text-center'>
-              <button className='btn btn-primary' onClick={this.onShowUpdateInvoiceForm.bind(this, invoice)}> Open </button>
-            </div>
+          <td> {invoice.destinationCustomerCompany}</td>
+          <td style={{paddingRight: '0px'}}>
+            <button className='btn btn-primary'
+                    onClick={this.onShowUpdateInvoiceForm.bind(this, invoice)}>
+                    Open
+            </button>
           </td>
         </tr>
       )
@@ -30,14 +32,15 @@ class InvoiceTable extends React.Component {
     return (
       <div>
         <h3>List of invoices</h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>
             <th>Invoice number</th>
             <th>Register date</th>
             <th>Customer company</th>
-            <th>Actions</th>
+            <th>Destination company</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>

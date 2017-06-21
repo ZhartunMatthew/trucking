@@ -29,10 +29,11 @@ class TruckingCompanyTable extends React.Component {
           <td> {truckingCompany.city}</td>
           <td> {truckingCompany.street}</td>
           <td> {truckingCompany.house}</td>
-          <td>
-            <div className='btn-toolbar text-center'>
-              <button className='btn btn-primary' onClick={this.onShowUpdateGenreForm.bind(this, truckingCompany)}>Update</button>
-            </div>
+          <td style={{paddingRight: '0px'}}>
+            <button className='btn btn-primary'
+                    onClick={this.onShowUpdateGenreForm.bind(this, truckingCompany)}>
+                    Update
+            </button>
           </td>
         </tr>
       )
@@ -40,7 +41,7 @@ class TruckingCompanyTable extends React.Component {
     return (
       <div>
         <h3>List of companies</h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>
@@ -50,7 +51,7 @@ class TruckingCompanyTable extends React.Component {
             <th>City</th>
             <th>Street</th>
             <th>House</th>
-            <th>Actions</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>

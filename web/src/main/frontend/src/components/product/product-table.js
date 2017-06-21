@@ -23,13 +23,11 @@ class ProductTable extends React.Component {
               <td> {product.name}</td>
               <td> {product.amount}</td>
               <td> {product.price}</td>
-              <td>
-                <div className='btn-toolbar text-center'>
-                  <button className='btn btn-danger'
-                          onClick={this.onDeleteProduct.bind(this, product.id)}>
-                    Delete
-                  </button>
-                </div>
+              <td style={{paddingRight: '0px'}}>
+                <button className='btn btn-danger'
+                        onClick={this.onDeleteProduct.bind(this, product.id)}>
+                  Delete
+                </button>
               </td>
             </tr>
           )});

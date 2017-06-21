@@ -136,14 +136,14 @@ class InvoiceForm extends React.Component {
     let managerActions =
       <div className='btn-group float-right' role='group'>
         <button type='button'
-                className={`btn btn-primary`}
+                className={`btn btn-success`}
                 onClick={this.save.bind(this)}> OK </button>
       </div>;
 
     let dispatcherActions =
       <div className='btn-group float-right' role='group'>
         <button type='button'
-                className={`btn btn-primary`}
+                className={`btn btn-success`}
                 onClick={this.create.bind(this)}
                 disabled={!this.state.canSubmit}> Create </button>
       </div>;
@@ -251,12 +251,12 @@ class InvoiceForm extends React.Component {
 
             {dispatcherSelects}
             <div className='btn-toolbar text-center'>
+              {userActions}
               <div className='btn-group' role='group'>
                 <button type='button'
-                        className='btn btn-success'
+                        className='btn btn-primary'
                         onClick={this.cancel.bind(this)}>Close</button>
               </div>
-              {userActions}
             </div>
           </fieldset>
         </Formsy.Form>

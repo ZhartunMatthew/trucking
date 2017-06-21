@@ -196,13 +196,15 @@ class DriverWaybillsForm extends React.Component {
               <div className='btn-group' role='group'>
                 { this.props.driverWaybill.passedCheckPoints === this.props.driverWaybill.allCheckPoints &&
                   <button type="button"
-                          className="btn btn-primary"
+                          className="btn btn-success"
                           data-toggle="modal"
-                          data-target="#myModal">Product list</button>
+                          data-target="#myModal">Product list
+                  </button>
                 }
                 <button type='button'
-                        className='btn btn-default'
-                        onClick={this.cancel.bind(this)}> Close </button>
+                        className='btn btn-primary'
+                        onClick={this.cancel.bind(this)}> Close
+                </button>
               </div>
             </div>
           </fieldset>
@@ -241,11 +243,15 @@ class DriverWaybillsForm extends React.Component {
                               className="btn btn-success"
                               data-dismiss="modal"
                               onClick={this.passDestination.bind(this)}
-                              disabled={!this.state.canSubmit}> Save </button>
+                              disabled={!this.state.canSubmit}>
+                              Save
+                      </button>
                     }
                     <button type="button"
-                            className="btn btn-default"
-                            data-dismiss="modal"> Close </button>
+                            className="btn btn-primary"
+                            data-dismiss="modal">
+                            Close
+                    </button>
                 </div>
               </div>
             </div>

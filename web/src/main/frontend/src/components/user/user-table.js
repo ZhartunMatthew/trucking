@@ -34,41 +34,30 @@ class UserTable extends React.Component {
   }
 
   render() {
+    let buttonName;
     let rows = this.props.users.map((user, index) => {
       if(this.props.userRole === Role.ADMIN) {
-        return (
-          <tr key={user.id}>
-            <th scope='row'> {index + 1} </th>
-            <td> {user.name}</td>
-            <td> {user.surname}</td>
-            <td> {user.patronymic}</td>
-            <td> {sentenceCase(user.userRole)}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowUpdateUserForm.bind(this, user)}>Update</button>
-                <button className='btn btn-danger' onClick={this.deleteUser.bind(this, user)}>Delete</button>
-              </div>
-            </td>
-          </tr>
-        )
+        buttonName = "Update";
       }
-
       if(this.props.userRole === Role.COMPANY_OWNER) {
+        buttonName = "Open";
+      }
         return (
           <tr key={user.id}>
             <th scope='row'> {index + 1} </th>
             <td> {user.name}</td>
             <td> {user.surname}</td>
             <td> {user.patronymic}</td>
+            <td> {user.login}</td>
             <td> {sentenceCase(user.userRole)}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowUpdateUserForm.bind(this, user)}> Open </button>
-              </div>
+            <td style={{paddingRight: '0px'}}>
+              <button className='btn btn-primary'
+                      onClick={this.onShowUpdateUserForm.bind(this, user)}>
+                      {buttonName}
+              </button>
             </td>
           </tr>
         )
-      }
     });
 
     let adminActions =
@@ -82,15 +71,16 @@ class UserTable extends React.Component {
     return (
       <div>
         <h3>List of users</h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>
             <th>Name</th>
             <th>Surname</th>
             <th>Patronymic</th>
+            <th>Login</th>
             <th>User role</th>
-            <th>Actions</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>

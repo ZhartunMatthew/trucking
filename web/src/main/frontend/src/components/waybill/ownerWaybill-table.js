@@ -20,10 +20,11 @@ class OwnerWaybillsTable extends React.Component {
             <td> {waybill.price}</td>
             <td> {waybill.totalDistance}</td>
             <td> {waybill.allCheckPoints}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowWaybillForm.bind(this, waybill)}>Open</button>
-              </div>
+            <td style={{paddingRight: '0px'}}>
+              <button className='btn btn-primary'
+                      onClick={this.onShowWaybillForm.bind(this, waybill)}>
+                      Open
+              </button>
             </td>
           </tr>
         )
@@ -32,7 +33,7 @@ class OwnerWaybillsTable extends React.Component {
     return (
       <div>
         <h3>List of waybills</h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>
@@ -41,7 +42,7 @@ class OwnerWaybillsTable extends React.Component {
             <th>Price, $</th>
             <th>Total distance, km</th>
             <th>Checkpoints amount</th>
-            <th>Actions</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>

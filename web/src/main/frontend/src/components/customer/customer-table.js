@@ -27,46 +27,31 @@ class CustomerTable extends React.Component {
   }
 
   render() {
+    let buttonName;
     let rows = this.props.customers.map((customer, index) => {
       if(this.props.userRole === Role.ADMIN) {
-        return (
-          <tr key={customer.id}>
-            <th scope='row'> {index + 1} </th>
-            <td> {customer.name}</td>
-            <td> {customer.taxpayerNumber}</td>
-            <td> {customer.country}</td>
-            <td> {customer.city}</td>
-            <td> {customer.street}</td>
-            <td> {customer.house}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowUpdateCustomerForm.bind(this, customer)}> Update </button>
-                <button className='btn btn-danger' onClick={this.deleteCustomer.bind(this, customer)}> Delete </button>
-              </div>
-            </td>
-          </tr>
-        )
+        buttonName = "Update";
       }
-
-      if(this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
-        return (
-          <tr key={customer.id}>
-            <th scope='row'> {index + 1} </th>
-            <td> {customer.name}</td>
-            <td> {customer.taxpayerNumber}</td>
-            <td> {customer.country}</td>
-            <td> {customer.city}</td>
-            <td> {customer.street}</td>
-            <td> {customer.house}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowUpdateCustomerForm.bind(this, customer)}> Open </button>
-              </div>
-            </td>
-          </tr>
-        )
+      if (this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
+        buttonName = "Open";
       }
-
+      return (
+        <tr key={customer.id}>
+          <th scope='row'> {index + 1} </th>
+          <td> {customer.name}</td>
+          <td> {customer.taxpayerNumber}</td>
+          <td> {customer.country}</td>
+          <td> {customer.city}</td>
+          <td> {customer.street}</td>
+          <td> {customer.house}</td>
+          <td style={{paddingRight: '0px'}}>
+              <button className='btn btn-primary'
+                      onClick={this.onShowUpdateCustomerForm.bind(this, customer)}>
+                      {buttonName}
+              </button>
+          </td>
+        </tr>
+      )
     });
 
     let adminActions =
@@ -87,7 +72,7 @@ class CustomerTable extends React.Component {
     return (
       <div>
         <h3>List of companies</h3>
-        <table className='table table-striped table-hover'>
+        <table className='table table-hover'>
           <thead>
           <tr>
             <th>#</th>
@@ -97,7 +82,7 @@ class CustomerTable extends React.Component {
             <th>City</th>
             <th>Street</th>
             <th>House</th>
-            <th>Actions</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>
