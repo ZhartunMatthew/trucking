@@ -1,31 +1,5 @@
 import $ from 'jquery';
-import {
-  INIT_PRODUCTS,
-  UPDATE_PRODUCTS,
-  CLEAR_PRODUCTS,
-  INIT_LOSTTYPES,
-  DELETE_PRODUCT
-} from '../constants/actionTypes';
-
-export function loadProducts(invoiceId) {
-  return (dispatch) => {
-    $.ajax({
-      url: 'api/product',
-      data: JSON.stringify(invoiceId),
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      dataType: 'json'
-    }).done(json => {
-      dispatch({
-        type: INIT_PRODUCTS,
-        payload: json
-      });
-    }).fail(() => {
-      console.log('Could not get list of products');
-    });
-  }
-}
+import { UPDATE_PRODUCTS, CLEAR_PRODUCTS, INIT_LOST_TYPES, DELETE_PRODUCT } from '../constants/actionTypes';
 
 export function updateProducts(productItem) {
   return (dispatch) => {
@@ -63,13 +37,12 @@ export function loadLostTypes() {
       },
       dataType: 'json'
     }).done(json => {
-      //CREATE ACTION
       dispatch({
-        type: INIT_LOSTTYPES, //action type, name according to convention
-        payload: json //action data, name according to convention
+        type: INIT_LOST_TYPES,
+        payload: json
       });
     }).fail(() => {
-      console.log('Could not get list of lost types');
+      console.log('Couldn\'t not get list of lost types');
     });
   }
 }

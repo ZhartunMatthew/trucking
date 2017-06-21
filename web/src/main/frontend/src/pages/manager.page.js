@@ -1,13 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectTab } from '../actions/navigation.action';
-import { loadRegisteredInvoices, fetchInvoice } from '../actions/invoice.action';
+import { loadRegisteredInvoices } from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
-import InvoiceComponent from './invoice/invoice-component'
-import Modal from './modal/modal'
+import InvoiceComponent from '../components/invoice/invoice-component';
+import Modal from '../components/modal/modal';
+import { NAV_ITEMS } from '../constants/constants';
 
 class ManagerPage extends React.Component {
 
@@ -17,16 +17,13 @@ class ManagerPage extends React.Component {
   }
 
   render() {
-    let navItems = [{
-      url: '/invoice',
-      caption: 'Invoices'
-    }];
-
+    let navItems = [
+      NAV_ITEMS.INVOICES
+    ];
     let defaultPageInfo = <InvoiceComponent/>;
-
     return (
       <div>
-        <div className="wrapper">
+        <div className='wrapper'>
           <HeaderComponent navItems={navItems}/>
           {
             !this.props.children && defaultPageInfo
@@ -42,18 +39,12 @@ class ManagerPage extends React.Component {
   }
 }
 
-function mapStateToProps() {
-  return {}
-}
-
 function mapDispatchToProps(dispatch) {
   return {
-    selectTab: bindActionCreators(selectTab, dispatch),
     loadRegisteredInvoices: bindActionCreators(loadRegisteredInvoices, dispatch),
-    fetchInvoice: bindActionCreators(fetchInvoice, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManagerPage);
+export default connect(() => {}, mapDispatchToProps)(ManagerPage);
 

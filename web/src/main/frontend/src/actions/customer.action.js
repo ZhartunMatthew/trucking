@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { startOperation, cancelOperation } from './operation.action';
+import { startOperation } from './operation.action';
 import { INIT_CUSTOMERS } from '../constants/actionTypes';
 import { setActionDescription, setActionFail, setValidationFail } from '../actions/modal.action'
 
@@ -22,24 +22,7 @@ export function loadCustomers() {
   }
 }
 
-export function fetchCustomer(companyId) {
-  return (dispatch) => {
-    $.ajax({
-      url: 'api/customer-company/' + companyId,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      dataType: 'json'
-    }).done(company => {
-        dispatch(startOperation(company));
-      }
-    ).fail(() => {
-      console.log('Could get a single company');
-    });
-  }
-}
-
-export function makeNewCustomerCompany(company) {
+export function createCustomerCompany(company) {
   let statusCode = 0;
   return (dispatch) => {
     $.ajax({
@@ -64,7 +47,7 @@ export function makeNewCustomerCompany(company) {
       });
     }).fail(() => {
       statusCode !== 409 ? setActionFail(statusCode)
-        : setValidationFail("Company with same taxpayer number already exists");
+        : setValidationFail('Company with same taxpayer number already exists');
       console.log('Could not save company');
     });
   }
@@ -95,28 +78,8 @@ export function updateCustomerCompany(company) {
       });
     }).fail(() => {
       statusCode !== 409 ? setActionFail(statusCode)
-        : setValidationFail("Company with same taxpayer number already exists");
+        : setValidationFail('Company with same taxpayer number already exists');
       console.log('Could not update company');
     });
   }
 }
-
-
-export function deleteCustomerCompany(company) {
-  return (dispatch) => {
-    $.ajax({
-      type: 'DELETE',
-      url: 'api/customer-company/' + company.id,
-      contentType: 'application/json; charset=utf-8',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    }).done(() => {
-      loadCustomers()(dispatch);
-      dispatch(cancelOperation(null));
-    }).fail(() => {
-      console.log('Could not delete company');
-    });
-  }
-}
-

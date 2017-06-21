@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { loadCustomers, fetchCustomer } from '../actions/customer.action';
-import { loadInvoices, fetchInvoice} from '../actions/invoice.action';
+import { loadCustomers } from '../actions/customer.action';
+import { loadInvoices} from '../actions/invoice.action';
 import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
-import CustomerComponent from './customer/customer-component'
-import Modal from './modal/modal'
+import CustomerComponent from '../components/customer/customer-component';
+import Modal from '../components/modal/modal';
+import { NAV_ITEMS } from '../constants/constants';
 
 class DispatcherPage extends React.Component {
 
@@ -18,16 +19,13 @@ class DispatcherPage extends React.Component {
   }
 
   render() {
-    let navItems = [{
-      url: '/customer',
-      caption: 'Customers'
-    }];
-
+    let navItems = [
+      NAV_ITEMS.CUSTOMERS
+    ];
     let defaultPageInfo = <CustomerComponent/>;
-
     return (
       <div>
-        <div className="wrapper">
+        <div className='wrapper'>
           <HeaderComponent navItems={navItems}/>
           {
             !this.props.children && defaultPageInfo
@@ -43,20 +41,12 @@ class DispatcherPage extends React.Component {
   }
 }
 
-function mapStateToProps() {
-  return {
-
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     loadCustomers: bindActionCreators(loadCustomers, dispatch),
-    fetchCustomer: bindActionCreators(fetchCustomer, dispatch),
     loadInvoices: bindActionCreators(loadInvoices, dispatch),
-    fetchInvoices: bindActionCreators(fetchInvoice, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (DispatcherPage);
+export default connect(() => {}, mapDispatchToProps) (DispatcherPage);

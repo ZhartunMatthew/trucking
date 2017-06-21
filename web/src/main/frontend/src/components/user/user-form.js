@@ -1,12 +1,12 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loadRoles } from '../../actions/userRole.action';
-import { updateUser, makeNewUser } from '../../actions/user.action';
+import { updateUser, createUser } from '../../actions/user.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
-import ValidatedSelect from '../common/select-component';
+import ValidatedSelect from '../common/select';
 import Formsy from 'formsy-react';
 import { sentenceCase } from 'change-case';
 import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING } from '../../constants/constants';
@@ -15,7 +15,6 @@ class UserForm extends React.Component {
 
   constructor() {
     super();
-
     this.state = {
       errors: {},
       canSubmit: false
@@ -23,11 +22,15 @@ class UserForm extends React.Component {
   }
 
   enableButton() {
-    this.setState({ canSubmit: true });
+    this.setState({
+      canSubmit: true
+    });
   }
 
   disableButton() {
-    this.setState({ canSubmit: false });
+    this.setState({
+      canSubmit: false
+    });
   }
 
 
@@ -37,7 +40,6 @@ class UserForm extends React.Component {
 
   handleNameChange(event) {
     this.props.updateOperation('name', event.target.value);
-
   }
 
   handleSurnameChange(event) {
@@ -78,14 +80,6 @@ class UserForm extends React.Component {
 
   handleFlatChange(event) {
     this.props.updateOperation('flat', event.target.value);
-  }
-
-  handleCompanyChange(event) {
-    this.props.updateOperation('truckingCompanyName', event.target.value);
-  }
-
-  handleCompanyIdChange(event) {
-    this.props.updateOperation('truckingCompanyId', event.target.value);
   }
 
   handleUserRoleChange(event) {
@@ -173,7 +167,9 @@ class UserForm extends React.Component {
 
     return (
       <div>
-        <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+        <Formsy.Form className='form-horizontal'
+                     onValid={this.enableButton.bind(this)}
+                     onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend>{this.props.user.id ? editingLabel : creatingLabel} </legend>
             <ValidatedInput id='name'
@@ -189,7 +185,9 @@ class UserForm extends React.Component {
                               isName: true,
                               maxLength: MAX_LENGTH_OF_STRING
                             }}
-                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
+                            validationErrors={{
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='surname'
                             type='text'
@@ -204,7 +202,9 @@ class UserForm extends React.Component {
                               isName: true,
                               maxLength: MAX_LENGTH_OF_STRING
                             }}
-                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
+                            validationErrors={{
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='patronymic'
                             type='text'
@@ -219,7 +219,9 @@ class UserForm extends React.Component {
                               isName: true,
                               maxLength: MAX_LENGTH_OF_STRING
                             }}
-                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
+                            validationErrors={{
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='email'
                             type='text'
@@ -369,16 +371,16 @@ class UserForm extends React.Component {
                               maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
                             }}/>
 
-            <ValidatedSelect id="userRole"
+            <ValidatedSelect id='userRole'
                              onChange={this.handleUserRoleChange.bind(this)}
                              options={this.props.userRolesList.map(type => {return (
                                <option key={type} value={type}> {sentenceCase(type)} </option>
                              )})}
                              value={defaultUserRole}
                              disabled={disableEditing}
-                             name="userRole"
-                             title="User role"
-                             validations="isRequiredSelect"/>
+                             name='userRole'
+                             title='User role'
+                             validations='isRequiredSelect'/>
             {userActions}
           </fieldset>
         </Formsy.Form>
@@ -397,7 +399,7 @@ UserForm.propTypes = {
   cancelOperation: React.PropTypes.func.isRequired,
   loadUsersRoles: React.PropTypes.func.isRequired,
   userRolesList: React.PropTypes.array.isRequired,
-  userRole: React.PropTypes.String
+  userRole: React.PropTypes.string
 };
 
 let mapStateToProps = function (state) {
@@ -410,7 +412,7 @@ let mapStateToProps = function (state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadUsersRoles: bindActionCreators(loadRoles, dispatch),
-    createUser: bindActionCreators(makeNewUser, dispatch),
+    createUser: bindActionCreators(createUser, dispatch),
     updateUser: bindActionCreators(updateUser, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
     resetOperation: bindActionCreators(resetOperation, dispatch),

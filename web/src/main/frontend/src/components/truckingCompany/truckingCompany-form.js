@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateTruckingCompany, makeNewTruckingCompany } from '../../actions/truckingCompany.action';
+import { updateTruckingCompany, createTruckingCompany } from '../../actions/truckingCompany.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import ValidatedInput from '../common/input';
 import Formsy from 'formsy-react';
@@ -11,7 +11,6 @@ class TruckingCompanyForm extends React.Component {
 
   constructor() {
     super();
-
     this.state = {
       errors: {},
       canSubmit: false
@@ -19,11 +18,15 @@ class TruckingCompanyForm extends React.Component {
   }
 
   enableButton() {
-    this.setState({ canSubmit: true });
+    this.setState({
+      canSubmit: true
+    });
   }
 
   disableButton() {
-    this.setState({ canSubmit: false });
+    this.setState({
+      canSubmit: false
+    });
   }
 
   handleNameChange(event) {
@@ -67,7 +70,6 @@ class TruckingCompanyForm extends React.Component {
   }
 
   render() {
-
     Formsy.addValidationRule('isCompany', function(values, value) {
       return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*_*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
     });
@@ -93,7 +95,9 @@ class TruckingCompanyForm extends React.Component {
     const disabledClass = this.props.changes ? '' : 'disabled';
     return (
       <div>
-        <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+        <Formsy.Form className='form-horizontal'
+                     onValid={this.enableButton.bind(this)}
+                     onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend>{this.props.truckingCompany.id ? editingLabel : creatingLabel} </legend>
             <ValidatedInput id='name'
@@ -231,13 +235,9 @@ TruckingCompanyForm.propTypes = {
   cancelOperation: React.PropTypes.func.isRequired
 };
 
-let mapStateToProps = function () {
-  return {};
-};
-
 function mapDispatchToProps(dispatch) {
   return {
-    createTruckingCompany: bindActionCreators(makeNewTruckingCompany, dispatch),
+    createTruckingCompany: bindActionCreators(createTruckingCompany, dispatch),
     updateTruckingCompany: bindActionCreators(updateTruckingCompany, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
     resetOperation: bindActionCreators(resetOperation, dispatch),
@@ -245,4 +245,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TruckingCompanyForm);
+export default connect(() => {}, mapDispatchToProps)(TruckingCompanyForm);

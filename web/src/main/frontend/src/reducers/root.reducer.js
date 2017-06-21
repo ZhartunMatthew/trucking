@@ -1,7 +1,6 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import TruckingCompaniesReducer from './truckingCompany.reducer';
 import OperationReducer from './operation.reducer';
-import NavigationReducer from './navigation.reducer';
 import UserRoleReducer from './userRole.reducer';
 import UserReducer from './user.reducer';
 import UserRolesListReducer from './userRolesList.reducer';
@@ -19,7 +18,6 @@ import HighchartsReducer from './highcharts.reducer';
 export default combineReducers({
   truckingCompanies: TruckingCompaniesReducer,
   operation: OperationReducer,
-  navigation: NavigationReducer,
   userRole: UserRoleReducer,
   userRolesList: UserRolesListReducer,
   users: UserReducer,

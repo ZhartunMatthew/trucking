@@ -171,11 +171,11 @@ class ReportPage extends React.Component {
       <div className='container'>
         <div className='row'>
           <div className='col align-self-center'>
-            <div className="text-center mb-5">
+            <div className='text-center mb-5'>
               <h4>Hello, {this.props.currentUser.name} {this.props.currentUser.surname}!</h4>
               <h4>Your company {this.props.currentUser.truckingCompanyName}</h4>
             </div>
-            <div className="mb-3">
+            <div className='mb-3'>
               <ReactHighstock config={this.state.waybillHighstockConfig}/>
             </div>
             <div className='row'>
@@ -186,8 +186,8 @@ class ReportPage extends React.Component {
                 <ReactHighcharts config={this.state.productHighchartsConfig}/>
               </div>
             </div>
-            <div className="row mt-3">
-              <div className="col-sm-6">
+            <div className='row mt-3'>
+              <div className='col-sm-6'>
                 <table className='table table-hover table-striped'>
                   <tbody>
                   <tr>
@@ -209,14 +209,14 @@ class ReportPage extends React.Component {
                   </tbody>
                 </table>
               </div>
-              <div className="col-sm-5">
+              <div className='col-sm-5'>
                 <div>
-                  <div className="mb-2">
+                  <div className='mb-2'>
                     You can download your profits and losses report here.
                   </div>
                   <button onClick={this.download}
                           className='btn btn-success'
-                          data-animation="false"> Download report </button>
+                          data-animation='false'> Download report </button>
                 </div>
               </div>
             </div>

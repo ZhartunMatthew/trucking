@@ -1,11 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import { setActionFail } from '../actions/modal.action'
 
 class ErrorPage extends React.Component {
 
   componentDidMount() {
-    setActionFail("404");
+    setActionFail('404');
     this.context.router.push('/');
   }
 
@@ -20,4 +19,4 @@ ErrorPage.contextTypes = {
   router: React.PropTypes.func
 };
 
-export default connect(() => {}, () => {})(ErrorPage);
+export default ErrorPage;

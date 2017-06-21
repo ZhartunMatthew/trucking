@@ -17,7 +17,7 @@ export function loadInvoices() {
         payload: json
       });
     }).fail(() => {
-      console.log('Could not get list of invoices');
+      console.log('Couldn\'t not get list of invoices');
     });
   }
 }
@@ -36,24 +36,7 @@ export function loadRegisteredInvoices() {
         payload: json
       });
     }).fail(() => {
-      console.log('Could not get list of invoices');
-    });
-  }
-}
-
-export function fetchInvoice(invoiceId) {
-  return (dispatch) => {
-    $.ajax({
-      url: 'api/invoice/' + invoiceId,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      dataType: 'json'
-    }).done(company => {
-        dispatch(startOperation(company));
-      }
-    ).fail(() => {
-      console.log('Could get a single invoice');
+      console.log('Couldn\'t not get list of invoices');
     });
   }
 }
@@ -82,7 +65,7 @@ export function updateInvoice(invoice) {
       })
     }).fail(() => {
       setActionFail(statusCode);
-      console.log('Could not update invoice');
+      console.log('Couldn\'t not update invoice');
     });
   }
 }
@@ -112,7 +95,7 @@ export function createInvoice(invoice) {
       })
     }).fail(() => {
       setActionFail(statusCode);
-      console.log('Could not create invoice');
+      console.log('Couldn\'t not create invoice');
     });
   }
 }

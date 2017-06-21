@@ -9,7 +9,7 @@ import { clearProducts } from '../../actions/product.action';
 import { setValidationFail } from '../../actions/modal.action';
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
-import ValidatedSelect from '../common/select-component';
+import ValidatedSelect from '../common/select';
 import Formsy from 'formsy-react';
 import { sentenceCase } from 'change-case';
 import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING } from '../../constants/constants';
@@ -27,11 +27,15 @@ class InvoiceForm extends React.Component {
   }
 
   enableButton() {
-    this.setState({ canSubmit: true });
+    this.setState({
+      canSubmit: true
+    });
   }
 
   disableButton() {
-    this.setState({ canSubmit: false });
+    this.setState({
+      canSubmit: false
+    });
   }
 
   componentDidMount() {

@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateCustomerCompany, makeNewCustomerCompany } from '../../actions/customer.action';
+import { updateCustomerCompany, createCustomerCompany } from '../../actions/customer.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles';
 import ValidatedInput from '../common/input';
@@ -68,11 +68,10 @@ class CustomerForm extends React.Component {
   }
 
   showCreateInvoiceFrom() {
-    this.context.router.push("/invoice");
+    this.context.router.push('/invoice');
   }
 
   render() {
-
     Formsy.addValidationRule('isStreet', function(values, value) {
       return (/^[а-яА-ЯёЁa-zA-Z0-9]+\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\.?\s*\/*[а-яА-ЯёЁa-zA-Z0-9]*$/.test(value));
     });
@@ -125,7 +124,6 @@ class CustomerForm extends React.Component {
           <button type='button'
                   className='btn btn-primary'
                   onClick={this.cancel.bind(this)}> Close </button>
-
         </div>
       </div>;
 
@@ -147,7 +145,9 @@ class CustomerForm extends React.Component {
 
     return (
       <div>
-        <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+        <Formsy.Form className='form-horizontal'
+                     onValid={this.enableButton.bind(this)}
+                     onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend> {this.props.customer.id ? editingLabel : creatingLabel} </legend>
             <ValidatedInput id='name'
@@ -274,7 +274,7 @@ CustomerForm.propTypes = {
   updateOperation: React.PropTypes.func.isRequired,
   resetOperation: React.PropTypes.func.isRequired,
   cancelOperation: React.PropTypes.func.isRequired,
-  userRole: React.PropTypes.String
+  userRole: React.PropTypes.string
 };
 
 CustomerForm.contextTypes = {
@@ -289,7 +289,7 @@ let mapStateToProps = function (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCustomer: bindActionCreators(makeNewCustomerCompany, dispatch),
+    createCustomer: bindActionCreators(createCustomerCompany, dispatch),
     updateCustomer: bindActionCreators(updateCustomerCompany, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
     resetOperation: bindActionCreators(resetOperation, dispatch),

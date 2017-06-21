@@ -1,5 +1,5 @@
 import {
-  INIT_USERROLE
+  INIT_USER_ROLE
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 
 const UserRoleReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case INIT_USERROLE:
+    case INIT_USER_ROLE:
       return Object.assign({}, state, {userRole: action.payload});
 
     default:

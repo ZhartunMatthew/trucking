@@ -1,8 +1,6 @@
 import $ from 'jquery';
-import { startOperation, cancelOperation } from './operation.action';
-import {
-  INIT_TRUCKINGCOMPANIES
-} from '../constants/actionTypes';
+import { startOperation } from './operation.action';
+import { INIT_TRUCKING_COMPANIES } from '../constants/actionTypes';
 import { setActionDescription, setActionFail, setValidationFail } from '../actions/modal.action'
 
 export function loadTruckingCompanies() {
@@ -15,33 +13,16 @@ export function loadTruckingCompanies() {
       dataType: 'json'
     }).done(json => {
       dispatch({
-        type: INIT_TRUCKINGCOMPANIES,
+        type: INIT_TRUCKING_COMPANIES,
         payload: json
       });
     }).fail(() => {
-      console.log('Could not get list of trucking companies');
+      console.log('Couldn\'t not get list of trucking companies');
     });
   }
 }
 
-export function fetchTruckingCompany(companyId) {
-  return (dispatch) => {
-    $.ajax({
-      url: 'api/trucking-company/' + companyId,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      dataType: 'json'
-    }).done(company => {
-        dispatch(startOperation(company));
-      }
-    ).fail(() => {
-      console.log('Could get a single company');
-    });
-  }
-}
-
-export function makeNewTruckingCompany(company) {
+export function createTruckingCompany(company) {
   return (dispatch) => {
     let statusCode = 0;
     $.ajax({
@@ -67,7 +48,7 @@ export function makeNewTruckingCompany(company) {
     }).fail(() => {
       statusCode !== 409 ? setActionFail(statusCode)
         : setValidationFail("Company with same taxpayer number already exists");
-      console.log('Could not save company');
+      console.log('Couldn\'t not save company');
     });
   }
 }
@@ -98,26 +79,7 @@ export function updateTruckingCompany(company) {
     }).fail(() => {
       statusCode !== 409 ? setActionFail(statusCode)
         : setValidationFail("Company with same taxpayer number already exists");
-      console.log('Could not update company');
-    });
-  }
-}
-
-
-export function deleteTruckingCompany(company) {
-  return (dispatch) => {
-    $.ajax({
-      type: 'DELETE',
-      url: 'api/trucking-company/' + company.id,
-      contentType: 'application/json; charset=utf-8',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    }).done(() => {
-      loadTruckingCompanies()(dispatch);
-      dispatch(cancelOperation(null));
-    }).fail(() => {
-      console.log('Could not delete company');
+      console.log('Couldn\'t not update company');
     });
   }
 }

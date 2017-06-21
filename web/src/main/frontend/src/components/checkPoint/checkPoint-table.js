@@ -1,14 +1,12 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { startOperation } from '../../actions/operation.action';
+import { connect } from 'react-redux';
 import { Role } from '../../constants/roles'
 
 class CheckPointTable extends React.Component {
 
   render() {
     let rows = null;
-    if(this.props.checkPoints !== undefined && this.props.checkPoints !== null) {
+    if (this.props.checkPoints) {
       rows = this.props.checkPoints.map((checkPoint, index) => {
         return (
           <tr key={index + 1}>
@@ -39,7 +37,6 @@ class CheckPointTable extends React.Component {
 
 CheckPointTable.propTypes = {
   checkPoints: React.PropTypes.array.isRequired,
-  startOperation: React.PropTypes.func.isRequired
 };
 
 let mapStateToProps = function (state) {
@@ -50,10 +47,4 @@ let mapStateToProps = function (state) {
   }
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    startOperation: bindActionCreators(startOperation, dispatch),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CheckPointTable);
+export default connect(mapStateToProps, () => {})(CheckPointTable);

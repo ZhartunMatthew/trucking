@@ -15,7 +15,7 @@ export function setActionDescription(info) {
 
 export function setActionFail(status) {
   showModal(errorBackground);
-  if(status !== undefined) {
+  if (status !== undefined) {
     $('#modal-action-text').html('Operation failed!');
     $('#modal-description-text').html('Error code: <b>' + status + '</b>');
   } else {
@@ -40,21 +40,21 @@ export function setValidationFail(info) {
 
 function showModal(color) {
   $('#modal-action').css('display', 'block');
-  if(color !== undefined) {
+  if (color !== undefined) {
     $('#modal-content').css('background-color', color);
   } else {
     $('#modal-content').css('background-color', initialBackground);
   }
   $('#modal-action').animate({
     opacity: 1,
-    bottom: "+=30"
+    bottom: '+=30'
   }, animationDelay);
 }
 
 function hideModal() {
   $('#modal-action').animate({
     opacity: 0,
-    bottom: "-=30"
+    bottom: '-=30'
   }, animationDelay);
 }
 

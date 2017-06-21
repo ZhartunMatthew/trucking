@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import UserForm from './user-form';
 import UserTable from './user-table';
@@ -11,22 +11,22 @@ import { POOLING_TIMEOUT } from '../../constants/constants'
 class UserComponent extends React.Component {
 
   componentDidMount() {
-    if(this.props.userRole === Role.COMPANY_OWNER) {
+    if (this.props.userRole === Role.COMPANY_OWNER) {
       this.userLoader = setInterval(function (self) {
         self.props.loadUsers();
-        console.log("User list were updated");
+        console.log('User list were updated');
       }, POOLING_TIMEOUT, this);
-      console.log("Pulling of new users started");
+      console.log('Pulling of new users started');
     }
   }
 
   componentWillUnmount() {
-    if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
+    if (this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
     }
-    if(this.props.userRole === Role.COMPANY_OWNER) {
+    if (this.props.userRole === Role.COMPANY_OWNER) {
       clearInterval(this.userLoader);
-      console.log("Pulling of new users stopped");
+      console.log('Pulling of new users stopped');
     }
   }
 

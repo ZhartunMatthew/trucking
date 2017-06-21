@@ -5,15 +5,11 @@ const ValidatedInput = React.createClass({
 
   mixins: [Formsy.Mixin],
 
-  changeValue: function (event) {
-    this.setValue(event.currentTarget.value);
-  },
   render() {
-
-    const className = 'form-group' + (this.props.className || ' ') +
-      (this.showRequired() ? 'required' : this.showError() ? 'error' : '');
-    const labelClass ='label '+(this.showRequired() ? 'required' : '');
-    const inputClass = (this.showError() ? 'error' : '')+' form-control';
+    const className = 'form-group' + (this.props.className || ' ')
+      + (this.showRequired() ? 'required' : this.showError() ? 'error' : '');
+    const labelClass = 'label '+ (this.showRequired() ? 'required' : '');
+    const inputClass = (this.showError() ? 'error' : '') + ' form-control';
     const errorMessage = this.getErrorMessage();
 
     return (

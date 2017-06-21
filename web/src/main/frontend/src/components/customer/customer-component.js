@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CustomerTable from './customer-table';
 import CustomerForm from './customer-form';
@@ -11,28 +11,28 @@ import { POOLING_TIMEOUT } from '../../constants/constants'
 class CustomerComponent extends React.Component {
 
   componentDidMount() {
-    if(this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
+    if (this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
       this.customerLoader = setInterval(function (self) {
         self.props.loadCustomers();
-        console.log("Customer list has been updated");
+        console.log('Customer list has been updated');
       }, POOLING_TIMEOUT, this);
-      console.log("Pulling of new customers started");
+      console.log('Pulling of new customers started');
     }
   }
 
   componentWillUnmount() {
-    if(this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
+    if (this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
     }
-    if(this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
+    if (this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
       clearInterval(this.customerLoader);
-      console.log("Pulling of new customers stopped");
+      console.log('Pulling of new customers stopped');
     }
   }
 
   render() {
-    if(this.props.currentCustomer !== null && this.props.currentCustomer !== undefined) {
-      if(this.props.currentCustomer.hasOwnProperty('checkDate')) {
+    if (this.props.currentCustomer !== null && this.props.currentCustomer !== undefined) {
+      if (this.props.currentCustomer.hasOwnProperty('checkDate')) {
         this.props.currentCustomer = null;
       }
     }

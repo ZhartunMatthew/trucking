@@ -1,20 +1,20 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateCar, makeNewCar } from '../../actions/car.action';
+import { updateCar, createCar } from '../../actions/car.action';
 import { updateOperation, resetOperation, cancelOperation } from '../../actions/operation.action';
 import ValidatedInput from '../common/input';
-import ValidatedSelect from '../common/select-component';
+import ValidatedSelect from '../common/select';
 import Formsy from 'formsy-react';
 import { Role } from '../../constants/roles'
 import { sentenceCase } from 'change-case';
-import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING, MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
+import { DEFAULT_SELECT_VALUE, VALIDATION_ERRORS, MAX_LENGTH_OF_STRING,
+  MAX_LENGTH_OF_NUMERIC } from '../../constants/constants';
 
 class CarForm extends React.Component {
 
   constructor() {
     super();
-
     this.state = {
       errors: {},
       canSubmit: false
@@ -22,11 +22,15 @@ class CarForm extends React.Component {
   }
 
   enableButton() {
-    this.setState({ canSubmit: true });
+    this.setState({
+      canSubmit: true
+    });
   }
 
   disableButton() {
-    this.setState({ canSubmit: false });
+    this.setState({
+      canSubmit: false
+    });
   }
 
   handleNumberChange(event) {
@@ -104,7 +108,6 @@ class CarForm extends React.Component {
           <button type='button'
                   className='btn btn-primary'
                   onClick={this.cancel.bind(this)}> Close </button>
-
         </div>
       </div>;
 
@@ -125,7 +128,7 @@ class CarForm extends React.Component {
                             type='text'
                             title='Car number'
                             placeholder='Enter number here'
-                            name="number"
+                            name='number'
                             required
                             value={this.props.car.number || ''}
                             onChange={this.handleNumberChange.bind(this)}
@@ -134,13 +137,15 @@ class CarForm extends React.Component {
                               isName: true,
                               maxLength: MAX_LENGTH_OF_STRING
                             }}
-                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
+                            validationErrors={{
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='brand'
                             type='text'
                             title='Car brand'
                             placeholder='Enter brand here'
-                            name="brand"
+                            name='brand'
                             required
                             value={this.props.car.brand  || ''}
                             onChange={this.handleBrandChange.bind(this)}
@@ -149,13 +154,15 @@ class CarForm extends React.Component {
                               isName: true,
                               maxLength: MAX_LENGTH_OF_STRING
                             }}
-                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
+                            validationErrors={{
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='model'
                             type='text'
                             title='Car model'
                             placeholder='Enter model here'
-                            name="model"
+                            name='model'
                             required
                             value={this.props.car.model  || ''}
                             onChange={this.handleModelChange.bind(this)}
@@ -164,13 +171,15 @@ class CarForm extends React.Component {
                               isName: true,
                               maxLength: MAX_LENGTH_OF_STRING
                             }}
-                            validationErrors={{maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING}}/>
+                            validationErrors={{
+                              maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_STRING
+                            }}/>
 
             <ValidatedInput id='fuelConsumption'
                             type='text'
-                            title="Fuel consumption, L/100km"
+                            title='Fuel consumption, L/100km'
                             placeholder='Enter fuel consumption here'
-                            name="fuelConsumption"
+                            name='fuelConsumption'
                             value={this.props.car.fuelConsumption.toString()  || ''}
                             onChange={this.handleFuelConsumptionChange.bind(this)}
                             readOnly={disableEditing}
@@ -184,16 +193,16 @@ class CarForm extends React.Component {
                               maxLength: VALIDATION_ERRORS.MAX_LENGTH_OF_NUMERIC
                             }}/>
 
-            <ValidatedSelect id="Type"
-                             title="Type"
-                             name="type"
+            <ValidatedSelect id='Type'
+                             title='Type'
+                             name='type'
                              onChange={this.handleTypeChange.bind(this)}
                              value={defaultType}
                              options={this.props.carTypes.map(type => {return (
                                <option key={type} value={type}> {sentenceCase(type)} </option>
                              )})}
                              disabled={disableEditing}
-                             validations="isRequiredSelect"/>
+                             validations='isRequiredSelect'/>
 
             {userActions}
           </fieldset>
@@ -223,12 +232,11 @@ let mapStateToProps = function (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCar: bindActionCreators(makeNewCar, dispatch),
+    createCar: bindActionCreators(createCar, dispatch),
     updateCar: bindActionCreators(updateCar, dispatch),
     updateOperation: bindActionCreators(updateOperation, dispatch),
     resetOperation: bindActionCreators(resetOperation, dispatch),
     cancelOperation: bindActionCreators(cancelOperation, dispatch)
-
   }
 }
 

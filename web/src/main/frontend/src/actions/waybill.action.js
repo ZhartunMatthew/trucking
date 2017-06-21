@@ -1,7 +1,5 @@
 import $ from 'jquery';
-import {
-  INIT_DRIVERWAYBILLS
-} from '../constants/actionTypes';
+import { INIT_DRIVER_WAYBILLS } from '../constants/actionTypes';
 import { setActionDescription, setActionFail } from '../actions/modal.action'
 
 export function createWaybill(waybill) {
@@ -26,7 +24,7 @@ export function createWaybill(waybill) {
       });
     }).fail(() => {
       setActionFail(statusCode);
-      console.log('Could not create waybill');
+      console.log('Couldn\'t not create waybill');
     });
   }
 }
@@ -41,11 +39,11 @@ export function loadWaybills() {
       dataType: 'json'
     }).done(json => {
       dispatch({
-        type: INIT_DRIVERWAYBILLS,
+        type: INIT_DRIVER_WAYBILLS,
         payload: json
       });
     }).fail(() => {
-      console.log('Could not get list of waybills');
+      console.log('Couldn\'t not get list of waybills');
     });
   }
 }

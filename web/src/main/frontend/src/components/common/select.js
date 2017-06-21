@@ -1,33 +1,40 @@
 import React from 'react';
+import Formsy from 'formsy-react';
+import { DEFAULT_SELECT_VALUE } from '../../constants/constants';
 
-class SelectComponent extends React.Component {
+const ValidatedSelect = React.createClass({
+
+  mixins: [Formsy.Mixin],
+
+  changeValue(event) {
+    this.setValue(event.currentTarget.value);
+  },
+
   render() {
+    const className = 'form-group' + (this.props.className || ' ')
+      + (this.showError() ? 'required' : '');
+    const errorMessage = this.getErrorMessage();
+    const labelClass = 'label '+ (this.showError() ? 'required' : '');
     return (
-      <div className='form-group'>
-        <label className='control-label' htmlFor={this.props.id}>
-          {this.props.label}
-        </label>
-        <select id={this.props.id}
-                className='form-control small-select'
-                value={this.props.value}
-                onChange={this.props.onChange}
-                disabled={this.props.disabled}>
+      <div className={className}>
+        <label htmlFor={this.props.name}
+               className={labelClass}> {this.props.title} </label>
 
+        <select name={this.props.name}
+                className='form-control small-select'
+                onChange={this.props.onChange}
+                value={this.getValue()}
+                disabled={this.props.disabled}
+                selected='selected'>
+
+          <option value={DEFAULT_SELECT_VALUE}>{DEFAULT_SELECT_VALUE}</option>
           {this.props.options}
         </select>
+        <span className='validation-error'>{errorMessage}</span>
       </div>
     );
   }
-}
 
-SelectComponent.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  label: React.PropTypes.any.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  options: React.PropTypes.array.isRequired,
-  value: React.PropTypes.any.isRequired,
-  disabled: React.PropTypes.bool.isRequired
-};
+});
 
-export default SelectComponent;
-
+export default ValidatedSelect;

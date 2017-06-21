@@ -15,7 +15,6 @@ class WaybillForm extends React.Component {
 
   constructor() {
     super();
-
     this.state = {
       errors: {},
       canSubmit: false
@@ -23,11 +22,15 @@ class WaybillForm extends React.Component {
   }
 
   enableButton() {
-    this.setState({ canSubmit: true });
+    this.setState({
+      canSubmit: true
+    });
   }
 
   disableButton() {
-    this.setState({ canSubmit: false });
+    this.setState({
+      canSubmit: false
+    });
   }
 
   handleWaybillNumberChange(event) {
@@ -134,7 +137,9 @@ class WaybillForm extends React.Component {
 
     return (
       <div>
-        <Formsy.Form className='form-horizontal' onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+        <Formsy.Form className='form-horizontal'
+                     onValid={this.enableButton.bind(this)}
+                     onInvalid={this.disableButton.bind(this)}>
           <fieldset>
             <legend> {creatingLabel} </legend>
             <ValidatedInput id='waybillNumber'
@@ -218,7 +223,8 @@ class WaybillForm extends React.Component {
                             placeholder=''
                             readOnly={true}
                             value={this.props.waybill.totalDistance || ''}
-                            onChange={this.handleTotalDistance.bind(this)}/>
+                            onChange={this.handleTotalDistance.bind(this)}
+                            required/>
 
             <ValidatedInput id='departureAddress'
                             name='departureAddress'

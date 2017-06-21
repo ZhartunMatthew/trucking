@@ -1,9 +1,5 @@
 import $ from 'jquery';
-import {
-  INIT_USERROLE,
-  INIT_ROLES,
-  INIT_CURRENTUSER
-} from '../constants/actionTypes';
+import { INIT_USER_ROLE, INIT_ROLES, INIT_CURRENT_USER } from '../constants/actionTypes';
 
 export function loadUserRole() {
   return (dispatch) => {
@@ -15,11 +11,11 @@ export function loadUserRole() {
       dataType: 'json'
     }).done(json => {
       dispatch({
-        type: INIT_USERROLE,
+        type: INIT_USER_ROLE,
         payload: json
       });
     }).fail(() => {
-      console.log('Could not get user role');
+      console.log('Couldn\'t not get user role');
     });
   }
 }
@@ -38,7 +34,7 @@ export function loadRoles() {
         payload: json
       });
     }).fail(() => {
-      console.log('Could not get list of roles');
+      console.log('Couldn\'t not get list of roles');
     });
   }
 }
@@ -53,11 +49,11 @@ export function loadCurrentUser() {
       dataType: 'json'
     }).done(json => {
       dispatch({
-        type: INIT_CURRENTUSER,
+        type: INIT_CURRENT_USER,
         payload: json
       });
     }).fail(() => {
-      console.log('Could not get current users');
+      console.log('Couldn\'t not get current users');
     });
   }
 }
