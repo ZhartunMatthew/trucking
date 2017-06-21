@@ -184,7 +184,7 @@ class InvoiceForm extends React.Component {
                          label='Car'
                          onChange={this.handleCarChange.bind(this)}
                          options={this.props.cars.map((car)=>{return (
-                           <option value={car.id}> {car.number}, {sentenceCase(car.type)} </option>
+                           <option value={car.id}> {car.brand} {car.model}, {car.number}, {sentenceCase(car.type)} </option>
                          )})}
                          value={defaultCar}
                          disabled={disableEditing}
