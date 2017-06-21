@@ -1,10 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { setActionDescription } from '../actions/modal.action';
 import ReactHighcharts from 'react-highcharts';
 import ReactHighstock from 'react-highcharts/ReactHighstock.src';
 import { sentenceCase } from 'change-case';
 import Highcharts from 'highcharts';
+import { loadHighcharts } from '../actions/highcharts.action';
 
 class ReportPage extends React.Component {
 
@@ -30,6 +32,9 @@ class ReportPage extends React.Component {
 
   initWaybillHighstockConfig(props) {
     let data = [];
+    if(!props.highcharts.revenueByDate) {
+      props.highcharts.revenueByDate = {};
+    }
     let keys = Object.keys(props.highcharts.revenueByDate).sort();
     for (let i = 0; i < keys.length; i++) {
       let day = 24 * 60 * 60 * 1000;
@@ -234,4 +239,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, ()=>{})(ReportPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    loadHighcharts: bindActionCreators(loadHighcharts, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReportPage);
