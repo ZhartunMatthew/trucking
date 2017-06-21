@@ -34,19 +34,13 @@ class UserTable extends React.Component {
   }
 
   render() {
-    let button;
+    let buttonName;
     let rows = this.props.users.map((user, index) => {
       if(this.props.userRole === Role.ADMIN) {
-        button =  <button className='btn btn-primary'
-                    onClick={this.onShowUpdateUserForm.bind(this, user)}>
-                    Update
-                  </button>
+        buttonName = "Update";
       }
       if(this.props.userRole === Role.COMPANY_OWNER) {
-        button =  <button className='btn btn-primary'
-                    onClick={this.onShowUpdateUserForm.bind(this, user)}>
-                    Open
-                  </button>
+        buttonName = "Open";
       }
         return (
           <tr key={user.id}>
@@ -57,7 +51,10 @@ class UserTable extends React.Component {
             <td> {user.login}</td>
             <td> {sentenceCase(user.userRole)}</td>
             <td style={{paddingRight: '0px'}}>
-              {button}
+              <button className='btn btn-primary'
+                      onClick={this.onShowUpdateUserForm.bind(this, user)}>
+                      {buttonName}
+              </button>
             </td>
           </tr>
         )

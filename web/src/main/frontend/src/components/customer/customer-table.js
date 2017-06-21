@@ -27,46 +27,31 @@ class CustomerTable extends React.Component {
   }
 
   render() {
+    let buttonName;
     let rows = this.props.customers.map((customer, index) => {
       if(this.props.userRole === Role.ADMIN) {
-        return (
-          <tr key={customer.id}>
-            <th scope='row'> {index + 1} </th>
-            <td> {customer.name}</td>
-            <td> {customer.taxpayerNumber}</td>
-            <td> {customer.country}</td>
-            <td> {customer.city}</td>
-            <td> {customer.street}</td>
-            <td> {customer.house}</td>
-            <td style={{paddingRight: '0px'}}>
-                <button className='btn btn-primary'
-                        onClick={this.onShowUpdateCustomerForm.bind(this, customer)}>
-                        Update
-                </button>
-            </td>
-          </tr>
-        )
+        buttonName = "Update";
       }
-
-      if(this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
-        return (
-          <tr key={customer.id}>
-            <th scope='row'> {index + 1} </th>
-            <td> {customer.name}</td>
-            <td> {customer.taxpayerNumber}</td>
-            <td> {customer.country}</td>
-            <td> {customer.city}</td>
-            <td> {customer.street}</td>
-            <td> {customer.house}</td>
-            <td style={{paddingRight: '0px'}}>
+      if (this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
+        buttonName = "Open";
+      }
+      return (
+        <tr key={customer.id}>
+          <th scope='row'> {index + 1} </th>
+          <td> {customer.name}</td>
+          <td> {customer.taxpayerNumber}</td>
+          <td> {customer.country}</td>
+          <td> {customer.city}</td>
+          <td> {customer.street}</td>
+          <td> {customer.house}</td>
+          <td style={{paddingRight: '0px'}}>
               <button className='btn btn-primary'
                       onClick={this.onShowUpdateCustomerForm.bind(this, customer)}>
-                      Open
+                      {buttonName}
               </button>
-            </td>
-          </tr>
-        )
-      }
+          </td>
+        </tr>
+      )
     });
 
     let adminActions =

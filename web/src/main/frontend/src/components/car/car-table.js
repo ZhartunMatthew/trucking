@@ -21,8 +21,14 @@ class CarTable extends React.Component {
   }
 
   render() {
+    let buttonName;
     let rows = this.props.cars.map((car, index) => {
       if(this.props.userRole === Role.ADMIN) {
+        buttonName = "Update";
+      }
+      if(this.props.userRole === Role.COMPANY_OWNER) {
+        buttonName = "Open";
+      }
         return (
           <tr key={car.id}>
             <th scope='row'> {index + 1} </th>
@@ -36,32 +42,11 @@ class CarTable extends React.Component {
             <td style={{paddingRight: '0px'}}>
               <button className='btn btn-primary'
                       onClick={this.onShowUpdateCarForm.bind(this, car)}>
-                      Update
+                      {buttonName}
               </button>
             </td>
           </tr>
         )
-      }
-
-      if(this.props.userRole === Role.COMPANY_OWNER) {
-        return (
-          <tr key={car.id}>
-            <th scope='row'> {index + 1} </th>
-            <td> {car.number}</td>
-            <td> {car.brand}</td>
-            <td> {car.model}</td>
-            <td style={{textAlign: 'center'}}>
-              {car.fuelConsumption}
-            </td>
-            <td> {sentenceCase(car.type)}</td>
-            <td style={{paddingRight: '0px'}}>
-                <button className='btn btn-primary'
-                        onClick={this.onShowUpdateCarForm.bind(this, car)}>Open
-                </button>
-            </td>
-          </tr>
-        )
-      }
     });
     let adminActions =
         <button className='btn btn-default'
