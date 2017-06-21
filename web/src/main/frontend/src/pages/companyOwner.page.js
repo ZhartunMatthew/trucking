@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { selectTab } from '../actions/navigation.action';
 import { loadUsers } from '../actions/user.action';
@@ -11,8 +11,9 @@ import { loadWaybills } from '../actions/waybill.action';
 import { loadHighcharts } from '../actions/highcharts.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
-import UserComponent from '../components/user/user-component'
-import Modal from '../components/modal/modal'
+import UserComponent from '../components/user/user-component';
+import Modal from '../components/modal/modal';
+import { NAV_ITEMS } from '../constants/constants';
 
 class CompanyOwnerPage extends React.Component {
 
@@ -27,36 +28,18 @@ class CompanyOwnerPage extends React.Component {
   }
 
   render() {
-    let navItems = [{
-        url: '/user',
-        caption: 'Users'
-      },
-      {
-        url: '/customer',
-        caption: 'Customers'
-      },
-      {
-        url: '/car',
-        caption: 'Cars'
-      },
-      {
-        url: '/invoice',
-        caption: 'Invoices'
-      },
-      {
-        url: '/waybill',
-        caption: 'Waybills'
-      },
-      {
-        url: '/report',
-        caption: 'Report'
-      }];
-
+    let navItems = [
+      NAV_ITEMS.USERS,
+      NAV_ITEMS.CUSTOMERS,
+      NAV_ITEMS.CARS,
+      NAV_ITEMS.INVOICES,
+      NAV_ITEMS.WAYBILLS,
+      NAV_ITEMS.REPORT
+    ];
     let defaultPageInfo = <UserComponent/>;
-
     return (
       <div>
-        <div className="wrapper">
+        <div className='wrapper'>
           <HeaderComponent navItems={navItems}/>
           {
             !this.props.children && defaultPageInfo

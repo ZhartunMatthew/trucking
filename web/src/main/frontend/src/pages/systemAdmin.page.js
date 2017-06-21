@@ -1,12 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { loadTruckingCompanies, fetchTruckingCompany} from '../actions/truckingCompany.action';
+import { loadTruckingCompanies } from '../actions/truckingCompany.action';
 import { cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
-import TruckingCompanyComponent from '../components/truckingCompany/truckingCompany-component'
-import Modal from '../components/modal/modal'
+import TruckingCompanyComponent from '../components/truckingCompany/truckingCompany-component';
+import Modal from '../components/modal/modal';
+import { NAV_ITEMS } from '../constants/constants';
 
 class SystemAdminPage extends React.Component {
 
@@ -16,16 +17,13 @@ class SystemAdminPage extends React.Component {
   }
 
   render() {
-    let navItems = [{
-      url: '/companies',
-      caption: 'Trucking companies'
-    }];
-
+    let navItems = [
+      NAV_ITEMS.TRUCKING_COMPANIES
+    ];
     let defaultPageInfo = <TruckingCompanyComponent/>;
-
     return (
         <div>
-          <div className="wrapper">
+          <div className='wrapper'>
             <HeaderComponent navItems={navItems}/>
             {
               !this.props.children && defaultPageInfo
@@ -40,22 +38,12 @@ class SystemAdminPage extends React.Component {
     );
   }
 }
-/*
- We don't need copy anything to props from app state here
- */
-function mapStateToProps() {
-  return {}
-}
 
-/*
- Here we assign handlers to some actions
- */
 function mapDispatchToProps(dispatch) {
   return {
     loadTruckingCompanies: bindActionCreators(loadTruckingCompanies, dispatch),
-    fetchTruckingCompany: bindActionCreators(fetchTruckingCompany, dispatch),
     cancelCurrentOperation: bindActionCreators(cancelOperation, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SystemAdminPage);
+export default connect(() => {}, mapDispatchToProps)(SystemAdminPage);

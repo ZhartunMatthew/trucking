@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Router, Route, browserHistory, hashHistory } from 'react-router';
+import { Router, hashHistory } from 'react-router';
 import { loadUserRole, loadCurrentUser } from '../actions/userRole.action';
 import ErrorPage from './error';
 import { adminRoutes} from '../routes/admin.routes';
@@ -10,9 +10,8 @@ import { dispatcherRoutes} from '../routes/dispatcher.routes';
 import { managerRoutes} from '../routes/manager.routes';
 import { ownerRoutes} from '../routes/companyOwner.routes';
 import { driverRoutes} from '../routes/driver.routes'
-import { LoginPage} from "./login.page";
-import { startOperation } from '../actions/operation.action'
-import { Role } from '../constants/roles'
+import LoginPage from './login.page';
+import { Role } from '../constants/roles';
 
 class UserRole extends React.Component {
 
@@ -52,7 +51,6 @@ class UserRole extends React.Component {
         return (
           <LoginPage/>
         );
-
       default:
         return (
           <ErrorPage/>
@@ -71,7 +69,6 @@ function mapDispatchToProps(dispatch) {
   return {
     loadUserRole: bindActionCreators(loadUserRole, dispatch),
     loadCurrentUser: bindActionCreators(loadCurrentUser, dispatch),
-    startOperation: bindActionCreators(startOperation, dispatch)
   }
 }
 

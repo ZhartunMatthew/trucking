@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loadUsers, fetchUser } from '../actions/user.action';
 import { loadCustomers, fetchCustomer } from '../actions/customer.action';
@@ -7,8 +7,9 @@ import { loadCars, fetchCar } from '../actions/car.action';
 import { startOperation, cancelOperation } from '../actions/operation.action';
 import HeaderComponent from './header';
 import FooterComponent from './footer';
-import UserComponent from '../components/user/user-component'
-import Modal from '../components/modal/modal'
+import UserComponent from '../components/user/user-component';
+import Modal from '../components/modal/modal';
+import { NAV_ITEMS } from '../constants/constants';
 
 class AdminPage extends React.Component {
 
@@ -20,24 +21,15 @@ class AdminPage extends React.Component {
   }
 
   render() {
-    let navItems = [{
-      url: '/user',
-      caption: 'Users'
-    },
-    {
-      url: '/customer',
-      caption: 'Customers'
-    },
-    {
-      url: '/car',
-      caption: 'Cars'
-    }];
-
+    let navItems = [
+      NAV_ITEMS.USERS,
+      NAV_ITEMS.CUSTOMERS,
+      NAV_ITEMS.CARS
+    ];
     let defaultPageInfo = <UserComponent/>;
-
     return (
       <div>
-        <div className="wrapper">
+        <div className='wrapper'>
           <HeaderComponent navItems={navItems}/>
           {
             !this.props.children && defaultPageInfo
