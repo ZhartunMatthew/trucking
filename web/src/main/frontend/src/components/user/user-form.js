@@ -143,25 +143,24 @@ class UserForm extends React.Component {
       <div className='btn-toolbar text-center'>
         <div className='btn-group' role='group'>
           <button type='button'
-                  className='btn btn-success'
-                  onClick={this.cancel.bind(this)}> Close </button>
+                  className={`${disabledClass} btn btn-success`}
+                  onClick={this.props.changes ? this.save.bind(this) : null}
+                  disabled={!this.state.canSubmit}> Save </button>
         </div>
         <div className='btn-group float-right' role='group'>
           <button type='button'
                   className={`${disabledClass} btn btn-default`}
                   onClick={this.props.changes ? this.reset.bind(this) : null}> Reset </button>
-
           <button type='button'
-                  className={`${disabledClass} btn btn-primary`}
-                  onClick={this.props.changes ? this.save.bind(this) : null}
-                  disabled={!this.state.canSubmit}> Save </button>
+                  className='btn btn-primary'
+                  onClick={this.cancel.bind(this)}> Close </button>
         </div>
       </div>;
 
      let ownerActions =
        <div className='btn-toolbar text-center'>
          <div className='btn-group' role='group'>
-           <button type='button' className='btn btn-success' onClick={this.cancel.bind(this)}>Close</button>
+           <button type='button' className='btn btn-primary' onClick={this.cancel.bind(this)}>Close</button>
          </div>
        </div>;
 

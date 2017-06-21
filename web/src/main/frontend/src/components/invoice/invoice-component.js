@@ -86,15 +86,15 @@ class InvoiceComponent extends React.Component {
 
     let content = this.props.currentInvoice ? (
       <div className='row'>
-        <div className='col-sm-7'>
+        <div className='col-sm-6'>
           <InvoiceForm changes={this.props.changes} invoice={this.props.currentInvoice}/>
         </div>
-        <div className='col-sm-5'>
+        <div className='col-sm-6'>
           {productContent}
         </div>
       </div>
     ) : (
-      <div className='container col-sm-10'>
+      <div className='container col-sm-9'>
         <div className='col align-self-center'>
           {emptyOperationContent}
         </div>

@@ -18,7 +18,7 @@ class DriverWaybillComponent extends React.Component {
       </div>
     ) : (
       <div className='row'>
-        <div className='container col-sm-10'>
+        <div className='container col-sm-9'>
           <DriverWaybillsTable driverWaybills={this.props.driverWaybills}/>
         </div>
       </div>

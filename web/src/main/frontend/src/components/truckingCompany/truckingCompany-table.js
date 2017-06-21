@@ -51,7 +51,7 @@ class TruckingCompanyTable extends React.Component {
             <th>City</th>
             <th>Street</th>
             <th>House</th>
-            <th>Actions</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>

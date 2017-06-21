@@ -18,6 +18,7 @@ class InvoiceTable extends React.Component {
           <td> {invoice.number}</td>
           <td> {getDateString(invoice.registerDate)}</td>
           <td> {invoice.customerCompany}</td>
+          <td> {invoice.destinationCustomerCompany}</td>
           <td style={{paddingRight: '0px'}}>
             <button className='btn btn-primary'
                     onClick={this.onShowUpdateInvoiceForm.bind(this, invoice)}>
@@ -38,7 +39,8 @@ class InvoiceTable extends React.Component {
             <th>Invoice number</th>
             <th>Register date</th>
             <th>Customer company</th>
-            <th>Actions</th>
+            <th>Destination company</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>

@@ -34,41 +34,33 @@ class UserTable extends React.Component {
   }
 
   render() {
+    let button;
     let rows = this.props.users.map((user, index) => {
       if(this.props.userRole === Role.ADMIN) {
+        button =  <button className='btn btn-primary'
+                    onClick={this.onShowUpdateUserForm.bind(this, user)}>
+                    Update
+                  </button>
+      }
+      if(this.props.userRole === Role.COMPANY_OWNER) {
+        button =  <button className='btn btn-primary'
+                    onClick={this.onShowUpdateUserForm.bind(this, user)}>
+                    Open
+                  </button>
+      }
         return (
           <tr key={user.id}>
             <th scope='row'> {index + 1} </th>
             <td> {user.name}</td>
             <td> {user.surname}</td>
             <td> {user.patronymic}</td>
+            <td> {user.login}</td>
             <td> {sentenceCase(user.userRole)}</td>
             <td style={{paddingRight: '0px'}}>
-              <button className='btn btn-primary'
-                      onClick={this.onShowUpdateUserForm.bind(this, user)}>
-                      Update
-              </button>
+              {button}
             </td>
           </tr>
         )
-      }
-
-      if(this.props.userRole === Role.COMPANY_OWNER) {
-        return (
-          <tr key={user.id}>
-            <th scope='row'> {index + 1} </th>
-            <td> {user.name}</td>
-            <td> {user.surname}</td>
-            <td> {user.patronymic}</td>
-            <td> {sentenceCase(user.userRole)}</td>
-            <td>
-              <div className='btn-toolbar text-center'>
-                <button className='btn btn-primary' onClick={this.onShowUpdateUserForm.bind(this, user)}> Open </button>
-              </div>
-            </td>
-          </tr>
-        )
-      }
     });
 
     let adminActions =
@@ -89,8 +81,9 @@ class UserTable extends React.Component {
             <th>Name</th>
             <th>Surname</th>
             <th>Patronymic</th>
+            <th>Login</th>
             <th>User role</th>
-            <th>Actions</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>
