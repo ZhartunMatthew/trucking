@@ -5,6 +5,7 @@ import lombok.ToString;
 
 @Data
 @ToString
-public class InputMessage {
-    private String text;
+public class CustomMessage {
+    private String subject;
+    private String content;
 }
