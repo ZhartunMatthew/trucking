@@ -24,7 +24,8 @@ class AdminPage extends React.Component {
     let navItems = [
       NAV_ITEMS.USERS,
       NAV_ITEMS.CUSTOMERS,
-      NAV_ITEMS.CARS
+      NAV_ITEMS.CARS,
+      NAV_ITEMS.MESSAGING
     ];
     let defaultPageInfo = <UserComponent/>;
     return (

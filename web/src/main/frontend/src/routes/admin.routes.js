@@ -4,6 +4,7 @@ import AdminPage from '../pages/admin.page';
 import UserComponent from '../components/user/user-component';
 import CustomerComponent from '../components/customer/customer-component';
 import CarComponent from '../components/car/car-component';
+import MessagingComponent from '../components/messaging/messaging-component';
 import ErrorPage from '../pages/error';
 
 export const adminRoutes = (
@@ -12,6 +13,7 @@ export const adminRoutes = (
       <Route path ='/user' component={UserComponent}/>
       <Route path ='/customer' component={CustomerComponent}/>
       <Route path='/car' component={CarComponent}/>
+      <Route path='/messaging' components={MessagingComponent}/>
       <Route path='*' component={ErrorPage} />
     </Route>
   </div>

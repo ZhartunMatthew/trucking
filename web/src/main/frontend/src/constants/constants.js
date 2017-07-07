@@ -67,5 +67,9 @@ export const NAV_ITEMS = {
   TRUCKING_COMPANIES: {
     url: '/companies',
     caption: 'Trucking companies'
+  },
+  MESSAGING: {
+    url: '/messaging',
+    caption: 'Messaging'
   }
 };
