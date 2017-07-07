@@ -1,5 +1,6 @@
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import { setForeignActionDescription } from './modal.action'
 let stompClient = null;
 let subscription = null;
 
@@ -24,7 +25,7 @@ export function terminate() {
 
 export function unsubscribe() {
   if(subscription !== null) {
-    console.log("Unsubsribed!");
+    console.log("Unsubscribed!");
     subscription.unsubscribe();
   }
 }
@@ -39,5 +40,9 @@ export function send(url, message) {
 
 function displayResponse(message) {
   let data = JSON.parse(message.body);
-  console.log("DATA", data);
+  console.log("DATA: ", data);
+  setForeignActionDescription({
+    action: data.subject,
+    description: data.content
+  });
 }
