@@ -12,7 +12,7 @@ import { Role } from '../../constants/roles';
 import CustomerTable from '../customer/customer-table';
 import { setActionFail } from '../../actions/modal.action';
 import { loadRegisteredInvoices } from '../../actions/invoice.action';
-import { POOLING_TIMEOUT, PRODUCT_STATE, INVOICE_STATE } from '../../constants/constants';
+import { PRODUCT_STATE, INVOICE_STATE } from '../../constants/constants';
 import { loadInvoices } from '../../actions/invoice.action';
 
 class InvoiceComponent extends React.Component {
@@ -51,26 +51,17 @@ class InvoiceComponent extends React.Component {
 
     if (this.props.userRole === Role.MANAGER) {
       this.props.loadRegisteredInvoices();
-      this.invoiceLoader = setInterval(function (self) {
-        console.log('Invoice list were updated');
-        self.props.loadRegisteredInvoices();
-      }, POOLING_TIMEOUT, this);
-      console.log('Pulling of new invoices started');
+      // start pulling registered invoices
     }
 
     if (this.props.userRole === Role.COMPANY_OWNER) {
-      this.invoiceLoader = setInterval(function (self) {
-        console.log('Invoice list were updated');
-        this.invoiceLoader = self.props.loadInvoices();
-      }, POOLING_TIMEOUT, this);
-      console.log('Pulling of new invoices started');
+      // start pulling invoices
     }
   }
 
   componentWillUnmount() {
     if (this.props.userRole === Role.MANAGER || this.props.userRole === Role.COMPANY_OWNER) {
-      clearInterval(this.invoiceLoader);
-      console.log('Pooling of new invoices stopped');
+      // stop pulling
     }
     if (this.props.userRole === Role.COMPANY_OWNER) {
       this.props.cancelOperation();

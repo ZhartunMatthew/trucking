@@ -6,17 +6,12 @@ import CustomerForm from './customer-form';
 import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles';
 import { loadCustomers } from '../../actions/customer.action';
-import { POOLING_TIMEOUT } from '../../constants/constants'
 
 class CustomerComponent extends React.Component {
 
   componentDidMount() {
     if (this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
-      this.customerLoader = setInterval(function (self) {
-        self.props.loadCustomers();
-        console.log('Customer list has been updated');
-      }, POOLING_TIMEOUT, this);
-      console.log('Pulling of new customers started');
+      // start pulling
     }
   }
 
@@ -25,8 +20,7 @@ class CustomerComponent extends React.Component {
       this.props.cancelCurrentOperation();
     }
     if (this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
-      clearInterval(this.customerLoader);
-      console.log('Pulling of new customers stopped');
+      // stop pulling
     }
   }
 
