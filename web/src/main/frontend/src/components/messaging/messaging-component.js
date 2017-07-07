@@ -1,34 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
+import {
+  init, terminate, sendData
+} from '../../actions/messaging.action';
 
 class MessagingComponent extends React.Component {
 
   componentDidMount() {
-    let socket = new SockJS('/message-aggregator');
-    this.stompClient = Stomp.over(socket);
-    let self = this;
-    this.stompClient.connect({}, function(frame) {
-      console.log('Connected: ' + frame);
-      self.stompClient.subscribe('/topic/common-box', function(message) {
-        self.showAnswer(message);
-      });
+    init('/dispatcher-box');
+  }
+
+  send() {
+    sendData('/new-customer', {
+      subject: "New message",
+      content: this.message.value
     });
   }
 
-  sendData() {
-    let message = this.message.value;
-    this.stompClient.send("/app/message-aggregator", {},
-      JSON.stringify({
-          'text' : message
-      }));
-  }
-
-  showAnswer(message) {
-    let data = JSON.parse(message.body);
-    console.log("DATA", data);
-    $('#answer').text(data.answer)
+  disconnect() {
+    terminate();
   }
 
   render() {
@@ -42,9 +32,10 @@ class MessagingComponent extends React.Component {
                    placeholder='Type your message'
                    ref={(input) => this.message = input}
                    autoFocus/>
-            <button className="btn btn-success" onClick={this.sendData.bind(this)}> Send message </button>
+            <br/>
+            <button className="btn btn-success" onClick={this.send.bind(this)}> Send message </button>
+            <button className="btn btn-danger" onClick={this.disconnect.bind(this)}> Disconnect </button>
             <div id="answer">
-
             </div>
           </div>
         </div>
@@ -53,11 +44,5 @@ class MessagingComponent extends React.Component {
   }
 }
 
-let mapStateToProps = function (state) {
-};
-
-let mapDispatchToProps = function(dispatch) {
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MessagingComponent);
+export default connect(() => {}, () => {})(MessagingComponent);
 
