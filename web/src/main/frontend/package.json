@@ -60,7 +60,9 @@
     "webpack-dev-server": "^2.4.1",
     "change-case": "^3.0.1",
     "react-highcharts": "^12.0.0",
-    "highcharts": "^5.0.12"
+    "highcharts": "^5.0.12",
+    "sockjs": "^0.3.18",
+    "stompjs": "^2.3.3"
   },
   "dependencies": {
     "react-router": "^2.8.0",
