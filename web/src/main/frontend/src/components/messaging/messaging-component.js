@@ -7,7 +7,7 @@ import {
 class MessagingComponent extends React.Component {
 
   componentDidMount() {
-    init('/dispatcher-box');
+    init();
   }
 
   unsubscribe() {

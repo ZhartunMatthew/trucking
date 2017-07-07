@@ -12,8 +12,8 @@ class CustomerComponent extends React.Component {
 
   componentDidMount() {
     if (this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
+      init('/dispatcher-box');
     }
-    init('/dispatcher-box');
   }
 
 
