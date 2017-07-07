@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @MessageMapping("/message-aggregator")
-public class MessagingOutputController {
+public class MessagingController {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(MessagingOutputController.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(MessagingController.class);
     private final static String COMMON_BOX = "/topic/common-box";
 
     @MessageMapping("/new-customer")

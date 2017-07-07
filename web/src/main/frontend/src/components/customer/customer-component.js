@@ -6,21 +6,23 @@ import CustomerForm from './customer-form';
 import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles';
 import { loadCustomers } from '../../actions/customer.action';
+import { init, terminate } from '../../actions/messaging.action'
 
 class CustomerComponent extends React.Component {
 
   componentDidMount() {
     if (this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
-      // start pulling
     }
+    init('/dispatcher-box');
   }
+
 
   componentWillUnmount() {
     if (this.props.userRole === Role.COMPANY_OWNER || this.props.userRole === Role.ADMIN) {
       this.props.cancelCurrentOperation();
     }
     if (this.props.userRole === Role.DISPATCHER || this.props.userRole === Role.COMPANY_OWNER) {
-      // stop pulling
+      terminate();
     }
   }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  init, terminate, sendData
+  init, unsubscribe, terminate, send
 } from '../../actions/messaging.action';
 
 class MessagingComponent extends React.Component {
@@ -10,8 +10,12 @@ class MessagingComponent extends React.Component {
     init('/dispatcher-box');
   }
 
+  unsubscribe() {
+    unsubscribe();
+  }
+
   send() {
-    sendData('/new-customer', {
+    send('/new-customer', {
       subject: "New message",
       content: this.message.value
     });
@@ -34,6 +38,7 @@ class MessagingComponent extends React.Component {
                    autoFocus/>
             <br/>
             <button className="btn btn-success" onClick={this.send.bind(this)}> Send message </button>
+            <button className="btn btn-warning" onClick={this.unsubscribe.bind(this)}> Unsubscribe </button>
             <button className="btn btn-danger" onClick={this.disconnect.bind(this)}> Disconnect </button>
             <div id="answer">
             </div>
