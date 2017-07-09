@@ -20,6 +20,7 @@ public class MessagingController {
     public CustomMessage onCustomerCreate(@RequestBody CustomMessage inputMessage) throws Exception {
         LOGGER.info("MESSAGE FROM ADMIN: {}", inputMessage);
         CustomMessage outputMessage = new CustomMessage();
+        outputMessage.setCompanyId(inputMessage.getCompanyId());
         outputMessage.setSubject("New customer!");
         outputMessage.setContent("Customer " + inputMessage.getContent() + " have been added");
         return outputMessage;
