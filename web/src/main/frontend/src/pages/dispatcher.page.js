@@ -9,7 +9,7 @@ import FooterComponent from './footer';
 import CustomerComponent from '../components/customer/customer-component';
 import Modal from '../components/modal/modal';
 import { NAV_ITEMS } from '../constants/constants';
-import { initialize, terminate } from '../actions/messaging.action'
+import { initialize, terminate } from '../actions/messaging.action';
 
 class DispatcherPage extends React.Component {
 

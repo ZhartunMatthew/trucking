@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { startOperation } from './operation.action';
 import { INIT_INVOICES } from '../constants/actionTypes';
-import { setActionDescription, setActionFail } from '../actions/modal.action'
+import { setActionDescription, setActionFail } from '../actions/modal.action';
+import { send } from './messaging.action';
 
 export function loadInvoices() {
   return (dispatch) => {
@@ -88,10 +89,15 @@ export function createInvoice(invoice) {
     }).done((json) => {
       loadInvoices()(dispatch);
       dispatch(startOperation(json));
-
+      console.log("JSON", json);
       setActionDescription({
         action: 'New invoice!',
         description: 'Invoice <b>№' + invoice.number + '</b> has been successfully added'
+      });
+      send('/new-invoice', {
+        companyId: json.truckingCompanyId,
+        subject: 'New invoice!',
+        content: 'Invoice  <b>№' + invoice.number + '</b> has been added'
       })
     }).fail(() => {
       setActionFail(statusCode);

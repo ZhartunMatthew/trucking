@@ -5,8 +5,8 @@ import {
   setActionDescription,
   setActionFail,
   setValidationFail
-} from '../actions/modal.action'
-import { send } from './messaging.action'
+} from '../actions/modal.action';
+import { send } from './messaging.action';
 
 export function loadCustomers() {
   return (dispatch) => {

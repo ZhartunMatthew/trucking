@@ -8,12 +8,21 @@ import FooterComponent from './footer';
 import InvoiceComponent from '../components/invoice/invoice-component';
 import Modal from '../components/modal/modal';
 import { NAV_ITEMS } from '../constants/constants';
+import { initialize, terminate } from '../actions/messaging.action'
 
 class ManagerPage extends React.Component {
 
   componentDidMount() {
     this.props.loadRegisteredInvoices();
     this.props.cancelCurrentOperation();
+  }
+
+  componentDidUpdate() {
+    initialize('/manager-box', this.props.truckingId);
+  }
+
+  componentWillUnmount() {
+    terminate();
   }
 
   render() {
@@ -39,6 +48,13 @@ class ManagerPage extends React.Component {
   }
 }
 
+let mapStateToProps = function (state) {
+  return {
+    truckingId: state.currentUser.currentUser.truckingCompanyId
+  };
+};
+
+
 function mapDispatchToProps(dispatch) {
   return {
     loadRegisteredInvoices: bindActionCreators(loadRegisteredInvoices, dispatch),
@@ -46,5 +62,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(() => {}, mapDispatchToProps)(ManagerPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManagerPage);
 

@@ -19,23 +19,19 @@ public class MessagingController {
     @SendTo(COMMON_BOX + "/dispatcher-box")
     public CustomMessage onCustomerCreate(@RequestBody CustomMessage inputMessage) throws Exception {
         LOGGER.info("MESSAGE FROM ADMIN: {}", inputMessage);
-        CustomMessage outputMessage = new CustomMessage();
-        outputMessage.setCompanyId(inputMessage.getCompanyId());
-        outputMessage.setSubject("New customer!");
-        outputMessage.setContent("Customer " + inputMessage.getContent() + " have been added");
-        return outputMessage;
+        return inputMessage;
     }
 
     @MessageMapping("/new-invoice")
     @SendTo(COMMON_BOX + "/manager-box")
-    public CustomMessage onInvoiceCreate() {
-
-        return null;
+    public CustomMessage onInvoiceCreate(@RequestBody CustomMessage inputMessage) {
+        LOGGER.info("MESSAGE FROM DISPATCHER: {}", inputMessage);
+        return inputMessage;
     }
 
     @MessageMapping("/new-waybill")
     @SendTo(COMMON_BOX + "/driver-box")
-    public CustomMessage onWaybillCreate() {
+    public CustomMessage onWaybillCreate(@RequestBody CustomMessage inputMessage) {
 
         return null;
     }
