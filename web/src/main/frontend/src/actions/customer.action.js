@@ -54,7 +54,7 @@ export function createCustomerCompany(company) {
         companyId: json.truckingCompanyId,
         subject: 'New customer!',
         content: 'Customer <b>' + company.name + '</b> has been added'
-      })
+      });
     }).fail(() => {
       statusCode !== 409 ? setActionFail(statusCode)
         : setValidationFail('Company with same taxpayer number already exists');
