@@ -13,6 +13,7 @@ import FooterComponent from './footer';
 import UserComponent from '../components/user/user-component';
 import Modal from '../components/modal/modal';
 import { NAV_ITEMS } from '../constants/constants';
+import { initialize, terminate } from '../actions/messaging.action'
 
 class CompanyOwnerPage extends React.Component {
 
@@ -24,6 +25,14 @@ class CompanyOwnerPage extends React.Component {
     this.props.loadInvoices();
     this.props.loadWaybills();
     this.props.loadHighcharts();
+  }
+
+  componentDidUpdate() {
+    initialize('/owner-box', this.props.truckingId);
+  }
+
+  componentWillUnmount() {
+    terminate();
   }
 
   render() {
@@ -56,7 +65,8 @@ class CompanyOwnerPage extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.users.users
+    users: state.users.users,
+    truckingId: state.currentUser.currentUser.truckingCompanyId
   }
 }
 
