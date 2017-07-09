@@ -9,6 +9,7 @@ import FooterComponent from './footer';
 import CustomerComponent from '../components/customer/customer-component';
 import Modal from '../components/modal/modal';
 import { NAV_ITEMS } from '../constants/constants';
+import { initialize, terminate } from '../actions/messaging.action'
 
 class DispatcherPage extends React.Component {
 
@@ -16,6 +17,14 @@ class DispatcherPage extends React.Component {
     this.props.loadCustomers();
     this.props.loadInvoices();
     this.props.cancelCurrentOperation();
+  }
+
+  componentDidUpdate() {
+    initialize('/dispatcher-box', this.props.truckingId);
+  }
+
+  componentWillUnmount() {
+    terminate();
   }
 
   render() {
@@ -41,6 +50,12 @@ class DispatcherPage extends React.Component {
   }
 }
 
+let mapStateToProps = function (state) {
+  return {
+    truckingId: state.currentUser.currentUser.truckingCompanyId
+  };
+};
+
 function mapDispatchToProps(dispatch) {
   return {
     loadCustomers: bindActionCreators(loadCustomers, dispatch),
@@ -49,4 +64,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(() => {}, mapDispatchToProps) (DispatcherPage);
+export default connect(mapStateToProps, mapDispatchToProps) (DispatcherPage);

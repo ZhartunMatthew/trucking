@@ -1,7 +1,12 @@
 import $ from 'jquery';
 import { startOperation } from './operation.action';
 import { INIT_CUSTOMERS } from '../constants/actionTypes';
-import { setActionDescription, setActionFail, setValidationFail } from '../actions/modal.action'
+import {
+  setActionDescription,
+  setActionFail,
+  setValidationFail
+} from '../actions/modal.action'
+import { send } from './messaging.action'
 
 export function loadCustomers() {
   return (dispatch) => {
@@ -45,6 +50,11 @@ export function createCustomerCompany(company) {
         action: 'New customer!',
         description: 'Customer <b>' + company.name + '</b> has been successfully added'
       });
+      send('/new-customer', {
+        companyId: json.truckingCompanyId,
+        subject: 'New customer!',
+        content: 'Customer <b>' + company.name + '</b> has been added'
+      })
     }).fail(() => {
       statusCode !== 409 ? setActionFail(statusCode)
         : setValidationFail('Company with same taxpayer number already exists');
