@@ -60,8 +60,39 @@ function hideModal() {
 
 function returnInitialBackground() {
   setTimeout(function () {
-    $('#modal-content').css('background-color', initialBackground);
-    $('#modal-action').css('display', 'none');
-  }, popupDelay + animationDelay
+      $('#modal-content').css('background-color', initialBackground);
+      $('#modal-action').css('display', 'none');
+    }, popupDelay + animationDelay
   )
+}
+
+export function setForeignActionDescription(info) {
+  showForeignModal();
+  $('#foreign-modal-action-text').html(info.action);
+  $('#foreign-modal-description-text').html(info.description);
+  setTimeout(function() {
+    hideForeignModal();
+  }, popupDelay);
+  closeForeignModal();
+}
+
+function showForeignModal() {
+  $('#foreign-modal-action').css('display', 'block');
+  $('#foreign-modal-action').animate({
+    opacity: 1,
+    bottom: '+=30'
+  }, animationDelay);
+}
+
+function hideForeignModal() {
+  $('#foreign-modal-action').animate({
+    opacity: 0,
+    bottom: '-=30'
+  }, animationDelay);
+}
+
+function closeForeignModal() {
+  setTimeout(function () {
+    $('#foreign-modal-action').css('display', 'none');
+  }, popupDelay + animationDelay);
 }

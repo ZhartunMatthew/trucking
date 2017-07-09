@@ -3,7 +3,6 @@ export const DEFAULT_SELECT_VALUE = 'Not chosen';
 export const MAX_LENGTH_OF_STRING = 255;
 export const MAX_LENGTH_OF_TAXPAYER_NUMBER = 250;
 export const MAX_LENGTH_OF_NUMERIC = 11;
-export const POOLING_TIMEOUT = 10 * 1000;
 
 export const VALIDATION_ERRORS = {
   LETTERS: 'This field must contain only letters',
@@ -41,22 +40,27 @@ export const INVOICE_STATE = {
 
 export const NAV_ITEMS = {
   USERS: {
+    id: 'user-nav',
     url: '/user',
     caption: 'Users'
   },
   CUSTOMERS: {
+    id: 'customer-nav',
     url: '/customer',
     caption: 'Customers'
   },
   CARS: {
+    id: 'car-nav',
     url: '/car',
     caption: 'Cars'
   },
   INVOICES: {
+    id: 'invoice-nav',
     url: '/invoice',
     caption: 'Invoices'
   },
   WAYBILLS: {
+    id: 'waybill-nav',
     url: '/waybill',
     caption: 'Waybills'
   },

@@ -6,17 +6,12 @@ import UserTable from './user-table';
 import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles'
 import { loadUsers } from '../../actions/user.action';
-import { POOLING_TIMEOUT } from '../../constants/constants'
 
 class UserComponent extends React.Component {
 
   componentDidMount() {
     if (this.props.userRole === Role.COMPANY_OWNER) {
-      this.userLoader = setInterval(function (self) {
-        self.props.loadUsers();
-        console.log('User list were updated');
-      }, POOLING_TIMEOUT, this);
-      console.log('Pulling of new users started');
+      // start pulling
     }
   }
 
@@ -25,8 +20,7 @@ class UserComponent extends React.Component {
       this.props.cancelCurrentOperation();
     }
     if (this.props.userRole === Role.COMPANY_OWNER) {
-      clearInterval(this.userLoader);
-      console.log('Pulling of new users stopped');
+      // stop pulling
     }
   }
 

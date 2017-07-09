@@ -10,6 +10,7 @@ import FooterComponent from './footer';
 import UserComponent from '../components/user/user-component';
 import Modal from '../components/modal/modal';
 import { NAV_ITEMS } from '../constants/constants';
+import { initialize, terminate } from '../actions/messaging.action'
 
 class AdminPage extends React.Component {
 
@@ -19,6 +20,15 @@ class AdminPage extends React.Component {
     this.props.loadCustomers();
     this.props.loadCars();
   }
+
+  componentDidUpdate() {
+    initialize(undefined, this.props.truckingId);
+  }
+
+  componentWillUnmount() {
+    terminate();
+  }
+
 
   render() {
     let navItems = [
@@ -47,7 +57,8 @@ class AdminPage extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.users.users
+    users: state.users.users,
+    truckingId: state.currentUser.currentUser.truckingCompanyId
   }
 }
 

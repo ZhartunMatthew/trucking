@@ -1,9 +1,10 @@
 import $ from 'jquery';
 import { INIT_DRIVER_WAYBILLS } from '../constants/actionTypes';
 import { setActionDescription, setActionFail } from '../actions/modal.action'
+import { send } from './messaging.action';
 
 export function createWaybill(waybill) {
-  return (dispatch) => {
+  return () => {
     let statusCode = 0;
     $.ajax({
       type: 'POST',
@@ -17,10 +18,16 @@ export function createWaybill(waybill) {
       error: function (xhr) {
         statusCode = xhr.status;
       }
-    }).done(() => {
+    }).done((json) => {
       setActionDescription({
         action: 'New waybill!',
         description: 'Waybill <b>' + waybill.waybillNumber + '</b> has been successfully created'
+      });
+      console.log("JSON", json);
+      send('/new-waybill', {
+        companyId: json.idTruckingCompany,
+        subject: 'New waybill!',
+        content: 'Waybill <b>' + waybill.waybillNumber + '</b> has been added'
       });
     }).fail(() => {
       setActionFail(statusCode);

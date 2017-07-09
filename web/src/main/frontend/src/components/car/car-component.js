@@ -7,18 +7,13 @@ import { loadCarTypes } from '../../actions/carType.action';
 import { loadCars } from '../../actions/car.action';
 import { cancelOperation } from '../../actions/operation.action';
 import { Role } from '../../constants/roles'
-import { POOLING_TIMEOUT } from '../../constants/constants'
 
 class CarComponent extends React.Component {
 
   componentDidMount() {
     this.props.loadCarTypes();
     if (this.props.userRole === Role.COMPANY_OWNER) {
-      this.carLoader = setInterval(function (self) {
-        self.props.loadCars();
-        console.log('Car list has been updated');
-      }, POOLING_TIMEOUT, this);
-      console.log('Pulling of new cars started');
+      //start pulling
     }
   }
 
@@ -27,8 +22,7 @@ class CarComponent extends React.Component {
       this.props.cancelCurrentOperation();
     }
     if (this.props.userRole === Role.COMPANY_OWNER) {
-      clearInterval(this.carLoader);
-      console.log('Pulling of new cars stopped');
+      //stop pulling
     }
   }
 

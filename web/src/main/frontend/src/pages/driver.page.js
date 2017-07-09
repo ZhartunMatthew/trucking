@@ -8,12 +8,21 @@ import FooterComponent from './footer';
 import DriverWaybillComponent from '../components/driverWaybills/driverWaybills-component';
 import Modal from '../components/modal/modal';
 import { NAV_ITEMS } from '../constants/constants';
+import { initialize, terminate } from '../actions/messaging.action';
 
 class DriverPage extends React.Component {
 
   componentDidMount() {
     this.props.loadDriverWaybills();
     this.props.cancelCurrentOperation();
+  }
+
+  componentDidUpdate() {
+    initialize('/driver-box', this.props.truckingId);
+  }
+
+  componentWillUnmount() {
+    terminate();
   }
 
   render() {
@@ -39,6 +48,12 @@ class DriverPage extends React.Component {
   }
 }
 
+let mapStateToProps = function (state) {
+  return {
+    truckingId: state.currentUser.currentUser.truckingCompanyId
+  };
+};
+
 function mapDispatchToProps(dispatch) {
   return {
     loadDriverWaybills:bindActionCreators(loadDriverWaybills, dispatch),
@@ -46,4 +61,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(() => {}, mapDispatchToProps)(DriverPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DriverPage);

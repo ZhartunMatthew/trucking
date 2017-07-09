@@ -13,7 +13,7 @@ class HeaderComponent extends React.Component {
   render() {
     let navItems = this.props.navItems.map((item)=> {
       return (
-        <li className='nav-item active'>
+        <li className='nav-item active' id={item.id}>
           <Link className='nav-link' to={item.url}>{item.caption}</Link>
         </li>
       )

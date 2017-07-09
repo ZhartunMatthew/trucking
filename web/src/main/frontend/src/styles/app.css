@@ -133,25 +133,39 @@ a {
   width: 100%;
 }
 
-#modal-action {
+#modal-action,
+#foreign-modal-action {
   display: none;
 }
 
-.modal-action-dialog {
+.modal-action-dialog,
+.foreign-modal-action-dialog {
   width: 350px !important;
   opacity: 0;
   z-index: 1;
   bottom: 60px;
-  left: 30px;
   position: fixed;
 }
 
-.modal-action-content {
+.modal-action-dialog {
+  left: 30px;
+}
+
+.foreign-modal-action-dialog {
+  right: 30px;
+}
+
+.modal-action-content,
+.foreign-modal-action-content {
   margin: 40px auto auto;
   color: white;
   padding: 20px;
   border-radius: 10px;
   width: 100%;
+}
+
+.foreign-modal-action-content {
+  background-color: dodgerblue;
 }
 
 .header-login {
